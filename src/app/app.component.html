@@ -1,5 +1,7 @@
 <div *ngFor='let comp of schema'>
-    <mt-input [comp]='comp'></mt-input>
+    <mt-input *ngIf='comp.type=="input"' [comp]='comp '></mt-input>
+    <mt-checkbox *ngIf='comp.type=="checkbox"' [comp]='comp '></mt-checkbox>
+
 </div>
 
 <div style="margin-top: 100px;">Values</div>

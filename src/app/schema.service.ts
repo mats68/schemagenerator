@@ -8,8 +8,12 @@ export class SchemaService {
   schema: any;
   values: any;
 
-  getValue(field: string): any {
-    return this.values[field];
+  getValueString(field: string): string {
+    return this.values[field] ?? "";
+  }
+
+  getValueBoolean(field: string): boolean {
+    return this.values[field] ?? false;
   }
 
   updateValue(field: string, val: any) {

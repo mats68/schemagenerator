@@ -15,12 +15,13 @@ export class MtInputComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.schemaService.getValue(this.comp.field);
+    return this.schemaService.getValueString(this.comp.field);
   } 
 
   onChange(text: string): void {
     this.schemaService.updateValue(this.comp.field, text);
-
   } 
+
+
 
 }

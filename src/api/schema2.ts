@@ -10,15 +10,12 @@ export const schema = [
         field: 'text2'
     },
     {
-        type: 'checkbox',
-        label: 'Check1',
-        field: 'check1'
+        type: 'input',
+        label: 'Text3',
+        field: 'text4'
     },
 
 ]
 
 export const values = {
-    text1: 'AA',
-    text2: 'BB',
-    check1: false,
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {SchemaService} from './schema.service';
-import { values } from 'src/api/schema1';
 
 @Component({
   selector: 'app-root',

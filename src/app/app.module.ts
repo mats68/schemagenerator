@@ -50,11 +50,13 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 
 import { MtInputComponent } from './components/mt-input/mt-input.component';
+import { MtCheckboxComponent } from './components/mt-checkbox/mt-checkbox.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MtInputComponent,
+    MtCheckboxComponent,
   ],
   imports: [
     BrowserModule,
