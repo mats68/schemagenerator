@@ -1,15 +1,13 @@
 export const schema = [
     {
-        input1: {
-            type: 'input',
-            label: 'Test1'
-        }
+        type: 'input',
+        label: 'Text1',
+        field: 'text1'
     },
     {
-        input2: {
-            type: 'input',
-            label: 'Test2'
-        }
+        type: 'input',
+        label: 'Text2',
+        field: 'text2'
     },
 
 ]

@@ -7,10 +7,11 @@ import {SchemaService} from './schema.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  schema: any;
   title = 'schemagenerator';
 
   constructor(schemaService: SchemaService) {
-    console.log(schemaService.schema);
+    this.schema = schemaService.schema;
 
   }
 }
