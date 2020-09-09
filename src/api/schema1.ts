@@ -31,7 +31,22 @@ export const schema =
                     label: 'Check10',
                     field: 'check10'
                 },
-        
+                {
+                    type: 'expansionspanel',
+                    label: 'Panel2',
+                    children: [
+                        {
+                            type: 'input',
+                            label: 'Text100',
+                            field: 'text100'
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'Check100',
+                            field: 'check100'
+                        },
+                    ]
+                }
             ]
         }
 
