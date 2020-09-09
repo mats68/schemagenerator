@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {SchemaService} from '../../schema.service';
 
 @Component({
   selector: 'mt-input',
@@ -8,9 +9,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MtInputComponent implements OnInit {
   @Input() comp: any;
 
-  constructor() { }
+  constructor(private schemaService: SchemaService) { }
 
   ngOnInit(): void {
   }
+
+  getValue(): string {
+    return this.schemaService.getValue(this.comp.field);
+  } 
+
+  onChange(text: string): void {
+    this.schemaService.updateValue(this.comp.field, text);
+
+  } 
 
 }

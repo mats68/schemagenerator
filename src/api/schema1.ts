@@ -11,3 +11,8 @@ export const schema = [
     },
 
 ]
+
+export const values = {
+    text1: 'AA',
+    text2: 'BB'
+}

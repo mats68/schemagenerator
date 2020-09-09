@@ -1,4 +1,4 @@
 <mat-form-field *ngIf='comp'>
     <mat-label>{{comp.label}}</mat-label>
-    <input matInput>
+    <input matInput [value]='getValue()' (change)='onChange($event.target.value)'>
 </mat-form-field>
