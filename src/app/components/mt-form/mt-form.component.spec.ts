@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MtContainerComponent } from './mt-container.component';
+import { MtFormComponent } from './mt-form.component';
 
-describe('MtContainerComponent', () => {
-  let component: MtContainerComponent;
-  let fixture: ComponentFixture<MtContainerComponent>;
+describe('MtFormComponent', () => {
+  let component: MtFormComponent;
+  let fixture: ComponentFixture<MtFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MtContainerComponent ]
+      declarations: [ MtFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MtContainerComponent);
+    fixture = TestBed.createComponent(MtFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

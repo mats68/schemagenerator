@@ -1,0 +1,10 @@
+<mat-expansion-panel class="panel">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{comp.label}}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor='let child of comp.children'>
+        <mt-item [comp]='child'></mt-item>
+    </div>
+</mat-expansion-panel>
