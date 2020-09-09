@@ -43,7 +43,7 @@ export class SchemaService {
     this.values[comp.field] = val;
 
     if (comp.onChange) {
-      comp.onChange(this, comp, val);
+      comp.onChange(this, val, comp);
     }
   }
 

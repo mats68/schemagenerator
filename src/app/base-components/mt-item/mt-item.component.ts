@@ -13,4 +13,9 @@ export class MtItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isComp(type: string): boolean {
+    return !this.comp.hidden && this.comp.type == type;
+
+  }
+
 }

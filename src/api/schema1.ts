@@ -34,7 +34,7 @@ export const schema =
                     type: 'checkbox',
                     label: 'Hide Panel 2',
                     field: 'check10',
-                    onChange(srv: SchemaService, comp: any, val: boolean) {
+                    onChange(srv: SchemaService, val: boolean) {
                         srv.toggleVisible('panel2', !val);
                     }
                 },
