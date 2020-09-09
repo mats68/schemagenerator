@@ -56,7 +56,25 @@ export const schema =
                     ]
                 }
             ]
+        },
+        {
+            type: 'expansionspanel',
+            label: 'Validation',
+            children: [
+                {
+                    type: 'input',
+                    label: 'Required',
+                    field: 'text20',
+                    required: true
+                },
+                {
+                    type: 'input',
+                    label: 'Text30',
+                    field: 'text30'
+                },
+            ]
         }
+
 
     ]
 }

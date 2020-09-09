@@ -1,4 +1,5 @@
 <mat-form-field *ngIf='comp'>
     <mat-label>{{comp.label}}</mat-label>
-    <input matInput [value]='getValue()' (change)='onChange($event.target.value)'>
+    <input matInput [value]='getValue()' (change)='onChange($event.target.value)' [required]='comp.required'>
+    <mat-error>{{getErrorMessage()}}</mat-error>
 </mat-form-field>
