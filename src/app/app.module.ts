@@ -51,12 +51,16 @@ import {OverlayModule} from '@angular/cdk/overlay';
 
 import { MtInputComponent } from './components/mt-input/mt-input.component';
 import { MtCheckboxComponent } from './components/mt-checkbox/mt-checkbox.component';
+import { MtContainerComponent } from './base-components/mt-container/mt-container.component';
+import { MtItemComponent } from './base-components/mt-item/mt-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MtInputComponent,
     MtCheckboxComponent,
+    MtContainerComponent,
+    MtItemComponent,
   ],
   imports: [
     BrowserModule,

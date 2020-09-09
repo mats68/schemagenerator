@@ -1,0 +1,4 @@
+<div *ngFor='let comp of comps'>
+    <mt-container *ngIf='comp.children' [comps]='comp.children'></mt-container>
+    <mt-item *ngIf='!comp.children' [comp]='comp'></mt-item>
+</div>
