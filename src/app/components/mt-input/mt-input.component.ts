@@ -19,7 +19,7 @@ export class MtInputComponent implements OnInit {
   } 
 
   onChange(text: string): void {
-    this.schemaService.updateValue(this.comp.field, text);
+    this.schemaService.updateValue(this.comp, text);
   } 
 
 

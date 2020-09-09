@@ -8,17 +8,15 @@ import {SchemaService} from './schema.service';
 })
 export class AppComponent {
   schema: any;
-  values: any;
 
   title = 'schemagenerator';
 
   constructor(private schemaService: SchemaService) {
     this.schema = schemaService.schema;
-    this.values = schemaService.values;
   }
 
   getValues(): string {
-    return JSON.stringify(this.values, null, 2);
+    return JSON.stringify(this.schemaService.getValues(), null, 2);
   }
 
 }

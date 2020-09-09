@@ -19,7 +19,7 @@ export class MtCheckboxComponent implements OnInit {
   } 
 
   onChange(val: boolean): void {
-    this.schemaService.updateValue(this.comp.field, val);
+    this.schemaService.updateValue(this.comp, val);
   } 
 
 

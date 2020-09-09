@@ -6,7 +6,30 @@ import { schema, values } from '../api/schema1';
 })
 export class SchemaService {
   schema: any;
-  values: any;
+  private values: any;
+  private comps: any; //components by name
+
+
+  constructor() {
+    this.schema = schema;
+    this.values = values;
+
+    const fillComps = (arr: any[]) => {
+      arr.forEach((item: any) => {
+        if (item.name) this.comps[item.name] = item;
+        if (item.children) fillComps(item.children);
+      })
+    }
+
+    this.comps = {};
+    if (this.schema.name) this.comps[this.schema.name] = this.schema;
+    fillComps(this.schema.children);
+
+  }
+
+  getValues(): any {
+    return this.values;
+  }
 
   getValueString(field: string): string {
     return this.values[field] ?? "";
@@ -16,12 +39,22 @@ export class SchemaService {
     return this.values[field] ?? false;
   }
 
-  updateValue(field: string, val: any) {
-    this.values[field] = val
+  updateValue(comp: any, val: any) {
+    this.values[comp.field] = val;
+
+    if (comp.onChange) {
+      comp.onChange(this, comp, val);
+    }
   }
 
-  constructor() { 
-    this.schema = schema ;
-    this.values = values;
+
+  toggleVisible(name: string, visible: boolean) {
+    var c = name ? this.comps[name] : null;
+    if (c) {
+      c.hidden = !visible;
+    }
   }
+
+
+
 }

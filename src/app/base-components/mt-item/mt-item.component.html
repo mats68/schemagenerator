@@ -1,4 +1,4 @@
-<mt-form *ngIf='comp.type=="form"' [comp]='comp'></mt-form>
-<mt-exp *ngIf='comp.type=="expansionspanel"' [comp]='comp'></mt-exp>
-<mt-input *ngIf='comp.type=="input"' [comp]='comp'></mt-input>
-<mt-checkbox *ngIf='comp.type=="checkbox"' [comp]='comp'></mt-checkbox>
+<mt-form *ngIf='!comp.hidden && comp.type=="form"' [comp]='comp'></mt-form>
+<mt-exp *ngIf='!comp.hidden && comp.type=="expansionspanel"' [comp]='comp'></mt-exp>
+<mt-input *ngIf='!comp.hidden && comp.type=="input"' [comp]='comp'></mt-input>
+<mt-checkbox *ngIf='!comp.hidden && comp.type=="checkbox"' [comp]='comp'></mt-checkbox>

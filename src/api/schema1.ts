@@ -1,9 +1,13 @@
+import { SchemaService } from 'src/app/schema.service'
+
 export const schema =
 {
     type: 'form',
+    name: 'form',
     children: [
         {
             type: 'input',
+            name: 'firstInput',
             label: 'Text1',
             field: 'text1'
         },
@@ -28,12 +32,16 @@ export const schema =
                 },
                 {
                     type: 'checkbox',
-                    label: 'Check10',
-                    field: 'check10'
+                    label: 'Hide Panel 2',
+                    field: 'check10',
+                    onChange(srv: SchemaService, comp: any, val: boolean) {
+                        srv.toggleVisible('panel2', !val);
+                    }
                 },
                 {
                     type: 'expansionspanel',
                     label: 'Panel2',
+                    name: 'panel2',
                     children: [
                         {
                             type: 'input',
