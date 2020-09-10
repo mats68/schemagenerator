@@ -92,6 +92,10 @@ export const schema =
             ]
         },
         {
+            type: 'divider',
+            top: '500px'
+        },
+        {
             type: 'button',
             label: 'Speichern',
             color: 'primary',

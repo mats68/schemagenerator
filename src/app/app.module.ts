@@ -55,6 +55,7 @@ import { MtItemComponent } from './base-components/mt-item/mt-item.component';
 import { MtFormComponent } from './components/mt-form/mt-form.component';
 import { MtExpComponent } from './components/mt-exp/mt-exp.component';
 import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
+import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
     MtFormComponent,
     MtExpComponent,
     MtBtnComponent,
+    MtDividerComponent,
   ],
   imports: [
     BrowserModule,
