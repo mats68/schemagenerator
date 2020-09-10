@@ -61,7 +61,9 @@ export class SchemaService {
   }
 
   validateAll() {
-    
+    this.CompsByField.forEach(comp => {
+      this.validate(comp);
+    });
   }
 
 

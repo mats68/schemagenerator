@@ -54,6 +54,7 @@ import { MtCheckboxComponent } from './components/mt-checkbox/mt-checkbox.compon
 import { MtItemComponent } from './base-components/mt-item/mt-item.component';
 import { MtFormComponent } from './components/mt-form/mt-form.component';
 import { MtExpComponent } from './components/mt-exp/mt-exp.component';
+import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MtExpComponent } from './components/mt-exp/mt-exp.component';
     MtItemComponent,
     MtFormComponent,
     MtExpComponent,
+    MtBtnComponent,
   ],
   imports: [
     BrowserModule,
