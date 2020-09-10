@@ -27,6 +27,10 @@ export class MtInputComponent implements OnInit {
     this.schemaService.updateValue(this.comp, text);
   } 
 
+  onBlur(): void {
+    
+  } 
+
   getErrorMessage(): string {
     if (this.comp.required) {
       return 'required';
