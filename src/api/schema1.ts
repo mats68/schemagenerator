@@ -9,7 +9,7 @@ export const schema =
             type: 'input',
             name: 'firstInput',
             label: 'Text1',
-            field: 'text1'
+            field: 'text1',
         },
         {
             type: 'input',
