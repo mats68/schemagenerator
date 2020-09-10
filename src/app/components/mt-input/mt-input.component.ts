@@ -28,14 +28,7 @@ export class MtInputComponent implements OnInit {
   } 
 
   onBlur(): void {
-    
+    this.schemaService.validate(this.comp);
   } 
-
-  getErrorMessage(): string {
-    if (this.comp.required) {
-      return 'required';
-    }
-
-  }
 
 }

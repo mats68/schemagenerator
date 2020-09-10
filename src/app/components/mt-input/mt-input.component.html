@@ -2,7 +2,6 @@
     <mat-label>{{comp.label}}</mat-label>
     <input matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()'>
     <mat-hint>
-        {{getErrorMessage()}}
-        <div class="error">{{getErrorMessage()}}</div>
+        <div *ngIf='comp.error' class="error">{{comp.error}}</div>
     </mat-hint>
 </mat-form-field>

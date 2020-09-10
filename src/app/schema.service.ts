@@ -5,51 +5,68 @@ import { schema, values } from '../api/schema1';
   providedIn: 'root'
 })
 export class SchemaService {
-  schema: any;
-  private values: any;
-  private comps: any; //components by name
-
+  Schema: any;
+  Values: any;
+  CompsByName: any;
+  CompsByField: any;
 
   constructor() {
-    this.schema = schema;
-    this.values = values;
+    this.Schema = schema;
+    this.Values = values;
 
     const fillComps = (arr: any[]) => {
       arr.forEach((item: any) => {
-        if (item.name) this.comps[item.name] = item;
+        if (item.name) this.CompsByName[item.name] = item;
+        if (item.field) this.CompsByField[item.name] = item;
         if (item.children) fillComps(item.children);
       })
     }
 
-    this.comps = {};
-    if (this.schema.name) this.comps[this.schema.name] = this.schema;
-    fillComps(this.schema.children);
+    this.CompsByName = {};
+    this.CompsByField = {};
+    if (this.Schema.name) this.CompsByName[this.Schema.name] = this.Schema;
+    fillComps(this.Schema.children);
 
-  }
-
-  getValues(): any {
-    return this.values;
   }
 
   getValueString(field: string): string {
-    return this.values[field] ?? "";
+    return this.Values[field] ?? "";
   }
 
   getValueBoolean(field: string): boolean {
-    return this.values[field] ?? false;
+    return this.Values[field] ?? false;
   }
 
-  updateValue(comp: any, val: any) {
-    this.values[comp.field] = val;
+  updateValue(comp: any, val: any): void {
+    this.Values[comp.field] = val;
+    this.validate(comp);
 
     if (comp.onChange) {
       comp.onChange(this, val, comp);
     }
   }
 
+  validate(comp: any): void {
+    comp.error = '';
+    const val = this.Values[comp.field];
+
+    if (!val && comp.required) {
+      comp.error = `${comp.field} is required`;
+      return;
+    }
+
+    if (comp.validate) {
+      comp.error = comp.validate(this, comp);
+    }
+  }
+
+  validateAll() {
+    
+  }
+
 
   toggleVisible(name: string, visible: boolean) {
-    var c = name ? this.comps[name] : null;
+    var c = name ? this.CompsByName[name] : null;
     if (c) {
       c.hidden = !visible;
     }

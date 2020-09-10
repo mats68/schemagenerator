@@ -34,7 +34,7 @@ export const schema =
                     type: 'checkbox',
                     label: 'Hide Panel 2',
                     field: 'check10',
-                    onChange(srv: SchemaService, val: boolean) {
+                    onChange(srv: SchemaService, val: boolean): void {
                         srv.toggleVisible('panel2', !val);
                     }
                 },
@@ -72,10 +72,25 @@ export const schema =
                     label: 'Text30',
                     field: 'text30'
                 },
+                {
+                    type: 'input',
+                    label: 'Prev',
+                    field: 'prev'
+                },
+                {
+                    type: 'input',
+                    label: 'Required if prev empty',
+                    field: 'next',
+                    validate(srv: SchemaService): string {
+                        if (!srv.Values['prev']) {
+                            return 'Required since prev is empty';
+                        }
+                        return '';
+
+                    }
+                },
             ]
         }
-
-
     ]
 }
 

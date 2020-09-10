@@ -12,11 +12,11 @@ export class AppComponent {
   title = 'schemagenerator';
 
   constructor(private schemaService: SchemaService) {
-    this.schema = schemaService.schema;
+    this.schema = schemaService.Schema;
   }
 
   getValues(): string {
-    return JSON.stringify(this.schemaService.getValues(), null, 2);
+    return JSON.stringify(this.schemaService.Values, null, 2);
   }
 
 }
