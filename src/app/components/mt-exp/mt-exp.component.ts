@@ -13,4 +13,10 @@ export class MtExpComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getStyle(): string {
+    const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
+    return `margin: 10px;${width}`
+  }
+
+
 }

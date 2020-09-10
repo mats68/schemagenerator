@@ -6,6 +6,7 @@ ng add @angular/material
 ## Features
 - uses angular-material
 - Components (input, checkbox, etc)
+  - common properties: label, width, style, 
 - Containers (form, panel, expansionpanel etc)
 - Values Object
 - Validation
@@ -27,7 +28,7 @@ ng add @angular/material
          link: (falls link, dann <a>)
          icon: (falls type = 'icon', 'fab', 'mini-fab')
   
-- Grid system
+- // Grid system
 - Data Grids
 - Components: Side Nav ? (not since exp.panels), Autocomplete, Memo, Button, Tabs, Date, Radio, Panel mit JA/Nein, link
 - unbound Fields (not in Values)

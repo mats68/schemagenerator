@@ -19,7 +19,20 @@ export const schema =
         {
             type: 'checkbox',
             label: 'Check1',
-            field: 'check1'
+            field: 'check1',
+            width: '20%'
+        },
+        {
+            type: 'checkbox',
+            label: 'Check2',
+            field: 'check2',
+            width: '20%'
+        },
+        {
+            type: 'checkbox',
+            label: 'Check3',
+            field: 'check3',
+            width: '20%'
         },
         {
             type: 'expansionspanel',
