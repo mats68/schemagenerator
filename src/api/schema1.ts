@@ -54,7 +54,19 @@ export const schema =
                             field: 'check100'
                         },
                     ]
-                }
+                },
+                {
+                    type: 'input',
+                    label: 'Multiline',
+                    field: 'multiline',
+                    rows: 6,
+                    multiline: true,
+                    hint: 'Hinweis',
+                    placeholder: 'Etwas eingeben...',
+                    required: true
+
+                },
+
             ]
         },
         {
@@ -88,6 +100,12 @@ export const schema =
                         return '';
 
                     }
+                },
+                {
+                    type: 'input',
+                    inputType: 'number',
+                    label: 'Number',
+                    field: 'number'
                 },
             ]
         },

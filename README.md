@@ -8,9 +8,10 @@ ng add @angular/material
 - Components (input, checkbox, etc)
 - Containers (form, panel, expansionpanel etc)
 - Values Object
-- Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
-         link: (falls link, dann <a>)
-         icon: (falls type = 'icon', 'fab', 'mini-fab')
+- Validation
+  - required, function (depending on other fields)
+  - validate per field
+  - validate all on submit
 
 
 
@@ -22,6 +23,9 @@ ng add @angular/material
   - validate all on submit
   - error panel
   - disabled (input, check, btn...)
+- Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
+         link: (falls link, dann <a>)
+         icon: (falls type = 'icon', 'fab', 'mini-fab')
   
 - Grid system
 - Data Grids

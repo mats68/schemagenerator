@@ -51,7 +51,7 @@ export class SchemaService {
     const val = this.Values[comp.field];
 
     if (!val && comp.required) {
-      comp.error = `${comp.field} is required`;
+      comp.error = `${comp.label}: Eingabe erforderlich`;
       return;
     }
 
