@@ -11,7 +11,6 @@ import {SchemaService} from '../../schema.service';
 export class MtInputComponent implements OnInit {
   @Input() comp: any;
   
-
   constructor(private schemaService: SchemaService) { 
     
   }
@@ -23,6 +22,11 @@ export class MtInputComponent implements OnInit {
     return this.schemaService.getValueString(this.comp.field);
   } 
 
+  getStyle(): string {
+    const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
+    return `margin: 10px;${width}`
+  }
+
   onChange(text: string): void {
     this.schemaService.updateValue(this.comp, text);
   } 
@@ -30,5 +34,7 @@ export class MtInputComponent implements OnInit {
   onBlur(): void {
     this.schemaService.validate(this.comp);
   } 
+
+
 
 }
