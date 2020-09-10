@@ -4,7 +4,5 @@
             {{comp.label}}
         </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngFor='let child of comp.children'>
-        <mt-item [comp]='child'></mt-item>
-    </div>
+    <mt-item *ngFor='let child of comp.children' [comp]='child'></mt-item>
 </mat-expansion-panel>
