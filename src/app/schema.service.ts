@@ -17,7 +17,7 @@ export class SchemaService {
     const fillComps = (arr: any[]) => {
       arr.forEach((item: any) => {
         if (item.name) this.CompsByName[item.name] = item;
-        if (item.field) this.CompsByField[item.name] = item;
+        if (item.field) this.CompsByField[item.field] = item;
         if (item.children) fillComps(item.children);
       })
     }
@@ -61,8 +61,9 @@ export class SchemaService {
   }
 
   validateAll() {
-    this.CompsByField.forEach(comp => {
-      this.validate(comp);
+    Object.keys(this.CompsByField).forEach(comp => {
+
+      this.validate(this.CompsByField[comp]);
     });
   }
 

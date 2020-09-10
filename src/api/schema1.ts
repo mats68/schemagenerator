@@ -94,7 +94,10 @@ export const schema =
         {
             type: 'button',
             label: 'Speichern',
-            color: 'primary'
+            color: 'primary',
+            onClick(srv: SchemaService) {
+                srv.validateAll();
+            }
         }
     ]
 }

@@ -19,4 +19,9 @@ export class AppComponent {
     return JSON.stringify(this.schemaService.Values, null, 2);
   }
 
+  getSchema(): string {
+    return JSON.stringify(this.schemaService.Schema, null, 2);
+  }
+
+
 }
