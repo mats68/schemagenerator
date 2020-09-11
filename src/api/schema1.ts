@@ -67,6 +67,13 @@ export const schema =
                             label: 'Check100',
                             field: 'check100'
                         },
+                        {
+                            type: 'autocomplete',
+                            label: 'Autocomplete2',
+                            field: 'text2a',
+                            options: ['one', 'two', 'three', 'four', 'test']
+                        },
+                
                     ]
                 },
                 {

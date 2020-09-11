@@ -5,37 +5,30 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components (input, checkbox, etc)
-  - common properties: label, width, style, 
-- Containers (form, panel, expansionpanel etc)
+- Components: input, checkbox, autocomplete, button, 
+  - common properties: label, field, width, style, 
+ 
+- Containers: form, panel, expansionpanel
 - Values Object
 - Validation
-  - required, function (depending on other fields)
+  - required, function
   - validate per field
-  - validate all on submit
-
-
+  - validate all (on submit)
+ 
 
 
 ### todo:
+- Autocomplete: filter, add free items to list
+- all readonly 
+- Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
-  - required, email, number, function (depending on other fields)
-  - validate per field
-  - validate all on submit
-  - error panel
   - disabled (input, check, btn...)
 - Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
          link: (falls link, dann <a>)
          icon: (falls type = 'icon', 'fab', 'mini-fab')
   
-- // Grid system
+- Grid system ?
 - Data Grids
-- Components: Side Nav ? (not since exp.panels), Autocomplete, Memo, Button, Tabs, Date, Radio, Panel mit JA/Nein, link
 - unbound Fields (not in Values)
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline
-- Tabs ?
-
-
-
-
