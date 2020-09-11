@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mt-cardgrid.component.scss']
 })
 export class MtCardgridComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  editRow(num: number) {
+    alert('edit Row' + num);
+  }
+
 
 }
