@@ -1,4 +1,8 @@
-import { SchemaService } from 'src/app/schema.service'
+import { SchemaService } from 'src/app/schema.service';
+function change(srv: SchemaService, val: boolean): void {
+    srv.toggleVisible('panel2', !val);
+}
+
 
 export const schema =
 {
@@ -49,7 +53,7 @@ export const schema =
                     label: 'Hide Panel 2',
                     field: 'check10',
                     onChange(srv: SchemaService, val: boolean): void {
-                        srv.toggleVisible('panel2', !val);
+                        change(srv, val);
                     }
                 },
                 {
@@ -73,7 +77,7 @@ export const schema =
                             field: 'text2a',
                             options: ['one', 'two', 'three', 'four', 'test']
                         },
-                
+
                     ]
                 },
                 {
@@ -115,7 +119,7 @@ export const schema =
                     label: 'Required if prev empty',
                     field: 'next',
                     validate(srv: SchemaService): string {
-                        if (!srv.Values['prev']) {
+                        if (!srv.Values.prev) {
                             return 'Required since prev is empty';
                         }
                         return '';
@@ -143,10 +147,10 @@ export const schema =
             }
         }
     ]
-}
+};
 
 export const values = {
     text1: 'AA',
-    text2: 'BB',
+    text2: 'one',
     check1: false,
-}
+};

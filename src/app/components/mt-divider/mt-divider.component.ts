@@ -16,7 +16,7 @@ export class MtDividerComponent implements OnInit {
   getStyle(): string {
     const top = this.comp.top ?? '10px';
     const bottom = this.comp.bottom ?? '10px';
-    return `margin-top: ${top}; margin-bottom: ${bottom};`
+    return `margin-top: ${top}; margin-bottom: ${bottom};`;
   }
 
 }

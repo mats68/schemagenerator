@@ -24,7 +24,7 @@ export class MtInputComponent implements OnInit {
 
   getStyle(): string {
     const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
-    return `margin: 10px;${width}`
+    return `margin: 10px;${width}`;
   }
 
   onChange(text: string): void {

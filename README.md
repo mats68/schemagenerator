@@ -6,6 +6,7 @@ ng add @angular/material
 ## Features
 - uses angular-material
 - Components: input, checkbox, autocomplete, button, 
+  - Autocomplete: filter, add free items to list
   - common properties: label, field, width, style, 
  
 - Containers: form, panel, expansionpanel
@@ -18,7 +19,7 @@ ng add @angular/material
 
 
 ### todo:
-- Autocomplete: filter, add free items to list
+- Data Grids
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
@@ -29,7 +30,6 @@ ng add @angular/material
 - requrired fields with *         
   
 - Grid system ?
-- Data Grids
 - unbound Fields (not in Values)
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline

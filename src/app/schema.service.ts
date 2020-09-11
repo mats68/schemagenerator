@@ -16,21 +16,21 @@ export class SchemaService {
 
     const fillComps = (arr: any[]) => {
       arr.forEach((item: any) => {
-        if (item.name) this.CompsByName[item.name] = item;
-        if (item.field) this.CompsByField[item.field] = item;
-        if (item.children) fillComps(item.children);
-      })
-    }
+        if (item.name) { this.CompsByName[item.name] = item; }
+        if (item.field) { this.CompsByField[item.field] = item; }
+        if (item.children) { fillComps(item.children); }
+      });
+    };
 
     this.CompsByName = {};
     this.CompsByField = {};
-    if (this.Schema.name) this.CompsByName[this.Schema.name] = this.Schema;
+    if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
     fillComps(this.Schema.children);
 
   }
 
   getValueString(field: string): string {
-    return this.Values[field] ?? "";
+    return this.Values[field] ?? '';
   }
 
   getValueBoolean(field: string): boolean {
@@ -69,7 +69,7 @@ export class SchemaService {
 
 
   toggleVisible(name: string, visible: boolean) {
-    var c = name ? this.CompsByName[name] : null;
+    const c = name ? this.CompsByName[name] : null;
     if (c) {
       c.hidden = !visible;
     }
