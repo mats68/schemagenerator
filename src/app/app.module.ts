@@ -48,6 +48,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { MtInputComponent } from './components/mt-input/mt-input.component';
 import { MtCheckboxComponent } from './components/mt-checkbox/mt-checkbox.component';
@@ -57,6 +58,7 @@ import { MtExpComponent } from './components/mt-exp/mt-exp.component';
 import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
 import { MtAutocompleteComponent } from './components/mt-autocomplete/mt-autocomplete.component';
+import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { MtAutocompleteComponent } from './components/mt-autocomplete/mt-autocom
     MtBtnComponent,
     MtDividerComponent,
     MtAutocompleteComponent,
+    MtCardgridComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,7 +127,8 @@ import { MtAutocompleteComponent } from './components/mt-autocomplete/mt-autocom
     PortalModule,
     ScrollingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

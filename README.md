@@ -19,7 +19,7 @@ ng add @angular/material
 
 
 ### todo:
-- Data Grids
+- Card Grid / Data Grid
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
