@@ -1,0 +1,9 @@
+<mat-form-field *ngIf='comp' [style]='getStyle()'>
+    <mat-label>{{comp.label}}</mat-label>
+    <input matInput [formControl]='myControl' [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='comp.placeholder' [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of comp.options" [value]="option">
+            {{option}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

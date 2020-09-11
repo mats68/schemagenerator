@@ -1,22 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { SchemaService } from '../../schema.service';
-
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'mt-input',
-  templateUrl: './mt-input.component.html',
-  styleUrls: ['./mt-input.component.scss']
+  selector: 'mt-autocomplete',
+  templateUrl: './mt-autocomplete.component.html',
+  styleUrls: ['./mt-autocomplete.component.scss']
 })
-export class MtInputComponent implements OnInit {
+export class MtAutocompleteComponent implements OnInit {
+  myControl = new FormControl();
   @Input() comp: any;
 
-  constructor(private schemaService: SchemaService) {
-
-  }
+  constructor(private schemaService: SchemaService) { }
 
   ngOnInit(): void {
   }
+
 
   getValue(): string {
     return this.schemaService.getValueString(this.comp.field);
@@ -34,7 +33,5 @@ export class MtInputComponent implements OnInit {
   onBlur(): void {
     this.schemaService.validate(this.comp);
   }
-
-
 
 }

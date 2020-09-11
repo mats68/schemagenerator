@@ -12,9 +12,10 @@ export const schema =
             field: 'text1'
         },
         {
-            type: 'input',
-            label: 'Text2',
-            field: 'text2'
+            type: 'autocomplete',
+            label: 'Autocomplete',
+            field: 'text2',
+            options: ['one', 'two', 'test']
         },
         {
             type: 'checkbox',
