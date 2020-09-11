@@ -26,6 +26,7 @@ ng add @angular/material
 - Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
          link: (falls link, dann <a>)
          icon: (falls type = 'icon', 'fab', 'mini-fab')
+- requrired fields with *         
   
 - Grid system ?
 - Data Grids
