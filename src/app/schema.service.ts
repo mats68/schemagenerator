@@ -130,7 +130,7 @@ export class SchemaService {
 
   // card grid 
   get gridId() {
-    return '__id__';
+    return 'id__';
   }
 
   CurEditId(comp: any) {
@@ -138,7 +138,10 @@ export class SchemaService {
   }
 
   updateCurEditId(comp: any, id: number) {
-    comp.CurEditId = id;
+    if (comp.CurEditId !== id) {
+      comp.CurEditId = id;
+    }
+    
   }
 
   initGridData(data: any[]) {

@@ -10,10 +10,12 @@ import { SchemaService } from '../../schema.service';
 export class MtCardgridComponent implements OnInit {
   @Input() comp: any;
   data: any[] = [];
+  selectedIds: string[] = [];
+  showMultiSelect: boolean = false;
 
-  constructor(public srv: SchemaService) { 
+  constructor(public srv: SchemaService) {
 
-     
+
   }
 
   ngOnInit(): void {
@@ -29,8 +31,28 @@ export class MtCardgridComponent implements OnInit {
     return this.comp.summary(row, this.srv);
   }
 
-  rowClick(row: any) {
-    this.srv.updateCurEditId(this.comp, row[this.srv.gridId])
+
+  rowTitleClick(row: any) {
+    const id = this.srv.CurEditId(this.comp) === row[this.srv.gridId] ? 0 : row[this.srv.gridId];
+    this.srv.updateCurEditId(this.comp, id);
+    if (!this.showMultiSelect) { 
+      if (id === 0) {
+        this.selectedIds = [];
+      } else {
+        this.selectedIds = [this.srv.CurEditId(this.comp)];
+      }
+    }
+  }
+
+  multiSelect() {
+    this.showMultiSelect = !this.showMultiSelect;
+    if (!this.showMultiSelect) {
+      if (this.srv.CurEditId(this.comp) > 0) {
+        this.selectedIds = [this.srv.CurEditId(this.comp)];  
+      } else {
+        this.selectedIds = [];
+      }
+    }
   }
 
   rowEditing(row: any): boolean {

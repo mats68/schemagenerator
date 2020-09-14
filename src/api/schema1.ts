@@ -139,7 +139,7 @@ export const schema =
             label: 'Adresses Grid',
             field: 'adresses',
             summary(row: any, srv: SchemaService) {
-                return row.name;
+                return  `${row.name}, ${row.ort}`  ;
 
             },
             rows: [
@@ -159,6 +159,12 @@ export const schema =
                     label: 'Ort',
                     field: 'ort'
                 },
+                {
+                    type: 'checkbox',
+                    label: 'Gueltig',
+                    field: 'gültig',
+                },
+        
             ]
         },
         {

@@ -35,3 +35,5 @@ ng add @angular/material
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline
 - übersetzung (label, titel, hint, placeholder als funktion)
+- autocomplete value not read
+- tooltip
