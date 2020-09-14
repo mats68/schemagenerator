@@ -20,7 +20,8 @@ ng add @angular/material
 
 
 ### todo:
-
+- default value 
+- getStyle in srv
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
@@ -33,3 +34,4 @@ ng add @angular/material
 - unbound Fields (not in Values)
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline
+- übersetzung (label, titel, hint, placeholder als funktion)

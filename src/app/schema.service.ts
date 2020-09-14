@@ -42,6 +42,11 @@ export class SchemaService {
     return this.Values[field] ?? false;
   }
 
+  getValueArray(field: string): any[] {
+    return this.Values[field] ?? [];
+  }
+
+
   updateValue(comp: any, val: any): void {
     this.Values[comp.field] = val;
     this.validate(comp);
@@ -79,6 +84,32 @@ export class SchemaService {
       c.hidden = !visible;
     }
   }
+
+  // card grid 
+  get gridId() {
+    return '__id__';
+  }
+
+  initGridData(data: any[]) {
+    let num = 1;
+    data.forEach(item => {
+      item[this.gridId] = num;
+      num++;
+    })
+  }
+
+  addGridRecord(data: any[]) {
+    let max = 0;
+    data.forEach(item => {
+      max = item[this.gridId] > max ? item[this.gridId] : max;
+    })
+    max++;
+    data.push({
+      [this.gridId]: max
+    });
+
+  }
+
 
 
 

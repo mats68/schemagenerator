@@ -135,6 +135,18 @@ export const schema =
             ]
         },
         {
+            type: 'cardgrid',
+            label: 'Adresses Grid',
+            field: 'adresses',
+            rows: [
+                {
+                    type: 'input',
+                    label: 'Name',
+                    field: 'name'
+                },
+            ]
+        },
+        {
             type: 'divider',
             top: '500px'
         },
@@ -145,7 +157,8 @@ export const schema =
             onClick(srv: SchemaService) {
                 srv.validateAll();
             }
-        }
+        },
+
     ]
 };
 
