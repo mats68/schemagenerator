@@ -1,5 +1,5 @@
 <mat-form-field *ngIf='comp' [style]='getStyle()'>
-    <mat-label>{{getLabel()}}</mat-label>
+    <mt-label [comp]='comp'></mt-label>
     <input *ngIf='!comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='comp.placeholder' [type]='comp.inputType'>
     <textarea *ngIf='comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='comp.placeholder' [rows]='comp.rows'></textarea>
     <mat-hint>

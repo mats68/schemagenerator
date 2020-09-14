@@ -10,7 +10,7 @@ import {SchemaService} from '../../schema.service';
 export class MtBtnComponent implements OnInit {
   @Input() comp: any;
 
-  constructor(private schemaService: SchemaService) {
+  constructor(public srv: SchemaService) {
   }
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class MtBtnComponent implements OnInit {
 
   onClick() {
     if (this.comp.onClick) {
-      this.comp.onClick(this.schemaService);
+      this.comp.onClick(this.srv);
     }
   }
 

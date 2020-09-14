@@ -11,19 +11,15 @@ import { SchemaService } from '../../schema.service';
 export class MtInputComponent implements OnInit {
   @Input() comp: any;
 
-  constructor(private schemaService: SchemaService) {
+  constructor(public srv: SchemaService) {
 
   }
 
   ngOnInit(): void {
   }
 
-  getLabel(): string {
-    return this.schemaService.getLabel(this.comp);
-  }
-
   getValue(): string {
-    return this.schemaService.getValueString(this.comp.field);
+    return this.srv.getValueString(this.comp.field);
   }
 
   getStyle(): string {
@@ -32,11 +28,11 @@ export class MtInputComponent implements OnInit {
   }
 
   onChange(text: string): void {
-    this.schemaService.updateValue(this.comp, text);
+    this.srv.updateValue(this.comp, text);
   }
 
   onBlur(): void {
-    this.schemaService.validate(this.comp);
+    this.srv.validate(this.comp);
   }
 
 

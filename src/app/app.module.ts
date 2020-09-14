@@ -59,6 +59,7 @@ import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
 import { MtAutocompleteComponent } from './components/mt-autocomplete/mt-autocomplete.component';
 import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.component';
+import { MtLabelComponent } from './components/mt-label/mt-label.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.compon
     MtDividerComponent,
     MtAutocompleteComponent,
     MtCardgridComponent,
+    MtLabelComponent,
   ],
   imports: [
     BrowserModule,

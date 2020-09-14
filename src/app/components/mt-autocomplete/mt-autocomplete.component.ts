@@ -15,7 +15,7 @@ export class MtAutocompleteComponent implements OnInit {
   options: string[];
   filteredOptions: Observable<string[]>;
 
-  constructor(private schemaService: SchemaService) { }
+  constructor(public srv: SchemaService) { }
 
   ngOnInit() {
     this.options = this.comp.options || [];
@@ -33,7 +33,7 @@ export class MtAutocompleteComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.schemaService.getValueString(this.comp.field);
+    return this.srv.getValueString(this.comp.field);
   }
 
   getStyle(): string {
@@ -42,14 +42,14 @@ export class MtAutocompleteComponent implements OnInit {
   }
 
   onChange(text: string): void {
-    this.schemaService.updateValue(this.comp, text);
+    this.srv.updateValue(this.comp, text);
     if (this.options.indexOf(text) === -1) {
       this.options.push(text);
     }
   }
 
   onBlur(): void {
-    this.schemaService.validate(this.comp);
+    this.srv.validate(this.comp);
   }
 
 }

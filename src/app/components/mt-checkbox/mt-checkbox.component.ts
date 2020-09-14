@@ -9,13 +9,13 @@ import {SchemaService} from '../../schema.service';
 export class MtCheckboxComponent implements OnInit {
   @Input() comp: any;
 
-  constructor(private schemaService: SchemaService) { }
+  constructor(public srv: SchemaService) { }
 
   ngOnInit(): void {
   }
 
   getValue(): boolean {
-    return this.schemaService.getValueBoolean(this.comp.field);
+    return this.srv.getValueBoolean(this.comp.field);
   }
 
   getStyle(): string {
@@ -25,7 +25,7 @@ export class MtCheckboxComponent implements OnInit {
 
 
   onChange(val: boolean): void {
-    this.schemaService.updateValue(this.comp, val);
+    this.srv.updateValue(this.comp, val);
   }
 
 
