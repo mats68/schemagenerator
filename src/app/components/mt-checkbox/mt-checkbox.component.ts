@@ -15,7 +15,7 @@ export class MtCheckboxComponent implements OnInit {
   }
 
   getValue(): boolean {
-    return this.srv.getValueBoolean(this.comp.field);
+    return this.srv.getValue(this.comp);
   }
 
   getStyle(): string {

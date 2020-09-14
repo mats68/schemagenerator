@@ -48,22 +48,41 @@ export class SchemaService {
     return comp.label + (comp.required ? this.Settings.requiredSuffix : '');
   }
 
-  getValueString(field: string): string {
-    return this.Values[field] ?? '';
-  }
+  getValue(comp: any): any {
+    let val;
+    if (!comp.field) {
+      console.error('field not specified !');
+      console.dir(JSON.stringify(comp));
+      return undefined;
+    }
 
-  getValueBoolean(field: string): boolean {
-    return this.Values[field] ?? false;
-  }
+    if (!comp.parent) {
+      val = this.Values[comp.field];
+    } else {
+      const arr =  this.Values[comp.parent.field];
+      const cur = arr.find(item => item[this.gridId] === comp.parent.CurEditId);
+      if (cur) {
+        val = cur[comp.field];
+      }
+    }
 
-  getValueArray(field: string): any[] {
-    return this.Values[field] ?? [];
+    if (!val) {
+      if (comp.type === 'checkbox') {
+        return false;
+      }
+      if (comp.type === 'cardgrid') {
+        return [];
+      }
+      return '';
+    }
+    return val;
+
+
   }
 
 
   updateValue(comp: any, val: any): void {
     //card grid / table 
-    debugger
     if (!comp.parent) {
       this.Values[comp.field] = val;
     } else {

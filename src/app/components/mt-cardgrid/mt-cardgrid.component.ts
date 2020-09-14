@@ -17,7 +17,7 @@ export class MtCardgridComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data = this.srv.getValueArray(this.comp.field);
+    this.data = this.srv.getValue(this.comp);
     this.srv.initGridData(this.data);
   }
 

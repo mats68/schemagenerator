@@ -19,7 +19,7 @@ export class MtInputComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.srv.getValueString(this.comp.field);
+    return this.srv.getValue(this.comp);
   }
 
   getStyle(): string {
