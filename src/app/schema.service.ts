@@ -29,6 +29,11 @@ export class SchemaService {
 
   }
 
+  getLabel(comp: any): string {
+    const label = comp.label;
+    return label + (comp.required ?? ' *');
+  }
+
   getValueString(field: string): string {
     return this.Values[field] ?? '';
   }

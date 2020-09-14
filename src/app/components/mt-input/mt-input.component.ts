@@ -18,6 +18,10 @@ export class MtInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getLabel(): string {
+    return this.schemaService.getLabel(this.comp);
+  }
+
   getValue(): string {
     return this.schemaService.getValueString(this.comp.field);
   }
