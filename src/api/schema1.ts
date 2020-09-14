@@ -138,11 +138,26 @@ export const schema =
             type: 'cardgrid',
             label: 'Adresses Grid',
             field: 'adresses',
+            summary(row: any, srv: SchemaService) {
+                return row.name;
+
+            },
             rows: [
+                {
+                    type: 'autocomplete',
+                    label: 'Adresstyp',
+                    field: 'typ',
+                    options: ["Rechnungsadresse", "Versandadresse"]
+                },
                 {
                     type: 'input',
                     label: 'Name',
                     field: 'name'
+                },
+                {
+                    type: 'input',
+                    label: 'Ort',
+                    field: 'ort'
                 },
             ]
         },
@@ -166,4 +181,6 @@ export const values = {
     text1: 'AA',
     text2: 'one',
     check1: false,
+    adresses: []
+
 };

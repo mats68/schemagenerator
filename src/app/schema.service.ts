@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { schema, values } from '../api/schema1';
 
+export interface ISettings {
+  requiredSuffix: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +13,10 @@ export class SchemaService {
   Values: any;
   CompsByName: any;
   CompsByField: any;
+  
+  Settings: ISettings = {
+    requiredSuffix: ' *'
+  }
 
   constructor() {
     this.Schema = schema;
@@ -27,11 +35,17 @@ export class SchemaService {
     if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
     fillComps(this.Schema.children);
 
+    this.Schema.children.forEach(item => {
+      if (item.type === 'cardgrid') {
+        item.rows.forEach(row => {
+          row.parent = item;
+        });
+      }
+    });
   }
 
   getLabel(comp: any): string {
-    const label = comp.label;
-    return label + (comp.required ?? ' *');
+    return comp.label + (comp.required ? this.Settings.requiredSuffix : '');
   }
 
   getValueString(field: string): string {
@@ -48,7 +62,17 @@ export class SchemaService {
 
 
   updateValue(comp: any, val: any): void {
-    this.Values[comp.field] = val;
+    //card grid / table 
+    debugger
+    if (!comp.parent) {
+      this.Values[comp.field] = val;
+    } else {
+      const arr =  this.Values[comp.parent.field];
+      const cur = arr.find(item => item[this.gridId] === comp.parent.CurEditId);
+      if (cur) {
+        cur[comp.field] = val;
+      }
+    }
     this.validate(comp);
 
     if (comp.onChange) {
@@ -90,6 +114,14 @@ export class SchemaService {
     return '__id__';
   }
 
+  CurEditId(comp: any) {
+    return comp.CurEditId;
+  }
+
+  updateCurEditId(comp: any, id: number) {
+    comp.CurEditId = id;
+  }
+
   initGridData(data: any[]) {
     let num = 1;
     data.forEach(item => {
@@ -98,7 +130,7 @@ export class SchemaService {
     })
   }
 
-  addGridRecord(data: any[]) {
+  addGridRecord(data: any[], comp: any) {
     let max = 0;
     data.forEach(item => {
       max = item[this.gridId] > max ? item[this.gridId] : max;
@@ -107,7 +139,7 @@ export class SchemaService {
     data.push({
       [this.gridId]: max
     });
-
+    this.updateCurEditId(comp, max);
   }
 
 

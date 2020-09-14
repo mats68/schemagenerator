@@ -22,8 +22,12 @@
 </mat-toolbar>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.gt-md="25%" *ngFor="let row of data">
-        <mat-card class="mat-elevation-z4">
-            The Himalayas is a mountain range in Asia.
+        <mat-card *ngIf='!rowEditing(row)' class="mat-elevation-z4" (click)='rowClick(row)'>
+            <div>{{summary(row)}}</div>
+        </mat-card>
+
+        <mat-card *ngIf='rowEditing(row)' class="mat-elevation-z4">
+            <mt-item *ngFor='let row of comp.rows' [comp]='row'></mt-item>
         </mat-card>
     </div>
 </div>

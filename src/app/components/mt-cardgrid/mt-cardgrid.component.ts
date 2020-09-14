@@ -22,12 +22,19 @@ export class MtCardgridComponent implements OnInit {
   }
 
   Insert(): void {
-    this.srv.addGridRecord(this.data);
+    this.srv.addGridRecord(this.data, this.comp);
   }
 
+  summary(row: any) {
+    return this.comp.summary(row, this.srv);
+  }
 
-  editRow(num: number) {
-    alert('edit Row' + num);
+  rowClick(row: any) {
+    this.srv.updateCurEditId(this.comp, row[this.srv.gridId])
+  }
+
+  rowEditing(row: any): boolean {
+    return this.srv.CurEditId(this.comp) === row[this.srv.gridId];
   }
 
 
