@@ -24,6 +24,7 @@ export class MtAutocompleteComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+      this.myControl.setValue(this.srv.getValue(this.comp))
   }
 
   private _filter(value: string): string[] {
