@@ -4,7 +4,6 @@ export interface ISettings {
     requiredSuffix: string;
 }
 
-
 export class SchemaManager {
     Schema: any;
     Values: any;
@@ -49,6 +48,24 @@ export class SchemaManager {
             this.Values = values;
         } else {
             this.Values = {};
+            Object.keys(this.CompsByField).forEach(comp => {
+                if (this.CompsByField[comp].default) {
+                    const val = this.getPropValue(this.CompsByField[comp], 'default');
+                    this.Values[comp] = val;
+                }
+            });
+                
+            
+        }
+    }
+
+    getPropValue(comp: any, prop: string): any {
+        if (typeof comp[prop] === 'undefined') {
+            return undefined;
+        } else  if (typeof comp[prop] === 'function') {
+            return comp[prop](this, comp);
+        } else {
+            return comp[prop];
         }
     }
 

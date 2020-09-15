@@ -22,7 +22,9 @@ ng add @angular/material
 ### todo:
 - default value 
 - label hint etc. as function
+- check if form has changed
 - check if grid record has changed
+- ev grid: sub-schemaManger
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation

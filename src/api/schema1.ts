@@ -132,7 +132,7 @@ export const schema =
         },
         {
             type: 'cardgrid',
-            label: 'Adresses Grid',
+            label: 'Adressen',
             field: 'adresses',
             summary(row: any, sm: SchemaManager) {
                 const name = row.name ?? '';
