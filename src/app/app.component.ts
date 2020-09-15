@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SchemaManager } from './base-components/schemaManager';
 import { schema, values} from '../api/schema1'
+import { schema2} from '../api/schema2'
 
 
 @Component({
@@ -10,20 +11,22 @@ import { schema, values} from '../api/schema1'
 })
 export class AppComponent {
   schemaManger: SchemaManager;
+  schemaManger2: SchemaManager;
   
 
   title = 'schemagenerator';
 
   constructor() {
     this.schemaManger = new SchemaManager(schema, values);
+    this.schemaManger2 = new SchemaManager(schema2);
   }
 
   getValues(): string {
     return JSON.stringify(this.schemaManger.Values, null, 2);
   }
 
-  getSchema(): string {
-    return JSON.stringify(this.schemaManger.Schema, null, 2);
+  getValues2(): string {
+    return JSON.stringify(this.schemaManger2.Values, null, 2);
   }
 
 

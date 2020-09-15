@@ -15,7 +15,7 @@ export class SchemaManager {
         requiredSuffix: ' *'
     }
 
-    constructor(schema: any, values: any) {
+    constructor(schema: any, values: any = null) {
         this.InitSchema(schema);
         this.InitValues(values);
     }
@@ -45,7 +45,11 @@ export class SchemaManager {
     }
 
     InitValues(values: any) {
-        this.Values = values;
+        if (values) {
+            this.Values = values;
+        } else {
+            this.Values = {};
+        }
     }
 
     getLabel(comp: any): string {

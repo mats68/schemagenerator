@@ -20,7 +20,6 @@ ng add @angular/material
 
 
 ### todo:
-- schema as class (not service), kann mehrere auf 1 form
 - default value 
 - label hint etc. as function
 - check if grid record has changed
