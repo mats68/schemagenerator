@@ -139,7 +139,9 @@ export const schema =
             label: 'Adresses Grid',
             field: 'adresses',
             summary(row: any, srv: SchemaService) {
-                return  `${row.name}, ${row.ort}`  ;
+                const name = row.name ?? '';
+                const ort = row.ort ?? '';
+                return  `${name}, ${ort}`  ;
 
             },
             rows: [

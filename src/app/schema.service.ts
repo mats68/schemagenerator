@@ -152,16 +152,18 @@ export class SchemaService {
     })
   }
 
-  addGridRecord(data: any[], comp: any) {
+  addGridRecord(data: any[], comp: any): any {
     let max = 0;
     data.forEach(item => {
       max = item[this.gridId] > max ? item[this.gridId] : max;
     })
     max++;
-    data.push({
+    const rec = {
       [this.gridId]: max
-    });
+    };
+    data.push(rec);
     this.updateCurEditId(comp, max);
+    return rec;
   }
 
 

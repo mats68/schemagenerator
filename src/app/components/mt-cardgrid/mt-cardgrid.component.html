@@ -6,9 +6,6 @@
         <button mat-mini-fab (click)='Insert()' class="btn" color="primary" matTooltip="Record hinzufügen">
             <mat-icon>add</mat-icon>
         </button>
-        <button mat-mini-fab class="btn" (click)='multiSelect()' color="primary" matTooltip="Zeile(n) auswählen">
-            <mat-icon>done_all</mat-icon>
-        </button>
         <button mat-mini-fab class="btn" color="primary" [disabled]='selectedIds.length==0'>
             <mat-icon>content_copy</mat-icon>
           </button>
