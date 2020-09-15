@@ -20,8 +20,8 @@ ng add @angular/material
 
 
 ### todo:
-- copy, delete in grid
 - autocomplete not shows value
+- getStyle auslagern
 - default value 
 - getStyle in srv
 - all readonly 
