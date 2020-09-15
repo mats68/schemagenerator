@@ -1,5 +1,5 @@
-<mat-form-field *ngIf='comp' [style]='srv.getStyle(comp)'>
-    <mt-label [comp]='comp'></mt-label>
+<mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
+    <mt-label [comp]='comp' [sm]='sm'></mt-label>
     <input matInput [formControl]='myControl' [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='comp.placeholder' [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onChange($event.option.value)'>
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">

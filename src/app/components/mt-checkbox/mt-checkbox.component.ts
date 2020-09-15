@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {SchemaService} from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 
 @Component({
   selector: 'mt-checkbox',
@@ -7,20 +7,21 @@ import {SchemaService} from '../../schema.service';
   styleUrls: ['./mt-checkbox.component.scss']
 })
 export class MtCheckboxComponent implements OnInit {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
-  constructor(public srv: SchemaService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   getValue(): boolean {
-    return this.srv.getValue(this.comp);
+    return this.sm.getValue(this.comp);
   }
 
 
   onChange(val: boolean): void {
-    this.srv.updateValue(this.comp, val);
+    this.sm.updateValue(this.comp, val);
   }
 
 

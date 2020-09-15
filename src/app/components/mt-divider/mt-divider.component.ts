@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchemaService } from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 
 @Component({
   selector: 'mt-divider',
@@ -7,9 +7,10 @@ import { SchemaService } from '../../schema.service';
   styleUrls: ['./mt-divider.component.scss']
 })
 export class MtDividerComponent implements OnInit {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
-  constructor(public srv: SchemaService) { }
+  constructor() { }
   
   ngOnInit(): void {
   }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SchemaService } from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 
 @Component({
   selector: 'mt-label',
@@ -7,9 +7,10 @@ import { SchemaService } from '../../schema.service';
   styleUrls: ['./mt-label.component.scss']
 })
 export class MtLabelComponent {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
-  constructor(public srv: SchemaService) {
+  constructor() {
 
   }
 

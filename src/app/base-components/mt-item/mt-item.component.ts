@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SchemaManager } from '../../base-components/schemaManager';
+
 
 @Component({
   selector: 'mt-item',
@@ -6,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./mt-item.component.scss']
 })
 export class MtItemComponent implements OnInit {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
   constructor() { }
@@ -15,7 +18,6 @@ export class MtItemComponent implements OnInit {
 
   isComp(type: string): boolean {
     return !this.comp.hidden && this.comp.type == type;
-
   }
 
 }

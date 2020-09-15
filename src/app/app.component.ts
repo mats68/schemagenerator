@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import {SchemaService} from './schema.service';
+import { SchemaManager } from './base-components/schemaManager';
+import { schema, values} from '../api/schema1'
+
 
 @Component({
   selector: 'app-root',
@@ -7,20 +9,21 @@ import {SchemaService} from './schema.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  schema: any;
+  schemaManger: SchemaManager;
+  
 
   title = 'schemagenerator';
 
-  constructor(private schemaService: SchemaService) {
-    this.schema = schemaService.Schema;
+  constructor() {
+    this.schemaManger = new SchemaManager(schema, values);
   }
 
   getValues(): string {
-    return JSON.stringify(this.schemaService.Values, null, 2);
+    return JSON.stringify(this.schemaManger.Values, null, 2);
   }
 
   getSchema(): string {
-    return JSON.stringify(this.schemaService.Schema, null, 2);
+    return JSON.stringify(this.schemaManger.Schema, null, 2);
   }
 
 

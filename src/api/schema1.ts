@@ -1,7 +1,4 @@
-import { SchemaService } from 'src/app/schema.service';
-function change(srv: SchemaService, val: boolean): void {
-    srv.toggleVisible('panel2', !val);
-}
+import { SchemaManager } from '../app/base-components/schemaManager';
 
 
 export const schema =
@@ -52,8 +49,8 @@ export const schema =
                     type: 'checkbox',
                     label: 'Hide Panel 2',
                     field: 'check10',
-                    onChange(srv: SchemaService, val: boolean): void {
-                        change(srv, val);
+                    onChange(sm: SchemaManager, val: boolean): void {
+                        sm.toggleVisible('panel2', !val);
                     }
                 },
                 {
@@ -117,8 +114,8 @@ export const schema =
                     type: 'input',
                     label: 'Required if prev empty',
                     field: 'next',
-                    validate(srv: SchemaService): string {
-                        if (!srv.Values.prev) {
+                    validate(sm: SchemaManager): string {
+                        if (!sm.Values.prev) {
                             return 'Required since prev is empty';
                         }
                         return '';
@@ -137,7 +134,7 @@ export const schema =
             type: 'cardgrid',
             label: 'Adresses Grid',
             field: 'adresses',
-            summary(row: any, srv: SchemaService) {
+            summary(row: any, sm: SchemaManager) {
                 const name = row.name ?? '';
                 const ort = row.ort ?? '';
                 return  `${name}, ${ort}`  ;
@@ -176,8 +173,8 @@ export const schema =
             type: 'button',
             label: 'Speichern',
             color: 'primary',
-            onClick(srv: SchemaService) {
-                srv.validateAll();
+            onClick(sm: SchemaManager ) {
+                sm.validateAll();
             }
         },
 

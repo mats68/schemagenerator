@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SchemaService } from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 
 
 @Component({
@@ -9,9 +9,10 @@ import { SchemaService } from '../../schema.service';
   styleUrls: ['./mt-input.component.scss']
 })
 export class MtInputComponent implements OnInit {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
-  constructor(public srv: SchemaService) {
+  constructor() {
 
   }
 
@@ -19,15 +20,15 @@ export class MtInputComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.srv.getValue(this.comp);
+    return this.sm.getValue(this.comp);
   }
 
   onChange(text: string): void {
-    this.srv.updateValue(this.comp, text);
+    this.sm.updateValue(this.comp, text);
   }
 
   onBlur(): void {
-    this.srv.validate(this.comp);
+    this.sm.validate(this.comp);
   }
 
 

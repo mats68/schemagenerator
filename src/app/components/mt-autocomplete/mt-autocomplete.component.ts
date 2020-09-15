@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchemaService } from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -10,12 +10,13 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./mt-autocomplete.component.scss']
 })
 export class MtAutocompleteComponent implements OnInit {
-  myControl = new FormControl('');
+  @Input() sm: SchemaManager;
   @Input() comp: any;
+  myControl = new FormControl('');
   options: string[];
   filteredOptions: Observable<string[]>;
 
-  constructor(public srv: SchemaService) { }
+  constructor() { }
 
   ngOnInit() {
     this.options = this.comp.options || [];
@@ -24,7 +25,7 @@ export class MtAutocompleteComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
-      this.myControl.setValue(this.srv.getValue(this.comp))
+      this.myControl.setValue(this.sm.getValue(this.comp))
   }
 
   private _filter(value: string): string[] {
@@ -34,19 +35,19 @@ export class MtAutocompleteComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.srv.getValue(this.comp);
+    return this.sm.getValue(this.comp);
   }
 
 
   onChange(text: string): void {
-    this.srv.updateValue(this.comp, text);
+    this.sm.updateValue(this.comp, text);
     if (this.options.indexOf(text) === -1) {
       this.options.push(text);
     }
   }
 
   onBlur(): void {
-    this.srv.validate(this.comp);
+    this.sm.validate(this.comp);
   }
 
 }

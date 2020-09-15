@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {SchemaService} from '../../schema.service';
+import { SchemaManager } from '../../base-components/schemaManager';
 
 
 @Component({
@@ -8,9 +8,10 @@ import {SchemaService} from '../../schema.service';
   styleUrls: ['./mt-btn.component.scss']
 })
 export class MtBtnComponent implements OnInit {
+  @Input() sm: SchemaManager;
   @Input() comp: any;
 
-  constructor(public srv: SchemaService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -18,7 +19,7 @@ export class MtBtnComponent implements OnInit {
 
   onClick() {
     if (this.comp.onClick) {
-      this.comp.onClick(this.srv);
+      this.comp.onClick(this.sm);
     }
   }
 

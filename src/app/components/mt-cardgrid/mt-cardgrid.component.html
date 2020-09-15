@@ -22,7 +22,7 @@
                 {{summary(row)}}
             </mat-card-title>
             <mat-card-content *ngIf='rowEditing(row)'>
-                <mt-item *ngFor='let row of comp.rows' [comp]='row'></mt-item>
+                <mt-item *ngFor='let row of comp.rows' [comp]='row' [sm]='sm'></mt-item>
             </mat-card-content>
         </mat-card>
     </div>

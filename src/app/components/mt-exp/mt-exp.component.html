@@ -1,8 +1,8 @@
-<mat-expansion-panel class="panel" [style]='srv.getStyle(comp)'>
+<mat-expansion-panel *ngIf='comp && sm' class="panel" [style]='sm.getStyle(comp)'>
     <mat-expansion-panel-header>
         <mat-panel-title>
             {{comp.label}}
         </mat-panel-title>
     </mat-expansion-panel-header>
-    <mt-item *ngFor='let child of comp.children' [comp]='child'></mt-item>
+    <mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm'></mt-item>
 </mat-expansion-panel>
