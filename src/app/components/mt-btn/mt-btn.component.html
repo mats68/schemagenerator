@@ -1,1 +1,1 @@
-<button mat-raised-button [color]='comp.color' (click)='onClick()'>{{sm.getLabel(comp)}}</button>
+<button mat-raised-button [color]='comp.color' (click)='onClick()' [disabled]='sm.getPropValue(comp, "disabled")'>{{sm.getLabel(comp)}}</button>

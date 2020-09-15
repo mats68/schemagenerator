@@ -8,6 +8,8 @@ export interface ISettings {
 export class SchemaManager {
     Schema: any;
     Values: any;
+    ValuesChanged: boolean;
+    // private origValues: any;
     CompsByName: any;
     CompsByField: any;
 
@@ -56,9 +58,10 @@ export class SchemaManager {
                     this.Values[comp] = val;
                 }
             });
-
-
         }
+        this.ValuesChanged = false;
+        // this.origValues = JSON.parse(JSON.stringify(this.Values));
+
     }
 
     getPropValue(comp: any, prop: string): any {
@@ -110,12 +113,14 @@ export class SchemaManager {
     updateValue(comp: any, val: any): void {
 
         if (!comp.parent) {
+            if (this.Values[comp.field] === val) return;
             this.Values[comp.field] = val;
         } else {
             //grid
             const arr = this.Values[comp.parent.field];
             const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
             if (cur) {
+                if (cur[comp.field] === val) return;
                 cur[comp.field] = val;
             }
         }
@@ -124,6 +129,8 @@ export class SchemaManager {
         if (comp.onChange) {
             comp.onChange(this, val, comp);
         }
+
+        this.ValuesChanged = true;
     }
 
     validate(comp: any): void {

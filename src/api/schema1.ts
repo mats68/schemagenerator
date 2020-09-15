@@ -149,7 +149,7 @@ export const schema =
             summary(row: any, sm: SchemaManager) {
                 const name = row.name ?? '';
                 const ort = row.ort ?? '';
-                return  `${name}, ${ort}`  ;
+                return `${name}, ${ort}`;
 
             },
             rows: [
@@ -174,7 +174,7 @@ export const schema =
                     label: 'Gueltig',
                     field: 'gültig',
                 },
-        
+
             ]
         },
         {
@@ -185,7 +185,10 @@ export const schema =
             type: 'button',
             label: 'Speichern',
             color: 'primary',
-            onClick(sm: SchemaManager ) {
+            disabled(sm: SchemaManager) {
+                return !sm.ValuesChanged
+            },
+            onClick(sm: SchemaManager) {
                 sm.validateAll();
             }
         },

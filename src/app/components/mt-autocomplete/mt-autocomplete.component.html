@@ -1,6 +1,6 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
     <mt-label [comp]='comp' [sm]='sm'></mt-label>
-    <input matInput [formControl]='myControl' [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [matAutocomplete]="auto">
+    <input matInput [formControl]='myControl' [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [matAutocomplete]="auto" [disabled]='sm.getPropValue(comp, "disabled")'>
     <mat-hint>
         <div *ngIf='comp.error' class="error">{{comp.error}}</div>
         <div *ngIf='comp.hint && !comp.error'>{{sm.getPropValue(comp, 'hint')}}</div>

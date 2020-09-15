@@ -10,6 +10,8 @@ ng add @angular/material
   - common properties: label, field, width, style, default
  - Containers: form, panel, expansionpanel
    - Card Grid
+  - label,hint, placeholder etc. as function
+  - default value 
 - Values Object
 - Validation
   - required, function
@@ -21,8 +23,6 @@ ng add @angular/material
 
 
 ### todo:
-- default value 
-- label hint etc. as function
 - check if form has changed
 - check if grid record has changed
 - types for schema, component

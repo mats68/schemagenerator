@@ -1,7 +1,7 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
     <mt-label [comp]='comp' [sm]='sm'></mt-label>
-    <input *ngIf='!comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [type]='comp.inputType'>
-    <textarea *ngIf='comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [rows]='comp.rows'></textarea>
+    <input *ngIf='!comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [type]='comp.inputType' [disabled]='sm.getPropValue(comp, "disabled")'>
+    <textarea *ngIf='comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [rows]='comp.rows' [disabled]='sm.getPropValue(comp, "disabled")'></textarea>
     <mat-hint>
         <div *ngIf='comp.error' class="error">{{comp.error}}</div>
         <div *ngIf='comp.hint && !comp.error'>{{sm.getPropValue(comp, 'hint')}}</div>
