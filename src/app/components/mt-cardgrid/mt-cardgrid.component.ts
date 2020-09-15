@@ -25,10 +25,27 @@ export class MtCardgridComponent implements OnInit {
   }
 
   Insert(): void {
-    const row  =this.srv.addGridRecord(this.data, this.comp);
+    const row  = this.srv.addGridRecord(this.data, this.comp);
     const id = row[GRIDID];
     this.srv.updateCurEditId(this.comp, id);
     this.selectedIds = [id];
+  }
+
+  CopyRow(): void {
+    const row = this.srv.getCurRow(this.data, this.comp);
+    if (row === null) return;
+    
+    let newRow  = this.srv.addGridRecord(this.data, this.comp, row);
+    const id = newRow[GRIDID];
+    this.srv.updateCurEditId(this.comp, id);
+    this.selectedIds = [id];
+  }
+
+  DeleteRow(): void {
+    const row = this.srv.getCurRow(this.data, this.comp);
+    if (row === null) return;
+    this.data = this.data.filter(r => r[GRIDID] !== row[GRIDID]);
+
   }
 
   summary(row: any) {
@@ -47,6 +64,7 @@ export class MtCardgridComponent implements OnInit {
       }
     }
   }
+
 
   // multiSelect() {
   //   this.showMultiSelect = !this.showMultiSelect;
