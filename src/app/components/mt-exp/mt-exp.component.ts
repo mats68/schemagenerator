@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SchemaService } from '../../schema.service';
 
 @Component({
   selector: 'mt-exp',
@@ -8,15 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MtExpComponent implements OnInit {
   @Input() comp: any;
 
-  constructor() { }
+  constructor(public srv: SchemaService) { }
 
   ngOnInit(): void {
   }
 
-  getStyle(): string {
-    const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
-    return `margin: 10px;${width}`;
-  }
 
 
 }

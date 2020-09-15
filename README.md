@@ -20,10 +20,9 @@ ng add @angular/material
 
 
 ### todo:
-- autocomplete not shows value
 - getStyle auslagern
 - default value 
-- getStyle in srv
+- check if grid record has changed
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation

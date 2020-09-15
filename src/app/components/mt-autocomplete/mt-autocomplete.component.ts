@@ -37,10 +37,6 @@ export class MtAutocompleteComponent implements OnInit {
     return this.srv.getValue(this.comp);
   }
 
-  getStyle(): string {
-    const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
-    return `margin: 10px;${width}`;
-  }
 
   onChange(text: string): void {
     this.srv.updateValue(this.comp, text);

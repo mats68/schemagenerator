@@ -81,7 +81,6 @@ export class SchemaService {
 
   }
 
-
   updateValue(comp: any, val: any): void {
     //card grid / table 
     if (!comp.parent) {
@@ -114,13 +113,19 @@ export class SchemaService {
     }
   }
 
+  getStyle(comp: any): string {
+    const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
+    const style = comp.style ?? '';
+    return `margin: 10px;${width}${style}`;
+  }
+
+
   validateAll() {
     Object.keys(this.CompsByField).forEach(comp => {
 
       this.validate(this.CompsByField[comp]);
     });
   }
-
 
   toggleVisible(name: string, visible: boolean) {
     const c = name ? this.CompsByName[name] : null;

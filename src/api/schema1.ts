@@ -171,7 +171,7 @@ export const schema =
         },
         {
             type: 'divider',
-            top: '500px'
+            style: 'margin-top: 300px;'
         },
         {
             type: 'button',

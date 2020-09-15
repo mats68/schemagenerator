@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SchemaService } from '../../schema.service';
 
 @Component({
   selector: 'mt-divider',
@@ -8,15 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MtDividerComponent implements OnInit {
   @Input() comp: any;
 
-  constructor() { }
-
+  constructor(public srv: SchemaService) { }
+  
   ngOnInit(): void {
   }
 
-  getStyle(): string {
-    const top = this.comp.top ?? '10px';
-    const bottom = this.comp.bottom ?? '10px';
-    return `margin-top: ${top}; margin-bottom: ${bottom};`;
-  }
 
 }

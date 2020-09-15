@@ -18,11 +18,6 @@ export class MtCheckboxComponent implements OnInit {
     return this.srv.getValue(this.comp);
   }
 
-  getStyle(): string {
-    const width = this.comp.width ? `width: ${this.comp.width};` : 'width: 100%';
-    return `margin: 10px;${width}`;
-  }
-
 
   onChange(val: boolean): void {
     this.srv.updateValue(this.comp, val);
