@@ -1,6 +1,7 @@
 // https://medium.com/javascript-in-plain-english/create-a-responsive-card-grid-in-angular-using-flex-layout-3d1b58411e7a
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaService } from '../../schema.service';
+import { GRIDID } from '../../base-components/constants'
 
 @Component({
   selector: 'mt-cardgrid',
@@ -25,7 +26,7 @@ export class MtCardgridComponent implements OnInit {
 
   Insert(): void {
     const row  =this.srv.addGridRecord(this.data, this.comp);
-    const id = row[this.srv.gridId];
+    const id = row[GRIDID];
     this.srv.updateCurEditId(this.comp, id);
     this.selectedIds = [id];
   }
@@ -36,7 +37,7 @@ export class MtCardgridComponent implements OnInit {
 
 
   rowTitleClick(row: any) {
-    const id = this.srv.CurEditId(this.comp) === row[this.srv.gridId] ? 0 : row[this.srv.gridId];
+    const id = this.srv.CurEditId(this.comp) === row[GRIDID] ? 0 : row[GRIDID];
     this.srv.updateCurEditId(this.comp, id);
     if (!this.showMultiSelect) { 
       if (id === 0) {
@@ -59,7 +60,7 @@ export class MtCardgridComponent implements OnInit {
   // }
 
   rowEditing(row: any): boolean {
-    return this.srv.CurEditId(this.comp) === row[this.srv.gridId];
+    return this.srv.CurEditId(this.comp) === row[GRIDID];
   }
 
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { schema, values } from '../api/schema1';
+import { GRIDID } from './base-components/constants';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -60,7 +61,7 @@ export class SchemaService {
       val = this.Values[comp.field];
     } else {
       const arr =  this.Values[comp.parent.field];
-      const cur = arr.find(item => item[this.gridId] === comp.parent.CurEditId);
+      const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
       if (cur) {
         val = cur[comp.field];
       }
@@ -87,7 +88,7 @@ export class SchemaService {
       this.Values[comp.field] = val;
     } else {
       const arr =  this.Values[comp.parent.field];
-      const cur = arr.find(item => item[this.gridId] === comp.parent.CurEditId);
+      const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
       if (cur) {
         cur[comp.field] = val;
       }
@@ -129,10 +130,6 @@ export class SchemaService {
   }
 
   // card grid 
-  get gridId() {
-    return 'id__';
-  }
-
   CurEditId(comp: any) {
     return comp.CurEditId;
   }
@@ -147,7 +144,7 @@ export class SchemaService {
   initGridData(data: any[]) {
     let num = 1;
     data.forEach(item => {
-      item[this.gridId] = num;
+      item[GRIDID] = num;
       num++;
     })
   }
@@ -155,11 +152,11 @@ export class SchemaService {
   addGridRecord(data: any[], comp: any): any {
     let max = 0;
     data.forEach(item => {
-      max = item[this.gridId] > max ? item[this.gridId] : max;
+      max = item[GRIDID] > max ? item[GRIDID] : max;
     })
     max++;
     const rec = {
-      [this.gridId]: max
+      [GRIDID]: max
     };
     data.push(rec);
     this.updateCurEditId(comp, max);
