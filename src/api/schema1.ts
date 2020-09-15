@@ -87,7 +87,6 @@ export const schema =
                     rows: 6,
                     multiline: true,
                     hint: 'Hinweis',
-                    placeholder: 'Etwas eingeben...',
                     required: true
 
                 },

@@ -45,6 +45,11 @@ export class SchemaService {
     });
   }
 
+  InitSchema(schema: any) {
+    
+
+  }
+
   getLabel(comp: any): string {
     return comp.label + (comp.required ? this.Settings.requiredSuffix : '');
   }

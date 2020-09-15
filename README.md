@@ -7,7 +7,7 @@ ng add @angular/material
 - uses angular-material
 - Components: input, checkbox, autocomplete, button, 
   - Autocomplete: filter, add free items to list
-  - common properties: label, field, width, style, 
+  - common properties: label, field, width, style, default
  - Containers: form, panel, expansionpanel
    - Card Grid
 - Values Object
@@ -20,8 +20,9 @@ ng add @angular/material
 
 
 ### todo:
-- getStyle auslagern
+- schema as class (not service), kann mehrere auf 1 form
 - default value 
+- label hint etc. as function
 - check if grid record has changed
 - all readonly 
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
