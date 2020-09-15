@@ -87,6 +87,18 @@ export const schema =
                     required: true
 
                 },
+                {
+                    type: 'input',
+                    label() {
+                        return 'Label from function'
+                    },
+                    field: 'test12',
+                    hint() {
+                        return 'Hinweis aus Funktion'
+                    },
+                    required: true
+
+                },
 
             ]
         },

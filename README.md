@@ -16,6 +16,7 @@ ng add @angular/material
   - validate per field
   - validate all (on submit)
   - requrired fields with *         
+- properties can be functions or value
  
 
 
@@ -24,8 +25,11 @@ ng add @angular/material
 - label hint etc. as function
 - check if form has changed
 - check if grid record has changed
+- types for schema, component
 - ev grid: sub-schemaManger
 - all readonly 
+- validation
+  panel with all errors, (mit Feldnamen am anfang, can jump)
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
   - disabled (input, check, btn...)

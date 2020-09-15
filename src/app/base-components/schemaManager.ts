@@ -2,6 +2,7 @@ import { GRIDID } from './constants';
 
 export interface ISettings {
     requiredSuffix: string;
+    requiredErrorMsg: string;
 }
 
 export class SchemaManager {
@@ -11,7 +12,8 @@ export class SchemaManager {
     CompsByField: any;
 
     Settings: ISettings = {
-        requiredSuffix: ' *'
+        requiredSuffix: ' *',
+        requiredErrorMsg: 'Eingabe erforderlich',
     }
 
     constructor(schema: any, values: any = null) {
@@ -54,15 +56,15 @@ export class SchemaManager {
                     this.Values[comp] = val;
                 }
             });
-                
-            
+
+
         }
     }
 
     getPropValue(comp: any, prop: string): any {
         if (typeof comp[prop] === 'undefined') {
             return undefined;
-        } else  if (typeof comp[prop] === 'function') {
+        } else if (typeof comp[prop] === 'function') {
             return comp[prop](this, comp);
         } else {
             return comp[prop];
@@ -70,7 +72,7 @@ export class SchemaManager {
     }
 
     getLabel(comp: any): string {
-        return comp.label + (comp.required ? this.Settings.requiredSuffix : '');
+        return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
     }
 
     getValue(comp: any): any {
@@ -129,7 +131,7 @@ export class SchemaManager {
         const val = this.Values[comp.field];
 
         if (!val && comp.required) {
-            comp.error = `${comp.label}: Eingabe erforderlich`;
+            comp.error = `${this.Settings.requiredErrorMsg}`;
             return;
         }
 
