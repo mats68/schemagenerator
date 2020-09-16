@@ -8,7 +8,9 @@ export const schema =
         {
             type: 'input',
             name: 'firstInput',
-            label: 'Text1',
+            label(sm: SchemaManager): string {
+                return sm.Language === 'de' ? 'Standort' : 'Position';
+            },
             field: 'text1'
         },
         {

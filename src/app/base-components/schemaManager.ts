@@ -13,7 +13,10 @@ export class SchemaManager {
     // private origValues: any;
     CompsByName: any;
     CompsByField: any;
+    
+    Language: string;
     Strings: any;
+
 
     Settings: ISettings = {
         requiredSuffix: ' *',
@@ -61,6 +64,7 @@ export class SchemaManager {
     }
 
     InitLanguage(lang: string) {
+        this.Language = lang;
         this.Strings = strings[lang];
     }
 
