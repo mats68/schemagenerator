@@ -1,4 +1,5 @@
 // import { GRIDID } from './constants';
+import {strings} from './strings';
 
 export interface ISettings {
     requiredSuffix: string;
@@ -12,15 +13,17 @@ export class SchemaManager {
     // private origValues: any;
     CompsByName: any;
     CompsByField: any;
+    Strings: any;
 
     Settings: ISettings = {
         requiredSuffix: ' *',
         requiredErrorMsg: 'Eingabe erforderlich',
     }
 
-    constructor(schema: any, values: any = null) {
+    constructor(schema: any, values: any = null, language: string = 'de') {
         this.InitSchema(schema);
         this.InitValues(values);
+        this.InitLanguage(language);
     }
 
     InitSchema(schema: any) {
@@ -55,6 +58,10 @@ export class SchemaManager {
         this.ValuesChanged = false;
         // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
+    }
+
+    InitLanguage(lang: string) {
+        this.Strings = strings[lang];
     }
 
     getPropValue(comp: any, prop: string): any {

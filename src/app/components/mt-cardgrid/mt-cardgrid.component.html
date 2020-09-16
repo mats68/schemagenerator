@@ -3,13 +3,13 @@
         {{sm.getLabel(comp)}}
     </div>
     <div>
-        <button mat-mini-fab (click)='Insert()' class="btn" color="primary" matTooltip="Datensatz hinzufügen">
+        <button mat-mini-fab (click)='Insert()' class="btn" color="primary" [matTooltip]="sm.Strings.ds_ins">
             <mat-icon>add</mat-icon>
         </button>
-        <button mat-mini-fab (click)='CopyRow()' class="btn" color="primary" [disabled]='!currow' matTooltip="Datensatz kopieren">
+        <button mat-mini-fab (click)='CopyRow()' class="btn" color="primary" [matTooltip]="sm.Strings.ds_copy" [disabled]='!currow'>
             <mat-icon>content_copy</mat-icon>
           </button>
-        <button mat-mini-fab (click)='DeleteRow()' class="btn" color="primary" [disabled]='!currow' matTooltip="Datensatz löschen">
+        <button mat-mini-fab (click)='DeleteRow()' class="btn" color="primary" [matTooltip]="sm.Strings.ds_del" [disabled]='!currow'>
             <mat-icon>delete</mat-icon>
         </button>
 

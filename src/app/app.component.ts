@@ -10,8 +10,17 @@ import { schema2} from '../api/schema2'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
   schemaManger: SchemaManager;
   schemaManger2: SchemaManager;
+  private _sprache: string = 'de';
+  get sprache(): string {
+    return this._sprache;
+  }
+  set sprache(val: string) {
+    this.schemaManger.InitLanguage(val);
+    this._sprache = val;
+  }
   
 
   title = 'schemagenerator';

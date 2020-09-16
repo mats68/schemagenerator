@@ -1,3 +1,11 @@
+<mat-form-field appearance="fill">
+    <mat-label>Sprache:</mat-label>
+    <mat-select [(value)]="sprache">
+        <mat-option value="de">de</mat-option>
+        <mat-option value="en">en</mat-option>
+    </mat-select>
+</mat-form-field>
+
 <div class="formstyle">
     <mt-form [comp]='schemaManger.Schema' [sm]='schemaManger'></mt-form>
 </div>

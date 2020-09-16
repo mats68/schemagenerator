@@ -20,12 +20,12 @@ ng add @angular/material
   - requrired fields with *         
 - properties can be functions or value
 - check if form has changed (enable button)
+- switch language
 
 
 ### todo:
 
 - types for schema, component
-- grid: sub-schemaManger
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
@@ -46,3 +46,4 @@ ng add @angular/material
 - autocomplete value not read
 - tooltip
 - split
+- autocomplete with strings or objects like {value: 1, label: ''}
