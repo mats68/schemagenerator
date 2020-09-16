@@ -45,3 +45,4 @@ ng add @angular/material
 - übersetzung (label, titel, hint, placeholder als funktion)
 - autocomplete value not read
 - tooltip
+- split

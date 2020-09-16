@@ -1,4 +1,4 @@
-import { GRIDID } from './constants';
+// import { GRIDID } from './constants';
 
 export interface ISettings {
     requiredSuffix: string;
@@ -38,13 +38,6 @@ export class SchemaManager {
         if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
         fillComps(this.Schema.children);
 
-        this.Schema.children.forEach(item => {
-            if (item.type === 'cardgrid') {
-                item.rows.forEach(row => {
-                    row.parent = item;
-                });
-            }
-        });
     }
 
     InitValues(values: any) {
@@ -86,15 +79,15 @@ export class SchemaManager {
             return undefined;
         }
 
-        if (!comp.parent) {
-            val = this.Values[comp.field];
-        } else {
-            const arr = this.Values[comp.parent.field];
-            const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
-            if (cur) {
-                val = cur[comp.field];
-            }
-        }
+        // if (!comp.parent) {
+        val = this.Values[comp.field];
+        // } else {
+        //     const arr = this.Values[comp.parent.field];
+        //     const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
+        //     if (cur) {
+        //         val = cur[comp.field];
+        //     }
+        // }
 
         if (!val) {
             if (comp.type === 'checkbox') {
@@ -112,18 +105,18 @@ export class SchemaManager {
 
     updateValue(comp: any, val: any): void {
 
-        if (!comp.parent) {
+        // if (!comp.parent) {
             if (this.Values[comp.field] === val) return;
             this.Values[comp.field] = val;
-        } else {
-            //grid
-            const arr = this.Values[comp.parent.field];
-            const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
-            if (cur) {
-                if (cur[comp.field] === val) return;
-                cur[comp.field] = val;
-            }
-        }
+        // } else {
+        //     //grid
+        //     const arr = this.Values[comp.parent.field];
+        //     const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
+        //     if (cur) {
+        //         if (cur[comp.field] === val) return;
+        //         cur[comp.field] = val;
+        //     }
+        // }
         this.validate(comp);
 
         if (comp.onChange) {
@@ -166,48 +159,6 @@ export class SchemaManager {
             c.hidden = !visible;
         }
     }
-
-    // card grid 
-    CurEditId(comp: any) {
-        return comp.CurEditId;
-    }
-
-    updateCurEditId(comp: any, id: number) {
-        if (comp.CurEditId !== id) {
-            comp.CurEditId = id;
-        }
-    }
-
-    initGridData(data: any[]) {
-        let num = 1;
-        data.forEach(item => {
-            item[GRIDID] = num;
-            num++;
-        })
-    }
-
-    addGridRecord(data: any[], comp: any, defaultData: any = null): any {
-        let max = 0;
-        data.forEach(item => {
-            max = item[GRIDID] > max ? item[GRIDID] : max;
-        })
-        max++;
-        let newRow = {};
-        if (defaultData) newRow = JSON.parse(JSON.stringify(defaultData));
-        newRow[GRIDID] = max;
-        data.push(newRow);
-        this.updateCurEditId(comp, max);
-        return newRow;
-    }
-
-    getCurRow(data: any[], comp: any): any {
-        const curId = this.CurEditId(comp);
-        if (curId === 0) return null;
-        const row = data.find(row => row[GRIDID] === curId);
-        return row;
-    }
-
-
 
 
 }

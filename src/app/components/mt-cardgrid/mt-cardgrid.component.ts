@@ -1,6 +1,6 @@
 // https://medium.com/javascript-in-plain-english/create-a-responsive-card-grid-in-angular-using-flex-layout-3d1b58411e7a
 import { Component, OnInit, Input } from '@angular/core';
-import { GRIDID } from '../../base-components/constants'
+// import { GRIDID } from '../../base-components/constants'
 import { SchemaManager } from '../../base-components/schemaManager';
 
 @Component({
@@ -12,75 +12,49 @@ export class MtCardgridComponent implements OnInit {
   @Input() sm: SchemaManager;
   @Input() comp: any;
   data: any[] = [];
-  selectedIds: string[] = [];
-  showMultiSelect: boolean = false;
+  subsm: SchemaManager;
+  currow: any;
 
   constructor() {
-
 
   }
 
   ngOnInit(): void {
     this.data = this.sm.getValue(this.comp);
-    this.sm.initGridData(this.data);
+    this.subsm = new SchemaManager(this.comp);
   }
 
   Insert(): void {
-    const row  = this.sm.addGridRecord(this.data, this.comp);
-    const id = row[GRIDID];
-    this.sm.updateCurEditId(this.comp, id);
-    this.selectedIds = [id];
+    const row  = {};
+    this.data.push(row);
+    this.subsm.InitValues(row);
+    this.currow = row;
   }
 
   CopyRow(): void {
-    const row = this.sm.getCurRow(this.data, this.comp);
-    if (row === null) return;
-    
-    let newRow  = this.sm.addGridRecord(this.data, this.comp, row);
-    const id = newRow[GRIDID];
-    this.sm.updateCurEditId(this.comp, id);
-    this.selectedIds = [id];
+    if (!this.currow) return;
+    const newrow = JSON.parse(JSON.stringify(this.currow));
+    this.data.push(newrow);
+    this.currow = newrow;
   }
 
   DeleteRow(): void {
-    const row = this.sm.getCurRow(this.data, this.comp);
-    if (row === null) return;
-    this.data = this.data.filter(r => r[GRIDID] !== row[GRIDID]);
-
+    if (!this.currow) return;
+    this.data = this.data.filter(r => r !== this.currow);
+    this.currow = null;
   }
 
   summary(row: any) {
     return this.comp.summary(row, this.sm);
   }
 
-
   rowTitleClick(row: any) {
-    const id = this.sm.CurEditId(this.comp) === row[GRIDID] ? 0 : row[GRIDID];
-    this.sm.updateCurEditId(this.comp, id);
-    if (!this.showMultiSelect) { 
-      if (id === 0) {
-        this.selectedIds = [];
-      } else {
-        this.selectedIds = [this.sm.CurEditId(this.comp)];
-      }
+    if (this.currow !== row) {
+      this.currow = row;
+      this.subsm.InitValues(row);
+    } else {
+      this.currow = null;
     }
   }
-
-
-  // multiSelect() {
-  //   this.showMultiSelect = !this.showMultiSelect;
-  //   if (!this.showMultiSelect) {
-  //     if (this.sm.CurEditId(this.comp) > 0) {
-  //       this.selectedIds = [this.sm.CurEditId(this.comp)];  
-  //     } else {
-  //       this.selectedIds = [];
-  //     }
-  //   }
-  // }
-
-  rowEditing(row: any): boolean {
-    return this.sm.CurEditId(this.comp) === row[GRIDID];
-  }
-
 
 }

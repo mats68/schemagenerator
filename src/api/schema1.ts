@@ -151,7 +151,12 @@ export const schema =
                 return `${name}, ${ort}`;
 
             },
-            rows: [
+            children: [
+                {
+                    type: 'input',
+                    hidden: true,
+                    field: 'id',
+                },
                 {
                     type: 'autocomplete',
                     label: 'Adresstyp',
