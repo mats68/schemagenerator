@@ -19,15 +19,16 @@ ng add @angular/material
   - validate all (on submit)
   - requrired fields with *         
 - properties can be functions or value
- 
+- check if form has changed (enable button)
 
 
 ### todo:
-- check if form has changed
-- check if grid record has changed
+
 - types for schema, component
-- ev grid: sub-schemaManger
-- all readonly 
+- grid: sub-schemaManger
+- grid system
+- readonly 
+- default properties, for inputs (eg. appearance) in schema
 - validation
   panel with all errors, (mit Feldnamen am anfang, can jump)
 - Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?

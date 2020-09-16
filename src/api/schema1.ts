@@ -1,6 +1,5 @@
 import { SchemaManager } from '../app/base-components/schemaManager';
 
-
 export const schema =
 {
     type: 'form',
