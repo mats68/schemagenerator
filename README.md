@@ -22,11 +22,12 @@ ng add @angular/material
 - properties can be functions or value
 - check if form has changed (enable button)
 - switch language
+- switch schema at runtime
+- switch values at runtime
 
 
 ### todo:
 
-- switch schema
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema

@@ -21,3 +21,8 @@ export const schema2 =
         },
     ]
 }
+
+export const values2 = {
+    text1: 'Text 2'
+}
+

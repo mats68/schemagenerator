@@ -2,7 +2,7 @@ import { SchemaManager } from '../app/base-components/schemaManager';
 import { IComponent } from '../app/base-components/types';
 
 
-export const schema: IComponent =
+export const schema1: IComponent =
 {
     type: 'form',
     name: 'form',
@@ -10,6 +10,7 @@ export const schema: IComponent =
         {
             type: 'input',
             name: 'firstInput',
+            default: 'Standardwert 1',
             label(sm: SchemaManager): string {
                 return sm.Language === 'de' ? 'Standort' : 'Position';
             },
@@ -204,10 +205,21 @@ export const schema: IComponent =
     ]
 };
 
-export const values = {
+export const values1 = {
     text1: 'AA',
     text2: 'one',
-    check1: false,
-    adresses: []
+    check1: true,
+    adresses: [
+        {
+            typ: 'Rechnungsadresse',
+            name: 'Thaler',
+            ort: 'Bern'
+        },
+        {
+            typ: 'Versandadresse',
+            name: 'Meier',
+            ort: 'Zürich'
+        }
 
+    ]
 };

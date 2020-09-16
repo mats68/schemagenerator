@@ -1,4 +1,21 @@
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill" class="top">
+    <mat-label>Schema:</mat-label>
+    <mat-select [(value)]="schema">
+        <mat-option value="schema1">schema1</mat-option>
+        <mat-option value="schema2">schema2</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill" class="top">
+    <mat-label>Values:</mat-label>
+    <mat-select [(value)]="optvalues">
+        <mat-option value="1">Leere Werte</mat-option>
+        <mat-option value="2">Werte laden</mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<mat-form-field appearance="fill" class="top">
     <mat-label>Sprache:</mat-label>
     <mat-select [(value)]="sprache">
         <mat-option value="de">de</mat-option>
@@ -6,17 +23,10 @@
     </mat-select>
 </mat-form-field>
 
+
 <div class="formstyle">
     <mt-form [comp]='schemaManger.Schema' [sm]='schemaManger'></mt-form>
 </div>
 
-<div class="formstyle">
-    <mt-form [comp]='schemaManger2.Schema' [sm]='schemaManger2'></mt-form>
-</div>
-
-
 <div style="margin-top: 100px;">Values</div>
 <div>{{getValues()}}</div>
-
-<div style="margin-top: 100px;">Values 2</div>
-<div>{{getValues2()}}</div>
