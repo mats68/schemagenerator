@@ -6,6 +6,7 @@ export interface IComponentParams {
 }
 
 export type IComponentStringFunction = (IComponentParams) => string;
+export type IComponentBoolFunction = (IComponentParams) => boolean;
 export type IComponentFunction = (IComponentParams) => any;
 
 
@@ -23,6 +24,7 @@ export interface IComponent {
     rows?: number,
     multiline?: boolean,
     required?: boolean,
+    disabled?: boolean | IComponentBoolFunction,
 
     [key: string]: any,
 }

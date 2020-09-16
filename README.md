@@ -8,6 +8,7 @@ ng add @angular/material
 - Components: input, checkbox, autocomplete, button, 
   - Autocomplete: filter, add free items to list
   - common properties: label, field, width, style, default
+  - types defined for component
  - Containers: form, panel, expansionpanel
    - Card Grid
   - label,hint, placeholder etc. as function
@@ -25,7 +26,7 @@ ng add @angular/material
 
 ### todo:
 
-- types for component
+- switch schema
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
