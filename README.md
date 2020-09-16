@@ -25,13 +25,13 @@ ng add @angular/material
 
 ### todo:
 
-- types for schema, component
+- types for component
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
 - validation
   panel with all errors, (mit Feldnamen am anfang, can jump)
-- Components: select, radio, ja/nein Panel,Date, Sidenav ?, Tabs ?
+- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
   - disabled (input, check, btn...)
 - Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
