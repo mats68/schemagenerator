@@ -8,6 +8,14 @@ export interface IComponentParams {
 export type IComponentStringFunction = (IComponentParams) => string;
 export type IComponentBoolFunction = (IComponentParams) => boolean;
 export type IComponentFunction = (IComponentParams) => any;
+export type ISelectOptionItemsFunction = (IComponentParams) => ISelectOptionItems | string[];
+
+export interface ISelectOptionItem {
+    value: string | number,
+    text: string,
+  }
+  
+export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
 
 export interface IComponent {
@@ -24,7 +32,9 @@ export interface IComponent {
     rows?: number,
     multiline?: boolean,
     required?: boolean,
+    autoupdate?: boolean,
     disabled?: boolean | IComponentBoolFunction,
+    options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
 
     [key: string]: any,
 }

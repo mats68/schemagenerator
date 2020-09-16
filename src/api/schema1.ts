@@ -18,9 +18,18 @@ export const schema1: IComponent =
         },
         {
             type: 'autocomplete',
-            label: 'Autocomplete',
+            label: 'Autocomplete with autoupdate',
+            hint: 'new values will be added to the list',
+            default: 'one',
+            autoupdate: true,
             field: 'text2',
             options: ['one', 'two', 'test']
+        },
+        {
+            type: 'autocomplete',
+            label: 'Autocomplete values differs from text',
+            field: 'autocomplete2',
+            options: [{value: '1', text: 'one'},{value: '2', text: 'two'},{value: '3', text: 'three'}]
         },
         {
             type: 'checkbox',
@@ -75,6 +84,7 @@ export const schema1: IComponent =
                         {
                             type: 'autocomplete',
                             label: 'Autocomplete2',
+                            autoupdate: true,
                             field: 'text2a',
                             options: ['one', 'two', 'three', 'four', 'test']
                         },
@@ -166,6 +176,7 @@ export const schema1: IComponent =
                     type: 'autocomplete',
                     label: 'Adresstyp',
                     field: 'typ',
+                    autoupdate: true,
                     options: ["Rechnungsadresse", "Versandadresse"]
                 },
                 {

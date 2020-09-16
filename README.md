@@ -27,7 +27,7 @@ ng add @angular/material
 
 
 ### todo:
-- comp type: IComponent überall anpassen
+- autocomplete options with strings or objects like {value: 1, text: 'one'}...
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
@@ -45,7 +45,5 @@ ng add @angular/material
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline
 - übersetzung (label, titel, hint, placeholder als funktion)
-- autocomplete value not read
 - tooltip
 - split
-- autocomplete with strings or objects like {value: 1, label: ''}

@@ -3,7 +3,7 @@ import { SchemaManager } from '../../base-components/schemaManager';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { IComponent } from 'src/app/base-components/types';
+import { IComponent, ISelectOptionItems } from 'src/app/base-components/types';
 
 @Component({
   selector: 'mt-autocomplete',
@@ -15,12 +15,14 @@ export class MtAutocompleteComponent implements OnInit {
   @Input() comp: IComponent;
   myControl = new FormControl('');
   options: string[];
+  optionsObj: ISelectOptionItems;
   filteredOptions: Observable<string[]>;
 
   constructor() { }
 
   ngOnInit() {
-    this.options = this.comp.options || [];
+    this.options = this.sm.selectOptionsAsStrings(this.comp);
+    this.optionsObj = this.sm.selectOptionsAsObjects(this.comp);
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -36,14 +38,24 @@ export class MtAutocompleteComponent implements OnInit {
   }
 
   getValue(): string {
-    return this.sm.getValue(this.comp);
+    const val = this.sm.getValue(this.comp);
+    const f = this.optionsObj.find(item => item.value == val);
+    return f && f.text ? f.text : '';
   }
 
 
   onChange(text: string): void {
-    this.sm.updateValue(this.comp, text);
-    if (this.options.indexOf(text) === -1) {
-      this.options.push(text);
+    const f = this.optionsObj.find(item => item.text == text);
+    if (f && f.value) {
+      this.sm.updateValue(this.comp, f.value);
+    }
+    
+    if (this.comp.autoupdate) {
+      if (this.options.indexOf(text) === -1) {
+        this.options.push(text);
+        this.optionsObj.push({value: text, text});
+      }
+  
     }
   }
 

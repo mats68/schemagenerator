@@ -1,5 +1,5 @@
 import { strings } from './strings';
-import { IComponent } from './types';
+import { IComponent, ISelectOptionItems } from './types';
 
 export interface ISettings {
     requiredSuffix: string;
@@ -102,8 +102,6 @@ export class SchemaManager {
             return '';
         }
         return val;
-
-
     }
 
     updateValue(comp: IComponent, val: any): void {
@@ -150,6 +148,30 @@ export class SchemaManager {
         const c = name ? this.CompsByName[name] : null;
         if (c) {
             c.hidden = !visible;
+        }
+    }
+
+    selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
+        const val = this.getPropValue(comp, 'options');
+        if (!val || !Array.isArray(val) || val.length === 0) return [];
+        let ret: ISelectOptionItems = [];
+        if (typeof val[0] === "string" ) {
+            val.forEach(item => ret.push({value: item, text: item}));
+            return ret;
+        } else {
+            return val;
+        }
+    }
+
+    selectOptionsAsStrings(comp: IComponent): string[] {
+        const val = this.getPropValue(comp, 'options');
+        if (!val || !Array.isArray(val) || val.length === 0) return [];
+        let ret: string[] = [];
+        if (typeof val[0] === "object" ) {
+            val.forEach(item => ret.push(item.text));
+            return ret;
+        } else {
+            return val;
         }
     }
 
