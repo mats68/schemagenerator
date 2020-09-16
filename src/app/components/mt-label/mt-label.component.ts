@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SchemaManager } from '../../base-components/schemaManager';
+import { IComponent } from 'src/app/base-components/types';
 
 @Component({
   selector: 'mt-label',
@@ -8,7 +9,7 @@ import { SchemaManager } from '../../base-components/schemaManager';
 })
 export class MtLabelComponent {
   @Input() sm: SchemaManager;
-  @Input() comp: any;
+  @Input() comp: IComponent;
 
   constructor() {
 

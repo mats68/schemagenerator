@@ -1,5 +1,5 @@
-// import { GRIDID } from './constants';
-import {strings} from './strings';
+import { strings } from './strings';
+import { IComponent } from './types';
 
 export interface ISettings {
     requiredSuffix: string;
@@ -7,13 +7,13 @@ export interface ISettings {
 }
 
 export class SchemaManager {
-    Schema: any;
+    Schema: IComponent;
     Values: any;
     ValuesChanged: boolean;
     // private origValues: any;
     CompsByName: any;
     CompsByField: any;
-    
+
     Language: string;
     Strings: any;
 
@@ -68,7 +68,7 @@ export class SchemaManager {
         this.Strings = strings[lang];
     }
 
-    getPropValue(comp: any, prop: string): any {
+    getPropValue(comp: IComponent, prop: string): any {
         if (typeof comp[prop] === 'undefined') {
             return undefined;
         } else if (typeof comp[prop] === 'function') {
@@ -78,11 +78,11 @@ export class SchemaManager {
         }
     }
 
-    getLabel(comp: any): string {
+    getLabel(comp: IComponent): string {
         return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
     }
 
-    getValue(comp: any): any {
+    getValue(comp: IComponent): any {
         let val;
         if (!comp.field) {
             console.error('field not specified !');
@@ -90,15 +90,7 @@ export class SchemaManager {
             return undefined;
         }
 
-        // if (!comp.parent) {
         val = this.Values[comp.field];
-        // } else {
-        //     const arr = this.Values[comp.parent.field];
-        //     const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
-        //     if (cur) {
-        //         val = cur[comp.field];
-        //     }
-        // }
 
         if (!val) {
             if (comp.type === 'checkbox') {
@@ -114,20 +106,10 @@ export class SchemaManager {
 
     }
 
-    updateValue(comp: any, val: any): void {
+    updateValue(comp: IComponent, val: any): void {
 
-        // if (!comp.parent) {
-            if (this.Values[comp.field] === val) return;
-            this.Values[comp.field] = val;
-        // } else {
-        //     //grid
-        //     const arr = this.Values[comp.parent.field];
-        //     const cur = arr.find(item => item[GRIDID] === comp.parent.CurEditId);
-        //     if (cur) {
-        //         if (cur[comp.field] === val) return;
-        //         cur[comp.field] = val;
-        //     }
-        // }
+        if (this.Values[comp.field] === val) return;
+        this.Values[comp.field] = val;
         this.validate(comp);
 
         if (comp.onChange) {
@@ -137,7 +119,7 @@ export class SchemaManager {
         this.ValuesChanged = true;
     }
 
-    validate(comp: any): void {
+    validate(comp: IComponent): void {
         comp.error = '';
         const val = this.Values[comp.field];
 
@@ -151,7 +133,7 @@ export class SchemaManager {
         }
     }
 
-    getStyle(comp: any): string {
+    getStyle(comp: IComponent): string {
         const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
         const style = comp.style ?? '';
         return `margin: 10px;${width}${style}`;

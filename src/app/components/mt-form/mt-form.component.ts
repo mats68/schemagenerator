@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaManager } from '../../base-components/schemaManager';
+import { IComponent } from 'src/app/base-components/types';
 
 @Component({
   selector: 'mt-form',
@@ -8,7 +9,7 @@ import { SchemaManager } from '../../base-components/schemaManager';
 })
 export class MtFormComponent implements OnInit {
   @Input() sm: SchemaManager;
-  @Input() comp: any;
+  @Input() comp: IComponent;
   constructor() { }
 
   ngOnInit(): void {

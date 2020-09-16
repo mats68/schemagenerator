@@ -3,6 +3,7 @@ import { SchemaManager } from '../../base-components/schemaManager';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { IComponent } from 'src/app/base-components/types';
 
 @Component({
   selector: 'mt-autocomplete',
@@ -11,7 +12,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class MtAutocompleteComponent implements OnInit {
   @Input() sm: SchemaManager;
-  @Input() comp: any;
+  @Input() comp: IComponent;
   myControl = new FormControl('');
   options: string[];
   filteredOptions: Observable<string[]>;

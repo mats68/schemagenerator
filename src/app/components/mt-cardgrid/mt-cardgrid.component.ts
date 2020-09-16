@@ -2,6 +2,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 // import { GRIDID } from '../../base-components/constants'
 import { SchemaManager } from '../../base-components/schemaManager';
+import { IComponent } from 'src/app/base-components/types';
 
 @Component({
   selector: 'mt-cardgrid',
@@ -10,7 +11,7 @@ import { SchemaManager } from '../../base-components/schemaManager';
 })
 export class MtCardgridComponent implements OnInit, OnChanges {
   @Input() sm: SchemaManager;
-  @Input() comp: any;
+  @Input() comp: IComponent;
   data: any[] = [];
   subsm: SchemaManager;
   currow: any;
@@ -24,15 +25,9 @@ export class MtCardgridComponent implements OnInit, OnChanges {
     this.subsm = new SchemaManager(this.comp);
   }
 
-  ngOnChanges(changes: any) {
-    for (const propName in changes) {
-      const chng = changes[propName];
-      const cur  = JSON.stringify(chng.currentValue);
-      const prev = JSON.stringify(chng.previousValue);
-      console.log('cur', cur, 'prev', prev)
-      //con.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-    }
+  ngOnChanges() {
   }
+  
   Insert(): void {
     const row  = {};
     this.subsm.InitValues(row);

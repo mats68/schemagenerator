@@ -27,7 +27,7 @@ ng add @angular/material
 
 
 ### todo:
-
+- comp type: IComponent überall anpassen
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
