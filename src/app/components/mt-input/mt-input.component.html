@@ -1,9 +1,11 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
-    <mt-label [comp]='comp' [sm]='sm'></mt-label>
+    <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : comp.error}'></mt-label>
+    <span matPrefix>{{comp.prefix}}</span>
     <input *ngIf='!comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [type]='comp.inputType' [disabled]='sm.getPropValue(comp, "disabled")'>
     <textarea *ngIf='comp.multiline' matInput [value]='getValue()' (change)='onChange($event.target.value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [rows]='comp.rows' [disabled]='sm.getPropValue(comp, "disabled")'></textarea>
+    <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
     <mat-hint>
-        <div *ngIf='comp.error' class="error">{{comp.error}}</div>
+        <div *ngIf='comp.error' class="error-color error-font">{{comp.error}}</div>
         <div *ngIf='comp.hint && !comp.error'>{{sm.getPropValue(comp, 'hint')}}</div>
     </mat-hint>
 </mat-form-field>

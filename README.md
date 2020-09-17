@@ -28,12 +28,14 @@ ng add @angular/material
 
 
 ### todo:
+- input prefix und suffix (icon oder text)
+- sm.translate function ("de", "fr", "it")
+- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
 - validation
   panel with all errors, (mit Feldnamen am anfang, can jump)
-- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - Validation
   - disabled (input, check, btn...)
 - Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 

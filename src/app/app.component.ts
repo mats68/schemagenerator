@@ -56,9 +56,8 @@ export class AppComponent {
         this.curvalues = null;
       }
     }
-    const curvalues =  JSON.parse(JSON.stringify(this.curvalues));
     this.schemaManger.InitSchema(this.curschema);
-    this.schemaManger.InitValues(curvalues);
+    this.schemaManger.InitValues(this.curvalues);
   }
 
   title = 'schemagenerator';

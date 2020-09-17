@@ -2,7 +2,7 @@ import { SchemaManager } from './schemaManager';
 
 export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, value?: any) => string;
 export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
-export type IComponentFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
+export type IComponentFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export interface ISelectOptionItem {
@@ -28,6 +28,7 @@ export interface IComponent {
     multiline?: boolean,
     required?: boolean,
     validate?: IComponentStringFunction,
+    onChange?: IComponentFunction,
     autoupdate?: boolean,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],

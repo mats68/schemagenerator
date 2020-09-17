@@ -2,6 +2,8 @@ import { SchemaManager } from '../app/base-components/schemaManager';
 import { IComponent } from '../app/base-components/types';
 
 
+
+
 export const schema1: IComponent =
 {
     type: 'form',
@@ -62,7 +64,7 @@ export const schema1: IComponent =
                     type: 'checkbox',
                     label: 'Hide Panel 2',
                     field: 'check10',
-                    onChange(sm: SchemaManager, val: boolean): void {
+                    onChange(sm, comp, val): void {
                         sm.toggleVisible('panel2', !val);
                     }
                 },

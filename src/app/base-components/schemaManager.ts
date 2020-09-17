@@ -111,7 +111,7 @@ export class SchemaManager {
         this.validate(comp);
 
         if (comp.onChange) {
-            comp.onChange(this, val, comp);
+            comp.onChange(this, comp, val);
         }
 
         this.ValuesChanged = true;
