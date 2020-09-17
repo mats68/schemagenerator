@@ -1,14 +1,9 @@
 import { SchemaManager } from './schemaManager';
 
-export interface IComponentParams {
-    sm: SchemaManager,
-    comp: IComponent,
-}
-
-export type IComponentStringFunction = (IComponentParams) => string;
-export type IComponentBoolFunction = (IComponentParams) => boolean;
-export type IComponentFunction = (IComponentParams) => any;
-export type ISelectOptionItemsFunction = (IComponentParams) => ISelectOptionItems | string[];
+export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, value?: any) => string;
+export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
+export type IComponentFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
+export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export interface ISelectOptionItem {
     value: string | number,
@@ -32,6 +27,7 @@ export interface IComponent {
     rows?: number,
     multiline?: boolean,
     required?: boolean,
+    validate?: IComponentStringFunction,
     autoupdate?: boolean,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],

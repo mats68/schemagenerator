@@ -7,6 +7,7 @@ ng add @angular/material
 - uses angular-material
 - Components: input, checkbox, autocomplete, button, 
   - Autocomplete: filter, add free items to list
+  - Autocomplete options with strings or objects like {value: 1, text: 'one'}...
   - common properties: label, field, width, style, default
   - types defined for component
  - Containers: form, panel, expansionpanel
@@ -27,7 +28,6 @@ ng add @angular/material
 
 
 ### todo:
-- autocomplete options with strings or objects like {value: 1, text: 'one'}...
 - grid system
 - readonly 
 - default properties, for inputs (eg. appearance) in schema

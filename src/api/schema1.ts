@@ -140,8 +140,8 @@ export const schema1: IComponent =
                     type: 'input',
                     label: 'Required if prev empty',
                     field: 'next',
-                    validate(sm: SchemaManager): string {
-                        if (!sm.Values.prev) {
+                    validate(sm: SchemaManager, comp: IComponent, val: any): string {
+                        if (!sm.Values.prev && !val) {
                             return 'Required since prev is empty';
                         }
                         return '';

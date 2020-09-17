@@ -127,7 +127,7 @@ export class SchemaManager {
         }
 
         if (comp.validate) {
-            comp.error = comp.validate(this, comp);
+            comp.error = comp.validate(this, comp, val);
         }
     }
 
