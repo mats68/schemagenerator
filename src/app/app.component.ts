@@ -58,6 +58,7 @@ export class AppComponent {
     }
     this.schemaManger.InitSchema(this.curschema);
     this.schemaManger.InitValues(this.curvalues);
+    this.schemaManger.refresh_UI();
   }
 
   title = 'schemagenerator';

@@ -13,6 +13,15 @@ export class SchemaManager {
     // private origValues: any;
     CompsByName: any;
     CompsByField: any;
+    
+    private _NeedsRefreshUI: boolean = false;
+    get NeedsRefreshUI(): boolean {
+        return this._NeedsRefreshUI;
+    }
+    refresh_UI() {
+        setTimeout(() => this._NeedsRefreshUI = true);
+        setTimeout(() => this._NeedsRefreshUI = false);
+    }
 
     Language: string;
     Strings: any;
@@ -155,8 +164,8 @@ export class SchemaManager {
         const val = this.getPropValue(comp, 'options');
         if (!val || !Array.isArray(val) || val.length === 0) return [];
         let ret: ISelectOptionItems = [];
-        if (typeof val[0] === "string" ) {
-            val.forEach(item => ret.push({value: item, text: item}));
+        if (typeof val[0] === "string") {
+            val.forEach(item => ret.push({ value: item, text: item }));
             return ret;
         } else {
             return val;
@@ -167,13 +176,14 @@ export class SchemaManager {
         const val = this.getPropValue(comp, 'options');
         if (!val || !Array.isArray(val) || val.length === 0) return [];
         let ret: string[] = [];
-        if (typeof val[0] === "object" ) {
+        if (typeof val[0] === "object") {
             val.forEach(item => ret.push(item.text));
             return ret;
         } else {
             return val;
         }
     }
+
 
 
 }

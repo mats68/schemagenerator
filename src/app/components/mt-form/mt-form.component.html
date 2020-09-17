@@ -1,1 +1,3 @@
-<mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm'></mt-item>
+<form *ngIf="!sm.NeedsRefreshUI">
+    <mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm'></mt-item>
+</form>
