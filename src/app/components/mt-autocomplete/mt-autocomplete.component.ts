@@ -42,6 +42,10 @@ export class MtAutocompleteComponent implements OnInit {
     this._Value = f && f.text ? f.text : '';
   }
 
+  getError() {
+    return this.comp.error;
+  }
+
   Filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 

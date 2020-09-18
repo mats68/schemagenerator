@@ -1,9 +1,9 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
-  <mt-label [comp]='comp' [sm]='sm'></mt-label>
+  <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : comp.error}'></mt-label>
   <input matInput [(ngModel)]="Value" (ngModelChange)="filteredOptions = Filter(Value)" (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")' [matAutocomplete]="auto">
   <mat-hint>
-    <div *ngIf='comp.error' class="error">{{comp.error}}</div>
+    <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
     <div *ngIf='comp.hint && !comp.error'>{{sm.getPropValue(comp, 'hint')}}</div>
   </mat-hint>
   <mat-autocomplete #auto="matAutocomplete">
