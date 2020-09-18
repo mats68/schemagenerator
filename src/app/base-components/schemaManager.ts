@@ -131,6 +131,7 @@ export class SchemaManager {
         const val = this.Values[comp.field];
 
         if (!val && comp.required) {
+            debugger
             comp.error = `${this.Settings.requiredErrorMsg}`;
             return;
         }
@@ -140,18 +141,18 @@ export class SchemaManager {
         }
     }
 
+    validateAll() {
+        Object.keys(this.CompsByField).forEach(comp => {
+            this.validate(this.CompsByField[comp]);
+        });
+    }
+
     getStyle(comp: IComponent): string {
         const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
         const style = comp.style ?? '';
         return `margin: 10px;${width}${style}`;
     }
 
-
-    validateAll() {
-        Object.keys(this.CompsByField).forEach(comp => {
-            this.validate(this.CompsByField[comp]);
-        });
-    }
 
     toggleVisible(name: string, visible: boolean) {
         const c = name ? this.CompsByName[name] : null;

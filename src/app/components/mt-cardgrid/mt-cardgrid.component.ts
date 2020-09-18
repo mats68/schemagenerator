@@ -47,9 +47,9 @@ export class MtCardgridComponent implements OnInit, OnChanges {
 
   DeleteRow(): void {
     if (!this.currow) return;
-    this.currow = null;
     this.data = this.data.filter(r => r !== this.currow);
     this.sm.updateValue(this.comp, this.data);
+    this.currow = null;
   }
 
   summary(row: any) {

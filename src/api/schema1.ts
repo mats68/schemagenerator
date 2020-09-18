@@ -1,9 +1,6 @@
 import { SchemaManager } from '../app/base-components/schemaManager';
 import { IComponent } from '../app/base-components/types';
 
-
-
-
 export const schema1: IComponent =
 {
     type: 'form',
@@ -24,6 +21,7 @@ export const schema1: IComponent =
             hint: 'new values will be added to the list',
             default: 'one',
             autoupdate: true,
+            required: true,
             field: 'text2',
             options: ['one', 'two', 'test']
         },
@@ -163,9 +161,11 @@ export const schema1: IComponent =
             label: 'Adressen',
             field: 'adresses',
             summary(row: any, sm: SchemaManager) {
-                const name = row.name ?? '';
-                const ort = row.ort ?? '';
-                return `${name}, ${ort}`;
+                const name = row.name ? `Name: ${row.name}` : '';
+                const ort = row.ort ? ` Ort: ${row.ort}` : '';
+                const email = row.email ? ` Email: ${row.email}` : '';
+
+                return `${name}${ort}${email}`;
 
             },
             children: [
@@ -179,17 +179,28 @@ export const schema1: IComponent =
                     label: 'Adresstyp',
                     field: 'typ',
                     autoupdate: true,
-                    options: ["Rechnungsadresse", "Versandadresse"]
+                    options: ["Rechnungsadresse", "Versandadresse"],
+                    required: true,
                 },
                 {
                     type: 'input',
                     label: 'Name',
-                    field: 'name'
+                    field: 'name',
+                    required: true,
                 },
                 {
                     type: 'input',
                     label: 'Ort',
-                    field: 'ort'
+                    field: 'ort',
+                    required: true,
+                },
+                {
+                    type: 'input',
+                    inputType: 'email',
+                    label: 'Email',
+                    field: 'email',
+                    suffix: '.com',
+                    required: true,
                 },
                 {
                     type: 'checkbox',
@@ -225,13 +236,15 @@ export const values1 = {
     adresses: [
         {
             typ: 'Rechnungsadresse',
-            name: 'Thaler',
-            ort: 'Bern'
+            name: 'Thaler Matthias',
+            ort: 'Bern',
+            email: 'Matthias@gmail.com'
         },
         {
             typ: 'Versandadresse',
-            name: 'Meier',
-            ort: 'Zürich'
+            name: 'Meier Hans',
+            ort: 'Zürich',
+            email: 'MeierHans@gmail.com'
         }
 
     ]
