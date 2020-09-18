@@ -10,6 +10,7 @@ export const schema1: IComponent =
             type: 'input',
             name: 'firstInput',
             default: 'Standardwert 1',
+            required: true,
             label(sm: SchemaManager): string {
                 return sm.Language === 'de' ? 'Standort' : 'Position';
             },
@@ -29,6 +30,7 @@ export const schema1: IComponent =
             type: 'autocomplete',
             label: 'Autocomplete values differs from text',
             field: 'autocomplete2',
+            required: true,
             options: [{value: '1', text: 'one'},{value: '2', text: 'two'},{value: '3', text: 'three'}]
         },
         {

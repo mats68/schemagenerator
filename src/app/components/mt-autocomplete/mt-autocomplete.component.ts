@@ -49,13 +49,13 @@ export class MtAutocompleteComponent implements OnInit {
     if (f && f.value) {
       this.sm.updateValue(this.comp, f.value);
     }
-    
+
     if (this.comp.autoupdate) {
       if (this.options.indexOf(text) === -1) {
         this.options.push(text);
         this.optionsObj.push({value: text, text});
       }
-  
+
     }
   }
 
