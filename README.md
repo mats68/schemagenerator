@@ -25,6 +25,7 @@ ng add @angular/material
 - switch language
 - switch schema at runtime
 - switch values at runtime
+- refresh UI 
 
 
 ### todo:

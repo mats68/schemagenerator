@@ -39,9 +39,10 @@ export class MtCardgridComponent implements OnInit, OnChanges {
   CopyRow(): void {
     if (!this.currow) return;
     const newrow = JSON.parse(JSON.stringify(this.currow));
-    this.currow = newrow;
     this.data.push(newrow);
     this.sm.updateValue(this.comp, this.data);
+    this.currow = newrow;
+    this.subsm.InitValues(newrow);
   }
 
   DeleteRow(): void {

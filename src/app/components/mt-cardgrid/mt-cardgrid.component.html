@@ -16,7 +16,7 @@
     </div>
 </mat-toolbar>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex.gt-xs="100%" fxFlex.gt-sm="33%" *ngFor="let row of data">
+    <div fxFlex.gt-xs="100%" *ngFor="let row of data">
         <mat-card class="mat-elevation-z4">
             <mat-card-title (click)='rowTitleClick(row)'>
                 {{summary(row)}}
