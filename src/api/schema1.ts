@@ -24,7 +24,7 @@ export const schema1: IComponent =
             autoupdate: true,
             required: true,
             field: 'text2',
-            options: ['one', 'two', 'test']
+            options: ['one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight']
         },
         {
             type: 'autocomplete',

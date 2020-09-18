@@ -30,6 +30,7 @@ ng add @angular/material
 
 
 ### todo:
+- autocomplete nur string[] options
 - input prefix und suffix (icon oder text)
 - input can have autocomplete lsit (no extra component)
 - sm.translate function ("de", "fr", "it")
