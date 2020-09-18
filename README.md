@@ -26,10 +26,12 @@ ng add @angular/material
 - switch schema at runtime
 - switch values at runtime
 - refresh UI 
+- load external js file (schema)
 
 
 ### todo:
 - input prefix und suffix (icon oder text)
+- input can have autocomplete lsit (no extra component)
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - grid system

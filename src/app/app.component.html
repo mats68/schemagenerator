@@ -7,6 +7,14 @@
 </mat-form-field>
 
 <mat-form-field appearance="fill" class="top">
+    <mat-label>External Schema:</mat-label>
+    <mat-select [(value)]="extschema">
+        <mat-option *ngFor='let ext of extschemas' [value]="ext">{{ext}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<mat-form-field appearance="fill" class="top">
     <mat-label>Values:</mat-label>
     <mat-select [(value)]="optvalues">
         <mat-option value="1">Leere Werte</mat-option>
@@ -22,7 +30,6 @@
         <mat-option value="en">en</mat-option>
     </mat-select>
 </mat-form-field>
-
 
 <div class="formstyle">
     <mt-form [comp]='schemaManger.Schema' [sm]='schemaManger'></mt-form>
