@@ -13,7 +13,7 @@ export class SchemaManager {
     // private origValues: any;
     CompsByName: any;
     CompsByField: any;
-    
+
     private _NeedsRefreshUI: boolean = false;
     get NeedsRefreshUI(): boolean {
         return this._NeedsRefreshUI;
@@ -131,7 +131,6 @@ export class SchemaManager {
         const val = this.Values[comp.field];
 
         if (!val && comp.required) {
-            debugger
             comp.error = `${this.Settings.requiredErrorMsg}`;
             return;
         }

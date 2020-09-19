@@ -5,9 +5,11 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox, autocomplete, button, 
-  - Autocomplete: filter, add free items to list
-  - Autocomplete options with strings or objects like {value: 1, text: 'one'}...
+- Components: input, checkbox,  button, 
+  - Autocomplete: input with option, filter
+  - nur input; kein autocomplete
+  - autocomplete nur string[] options
+  - Select options with strings or objects like {value: 1, text: 'one'}...
   - common properties: label, field, width, style, default
   - types defined for component
  - Containers: form, panel, expansionpanel
@@ -27,12 +29,12 @@ ng add @angular/material
 - switch values at runtime
 - refresh UI 
 - load external js file (schema)
+- text-mask
 
 
 ### todo:
-- autocomplete nur string[] options
+- input number -> convert value
 - input prefix und suffix (icon oder text)
-- input can have autocomplete lsit (no extra component)
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - grid system

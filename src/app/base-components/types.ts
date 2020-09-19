@@ -9,7 +9,7 @@ export interface ISelectOptionItem {
     value: string | number,
     text: string,
   }
-  
+
 export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
 
@@ -29,7 +29,6 @@ export interface IComponent {
     required?: boolean,
     validate?: IComponentStringFunction,
     onChange?: IComponentFunction,
-    autoupdate?: boolean,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
 
@@ -48,7 +47,6 @@ export enum ComponentType {
     //fields
     input = 'input',
     select = 'select',
-    autocomplete = 'autocomplete',
     date = 'date',
     radiogroup = 'radiogroup',
     slider = 'slider',
@@ -59,4 +57,12 @@ export enum ComponentType {
     button = 'button',
     divider = 'divider',
   }
-  
+
+  export enum DataType {
+    string = 'string',
+    float = 'float',
+    int = 'int',
+    bool = 'bool',
+    date = 'date',
+  }
+

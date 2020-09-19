@@ -57,7 +57,6 @@ import { MtFormComponent } from './components/mt-form/mt-form.component';
 import { MtExpComponent } from './components/mt-exp/mt-exp.component';
 import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
-import { MtAutocompleteComponent } from './components/mt-autocomplete/mt-autocomplete.component';
 import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.component';
 import { MtLabelComponent } from './components/mt-label/mt-label.component';
 
@@ -71,7 +70,6 @@ import { MtLabelComponent } from './components/mt-label/mt-label.component';
     MtExpComponent,
     MtBtnComponent,
     MtDividerComponent,
-    MtAutocompleteComponent,
     MtCardgridComponent,
     MtLabelComponent,
   ],

@@ -1,3 +1,4 @@
+// https://stackoverflow.com/questions/44597807/angular-2-material-using-mds-autocomplete-example-in-a-form
 import { Component, OnInit, Input } from '@angular/core';
 
 import { SchemaManager } from '../../base-components/schemaManager';
@@ -12,27 +13,39 @@ import { IComponent } from 'src/app/base-components/types';
 export class MtInputComponent implements OnInit {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
+  options: string[];
+  filteredOptions: string[];
 
-  constructor() {
-
-  }
+  constructor() {  }
 
   ngOnInit(): void {
+    this.options = this.comp.options as string[];
+    this.filteredOptions = this.options;
   }
 
-  getValue(): string {
+  get Value(): string {
     return this.sm.getValue(this.comp);
   }
 
-  onChange(text: string): void {
-    this.sm.updateValue(this.comp, text);
+  set Value(val: string) {
+    this.sm.updateValue(this.comp, val);
   }
+
+  getError() {
+    return this.comp.error;
+  }
+
+  Filter(value: string) {
+    const filterValue = value.toLowerCase();
+    this.filteredOptions = this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
 
   onBlur(): void {
     this.sm.validate(this.comp);
   }
 
-  
+
 
 
 

@@ -9,7 +9,6 @@ export const schema1: IComponent =
         {
             type: 'input',
             name: 'firstInput',
-            default: 'Standardwert 1',
             required: true,
             label(sm: SchemaManager): string {
                 return sm.Language === 'de' ? 'Standort' : 'Position';
@@ -17,21 +16,13 @@ export const schema1: IComponent =
             field: 'text1'
         },
         {
-            type: 'autocomplete',
-            label: 'Autocomplete with autoupdate',
-            hint: 'new values will be added to the list',
+            type: 'input',
+            label: 'Autocomplete',
+            hint: 'Hinweis',
             default: 'one',
-            autoupdate: true,
             required: true,
             field: 'text2',
             options: ['one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight']
-        },
-        {
-            type: 'autocomplete',
-            label: 'Autocomplete values differs from text',
-            field: 'autocomplete2',
-            required: true,
-            options: [{value: '1', text: 'one'},{value: '2', text: 'two'},{value: '3', text: 'three'}]
         },
         {
             type: 'checkbox',
@@ -84,9 +75,8 @@ export const schema1: IComponent =
                             field: 'check100'
                         },
                         {
-                            type: 'autocomplete',
+                            type: 'input',
                             label: 'Autocomplete2',
-                            autoupdate: true,
                             field: 'text2a',
                             options: ['one', 'two', 'three', 'four', 'test']
                         },
@@ -177,10 +167,9 @@ export const schema1: IComponent =
                     field: 'id',
                 },
                 {
-                    type: 'autocomplete',
+                    type: 'input',
                     label: 'Adresstyp',
                     field: 'typ',
-                    autoupdate: true,
                     options: ["Rechnungsadresse", "Versandadresse"],
                     required: true,
                 },
