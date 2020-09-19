@@ -51,7 +51,7 @@ export class MtCardgridComponent implements OnInit, OnChanges {
   }
 
   summary(row: any) {
-    return this.comp.summary(row, this.sm);
+    return this.comp.summary(this.sm, this.comp, row);
   }
 
   rowTitleClick(row: any) {

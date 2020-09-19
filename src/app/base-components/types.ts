@@ -2,7 +2,8 @@ import { SchemaManager } from './schemaManager';
 
 export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, value?: any) => string;
 export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
-export type IComponentFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
+export type IComponentAnyFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
+export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export interface ISelectOptionItem {
@@ -19,22 +20,29 @@ export interface IComponent {
     label?: string | IComponentStringFunction,
     name?: string;
     field?: string,
-    width?: string,
     style?: string | IComponentStringFunction,
     hidden?: boolean,
     tooltip?: string | IComponentStringFunction,
     hint?: string | IComponentStringFunction,
     children?: Array<IComponent>,
+    default?: any,
+    inputType?: string,
+    width?: string,
+    suffix?: string,
     rows?: number,
     multiline?: boolean,
     required?: boolean,
+    color?: string | IComponentStringFunction,
     validate?: IComponentStringFunction,
-    onChange?: IComponentFunction,
+    onChange?: IComponentVoidFunction,
+    summary?: IComponentStringFunction,
+    onClick?: IComponentVoidFunction,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
     cols?: string | IComponentStringFunction,
     datacols?: string | IComponentStringFunction,
-    [key: string]: any,
+    error?: string,
+    // [key: string]: any,
 }
 
 export enum ComponentType {

@@ -20,7 +20,7 @@ export class MtBtnComponent implements OnInit {
 
   onClick() {
     if (this.comp.onClick) {
-      this.comp.onClick(this.sm);
+      this.comp.onClick(this.sm, this.comp);
     }
   }
 

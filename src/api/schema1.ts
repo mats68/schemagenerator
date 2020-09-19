@@ -18,7 +18,7 @@ export const schema1: IComponent =
     {
       type: 'input',
       label: 'Autocomplete',
-      hint: 'Hinweis',
+      hint: 'Choose an item',
       default: 'one',
       required: true,
       field: 'text2',
@@ -43,21 +43,18 @@ export const schema1: IComponent =
       label: 'Check1',
       field: 'check1',
       cols: 'col-xs-4',
-      width: '20%'
     },
     {
       type: 'checkbox',
       label: 'Check2',
       field: 'check2',
       cols: 'col-xs-4',
-      width: '20%'
     },
     {
       type: 'checkbox',
       label: 'Check3',
       field: 'check3',
       cols: 'col-xs-4',
-      width: '20%'
     },
     {
       type: 'expansionspanel',
@@ -127,7 +124,6 @@ export const schema1: IComponent =
     },
     {
       type: 'expansionspanel',
-      useGrid: true,
       label: 'Validation',
       children: [
         {
@@ -176,7 +172,7 @@ export const schema1: IComponent =
       label: 'Adressen',
       field: 'adresses',
       // datacols: 'col-lg-6',
-      summary(row: any, sm: SchemaManager) {
+      summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';
         const ort = row.ort ? ` Ort: ${row.ort}` : '';
         const email = row.email ? ` Email: ${row.email}` : '';
@@ -227,12 +223,11 @@ export const schema1: IComponent =
     },
     {
       type: 'divider',
-      style: 'margin-top: 300px;'
+      style: 'margin-top: 60px;'
     },
     {
       type: 'button',
       label: 'Speichern',
-      color: 'primary',
       disabled(sm: SchemaManager) {
         return !sm.ValuesChanged
       },

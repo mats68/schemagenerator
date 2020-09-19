@@ -160,7 +160,7 @@ export class SchemaManager {
   getStyle(comp: IComponent): string {
     const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
     const style = comp.style ?? '';
-    return `margin: 10px;${width}${style}`;
+    return `${width}${style}`;
   }
 
 
