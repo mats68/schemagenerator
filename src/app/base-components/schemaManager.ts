@@ -1,5 +1,5 @@
 import { strings } from './strings';
-import { IComponent, ISelectOptionItems } from './types';
+import { IComponent, ISelectOptionItems, DataType } from './types';
 
 export interface ISettings {
     requiredSuffix: string;
@@ -114,6 +114,17 @@ export class SchemaManager {
     }
 
     updateValue(comp: IComponent, val: any): void {
+
+        if (comp.dataType === DataType.float) {
+          val = parseFloat(val);
+        }
+        if (comp.dataType === DataType.int) {
+          val = parseInt(val);
+        }
+
+        if (Number.isNaN(val)) {
+          val = null;
+        }
 
         if (this.Values[comp.field] === val) return;
         this.Values[comp.field] = val;

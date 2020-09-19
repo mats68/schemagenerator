@@ -15,6 +15,7 @@ export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
 export interface IComponent {
     type: keyof typeof ComponentType;
+    dataType?: keyof typeof DataType;
     label?: string | IComponentStringFunction,
     name?: string;
     field?: string,

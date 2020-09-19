@@ -12,6 +12,7 @@ ng add @angular/material
   - Select options with strings or objects like {value: 1, text: 'one'}...
   - common properties: label, field, width, style, default
   - types defined for component
+  - datatype: number, float..
  - Containers: form, panel, expansionpanel
    - Card Grid
   - label,hint, placeholder etc. as function
@@ -31,9 +32,7 @@ ng add @angular/material
 - load external js file (schema)
 - text-mask
 
-
 ### todo:
-- input number -> convert value
 - input prefix und suffix (icon oder text)
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
