@@ -2,198 +2,218 @@ import { strings } from './strings';
 import { IComponent, ISelectOptionItems, DataType } from './types';
 
 export interface ISettings {
-    requiredSuffix: string;
-    requiredErrorMsg: string;
+  requiredSuffix: string;
+  requiredErrorMsg: string;
 }
 
 export class SchemaManager {
-    Schema: IComponent;
-    Values: any;
-    ValuesChanged: boolean;
-    // private origValues: any;
-    CompsByName: any;
-    CompsByField: any;
+  Schema: IComponent;
+  Values: any;
+  ValuesChanged: boolean;
+  // private origValues: any;
+  CompsByName: any;
+  CompsByField: any;
 
-    private _NeedsRefreshUI: boolean = false;
-    get NeedsRefreshUI(): boolean {
-        return this._NeedsRefreshUI;
-    }
-    refresh_UI() {
-        setTimeout(() => this._NeedsRefreshUI = true);
-        setTimeout(() => this._NeedsRefreshUI = false);
-    }
+  private _NeedsRefreshUI: boolean = false;
+  get NeedsRefreshUI(): boolean {
+    return this._NeedsRefreshUI;
+  }
+  refresh_UI() {
+    setTimeout(() => this._NeedsRefreshUI = true);
+    setTimeout(() => this._NeedsRefreshUI = false);
+  }
 
-    Language: string;
-    Strings: any;
+  Language: string;
+  Strings: any;
 
 
-    Settings: ISettings = {
-        requiredSuffix: ' *',
-        requiredErrorMsg: 'Eingabe erforderlich',
-    }
+  Settings: ISettings = {
+    requiredSuffix: ' *',
+    requiredErrorMsg: 'Eingabe erforderlich',
+  }
 
-    constructor(schema: any, values: any = null, language: string = 'de') {
-        this.InitSchema(schema);
-        this.InitValues(values);
-        this.InitLanguage(language);
-    }
+  constructor(schema: any, values: any = null, language: string = 'de') {
+    this.InitSchema(schema);
+    this.InitValues(values);
+    this.InitLanguage(language);
+  }
 
-    InitSchema(schema: any) {
-        this.Schema = schema;
-        const fillComps = (arr: any[]) => {
-            arr.forEach((item: any) => {
-                if (item.name) { this.CompsByName[item.name] = item; }
-                if (item.field) { this.CompsByField[item.field] = item; }
-                if (item.children) { fillComps(item.children); }
-            });
-        };
+  InitSchema(schema: any) {
+    this.Schema = schema;
+    const fillComps = (arr: any[]) => {
+      arr.forEach((item: any) => {
+        if (item.name) { this.CompsByName[item.name] = item; }
+        if (item.field) { this.CompsByField[item.field] = item; }
+        if (item.children) { fillComps(item.children); }
+      });
+    };
 
-        this.CompsByName = {};
-        this.CompsByField = {};
-        if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
-        fillComps(this.Schema.children);
+    this.CompsByName = {};
+    this.CompsByField = {};
+    if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
+    fillComps(this.Schema.children);
 
-    }
+  }
 
-    InitValues(values: any) {
-        if (values) {
-            this.Values = values;
-        } else {
-            this.Values = {};
-            Object.keys(this.CompsByField).forEach(comp => {
-                if (this.CompsByField[comp].default) {
-                    const val = this.getPropValue(this.CompsByField[comp], 'default');
-                    this.Values[comp] = val;
-                }
-            });
+  InitValues(values: any) {
+    if (values) {
+      this.Values = values;
+    } else {
+      this.Values = {};
+      Object.keys(this.CompsByField).forEach(comp => {
+        if (this.CompsByField[comp].default) {
+          const val = this.getPropValue(this.CompsByField[comp], 'default');
+          this.Values[comp] = val;
         }
-        this.ValuesChanged = false;
-        // this.origValues = JSON.parse(JSON.stringify(this.Values));
+      });
+    }
+    this.ValuesChanged = false;
+    // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
+  }
+
+  InitLanguage(lang: string) {
+    this.Language = lang;
+    this.Strings = strings[lang];
+  }
+
+  getPropValue(comp: IComponent, prop: string): any {
+    if (typeof comp[prop] === 'undefined') {
+      return undefined;
+    } else if (typeof comp[prop] === 'function') {
+      return comp[prop](this, comp);
+    } else {
+      return comp[prop];
+    }
+  }
+
+  getLabel(comp: IComponent): string {
+    return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
+  }
+
+  getValue(comp: IComponent): any {
+    let val;
+    if (!comp.field) {
+      console.error('field not specified !');
+      console.dir(JSON.stringify(comp));
+      return undefined;
     }
 
-    InitLanguage(lang: string) {
-        this.Language = lang;
-        this.Strings = strings[lang];
+    val = this.Values[comp.field];
+
+    if (!val) {
+      if (comp.type === 'checkbox') {
+        return false;
+      }
+      if (comp.type === 'cardgrid') {
+        return [];
+      }
+      return '';
+    }
+    return val;
+  }
+
+  updateValue(comp: IComponent, val: any): void {
+
+    if (comp.dataType === DataType.float) {
+      val = parseFloat(val);
+    }
+    if (comp.dataType === DataType.int) {
+      val = parseInt(val);
     }
 
-    getPropValue(comp: IComponent, prop: string): any {
-        if (typeof comp[prop] === 'undefined') {
-            return undefined;
-        } else if (typeof comp[prop] === 'function') {
-            return comp[prop](this, comp);
-        } else {
-            return comp[prop];
-        }
+    if (Number.isNaN(val)) {
+      val = null;
     }
 
-    getLabel(comp: IComponent): string {
-        return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
+    if (this.Values[comp.field] === val) return;
+    this.Values[comp.field] = val;
+    this.validate(comp);
+
+    if (comp.onChange) {
+      comp.onChange(this, comp, val);
     }
 
-    getValue(comp: IComponent): any {
-        let val;
-        if (!comp.field) {
-            console.error('field not specified !');
-            console.dir(JSON.stringify(comp));
-            return undefined;
-        }
+    this.ValuesChanged = true;
+  }
 
-        val = this.Values[comp.field];
+  validate(comp: IComponent): void {
+    comp.error = '';
+    const val = this.Values[comp.field];
 
-        if (!val) {
-            if (comp.type === 'checkbox') {
-                return false;
-            }
-            if (comp.type === 'cardgrid') {
-                return [];
-            }
-            return '';
-        }
-        return val;
+    if (!val && comp.required) {
+      comp.error = `${this.Settings.requiredErrorMsg}`;
+      return;
     }
 
-    updateValue(comp: IComponent, val: any): void {
-
-        if (comp.dataType === DataType.float) {
-          val = parseFloat(val);
-        }
-        if (comp.dataType === DataType.int) {
-          val = parseInt(val);
-        }
-
-        if (Number.isNaN(val)) {
-          val = null;
-        }
-
-        if (this.Values[comp.field] === val) return;
-        this.Values[comp.field] = val;
-        this.validate(comp);
-
-        if (comp.onChange) {
-            comp.onChange(this, comp, val);
-        }
-
-        this.ValuesChanged = true;
+    if (comp.validate) {
+      comp.error = comp.validate(this, comp, val);
     }
+  }
 
-    validate(comp: IComponent): void {
-        comp.error = '';
-        const val = this.Values[comp.field];
+  validateAll() {
+    Object.keys(this.CompsByField).forEach(comp => {
+      this.validate(this.CompsByField[comp]);
+    });
+  }
 
-        if (!val && comp.required) {
-            comp.error = `${this.Settings.requiredErrorMsg}`;
-            return;
-        }
+  getStyle(comp: IComponent): string {
+    const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
+    const style = comp.style ?? '';
+    return `margin: 10px;${width}${style}`;
+  }
 
-        if (comp.validate) {
-            comp.error = comp.validate(this, comp, val);
-        }
+
+  toggleVisible(name: string, visible: boolean) {
+    const c = name ? this.CompsByName[name] : null;
+    if (c) {
+      c.hidden = !visible;
     }
+  }
 
-    validateAll() {
-        Object.keys(this.CompsByField).forEach(comp => {
-            this.validate(this.CompsByField[comp]);
-        });
+  selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
+    const val = this.getPropValue(comp, 'options');
+    if (!val || !Array.isArray(val) || val.length === 0) return [];
+    let ret: ISelectOptionItems = [];
+    if (typeof val[0] === "string") {
+      val.forEach(item => ret.push({ value: item, text: item }));
+      return ret;
+    } else {
+      return val;
     }
+  }
 
-    getStyle(comp: IComponent): string {
-        const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
-        const style = comp.style ?? '';
-        return `margin: 10px;${width}${style}`;
+  selectOptionsAsStrings(comp: IComponent): string[] {
+    const val = this.getPropValue(comp, 'options');
+    if (!val || !Array.isArray(val) || val.length === 0) return [];
+    let ret: string[] = [];
+    if (typeof val[0] === "object") {
+      val.forEach(item => ret.push(item.text));
+      return ret;
+    } else {
+      return val;
     }
+  }
 
-
-    toggleVisible(name: string, visible: boolean) {
-        const c = name ? this.CompsByName[name] : null;
-        if (c) {
-            c.hidden = !visible;
-        }
+  getColsClass(comp: IComponent): string {
+    let ret = this.getPropValue(comp, 'cols') || '';
+    if (ret.indexOf('col-xs') === -1) {
+      ret = 'col-xs-12 ' + ret;
     }
+    return ret;
+  }
 
-    selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
-        const val = this.getPropValue(comp, 'options');
-        if (!val || !Array.isArray(val) || val.length === 0) return [];
-        let ret: ISelectOptionItems = [];
-        if (typeof val[0] === "string") {
-            val.forEach(item => ret.push({ value: item, text: item }));
-            return ret;
-        } else {
-            return val;
-        }
-    }
+  usesGrid(comp: IComponent): boolean {
+    if (!comp.children) return false;
+    let ok = false;
 
-    selectOptionsAsStrings(comp: IComponent): string[] {
-        const val = this.getPropValue(comp, 'options');
-        if (!val || !Array.isArray(val) || val.length === 0) return [];
-        let ret: string[] = [];
-        if (typeof val[0] === "object") {
-            val.forEach(item => ret.push(item.text));
-            return ret;
-        } else {
-            return val;
-        }
-    }
+    comp.children.forEach(c => {
+      if (c.cols) {
+        ok = true;
+      }
+    })
+    return ok;
+  }
 
 
 

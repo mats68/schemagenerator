@@ -1,6 +1,4 @@
-// https://medium.com/javascript-in-plain-english/create-a-responsive-card-grid-in-angular-using-flex-layout-3d1b58411e7a
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-// import { GRIDID } from '../../base-components/constants'
 import { SchemaManager } from '../../base-components/schemaManager';
 import { IComponent } from 'src/app/base-components/types';
 
@@ -27,7 +25,7 @@ export class MtCardgridComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
   }
-  
+
   Insert(): void {
     const row  = {};
     this.subsm.InitValues(row);

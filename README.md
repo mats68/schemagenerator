@@ -31,12 +31,13 @@ ng add @angular/material
 - refresh UI 
 - load external js file (schema)
 - text-mask
+- grid system (cols-property)
 
 ### todo:
 - input prefix und suffix (icon oder text)
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
-- grid system
+- schemamanager innerhalb mt-form
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
 - validation

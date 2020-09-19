@@ -63,7 +63,7 @@ export const schema1: IComponent =
         {
           type: 'input',
           label: 'Text10',
-          field: 'text10'
+          field: 'text10',
         },
         {
           type: 'checkbox',
@@ -124,28 +124,33 @@ export const schema1: IComponent =
     },
     {
       type: 'expansionspanel',
+      useGrid: true,
       label: 'Validation',
       children: [
         {
           type: 'input',
           label: 'Required',
           field: 'text20',
+          cols: 'col-lg-3 col-xs-6',
           required: true
         },
         {
           type: 'input',
           label: 'Text30',
+          cols: 'col-lg-3 col-xs-6',
           field: 'text30'
         },
         {
           type: 'input',
           label: 'Prev',
+          cols: 'col-lg-3 col-xs-6',
           field: 'prev'
         },
         {
           type: 'input',
           label: 'Required if prev empty',
           field: 'next',
+          cols: 'col-lg-3 col-xs-6',
           validate(sm: SchemaManager, comp: IComponent, val: any): string {
             if (!sm.Values.prev && !val) {
               return 'Required since prev is empty';
@@ -158,6 +163,7 @@ export const schema1: IComponent =
           type: 'input',
           inputType: 'number',
           label: 'Number',
+          cols: 'col-lg-3',
           field: 'number'
         },
       ]

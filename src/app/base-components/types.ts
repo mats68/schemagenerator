@@ -32,6 +32,7 @@ export interface IComponent {
     onChange?: IComponentFunction,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
+    cols?: string | IComponentStringFunction,
 
     [key: string]: any,
 }

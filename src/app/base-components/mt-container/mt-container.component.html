@@ -1,0 +1,8 @@
+<div *ngIf='usesGrid' class="row">
+  <mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm' [class]='sm.getColsClass(child)'></mt-item>
+</div>
+
+<div *ngIf='!usesGrid'>
+  <mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm'></mt-item>
+</div>
+
