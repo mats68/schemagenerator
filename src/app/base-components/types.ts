@@ -33,7 +33,7 @@ export interface IComponent {
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
     cols?: string | IComponentStringFunction,
-
+    datacols?: string | IComponentStringFunction,
     [key: string]: any,
 }
 

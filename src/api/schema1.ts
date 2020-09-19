@@ -42,18 +42,21 @@ export const schema1: IComponent =
       type: 'checkbox',
       label: 'Check1',
       field: 'check1',
+      cols: 'col-xs-4',
       width: '20%'
     },
     {
       type: 'checkbox',
       label: 'Check2',
       field: 'check2',
+      cols: 'col-xs-4',
       width: '20%'
     },
     {
       type: 'checkbox',
       label: 'Check3',
       field: 'check3',
+      cols: 'col-xs-4',
       width: '20%'
     },
     {
@@ -172,6 +175,7 @@ export const schema1: IComponent =
       type: 'cardgrid',
       label: 'Adressen',
       field: 'adresses',
+      // datacols: 'col-lg-6',
       summary(row: any, sm: SchemaManager) {
         const name = row.name ? `Name: ${row.name}` : '';
         const ort = row.ort ? ` Ort: ${row.ort}` : '';

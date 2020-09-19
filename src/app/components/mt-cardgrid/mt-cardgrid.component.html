@@ -16,7 +16,7 @@
     </div>
 </mat-toolbar>
 <div class="content row">
-    <div *ngFor="let row of data">
+    <div *ngFor="let row of data" [class]='sm.getColsClass(comp, "datacols")'>
         <mat-card class="mat-elevation-z4">
             <mat-card-title (click)='rowTitleClick(row)' class="text">
                 {{summary(row)}}

@@ -195,8 +195,8 @@ export class SchemaManager {
     }
   }
 
-  getColsClass(comp: IComponent): string {
-    let ret = this.getPropValue(comp, 'cols') || '';
+  getColsClass(comp: IComponent, prop: string = 'cols'): string {
+    let ret = this.getPropValue(comp, prop) || '';
     if (ret.indexOf('col-xs') === -1) {
       ret = 'col-xs-12 ' + ret;
     }
@@ -205,14 +205,8 @@ export class SchemaManager {
 
   usesGrid(comp: IComponent): boolean {
     if (!comp.children) return false;
-    let ok = false;
-
-    comp.children.forEach(c => {
-      if (c.cols) {
-        ok = true;
-      }
-    })
-    return ok;
+    const hasGrid = comp.children.find(f => f.cols);
+    return !!hasGrid;
   }
 
 
