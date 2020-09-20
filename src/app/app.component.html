@@ -31,8 +31,8 @@
     </mat-select>
 </mat-form-field>
 
-<div class="formstyle">
-    <mt-form [comp]='schemaManger.Schema' [sm]='schemaManger'></mt-form>
+<div class="formstyle" *ngIf='curschema'>
+  <vs-form [schema]='curschema' [values]='curvalues'></vs-form>
 </div>
 
 <div style="margin-top: 100px;">Values</div>

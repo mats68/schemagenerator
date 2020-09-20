@@ -59,6 +59,7 @@ import { MtDividerComponent } from './components/mt-divider/mt-divider.component
 import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.component';
 import { MtLabelComponent } from './components/mt-label/mt-label.component';
 import { MtContainerComponent } from './base-components/mt-container/mt-container.component';
+import { VsFormComponent } from './base-components/vs-form/vs-form.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MtContainerComponent } from './base-components/mt-container/mt-containe
     MtCardgridComponent,
     MtLabelComponent,
     MtContainerComponent,
+    VsFormComponent,
   ],
   imports: [
     BrowserModule,

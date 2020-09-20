@@ -1,8 +1,9 @@
 import { SchemaManager } from '../app/base-components/schemaManager';
-import { IComponent } from '../app/base-components/types';
+import { IComponent, ISchema } from '../app/base-components/types';
 
-export const schema1: IComponent =
+export const schema1: ISchema =
 {
+  language: 'de',
   type: 'form',
   name: 'form',
   children: [

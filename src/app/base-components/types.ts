@@ -13,6 +13,11 @@ export interface ISelectOptionItem {
 
 export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
+export interface ISchema extends IComponent {
+  onSubmit?: IComponentVoidFunction,
+  language?: string,
+
+}
 
 export interface IComponent {
     type: keyof typeof ComponentType;

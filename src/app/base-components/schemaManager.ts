@@ -1,5 +1,5 @@
 import { strings } from './strings';
-import { IComponent, ISelectOptionItems, DataType } from './types';
+import { ISchema, IComponent, ISelectOptionItems, DataType } from './types';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -7,7 +7,7 @@ export interface ISettings {
 }
 
 export class SchemaManager {
-  Schema: IComponent;
+  Schema: ISchema;
   Values: any;
   ValuesChanged: boolean;
   // private origValues: any;
@@ -32,13 +32,13 @@ export class SchemaManager {
     requiredErrorMsg: 'Eingabe erforderlich',
   }
 
-  constructor(schema: any, values: any = null, language: string = 'de') {
+  constructor(schema: ISchema, values: any = null) {
     this.InitSchema(schema);
     this.InitValues(values);
-    this.InitLanguage(language);
+    this.InitLanguage(schema.language);
   }
 
-  InitSchema(schema: any) {
+  InitSchema(schema: ISchema) {
     this.Schema = schema;
     const fillComps = (arr: any[]) => {
       arr.forEach((item: any) => {
@@ -72,9 +72,12 @@ export class SchemaManager {
 
   }
 
-  InitLanguage(lang: string) {
-    this.Language = lang;
-    this.Strings = strings[lang];
+  InitLanguage(language: string) {
+    if (!language) {
+      language = 'de';
+    }
+    this.Schema.language = language;
+    this.Strings = strings[this.Schema.language];
   }
 
   getPropValue(comp: IComponent, prop: string): any {
@@ -117,13 +120,12 @@ export class SchemaManager {
 
     if (comp.dataType === DataType.float) {
       val = parseFloat(val);
+      if (isNaN(val)) val = null;
+
     }
     if (comp.dataType === DataType.int) {
       val = parseInt(val);
-    }
-
-    if (Number.isNaN(val)) {
-      val = null;
+      if (isNaN(val)) val = null;
     }
 
     if (this.Values[comp.field] === val) return;
