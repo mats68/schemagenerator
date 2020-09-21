@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SchemaManager } from './base-components/schemaManager';
 import { schema1, values1 } from '../api/schema1';
 import { schema2, values2 } from '../api/schema2';
@@ -11,11 +11,17 @@ import { VsFormComponent } from './base-components/vs-form/vs-form.component';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   curschema: any;
   curvalues: any;
   extschemas: string[];
-  schemaManger: SchemaManager;
+  _schemaManger: SchemaManager;
+  get schemaManger(): SchemaManager {
+    if (!this._schemaManger && this.vsform) {
+      this._schemaManger = this.vsform.schemaManger;
+    }
+    if (this._schemaManger) return this._schemaManger;
+  }
   @ViewChild(VsFormComponent) vsform: VsFormComponent;
 
   ngOnInit() {
@@ -24,11 +30,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.curschema = schema1;
   }
 
-  ngAfterViewInit() {
-    // console.log(this.vsform);
-    this.schemaManger = this.vsform.schemaManger;
-
-  }
   private _sprache: string = 'de';
   get sprache(): string {
     return this._sprache;

@@ -35,6 +35,7 @@ ng add @angular/material
 
 ### todo:
 - input prefix und suffix (icon oder text)
+- settings objekt 
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - schemamanager innerhalb mt-form
