@@ -37,7 +37,7 @@ export interface IComponent {
     rows?: number,
     multiline?: boolean,
     required?: boolean,
-    color?: string | IComponentStringFunction,
+    color?: keyof typeof Color,
     validate?: IComponentStringFunction,
     onChange?: IComponentVoidFunction,
     summary?: IComponentStringFunction,
@@ -47,6 +47,9 @@ export interface IComponent {
     cols?: string | IComponentStringFunction,
     datacols?: string | IComponentStringFunction,
     error?: string,
+    kind?: keyof typeof ButtonKind,
+    icon?: string,
+
     // [key: string]: any,
 }
 
@@ -81,3 +84,19 @@ export enum ComponentType {
     date = 'date',
   }
 
+  export enum ButtonKind {
+    standard = 'standard',
+    raised = 'raised',
+    stroked = 'stroked',
+    flat = 'flat',
+    icon = 'icon',
+    fab = 'fab',
+    minifab = 'minifab'
+   }
+
+   export enum Color {
+    primary ='primary',
+    accent ='accent',
+    warn ='warn',
+
+   }

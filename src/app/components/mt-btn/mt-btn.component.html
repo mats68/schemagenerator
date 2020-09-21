@@ -1,1 +1,4 @@
-<button mat-raised-button [color]='comp.color' (click)='onClick()' [disabled]='sm.getPropValue(comp, "disabled")'>{{sm.getLabel(comp)}}</button>
+<button [class]='btnClass' (click)='onClick()' [disabled]='sm.getPropValue(comp, "disabled")' [style]="sm.getStyle(comp)">
+  <mat-icon *ngIf='isIcon'>{{comp.icon}}</mat-icon>
+  <span *ngIf='!isIcon'>{{sm.getLabel(comp)}}</span>
+</button>

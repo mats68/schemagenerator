@@ -4,7 +4,7 @@ schemas.IA = {
     children: [{
             type: 'input',
             name: 'firstInput',
-            label: 'IA',
+            label: 'Test-IA',
             field: 'text1',
             default: 'Standard'
         },

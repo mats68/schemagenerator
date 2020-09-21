@@ -34,6 +34,7 @@ ng add @angular/material
 - grid system (cols-property)
 
 ### todo:
+- not validate bug in grid
 - input prefix und suffix (icon oder text)
 - settings objekt 
 - sm.translate function ("de", "fr", "it")
@@ -45,7 +46,7 @@ ng add @angular/material
   panel with all errors, (mit Feldnamen am anfang, can jump)
 - Validation
   - disabled (input, check, btn...)
-- Button type: '', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
+- Button type: 'standard', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
          link: (falls link, dann <a>)
          icon: (falls type = 'icon', 'fab', 'mini-fab')
   

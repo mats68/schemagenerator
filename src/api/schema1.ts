@@ -1,5 +1,9 @@
 import { SchemaManager } from '../app/base-components/schemaManager';
-import { IComponent, ISchema } from '../app/base-components/types';
+import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../app/base-components/types';
+
+function buttonClick(comp) {
+  alert(comp.label);
+}
 
 export const schema1: ISchema =
 {
@@ -166,6 +170,81 @@ export const schema1: ISchema =
           cols: 'col-lg-3',
           field: 'number'
         },
+      ]
+    },
+    {
+      type: ComponentType.expansionspanel,
+      label: 'Buttons',
+      children: [
+        {
+          type: ComponentType.button,
+          label: 'normal button',
+          width: '140px',
+          onClick(sm: SchemaManager, comp: IComponent)  {
+            buttonClick(comp);
+          }
+
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.raised,
+          label: 'raised button',
+          width: '140px',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.flat,
+          width: '140px',
+          style: 'color: blue',
+          label: 'flat button',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.stroked,
+          width: '140px',
+          label: 'stroked button',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.icon,
+          width: '140px',
+          label: 'icon button',
+          style: 'color: blue',
+          icon: 'favorite',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.fab,
+          style: 'background-color: blue; color: white; width: 60px; height: 60px; margin-right: 10px',
+          label: 'fab button',
+          icon: 'favorite',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.minifab,
+          style: 'color: blue; width: 30px; height: 30px',
+          label: 'minifab button',
+          icon: 'menu',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+
       ]
     },
     {
