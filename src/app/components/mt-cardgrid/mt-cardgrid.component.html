@@ -15,16 +15,13 @@
 
     </div>
 </mat-toolbar>
-<div class="content row">
-    <div *ngFor="let row of data" [class]='sm.getColsClass(comp, "datacols")'>
-        <mat-card class="mat-elevation-z4">
-            <mat-card-title (click)='rowTitleClick(row)' class="text">
-                {{summary(row)}}
-            </mat-card-title>
-            <mat-card-content *ngIf='currow === row'>
-              <mt-container [comp]='comp' [sm]='subsm'></mt-container>
-            </mat-card-content>
-        </mat-card>
-    </div>
-
-</div>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let row of data" [class]='sm.getColsClass(comp, "datacols")'>
+        <mat-expansion-panel-header>
+            {{summary(row)}}
+        </mat-expansion-panel-header>
+        <div *ngIf='currow === row'>
+            <mt-container [comp]='comp' [sm]='subsm'></mt-container>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
