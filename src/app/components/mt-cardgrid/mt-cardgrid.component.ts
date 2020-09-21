@@ -5,14 +5,17 @@ import { IComponent } from 'src/app/base-components/types';
 @Component({
   selector: 'mt-cardgrid',
   templateUrl: './mt-cardgrid.component.html',
-  styleUrls: ['./mt-cardgrid.component.scss']
-})
+  styleUrls: ['./mt-cardgrid.component.scss'],
+  host: {
+    '(window:resize)': 'onResize($event)'
+  }})
 export class MtCardgridComponent implements OnInit, OnChanges {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   data: any[] = [];
   subsm: SchemaManager;
   currow: any;
+  smallScreen: boolean;
 
   constructor() {
 
@@ -21,10 +24,20 @@ export class MtCardgridComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.data = this.sm.getValue(this.comp);
     this.subsm = new SchemaManager(this.comp);
+
+
   }
 
   ngOnChanges() {
   }
+
+  onResize(event){
+    this.smallScreen = screen.width < 700;
+    //event.target.innerWidth; // window width
+  }
+
+
+
 
   Insert(): void {
     const row  = {};
