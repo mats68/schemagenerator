@@ -35,7 +35,7 @@ ng add @angular/material
 
 ### todo:
 - not validate bug in grid
-- input prefix und suffix (icon oder text)
+- input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
 - sm.translate function ("de", "fr", "it")
 - Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?

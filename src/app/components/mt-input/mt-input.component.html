@@ -1,17 +1,32 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
-    <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
-    <span matPrefix>{{comp.prefix}}</span>
-    <input *ngIf='!comp.multiline && !comp.options' matInput [(ngModel)]='Value' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [type]='comp.inputType' [disabled]='sm.getPropValue(comp, "disabled")' />
-    <textarea *ngIf='comp.multiline' matInput [(ngModel)]='Value' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [rows]='comp.rows' [disabled]='sm.getPropValue(comp, "disabled")'></textarea>
-    <input *ngIf='comp.options' matInput [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()' [placeholder]='sm.getPropValue(comp, "placeholder")' [type]='comp.inputType' [disabled]='sm.getPropValue(comp, "disabled")' [matAutocomplete]="auto"/>
-    <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
-    <mat-hint>
-        <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
-        <div *ngIf='comp.hint && !getError()'>{{sm.getPropValue(comp, 'hint')}}</div>
-    </mat-hint>
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
+  <span matPrefix>{{comp.prefix}}</span>
+  <input *ngIf='!comp.multiline && !comp.options'
+    [mask]='comp.mask' [thousandSeparator]='maskOptions.thousandSeparator'
+    [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
+    matInput [(ngModel)]='Value' (blur)='onBlur()'
+    [type]='comp.inputType'
+    [placeholder]='sm.getPropValue(comp, "placeholder")'
+    [disabled]='sm.getPropValue(comp, "disabled")' />
+  <textarea *ngIf='comp.multiline'
+    [rows]='comp.rows'
+    matInput [(ngModel)]='Value' (blur)='onBlur()'
+    [placeholder]='sm.getPropValue(comp, "placeholder")'
+    [disabled]='sm.getPropValue(comp, "disabled")'>
+  </textarea>
+  <input *ngIf='comp.options' 
+    [matAutocomplete]="auto" (ngModelChange)='Filter(Value)'
+    matInput [(ngModel)]='Value' (blur)='onBlur()'
+    [placeholder]='sm.getPropValue(comp, "placeholder")'
+    [disabled]='sm.getPropValue(comp, "disabled")'  />
+  <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
+  <mat-hint>
+    <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
+    <div *ngIf='comp.hint && !getError()'>{{sm.getPropValue(comp, 'hint')}}</div>
+  </mat-hint>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

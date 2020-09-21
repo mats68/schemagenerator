@@ -16,7 +16,6 @@ export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 export interface ISchema extends IComponent {
   onSubmit?: IComponentVoidFunction,
   language?: string,
-
 }
 
 export interface IComponent {
@@ -34,6 +33,8 @@ export interface IComponent {
     inputType?: string,
     width?: string,
     suffix?: string,
+    mask?: string | IComponentStringFunction,
+    maskOptions?: IMaskOptions,
     rows?: number,
     multiline?: boolean,
     required?: boolean,
@@ -52,6 +53,12 @@ export interface IComponent {
     expanded?: boolean,
 
     // [key: string]: any,
+}
+
+export interface IMaskOptions {
+  thousandSeparator?: string,
+  dropSpecialCharacters?: boolean,
+  showMaskTyped?: boolean,
 }
 
 export enum ComponentType {

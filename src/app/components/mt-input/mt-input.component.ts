@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { SchemaManager } from '../../base-components/schemaManager';
-import { IComponent } from 'src/app/base-components/types';
+import { IComponent, IMaskOptions } from 'src/app/base-components/types';
 
 
 @Component({
@@ -15,12 +15,15 @@ export class MtInputComponent implements OnInit {
   @Input() comp: IComponent;
   options: string[];
   filteredOptions: string[];
+  maskOptions: IMaskOptions;
 
   constructor() {  }
 
   ngOnInit(): void {
     this.options = this.comp.options as string[];
     this.filteredOptions = this.options;
+    this.maskOptions = this.comp.maskOptions || {};
+    if (!this.comp.mask) this.maskOptions = {};
   }
 
   get Value(): string {

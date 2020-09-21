@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -60,6 +61,12 @@ import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.compon
 import { MtLabelComponent } from './components/mt-label/mt-label.component';
 import { MtContainerComponent } from './base-components/mt-container/mt-container.component';
 import { VsFormComponent } from './base-components/vs-form/vs-form.component';
+
+const maskConfig: Partial<IConfig> = {
+  dropSpecialCharacters: false,
+  validation: false,
+  thousandSeparator: "'",
+};
 
 @NgModule({
   declarations: [
@@ -129,7 +136,8 @@ import { VsFormComponent } from './base-components/vs-form/vs-form.component';
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    FormsModule
+    FormsModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

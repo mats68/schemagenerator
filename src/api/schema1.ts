@@ -166,10 +166,32 @@ export const schema1: ISchema =
         {
           type: 'input',
           inputType: 'number',
+          dataType: 'float',
           label: 'Number',
           cols: 'col-lg-3',
           field: 'number'
         },
+        {
+          type: 'input',
+          label: 'Number with mask',
+          dataType: 'float',
+          mask: '0*.00',
+          cols: 'col-lg-3',
+          field: 'numbermask'
+        },
+        {
+          type: 'input',
+          label: 'Number with mask special character',
+          hint: 'special character not saved',
+          dataType: 'float',
+          mask: '0*.00',
+          maskOptions: {
+            dropSpecialCharacters: true
+          },
+          cols: 'col-lg-3',
+          field: 'numbermask2'
+        },
+        
       ]
     },
     {
@@ -323,6 +345,8 @@ export const values1 = {
   text1: 'AA',
   text2: 'one',
   check1: true,
+  numbermask: 123.55,
+  number: 800,
   adresses: [
     {
       typ: 'Rechnungsadresse',
