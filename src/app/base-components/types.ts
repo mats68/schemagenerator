@@ -49,6 +49,7 @@ export interface IComponent {
     error?: string,
     kind?: keyof typeof ButtonKind,
     icon?: string,
+    expanded?: boolean,
 
     // [key: string]: any,
 }

@@ -1,11 +1,10 @@
-<mat-expansion-panel *ngIf='comp && sm' class="panel" [style]='sm.getStyle(comp)'
-  [disabled]='sm.getPropValue(comp, "disabled")'>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{sm.getLabel(comp)}}
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+<mat-expansion-panel *ngIf='comp && sm' class="panel" [style]='sm.getStyle(comp)' [expanded]='comp.expanded' [disabled]='sm.getPropValue(comp, "disabled")'>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{sm.getLabel(comp)}}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <mt-container [comp]='comp' [sm]='sm'></mt-container>
+    <mt-container [comp]='comp' [sm]='sm'></mt-container>
 
 </mat-expansion-panel>
