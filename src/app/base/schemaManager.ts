@@ -18,11 +18,13 @@ export class SchemaManager {
   get ScreenSize(): IScreenSize {
     return this._ScreenSize;
   }
-  
+
   set ScreenSize(val: IScreenSize) {
-    this._ScreenSize = val;
-    if (this.Schema.onResize) {
-      this.Schema.onResize(this, this.Schema)
+    if (this._ScreenSize !== val) {
+      this._ScreenSize = val;
+      if (this.Schema.onResize) {
+        this.Schema.onResize(this)
+      }
     }
   }
 
@@ -67,7 +69,7 @@ export class SchemaManager {
     this.CompsByField = {};
     if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
     fillComps(this.Schema.children);
-    if (this.Schema.onInitSchema) this.Schema.onInitSchema(this, this.Schema);
+    if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
 
   }
 
@@ -84,7 +86,7 @@ export class SchemaManager {
       });
     }
     this.ValuesChanged = false;
-    if (this.Schema.onInitValues) this.Schema.onInitValues(this, this.Schema);
+    if (this.Schema.onInitValues) this.Schema.onInitValues(this);
     // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
   }
@@ -107,7 +109,6 @@ export class SchemaManager {
     } else { 
       this.ScreenSize = 'xs';
     }
-
   }
 
   getPropValue(comp: IComponent, prop: string): any {

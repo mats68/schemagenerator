@@ -4,7 +4,7 @@ export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, val
 export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
 export type IComponentAnyFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
 export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
-export type ISchemaVoidFunction = (sm: SchemaManager, schema: ISchema) => void;
+export type ISchemaVoidFunction = (sm: SchemaManager) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg';
