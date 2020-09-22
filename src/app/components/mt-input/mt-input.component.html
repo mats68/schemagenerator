@@ -15,8 +15,8 @@
     [disabled]='sm.getPropValue(comp, "disabled")'>
   </textarea>
   <input *ngIf='comp.options' 
-    [matAutocomplete]="auto" (ngModelChange)='Filter(Value)'
-    matInput [(ngModel)]='Value' (blur)='onBlur()'
+    [matAutocomplete]="auto" 
+    matInput [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
     [disabled]='sm.getPropValue(comp, "disabled")'  />
   <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
