@@ -11,7 +11,6 @@ export const schema1: ISchema =
   type: 'form',
   name: 'form',
   onInitSchema(sm) {
-    sm.CompsByField.text2.options = ['hello', 'one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight'];
 
   },
   onSubmit(sm) {
@@ -19,6 +18,12 @@ export const schema1: ISchema =
   },
   onResize(sm) {
     console.log('resize', sm.ScreenSize);
+  },
+  onDataLoaded(sm) {
+    const liste = sm.Schema.auswahllisten.mitarbeiter;
+    //console.log('ausw: ', sm.Schema.auswahllisten);
+    sm.CompsByField.mitarbeiter.options = Object.values(liste);
+    sm.refresh_UI();
   },
   children: [
     {
@@ -52,6 +57,12 @@ export const schema1: ISchema =
       dataType: 'float',
       required: true,
       field: 'float1'
+    },
+    {
+      type: 'input',
+      label: 'Mitarbeiter',
+      options: [],
+      field: 'mitarbeiter'
     },
     {
       type: 'checkbox',

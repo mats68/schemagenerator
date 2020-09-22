@@ -4,6 +4,7 @@ import { schema1, values1 } from '../api/schema1';
 import { schema2, values2 } from '../api/schema2';
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
+import {RestService} from '../api/rest.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,13 @@ export class AppComponent implements OnInit {
   curvalues: any;
   extschemas: string[];
   _schemaManger: SchemaManager;
+  service: RestService;
+
+
+  constructor(restService: RestService) {
+    this.service = restService;
+  
+  }  
   get schemaManger(): SchemaManager {
     if (!this._schemaManger && this.vsform) {
       this._schemaManger = this.vsform.schemaManger;
@@ -28,6 +36,21 @@ export class AppComponent implements OnInit {
     this.extschemas = [];
     Object.keys(schemas).forEach(s => this.extschemas.push(s));
     this.curschema = schema1;
+    
+    this.curschema.auswahllisten = {};
+    this.service.getAuswahlliste('vnb').subscribe((data: any) => {
+      this.curschema.auswahllisten.vnb = data.Daten;
+      //console.log(data);
+    });    
+
+    this.service.getAuswahlliste('mitarbeiter').subscribe((data: any) => {
+      this.curschema.auswahllisten.mitarbeiter = data.Daten;
+      this.schemaManger.DataLoaded();
+      
+
+      //console.log(data);
+    });    
+
   }
 
   private _sprache: string = 'de';

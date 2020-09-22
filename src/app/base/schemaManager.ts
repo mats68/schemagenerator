@@ -28,8 +28,6 @@ export class SchemaManager {
     }
   }
 
-
-
   private _NeedsRefreshUI: boolean = false;
   get NeedsRefreshUI(): boolean {
     return this._NeedsRefreshUI;
@@ -109,6 +107,10 @@ export class SchemaManager {
     } else { 
       this.ScreenSize = 'xs';
     }
+  }
+
+  DataLoaded() {
+    if (this.Schema.onDataLoaded) this.Schema.onDataLoaded(this);
   }
 
   getPropValue(comp: IComponent, prop: string): any {

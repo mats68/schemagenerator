@@ -21,8 +21,10 @@ export interface ISchema extends IComponent {
   onSubmit?: ISchemaVoidFunction,
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
+  onDataLoaded?: ISchemaVoidFunction,
   onResize?: ISchemaVoidFunction,
   language?: string,
+  auswahllisten?: any,
 }
 
 export interface IComponent {
