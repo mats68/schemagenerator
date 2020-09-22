@@ -51,6 +51,8 @@ export interface IComponent {
     kind?: keyof typeof ButtonKind,
     icon?: string,
     expanded?: boolean,
+    toolbarColor?: string,
+    toolbarItems?: IToolbarItem[],
 
     // [key: string]: any,
 }
@@ -60,6 +62,14 @@ export interface IMaskOptions {
   dropSpecialCharacters?: boolean,
   showMaskTyped?: boolean,
 }
+
+export interface IToolbarItem {
+  label: string,
+  icon: string,
+  color?: string,
+  onClick?: IComponentVoidFunction,
+}
+
 
 export enum ComponentType {
     // containers
@@ -79,8 +89,9 @@ export enum ComponentType {
     checkbox = 'checkbox',
     switch = 'switch',
     // static
-    text = 'text',
+    label = 'label',
     button = 'button',
+    toolbar = 'toolbar',
     divider = 'divider',
   }
 

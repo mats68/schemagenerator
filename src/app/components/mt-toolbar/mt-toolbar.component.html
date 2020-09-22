@@ -1,0 +1,24 @@
+<mat-toolbar [color]='comp.color'>
+    <mat-toolbar-row>
+        <button *ngIf='smallScreen' mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor='let item of comp.toolbarItems' (click)='item.onClick(sm, comp)'>
+                <mat-icon>{{item.icon}}</mat-icon>
+                <span>{{item.label}}</span>
+            </button>
+        </mat-menu>
+        <div>
+            {{sm.getLabel(comp)}}
+        </div>
+        <span class="menu-spacer"></span>
+        <div *ngIf='!smallScreen'>
+            <button mat-mini-fab *ngFor='let item of comp.toolbarItems' [color]='item.color' class="btn" (click)='item.onClick(sm, comp)'
+                [matTooltip]='item.label'>
+                <mat-icon>{{item.icon}}</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+
+</mat-toolbar>

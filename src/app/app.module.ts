@@ -61,6 +61,7 @@ import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.compon
 import { MtLabelComponent } from './components/mt-label/mt-label.component';
 import { MtContainerComponent } from './base/mt-container/mt-container.component';
 import { VsFormComponent } from './base/vs-form/vs-form.component';
+import { MtToolbarComponent } from './components/mt-toolbar/mt-toolbar.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -82,6 +83,7 @@ const maskConfig: Partial<IConfig> = {
     MtLabelComponent,
     MtContainerComponent,
     VsFormComponent,
+    MtToolbarComponent,
   ],
   imports: [
     BrowserModule,

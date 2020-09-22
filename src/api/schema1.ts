@@ -197,7 +197,6 @@ export const schema1: ISchema =
     {
       type: ComponentType.expansionspanel,
       label: 'Buttons',
-      expanded: true,
       children: [
         {
           type: ComponentType.button,
@@ -315,6 +314,24 @@ export const schema1: ISchema =
       ]
     },
     {
+      type: 'toolbar',
+      label: 'Was weiss',
+      toolbarItems: [
+        {
+          label: 'First',
+          icon: 'menu',
+          color: 'primary',
+          onClick(sm, comp) {alert(comp.label)}
+        },
+        {
+          label: 'Delete',
+          icon: 'delete',
+          color: 'warn',
+          onClick(sm, comp) {alert(comp.label)}
+        },
+      ]
+    },
+    {
       type: 'divider',
       style: 'margin-top: 60px;'
     },
@@ -330,6 +347,7 @@ export const schema1: ISchema =
     },
 
   ]
+
 };
 
 export const values1 = {
