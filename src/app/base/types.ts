@@ -69,7 +69,7 @@ export enum ComponentType {
     tabs = 'tabs',
     tab = 'tab',
     form = 'form',
-    cardgrid = 'cardgrid',
+    datatable = 'datatable',
     //fields
     input = 'input',
     select = 'select',

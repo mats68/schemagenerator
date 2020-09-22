@@ -52,15 +52,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { MtInputComponent } from './components/mt-input/mt-input.component';
 import { MtCheckboxComponent } from './components/mt-checkbox/mt-checkbox.component';
-import { MtItemComponent } from './base-components/mt-item/mt-item.component';
+import { MtItemComponent } from './base/mt-item/mt-item.component';
 import { MtFormComponent } from './components/mt-form/mt-form.component';
 import { MtExpComponent } from './components/mt-exp/mt-exp.component';
 import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
 import { MtCardgridComponent } from './components/mt-cardgrid/mt-cardgrid.component';
 import { MtLabelComponent } from './components/mt-label/mt-label.component';
-import { MtContainerComponent } from './base-components/mt-container/mt-container.component';
-import { VsFormComponent } from './base-components/vs-form/vs-form.component';
+import { MtContainerComponent } from './base/mt-container/mt-container.component';
+import { VsFormComponent } from './base/vs-form/vs-form.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,

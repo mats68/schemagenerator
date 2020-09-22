@@ -1,9 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { SchemaManager } from './base-components/schemaManager';
+import { SchemaManager } from './base/schemaManager';
 import { schema1, values1 } from '../api/schema1';
 import { schema2, values2 } from '../api/schema2';
 declare var schemas: any;
-import { VsFormComponent } from './base-components/vs-form/vs-form.component';
+import { VsFormComponent } from './base/vs-form/vs-form.component';
 
 @Component({
   selector: 'app-root',

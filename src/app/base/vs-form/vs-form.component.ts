@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { ISchema } from 'src/app/base-components/types';
-import { SchemaManager } from '../../base-components/schemaManager';
+import { ISchema } from 'src/app/base/types';
+import { SchemaManager } from '../../base/schemaManager';
 
 @Component({
   selector: 'vs-form',

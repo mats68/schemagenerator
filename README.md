@@ -34,6 +34,7 @@ ng add @angular/material
 - grid system (cols-property)
 
 ### todo:
+- datatable
 - not validate bug in grid
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 

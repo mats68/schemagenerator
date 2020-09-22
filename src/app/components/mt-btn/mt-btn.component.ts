@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchemaManager } from '../../base-components/schemaManager';
-import { IComponent, ButtonKind } from 'src/app/base-components/types';
+import { SchemaManager } from '../../base/schemaManager';
+import { IComponent, ButtonKind } from 'src/app/base/types';
 
 
 @Component({

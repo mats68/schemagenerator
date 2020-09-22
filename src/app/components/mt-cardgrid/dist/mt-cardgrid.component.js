@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.MtCardgridComponent = void 0;
 var core_1 = require("@angular/core");
-var schemaManager_1 = require("../../base-components/schemaManager");
+var schemaManager_1 = require("../../base/schemaManager");
 var MtCardgridComponent = /** @class */ (function () {
     function MtCardgridComponent() {
         this.data = [];

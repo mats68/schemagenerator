@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchemaManager } from '../../base-components/schemaManager';
+import { SchemaManager } from '../../base/schemaManager';
 import { IComponent } from '../types';
 
 

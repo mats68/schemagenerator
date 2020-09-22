@@ -1,5 +1,5 @@
-import { SchemaManager } from '../app/base-components/schemaManager';
-import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../app/base-components/types';
+import { SchemaManager } from '../app/base/schemaManager';
+import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../app/base/types';
 
 function buttonClick(comp) {
   alert(comp.label);
@@ -181,7 +181,7 @@ export const schema1: ISchema =
         },
         {
           type: 'input',
-          label: 'Number with mask special character',
+          label: 'mask special character',
           hint: 'special character not saved',
           dataType: 'float',
           mask: '0*.00',
@@ -197,6 +197,7 @@ export const schema1: ISchema =
     {
       type: ComponentType.expansionspanel,
       label: 'Buttons',
+      expanded: true,
       children: [
         {
           type: ComponentType.button,
@@ -238,7 +239,7 @@ export const schema1: ISchema =
         {
           type: ComponentType.button,
           kind: ButtonKind.icon,
-          width: '140px',
+          width: '80px',
           label: 'icon button',
           style: 'color: blue',
           icon: 'favorite',
@@ -248,18 +249,8 @@ export const schema1: ISchema =
         },
         {
           type: ComponentType.button,
-          kind: ButtonKind.fab,
-          style: 'background-color: blue; color: white; width: 60px; height: 60px; margin-right: 10px',
-          label: 'fab button',
-          icon: 'favorite',
-          onClick(sm: SchemaManager, comp: IComponent) {
-            buttonClick(comp);
-          }
-        },
-        {
-          type: ComponentType.button,
           kind: ButtonKind.minifab,
-          style: 'color: blue; width: 30px; height: 30px',
+          // style: 'background-color: blue; width: 30px; height: 30px; color: white',
           label: 'minifab button',
           icon: 'menu',
           onClick(sm: SchemaManager, comp: IComponent) {
@@ -270,7 +261,7 @@ export const schema1: ISchema =
       ]
     },
     {
-      type: 'cardgrid',
+      type: 'datatable',
       label: 'Adressen',
       field: 'adresses',
       // datacols: 'col-lg-6',

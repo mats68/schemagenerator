@@ -1,8 +1,8 @@
 // https://stackoverflow.com/questions/44597807/angular-2-material-using-mds-autocomplete-example-in-a-form
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SchemaManager } from '../../base-components/schemaManager';
-import { IComponent, IMaskOptions } from 'src/app/base-components/types';
+import { SchemaManager } from '../../base/schemaManager';
+import { IComponent, IMaskOptions } from 'src/app/base/types';
 
 
 @Component({
