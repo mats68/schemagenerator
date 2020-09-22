@@ -1,6 +1,6 @@
 <mat-toolbar [color]='comp.color'>
     <mat-toolbar-row>
-        <button *ngIf='smallScreen' mat-icon-button [matMenuTriggerFor]="menu">
+        <button *ngIf='comp.menuView' mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -13,7 +13,7 @@
             {{sm.getLabel(comp)}}
         </div>
         <span class="menu-spacer"></span>
-        <div *ngIf='!smallScreen'>
+        <div *ngIf='!comp.menuView'>
             <button mat-mini-fab *ngFor='let item of comp.toolbarItems' [color]='item.color' class="btn" (click)='item.onClick(sm, comp)'
                 [matTooltip]='item.label'>
                 <mat-icon>{{item.icon}}</mat-icon>

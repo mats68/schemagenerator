@@ -17,6 +17,7 @@ export const schema1: ISchema =
     console.log('form submitted');
   },
   onResize(sm) {
+    sm.CompsByName.tb.menuView = sm.ScreenSize === 'xs';
     console.log('resize', sm.ScreenSize);
   },
   onDataLoaded(sm) {
@@ -337,6 +338,7 @@ export const schema1: ISchema =
     {
       type: 'toolbar',
       label: 'Eine Toolbar',
+      name: 'tb',
       toolbarItems: [
         {
           label: 'First',

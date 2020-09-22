@@ -63,6 +63,7 @@ export interface IComponent {
     expanded?: boolean,
     toolbarColor?: string,
     toolbarItems?: IToolbarItem[],
+    menuView?: boolean,
 
     // [key: string]: any,
 }
