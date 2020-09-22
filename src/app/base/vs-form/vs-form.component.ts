@@ -21,7 +21,8 @@ export class VsFormComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (!this.schemaManger) {
       this.schemaManger = new SchemaManager(this.schema, this.values);
-    } else {
+      
+      } else {
       if (this.schema !== this.schemaManger.Schema) this.schemaManger.InitSchema(this.schema);
       if (this.values !== this.schemaManger.Values) this.schemaManger.InitValues(this.values);
 

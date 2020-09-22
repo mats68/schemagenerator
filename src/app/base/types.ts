@@ -4,6 +4,7 @@ export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, val
 export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
 export type IComponentAnyFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
 export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
+export type ISchemaVoidFunction = (sm: SchemaManager, schema: ISchema) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export interface ISelectOptionItem {
@@ -14,7 +15,10 @@ export interface ISelectOptionItem {
 export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
 export interface ISchema extends IComponent {
-  onSubmit?: IComponentVoidFunction,
+  name?: string,
+  onSubmit?: ISchemaVoidFunction,
+  onInitSchema?: ISchemaVoidFunction,
+  onInitValues?: ISchemaVoidFunction,
   language?: string,
 }
 
@@ -49,6 +53,7 @@ export interface IComponent {
     datacols?: string | IComponentStringFunction,
     error?: string,
     kind?: keyof typeof ButtonKind,
+    isSubmit?: boolean,
     icon?: string,
     expanded?: boolean,
     toolbarColor?: string,

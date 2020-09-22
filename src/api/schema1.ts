@@ -10,6 +10,13 @@ export const schema1: ISchema =
   language: 'de',
   type: 'form',
   name: 'form',
+  onInitSchema(sm) {
+    sm.CompsByField.text2.options = ['hello', 'one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight'];
+
+  },
+  onSubmit(sm) {
+    console.log('form submitted');
+  },
   children: [
     {
       type: 'input',
@@ -338,12 +345,19 @@ export const schema1: ISchema =
     {
       type: 'button',
       label: 'Speichern',
+      cols: 'col-md-1',
       disabled(sm: SchemaManager) {
         return !sm.ValuesChanged
       },
       onClick(sm: SchemaManager) {
         sm.validateAll();
       }
+    },
+    {
+      type: 'button',
+      isSubmit: true,
+      cols: 'col-md-1',
+      label: 'Submit'
     },
 
   ]

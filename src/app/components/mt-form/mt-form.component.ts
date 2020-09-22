@@ -15,5 +15,8 @@ export class MtFormComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.comp);
   }
+  onSubmit() {
+    if (this.sm.Schema.onSubmit) this.sm.Schema.onSubmit(this.sm, this.sm.Schema);
+  }
 
 }

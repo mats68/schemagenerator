@@ -52,6 +52,7 @@ export class SchemaManager {
     this.CompsByField = {};
     if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
     fillComps(this.Schema.children);
+    if (this.Schema.onInitSchema) this.Schema.onInitSchema(this, this.Schema);
 
   }
 
@@ -68,6 +69,7 @@ export class SchemaManager {
       });
     }
     this.ValuesChanged = false;
+    if (this.Schema.onInitValues) this.Schema.onInitValues(this, this.Schema);
     // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
   }
