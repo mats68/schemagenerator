@@ -5,8 +5,10 @@ import { SchemaManager } from '../../base/schemaManager';
 @Component({
   selector: 'vs-form',
   templateUrl: './vs-form.component.html',
-  styleUrls: ['./vs-form.component.scss']
-})
+  styleUrls: ['./vs-form.component.scss'],
+  host: {
+    '(window:resize)': 'onResize($event)'
+  }})
 export class VsFormComponent implements OnInit, OnChanges {
   @Input() schema: ISchema;
   @Input() values: any;
@@ -28,5 +30,10 @@ export class VsFormComponent implements OnInit, OnChanges {
 
     }
   }
+
+  onResize(event){
+    this.schemaManger.InitScreenSize();
+  }
+
 
 }

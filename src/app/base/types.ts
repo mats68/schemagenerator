@@ -7,6 +7,8 @@ export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value
 export type ISchemaVoidFunction = (sm: SchemaManager, schema: ISchema) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
+export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg';
+
 export interface ISelectOptionItem {
     value: string | number,
     text: string,
@@ -19,6 +21,7 @@ export interface ISchema extends IComponent {
   onSubmit?: ISchemaVoidFunction,
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
+  onResize?: ISchemaVoidFunction,
   language?: string,
 }
 

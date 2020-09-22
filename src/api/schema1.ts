@@ -17,6 +17,9 @@ export const schema1: ISchema =
   onSubmit(sm) {
     console.log('form submitted');
   },
+  onResize(sm) {
+    console.log('resize', sm.ScreenSize);
+  },
   children: [
     {
       type: 'input',
@@ -322,7 +325,7 @@ export const schema1: ISchema =
     },
     {
       type: 'toolbar',
-      label: 'Was weiss',
+      label: 'Eine Toolbar',
       toolbarItems: [
         {
           label: 'First',

@@ -1,5 +1,5 @@
 import { strings } from './strings';
-import { ISchema, IComponent, ISelectOptionItems, DataType } from './types';
+import { ISchema, IComponent, ISelectOptionItems, DataType, IScreenSize } from './types';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -13,6 +13,20 @@ export class SchemaManager {
   // private origValues: any;
   CompsByName: any;
   CompsByField: any;
+  
+  private _ScreenSize: IScreenSize;
+  get ScreenSize(): IScreenSize {
+    return this._ScreenSize;
+  }
+  
+  set ScreenSize(val: IScreenSize) {
+    this._ScreenSize = val;
+    if (this.Schema.onResize) {
+      this.Schema.onResize(this, this.Schema)
+    }
+  }
+
+
 
   private _NeedsRefreshUI: boolean = false;
   get NeedsRefreshUI(): boolean {
@@ -36,6 +50,7 @@ export class SchemaManager {
     this.InitSchema(schema);
     this.InitValues(values);
     this.InitLanguage(schema.language);
+    this.InitScreenSize();
   }
 
   InitSchema(schema: ISchema) {
@@ -80,6 +95,19 @@ export class SchemaManager {
     }
     this.Schema.language = language;
     this.Strings = strings[this.Schema.language];
+  }
+
+  InitScreenSize() {
+    if (screen.width >= 1200) {
+      this.ScreenSize = 'lg';
+    } else if (screen.width >= 992) { 
+      this.ScreenSize = 'md';
+    } else if (screen.width >= 768) { 
+      this.ScreenSize = 'sm';
+    } else { 
+      this.ScreenSize = 'xs';
+    }
+
   }
 
   getPropValue(comp: IComponent, prop: string): any {
