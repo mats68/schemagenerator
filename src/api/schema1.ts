@@ -288,7 +288,7 @@ export const schema1: ISchema =
       label: 'Adressen',
       field: 'adresses',
       cardView: true,
-      datacols: 'lg-6',
+      // datacols: 'lg-6',
       summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';
         const ort = row.ort ? ` Ort: ${row.ort}` : '';

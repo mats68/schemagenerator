@@ -1,5 +1,5 @@
 <mt-toolbar [comp]='toolbar' [sm]='sm'></mt-toolbar>
-<ng-container *ngIf='comp.cardView' multi>
+<div *ngIf='comp.cardView' class="row">
     <mat-card *ngFor="let row of data"
         [class]='sm.getColsClass(comp, "datacols") + " card"'>
         <div class="menu" (click)='toggleExpand(row)'>
@@ -16,4 +16,4 @@
 
         <mt-container [comp]='comp' [sm]='subsm' *ngIf='currow === row'></mt-container>
     </mat-card>
-</ng-container>
+</div>
