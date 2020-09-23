@@ -30,6 +30,7 @@ export const schema1: ISchema =
     {
       type: 'input',
       name: 'firstInput',
+      cols: 'sm-12 lg-6',
       required: true,
       label(sm: SchemaManager): string {
         return sm.Language === 'de' ? 'Standort' : 'Position';
@@ -39,6 +40,7 @@ export const schema1: ISchema =
     {
       type: 'input',
       label: 'Autocomplete',
+      cols: 'sm-12 lg-6',
       hint: 'Choose an item',
       default: 'one',
       required: true,
@@ -69,19 +71,19 @@ export const schema1: ISchema =
       type: 'checkbox',
       label: 'Check1',
       field: 'check1',
-      cols: 'col-xs-4',
+      cols: 'xs-4',
     },
     {
       type: 'checkbox',
       label: 'Check2',
       field: 'check2',
-      cols: 'col-xs-4',
+      cols: 'xs-4',
     },
     {
       type: 'checkbox',
       label: 'Check3',
       field: 'check3',
-      cols: 'col-xs-4',
+      cols: 'xs-4',
     },
     {
       type: 'expansionspanel',
@@ -157,26 +159,26 @@ export const schema1: ISchema =
           type: 'input',
           label: 'Required',
           field: 'text20',
-          cols: 'col-lg-3 col-xs-6',
+          cols: 'lg-3 xs-6',
           required: true
         },
         {
           type: 'input',
           label: 'Text30',
-          cols: 'col-lg-3 col-xs-6',
+          cols: 'lg-3 xs-6',
           field: 'text30'
         },
         {
           type: 'input',
           label: 'Prev',
-          cols: 'col-lg-3 col-xs-6',
+          cols: 'lg-3 xs-6',
           field: 'prev'
         },
         {
           type: 'input',
           label: 'Required if prev empty',
           field: 'next',
-          cols: 'col-lg-3 col-xs-6',
+          cols: 'lg-3 xs-6',
           validate(sm: SchemaManager, comp: IComponent, val: any): string {
             if (!sm.Values.prev && !val) {
               return 'Required since prev is empty';
@@ -190,7 +192,7 @@ export const schema1: ISchema =
           inputType: 'number',
           dataType: 'float',
           label: 'Number',
-          cols: 'col-lg-3',
+          cols: 'lg-3',
           field: 'number'
         },
         {
@@ -198,7 +200,7 @@ export const schema1: ISchema =
           label: 'Number with mask',
           dataType: 'float',
           mask: '0*.00',
-          cols: 'col-lg-3',
+          cols: 'lg-3',
           field: 'numbermask'
         },
         {
@@ -210,7 +212,7 @@ export const schema1: ISchema =
           maskOptions: {
             dropSpecialCharacters: true
           },
-          cols: 'col-lg-3',
+          cols: 'lg-3',
           field: 'numbermask2'
         },
         
@@ -286,7 +288,7 @@ export const schema1: ISchema =
       label: 'Adressen',
       field: 'adresses',
       cardView: true,
-      // datacols: 'col-lg-6',
+      datacols: 'lg-6',
       summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';
         const ort = row.ort ? ` Ort: ${row.ort}` : '';
@@ -298,27 +300,25 @@ export const schema1: ISchema =
       children: [
         {
           type: 'input',
-          hidden: true,
-          field: 'id',
-        },
-        {
-          type: 'input',
           label: 'Adresstyp',
           field: 'typ',
           options: ["Rechnungsadresse", "Versandadresse"],
           required: true,
+          cols: 'md-6',
         },
         {
           type: 'input',
           label: 'Name',
           field: 'name',
           required: true,
+          cols: 'md-6',
         },
         {
           type: 'input',
           label: 'Ort',
           field: 'ort',
           required: true,
+          cols: 'md-6',
         },
         {
           type: 'input',
@@ -327,11 +327,13 @@ export const schema1: ISchema =
           field: 'email',
           suffix: '.com',
           required: true,
+          cols: 'md-6',
         },
         {
           type: 'checkbox',
           label: 'Gueltig',
           field: 'gültig',
+          cols: 'md-6',
         },
 
       ]
@@ -362,7 +364,7 @@ export const schema1: ISchema =
     {
       type: 'button',
       label: 'Speichern',
-      cols: 'col-md-1',
+      cols: 'md-1',
       disabled(sm: SchemaManager) {
         return !sm.ValuesChanged
       },
@@ -373,7 +375,7 @@ export const schema1: ISchema =
     {
       type: 'button',
       isSubmit: true,
-      cols: 'col-md-1',
+      cols: 'md-1',
       label: 'Submit'
     },
 

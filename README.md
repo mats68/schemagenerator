@@ -36,6 +36,8 @@ ng add @angular/material
 
 ### todo:
 - datatable
+- styles for label u.a.
+- focus input
 - not validate bug in grid
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
@@ -47,7 +49,8 @@ ng add @angular/material
 - validation
   panel with all errors, (mit Feldnamen am anfang, can jump)
 - Validation
-  - disabled (input, check, btn...)
+- disabled (input, check, btn...)
+
 - Button type: 'standard', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
          link: (falls link, dann <a>)
          icon: (falls type = 'icon', 'fab', 'mini-fab')

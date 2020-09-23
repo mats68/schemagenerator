@@ -1,15 +1,19 @@
 <mt-toolbar [comp]='toolbar' [sm]='sm'></mt-toolbar>
-<mat-accordion *ngIf='comp.cardView'>
-    <mat-expansion-panel *ngFor="let row of data" 
-        [expanded]='currow === row'
-        [class]='sm.getColsClass(comp, "datacols")'
-        (afterExpand)='toggleExpand(row)'
-        (afterCollapse)='toggleExpand(null)'>
-        <mat-expansion-panel-header>
-            {{summary(row)}}
-        </mat-expansion-panel-header>
-        <div *ngIf='currow === row'>
-            <mt-container [comp]='comp' [sm]='subsm'></mt-container>
+<ng-container *ngIf='comp.cardView' multi>
+    <mat-card *ngFor="let row of data"
+        [class]='sm.getColsClass(comp, "datacols") + " card"'>
+        <div class="menu" (click)='toggleExpand(row)'>
+            <div>
+                {{summary(row)}}
+            </div>
+            <span class="menu-spacer"></span>
+            <button mat-icon-button 
+                (click)='toggleExpand(row); $event.stopPropagation()'>
+                <mat-icon *ngIf='currow === row'>expand_less</mat-icon>
+                <mat-icon *ngIf='currow !== row'>expand_more</mat-icon>
+            </button>
         </div>
-    </mat-expansion-panel>
-</mat-accordion>
+
+        <mt-container [comp]='comp' [sm]='subsm' *ngIf='currow === row'></mt-container>
+    </mat-card>
+</ng-container>

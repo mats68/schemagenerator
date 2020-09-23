@@ -79,9 +79,9 @@ export class MtDatatableComponent implements OnInit {
 
 
   InitCurRow(row: any) {
-    if (row === null) {
+    if (row === null || this.currow === row) {
       this.currow = null;
-    } else if (this.currow !== row) {
+    } else {
       this.currow = row;
       this.subsm.InitValues(row);
     } 

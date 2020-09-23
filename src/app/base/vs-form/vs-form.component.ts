@@ -14,7 +14,6 @@ export class VsFormComponent implements OnInit, OnChanges {
   @Input() values: any;
   schemaManger: SchemaManager;
 
-
   constructor() { }
 
   ngOnInit(): void {

@@ -193,7 +193,7 @@ export class SchemaManager {
   }
 
   getStyle(comp: IComponent): string {
-    const width = comp.width ? `width: ${comp.width};` : '';
+    const width = comp.width ? `width: ${comp.width};` : 'width: 100%';
     const style = comp.style ?? '';
     return `${width}${style}`;
   }
@@ -231,11 +231,16 @@ export class SchemaManager {
   }
 
   getColsClass(comp: IComponent, prop: string = 'cols'): string {
-    let ret = this.getPropValue(comp, prop) || '';
-    if (ret.indexOf('col-xs') === -1) {
-      ret = 'col-xs-12 ' + ret;
-    }
-    return ret;
+    let ret: string = this.getPropValue(comp, prop) || '';
+    
+    let xs = ret.indexOf('xs') > -1 ? ret.substr(ret.indexOf('xs')+3, 2) : '12';
+    let sm = ret.indexOf('sm') > -1 ? ret.substr(ret.indexOf('sm')+3, 2) : xs;
+    let md = ret.indexOf('md') > -1 ? ret.substr(ret.indexOf('md')+3, 2) : sm;
+    let lg = ret.indexOf('lg') > -1 ? ret.substr(ret.indexOf('lg')+3, 2) : md;
+
+    
+    // console.log(comp.field, `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`);
+    return `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`
   }
 
   usesGrid(comp: IComponent): boolean {
