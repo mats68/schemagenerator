@@ -55,18 +55,16 @@ export class SchemaManager {
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
-    const fillComps = (arr: any[]) => {
-      arr.forEach((item: any) => {
-        if (item.name) { this.CompsByName[item.name] = item; }
-        if (item.field) { this.CompsByField[item.field] = item; }
-        if (item.children) { fillComps(item.children); }
-      });
-    };
-
     this.CompsByName = {};
     this.CompsByField = {};
-    if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
-    fillComps(this.Schema.children);
+    this.resetErrors();
+    const fn = (comp: IComponent) => {
+      if (comp.name) { this.CompsByName[comp.name] = comp; }
+      if (comp.field) { this.CompsByField[comp.field] = comp; }
+    }
+    this.traverseSchema(this.Schema, fn);
+    // if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
+    // fillComps(this.Schema.children);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
 
   }
@@ -83,6 +81,7 @@ export class SchemaManager {
         }
       });
     }
+    this.resetErrors();
     this.ValuesChanged = false;
     if (this.Schema.onInitValues) this.Schema.onInitValues(this);
     // this.origValues = JSON.parse(JSON.stringify(this.Values));
@@ -107,6 +106,12 @@ export class SchemaManager {
     } else { 
       this.ScreenSize = 'xs';
     }
+  }
+
+  private resetErrors() {
+    Object.keys(this.CompsByField).forEach(field => {
+      this.CompsByField[field].error = '';
+    });
   }
 
   DataLoaded() {
@@ -178,10 +183,7 @@ export class SchemaManager {
 
     if (!val && comp.required) {
       comp.error = `${this.Settings.requiredErrorMsg}`;
-      return;
-    }
-
-    if (comp.validate) {
+    } else if (comp.validate) {
       comp.error = comp.validate(this, comp, val);
     }
   }
@@ -193,7 +195,7 @@ export class SchemaManager {
   }
 
   getStyle(comp: IComponent): string {
-    const width = comp.width ? `width: ${comp.width};` : 'width: 100%';
+    const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
     const style = comp.style ?? '';
     return `${width}${style}`;
   }
@@ -242,11 +244,18 @@ export class SchemaManager {
     // console.log(comp.field, `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`);
     return `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`
   }
-
+  
   usesGrid(comp: IComponent): boolean {
     if (!comp.children) return false;
     const hasGrid = comp.children.find(f => f.cols);
     return !!hasGrid;
+  }
+
+  private traverseSchema(comp: IComponent, fn) {
+    fn(comp);
+    if (comp.children) {
+      comp.children.forEach(c => this.traverseSchema(c, fn));
+    }
   }
 
 

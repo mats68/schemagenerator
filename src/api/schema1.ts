@@ -274,6 +274,7 @@ export const schema1: ISchema =
           type: ComponentType.button,
           kind: ButtonKind.minifab,
           // style: 'background-color: blue; width: 30px; height: 30px; color: white',
+          width: '45px',
           label: 'minifab button',
           icon: 'menu',
           onClick(sm: SchemaManager, comp: IComponent) {
@@ -364,6 +365,7 @@ export const schema1: ISchema =
     {
       type: 'button',
       label: 'Speichern',
+      kind: 'raised',
       cols: 'md-1',
       disabled(sm: SchemaManager) {
         return !sm.ValuesChanged
@@ -375,6 +377,7 @@ export const schema1: ISchema =
     {
       type: 'button',
       isSubmit: true,
+      kind: 'raised',
       cols: 'md-1',
       label: 'Submit'
     },

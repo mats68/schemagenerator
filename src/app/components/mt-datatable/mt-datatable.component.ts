@@ -44,7 +44,7 @@ export class MtDatatableComponent implements OnInit {
         icon: 'delete',
         color: 'primary',
         disabled: () => {return this.isDisabled()},
-        onClick: () => {this.CopyRow()}
+        onClick: () => {this.DeleteRow()}
       },
     ]
       
