@@ -19,6 +19,7 @@ export class MtDatatableComponent implements OnInit {
 
   ngOnInit(): void {
     this.subsm = new SchemaManager(this.comp);
+    this.data = this.sm.getValue(this.comp);
 
     this.toolbar = {
       type: 'toolbar',
@@ -52,10 +53,9 @@ export class MtDatatableComponent implements OnInit {
 
   Insert(): void {
     const row  = {};
-    this.subsm.InitValues(row);
-    this.currow = row;
     this.data.push(row);
     this.sm.updateValue(this.comp, this.data);
+    this.InitCurRow(row);
   }
 
   CopyRow(): void {
@@ -63,16 +63,30 @@ export class MtDatatableComponent implements OnInit {
     const newrow = JSON.parse(JSON.stringify(this.currow));
     this.data.push(newrow);
     this.sm.updateValue(this.comp, this.data);
-    this.currow = newrow;
-    this.subsm.InitValues(newrow);
+    this.InitCurRow(newrow);
   }
 
   DeleteRow(): void {
     if (!this.currow) return;
     this.data = this.data.filter(r => r !== this.currow);
     this.sm.updateValue(this.comp, this.data);
-    this.currow = null;
+    this.InitCurRow(null);
   }
+
+  toggleExpand(row: any) {
+    this.InitCurRow(row);
+  }
+
+
+  InitCurRow(row: any) {
+    if (row === null) {
+      this.currow = null;
+    } else if (this.currow !== row) {
+      this.currow = row;
+      this.subsm.InitValues(row);
+    } 
+  }
+
 
   summary(row: any) {
     return this.comp.summary(this.sm, this.comp, row);
@@ -81,5 +95,7 @@ export class MtDatatableComponent implements OnInit {
   isDisabled(): boolean {
     return !this.currow;
   }
+
+
 
 }

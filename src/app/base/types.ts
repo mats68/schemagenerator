@@ -64,6 +64,7 @@ export interface IComponent {
     toolbarColor?: keyof typeof Color,
     toolbarItems?: IToolbarItem[],
     menuView?: boolean,
+    cardView?: boolean,
 
     // [key: string]: any,
 }

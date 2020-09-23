@@ -285,6 +285,7 @@ export const schema1: ISchema =
       type: 'datatable',
       label: 'Adressen',
       field: 'adresses',
+      cardView: true,
       // datacols: 'col-lg-6',
       summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';

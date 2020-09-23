@@ -1,1 +1,15 @@
 <mt-toolbar [comp]='toolbar' [sm]='sm'></mt-toolbar>
+<mat-accordion *ngIf='comp.cardView'>
+    <mat-expansion-panel *ngFor="let row of data" 
+        [expanded]='currow === row'
+        [class]='sm.getColsClass(comp, "datacols")'
+        (afterExpand)='toggleExpand(row)'
+        (afterCollapse)='toggleExpand(null)'>
+        <mat-expansion-panel-header>
+            {{summary(row)}}
+        </mat-expansion-panel-header>
+        <div *ngIf='currow === row'>
+            <mt-container [comp]='comp' [sm]='subsm'></mt-container>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

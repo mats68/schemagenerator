@@ -60,3 +60,4 @@ ng add @angular/material
 - tooltip
 - split
 - Dokumente vergleichen?
+- show loader
