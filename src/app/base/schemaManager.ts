@@ -63,8 +63,6 @@ export class SchemaManager {
       if (comp.field) { this.CompsByField[comp.field] = comp; }
     }
     this.traverseSchema(this.Schema, fn);
-    // if (this.Schema.name) { this.CompsByName[this.Schema.name] = this.Schema; }
-    // fillComps(this.Schema.children);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
 
   }

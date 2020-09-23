@@ -36,6 +36,7 @@ ng add @angular/material
 
 ### todo:
 - datatable
+- btn nok (color usw)
 - styles for label u.a.
 - focus input
 - not validate bug in grid

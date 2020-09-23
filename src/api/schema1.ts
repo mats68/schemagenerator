@@ -365,11 +365,9 @@ export const schema1: ISchema =
     {
       type: 'button',
       label: 'Speichern',
+      style: 'color: blue',
       kind: 'raised',
       cols: 'md-1',
-      disabled(sm: SchemaManager) {
-        return !sm.ValuesChanged
-      },
       onClick(sm: SchemaManager) {
         sm.validateAll();
       }
