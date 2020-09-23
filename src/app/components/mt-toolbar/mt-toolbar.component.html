@@ -4,7 +4,9 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngFor='let item of comp.toolbarItems' (click)='item.onClick(sm, comp)'>
+            <button mat-menu-item *ngFor='let item of comp.toolbarItems' 
+                (click)='item.onClick(sm, comp)'
+                [disabled]='sm.getPropValue(item, "disabled")'>>
                 <mat-icon>{{item.icon}}</mat-icon>
                 <span>{{item.label}}</span>
             </button>
@@ -14,8 +16,11 @@
         </div>
         <span class="menu-spacer"></span>
         <div *ngIf='!comp.menuView'>
-            <button mat-mini-fab *ngFor='let item of comp.toolbarItems' [color]='item.color' class="btn" (click)='item.onClick(sm, comp)'
-                [matTooltip]='item.label'>
+            <button mat-mini-fab *ngFor='let item of comp.toolbarItems' 
+                [color]='item.color' class="btn"
+                (click)='item.onClick(sm, comp)'
+                [matTooltip]='item.label'
+                [disabled]='sm.getPropValue(item, "disabled")'>
                 <mat-icon>{{item.icon}}</mat-icon>
             </button>
         </div>

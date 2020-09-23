@@ -61,7 +61,7 @@ export interface IComponent {
     isSubmit?: boolean,
     icon?: string,
     expanded?: boolean,
-    toolbarColor?: string,
+    toolbarColor?: keyof typeof Color,
     toolbarItems?: IToolbarItem[],
     menuView?: boolean,
 
@@ -77,7 +77,8 @@ export interface IMaskOptions {
 export interface IToolbarItem {
   label: string,
   icon: string,
-  color?: string,
+  color?: keyof typeof Color,
+  disabled?: boolean | IComponentBoolFunction,
   onClick?: IComponentVoidFunction,
 }
 

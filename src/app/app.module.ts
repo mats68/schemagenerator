@@ -63,6 +63,7 @@ import { MtLabelComponent } from './components/mt-label/mt-label.component';
 import { MtContainerComponent } from './base/mt-container/mt-container.component';
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import { MtToolbarComponent } from './components/mt-toolbar/mt-toolbar.component';
+import { MtDatatableComponent } from './components/mt-datatable/mt-datatable.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -85,6 +86,7 @@ const maskConfig: Partial<IConfig> = {
     MtContainerComponent,
     VsFormComponent,
     MtToolbarComponent,
+    MtDatatableComponent,
   ],
   imports: [
     BrowserModule,

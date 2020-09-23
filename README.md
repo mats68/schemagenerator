@@ -32,10 +32,10 @@ ng add @angular/material
 - load external js file (schema)
 - text-mask
 - grid system (cols-property)
+- onResize in schemaManager
 
 ### todo:
 - datatable
-- onResize in schemaManager
 - not validate bug in grid
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
@@ -59,3 +59,4 @@ ng add @angular/material
 - übersetzung (label, titel, hint, placeholder als funktion)
 - tooltip
 - split
+- Dokumente vergleichen?

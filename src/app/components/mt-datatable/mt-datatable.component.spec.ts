@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MtAutocompleteComponent } from './mt-autocomplete.component';
+import { MtDatatableComponent } from './mt-datatable.component';
 
-describe('MtAutocompleteComponent', () => {
-  let component: MtAutocompleteComponent;
-  let fixture: ComponentFixture<MtAutocompleteComponent>;
+describe('MtDatatableComponent', () => {
+  let component: MtDatatableComponent;
+  let fixture: ComponentFixture<MtDatatableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MtAutocompleteComponent ]
+      declarations: [ MtDatatableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MtAutocompleteComponent);
+    fixture = TestBed.createComponent(MtDatatableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
