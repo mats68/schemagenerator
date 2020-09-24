@@ -1,7 +1,7 @@
 <mat-card>
     <div class="menu">
         <div class="mat-h2">
-            {{comp.label}}
+            {{sm.getLabel(comp)}}
         </div>
         <span class="menu-spacer"></span>
         <button mat-icon-button 
@@ -11,7 +11,9 @@
     </div>
 
 
-    <div *ngFor='let error of Errors' (click)='clickError(error.comp)' class="error-color">
-        {{error.error}}
+    <div *ngFor='let error of Errors' (click)='clickError(error.comp)'>
+        <span *ngIf='error.comp && error.comp.label' class="error-label">{{sm.getLabel(error.comp)}}</span>
+        <span class="error-msg">{{error.error}}</span>
+       
     </div>
 </mat-card>
