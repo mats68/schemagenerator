@@ -56,7 +56,6 @@ export interface IComponent {
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
     cols?: string | IComponentStringFunction,
     datacols?: string | IComponentStringFunction,
-    error?: string,
     kind?: keyof typeof ButtonKind,
     isSubmit?: boolean,
     icon?: string,

@@ -35,7 +35,7 @@ export class MtInputComponent implements OnInit {
   }
 
   getError() {
-    return this.comp.error;
+    return this.sm.getError(this.comp);
   }
 
   Filter(value: string) {

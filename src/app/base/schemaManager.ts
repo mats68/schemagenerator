@@ -3,16 +3,23 @@ import { ISchema, IComponent, ISelectOptionItems, DataType, IScreenSize } from '
 
 export interface ISettings {
   requiredSuffix: string;
-  requiredErrorMsg: string;
+}
+
+export interface IError {
+  comp: IComponent;
+  arrayInd: number;
+  error: string;
 }
 
 export class SchemaManager {
   Schema: ISchema;
   Values: any;
+  ArrayInd: number;
   ValuesChanged: boolean;
   // private origValues: any;
   CompsByName: any;
   CompsByField: any;
+  Errors: IError[];
   
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -43,7 +50,6 @@ export class SchemaManager {
 
   Settings: ISettings = {
     requiredSuffix: ' *',
-    requiredErrorMsg: 'Eingabe erforderlich',
   }
 
   constructor(schema: ISchema, values: any = null) {
@@ -51,13 +57,14 @@ export class SchemaManager {
     this.InitValues(values);
     this.InitLanguage(schema.language);
     this.InitScreenSize();
+    this.ArrayInd = -1;
   }
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     this.CompsByName = {};
     this.CompsByField = {};
-    this.resetErrors();
+    this.Errors = [];
     const fn = (comp: IComponent) => {
       if (comp.name) { this.CompsByName[comp.name] = comp; }
       if (comp.field) { this.CompsByField[comp.field] = comp; }
@@ -67,7 +74,7 @@ export class SchemaManager {
 
   }
 
-  InitValues(values: any) {
+  InitValues(values: any, arrayInd: number = -1) {
     if (values) {
       this.Values = values;
     } else {
@@ -79,8 +86,11 @@ export class SchemaManager {
         }
       });
     }
-    this.resetErrors();
-    this.ValuesChanged = false;
+    if (arrayInd === -1) {
+      this.Errors = [];
+      this.ValuesChanged = false;
+    }
+    this.ArrayInd = arrayInd;
     if (this.Schema.onInitValues) this.Schema.onInitValues(this);
     // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
@@ -104,12 +114,6 @@ export class SchemaManager {
     } else { 
       this.ScreenSize = 'xs';
     }
-  }
-
-  private resetErrors() {
-    Object.keys(this.CompsByField).forEach(field => {
-      this.CompsByField[field].error = '';
-    });
   }
 
   DataLoaded() {
@@ -176,13 +180,17 @@ export class SchemaManager {
   }
 
   validate(comp: IComponent): void {
-    comp.error = '';
     const val = this.Values[comp.field];
-
+    let msg = '';
     if (!val && comp.required) {
-      comp.error = `${this.Settings.requiredErrorMsg}`;
+      msg = `${this.Strings.required}`;
     } else if (comp.validate) {
-      comp.error = comp.validate(this, comp, val);
+      msg = comp.validate(this, comp, val);
+    } 
+    if (msg) {
+      this.addError(comp, msg);
+    } else {
+      this.removeError(comp);
     }
   }
 
@@ -191,6 +199,37 @@ export class SchemaManager {
       this.validate(this.CompsByField[comp]);
     });
   }
+
+  private addError(comp: IComponent, msg: string) {
+    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+    if (error) {
+      error.error = msg;
+    } else {
+      this.Errors.push({
+        comp: comp,
+        arrayInd: this.ArrayInd,
+        error: msg
+      });
+    }
+  }
+
+  private removeError(comp: IComponent) { 
+    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+    if (error) {
+      this.Errors.filter(e => e != error);
+    } 
+  }
+
+  getError(comp: IComponent) { 
+    let msg = '';
+    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+    if (error) {
+      msg = error.error;
+    } 
+    return msg;
+  }
+
+
 
   getStyle(comp: IComponent): string {
     const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';

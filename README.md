@@ -33,13 +33,13 @@ ng add @angular/material
 - text-mask
 - grid system (cols-property)
 - onResize in schemaManager
+- datatable
 
 ### todo:
-- datatable
+- not validate bug in grid
 - btn nok (color usw)
 - styles for label u.a.
 - focus input
-- not validate bug in grid
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
 - sm.translate function ("de", "fr", "it")

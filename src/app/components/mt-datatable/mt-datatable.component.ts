@@ -83,7 +83,8 @@ export class MtDatatableComponent implements OnInit {
       this.currow = null;
     } else {
       this.currow = row;
-      this.subsm.InitValues(row);
+      const ind = this.data.findIndex(r => r === row);
+      this.subsm.InitValues(row, ind);
     } 
   }
 
