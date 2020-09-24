@@ -27,6 +27,7 @@ export class SchemaManager {
   Errors: IError[];
   OnFocus: Subject<IComponent>;
   ParentSchemaManager: SchemaManager;
+  AllValidated: boolean;
   
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -67,13 +68,13 @@ export class SchemaManager {
     this.InitScreenSize();
     this.ArrayInd = -1;
     this.OnFocus = new Subject<IComponent>();
-
   }
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     this.CompArray = [];
     this.Errors = [];
+    this.AllValidated = false;
     const fn = (comp: IComponent, parent: IComponent) => {
       this.CompArray.push({comp, parent})
     }
@@ -96,6 +97,7 @@ export class SchemaManager {
     }
     if (arrayInd === -1) {
       this.Errors = [];
+      this.AllValidated = false;
       this.ValuesChanged = false;
     }
     this.ArrayInd = arrayInd;
@@ -203,6 +205,7 @@ export class SchemaManager {
   }
 
   validateAll() {
+    this.Errors = []
     this.CompArray.forEach(ca => {
       if (ca.comp.field) {
         if (ca.comp.type === ComponentType.datatable) {
@@ -222,6 +225,7 @@ export class SchemaManager {
         }
       }
     });
+    this.AllValidated = true;
   }
 
   private addError(comp: IComponent, msg: string, arrayInd: number) {
@@ -243,6 +247,12 @@ export class SchemaManager {
       this.Errors.splice(ind,1);
     } 
   }
+
+  removeAllErrors() { 
+    this.Errors = [];
+  }
+
+
 
   getError(comp: IComponent) { 
     let msg = '';

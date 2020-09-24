@@ -22,7 +22,7 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.hidden = (!this.Errors || this.Errors.length === 0)
+    this.hidden = (!this.Errors || this.Errors.length === 0 || !this.sm.AllValidated);
   }
 
   clickError(error: IError) {

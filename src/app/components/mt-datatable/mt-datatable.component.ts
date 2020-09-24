@@ -54,8 +54,8 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (!isNaN(this.curRowInd)) {
-      this.currow = this.data[this.curRowInd];
+    if (!isNaN(this.curRowInd) && this.data.length > this.curRowInd) {
+      this.InitCurRow(this.data[this.curRowInd]);
     }
   }
 
@@ -78,7 +78,12 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     if (!this.currow) return;
     this.data = this.data.filter(r => r !== this.currow);
     this.sm.updateValue(this.comp, this.data);
+    this.sm.removeAllErrors();
+    if (this.sm.AllValidated) {
+      this.sm.validateAll();
+    }
     this.InitCurRow(null);
+
   }
 
   toggleExpand(row: any) {
