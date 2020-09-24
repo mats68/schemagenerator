@@ -310,6 +310,7 @@ export const schema1: ISchema =
       type: 'datatable',
       label: 'Adressen',
       field: 'adresses',
+      required: true,
       cardView: true,
       // datacols: 'lg-6',
       summary(sm, comp, row) {

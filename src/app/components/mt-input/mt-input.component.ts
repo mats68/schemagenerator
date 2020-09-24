@@ -50,7 +50,8 @@ export class MtInputComponent implements OnInit, OnDestroy  {
 
 
   onBlur(): void {
-    this.sm.validate(this.comp);
+    const value = this.sm.getValue(this.comp);
+    this.sm.validate(this.comp, value);
   }
 
   ngOnDestroy() {

@@ -13,7 +13,7 @@ export interface ICompExt {
 
 export interface IError {
   comp: IComponent;
-  arrayInd: number;
+  arrayInd: number; //index of array in datatable
   error: string;
 }
 
@@ -24,8 +24,6 @@ export class SchemaManager {
   ValuesChanged: boolean;
   // private origValues: any;
   CompArray: ICompExt[];
-  // CompsByName: any;
-  // CompsByField: any;
   Errors: IError[];
   OnFocus: Subject<IComponent>;
   
@@ -178,7 +176,7 @@ export class SchemaManager {
 
     if (this.Values[comp.field] === val) return;
     this.Values[comp.field] = val;
-    this.validate(comp);
+    this.validate(comp, val);
 
     if (comp.onChange) {
       comp.onChange(this, comp, val);
@@ -187,44 +185,58 @@ export class SchemaManager {
     this.ValuesChanged = true;
   }
 
-  validate(comp: IComponent): void {
-    const val = this.Values[comp.field];
+  validate(comp: IComponent, value: any, arrayInd: number = -1): void {
+    if (arrayInd === - 1) arrayInd = this.ArrayInd;
     let msg = '';
-    if (!val && comp.required) {
+    if (!value && comp.required) {
       msg = `${this.Strings.required}`;
     } else if (comp.validate) {
-      msg = comp.validate(this, comp, val);
+      msg = comp.validate(this, comp, value);
     } 
     if (msg) {
-      this.addError(comp, msg);
+      this.addError(comp, msg, arrayInd);
     } else {
-      this.removeError(comp);
+      this.removeError(comp, arrayInd);
     }
   }
 
   validateAll() {
     this.CompArray.forEach(ca => {
       if (ca.comp.field) {
-        this.validate(ca.comp);
+        if (ca.comp.type === ComponentType.datatable) {
+          const arrVal = this.Values[ca.comp.field];
+          this.validate(ca.comp,arrVal);
+          if (arrVal && Array.isArray(arrVal)) {
+            arrVal.forEach((obj, ind) => {
+              ca.comp.children.forEach(comp => {
+                const value = obj[comp.field];
+                this.validate(comp, value, ind);
+              })
+            })
+          }
+        } else if (ca.parent.type !== ComponentType.datatable) {
+          const value = this.getValue(ca.comp);
+          this.validate(ca.comp, value);
+        }
       }
     });
   }
 
-  private addError(comp: IComponent, msg: string) {
-    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+  private addError(comp: IComponent, msg: string, arrayInd: number) {
+    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === arrayInd);
     if (error) {
       error.error = msg;
     } else {
       this.Errors.push({
         comp: comp,
-        arrayInd: this.ArrayInd,
+        arrayInd: arrayInd,
         error: msg
       });
     }
   }
 
-  private removeError(comp: IComponent) { 
-    const ind = this.Errors.findIndex(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+  private removeError(comp: IComponent, arrayInd: number) { 
+    const ind = this.Errors.findIndex(e => e.comp === comp && e.arrayInd === arrayInd);
     if (ind > -1) {
       this.Errors.splice(ind,1);
     } 
@@ -245,12 +257,6 @@ export class SchemaManager {
     return `${width}${style}`;
   }
 
-  // toggleVisible(name: string, visible: boolean) {
-  //   const c = name ? this.CompsByName[name] : null;
-  //   if (c) {
-  //     c.hidden = !visible;
-  //   }
-  // }
   getCompByName(name: string): IComponent | undefined {
     const c = this.CompArray.find(ca => ca.comp.name === name);
     return c ? c.comp : undefined;
