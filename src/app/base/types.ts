@@ -64,7 +64,7 @@ export interface IComponent {
     toolbarItems?: IToolbarItem[],
     menuView?: boolean,
     cardView?: boolean,
-
+    tabs?: Array<IComponent>,
     // [key: string]: any,
 }
 

@@ -19,6 +19,7 @@ export class MtDatatableComponent implements OnInit {
 
   ngOnInit(): void {
     this.subsm = new SchemaManager(this.comp);
+    this.subsm.Errors = this.sm.Errors;
     this.data = this.sm.getValue(this.comp);
 
     this.toolbar = {

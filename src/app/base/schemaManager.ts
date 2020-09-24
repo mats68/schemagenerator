@@ -218,9 +218,9 @@ export class SchemaManager {
   }
 
   private removeError(comp: IComponent) { 
-    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
-    if (error) {
-      this.Errors = this.Errors.filter(e => e !== error);
+    const ind = this.Errors.findIndex(e => e.comp === comp && e.arrayInd === this.ArrayInd);
+    if (ind > -1) {
+      this.Errors.splice(ind,1);
     } 
   }
 
@@ -233,14 +233,11 @@ export class SchemaManager {
     return msg;
   }
 
-
-
   getStyle(comp: IComponent): string {
     const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
     const style = comp.style ?? '';
     return `${width}${style}`;
   }
-
 
   toggleVisible(name: string, visible: boolean) {
     const c = name ? this.CompsByName[name] : null;
@@ -301,6 +298,9 @@ export class SchemaManager {
     fn(comp);
     if (comp.children) {
       comp.children.forEach(c => this.traverseSchema(c, fn));
+    }
+    if (comp.tabs) {
+      comp.tabs.forEach(c => this.traverseSchema(c, fn));
     }
   }
 

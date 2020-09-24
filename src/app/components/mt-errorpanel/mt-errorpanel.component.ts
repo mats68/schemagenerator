@@ -11,7 +11,9 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   @Input() Errors: IError[];
-  Hidden: boolean;
+  @Input() ErrorCount: number;
+
+  hidden: boolean;
 
 
   constructor() { }
@@ -20,7 +22,7 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.Hidden = (!this.Errors || this.Errors.length === 0)
+    this.hidden = (!this.Errors || this.Errors.length === 0)
   }
 
   clickError(comp: IComponent) {
@@ -28,9 +30,18 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   }
 
   hidePanel() {
-    this.Hidden = true;
-
+    this.hidden = true;
   }
+
+getErrorLabel(error: IError): string {
+    let lb = '';
+    if (!error.comp) return lb;
+    lb = this.sm.getLabel(error.comp);
+    if (!lb) return '';
+    const suff = error.arrayInd !== -1 ? ` ${this.sm.Strings.row} [${error.arrayInd+1}]` : '';
+    return `${lb}${suff}`;
+  }
+
 
 
 }

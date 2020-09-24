@@ -1,6 +1,6 @@
-<mat-card>
+<mat-card *ngIf='!hidden'>
     <div class="menu">
-        <div class="mat-h2">
+        <div class="mat-h2 error-title">
             {{sm.getLabel(comp)}}
         </div>
         <span class="menu-spacer"></span>
@@ -12,8 +12,7 @@
 
 
     <div *ngFor='let error of Errors' (click)='clickError(error.comp)'>
-        <span *ngIf='error.comp && error.comp.label' class="error-label">{{sm.getLabel(error.comp)}}</span>
+        <span *ngIf='error.comp && error.comp.label' class="error-label">{{getErrorLabel(error)}}</span>
         <span class="error-msg">{{error.error}}</span>
-       
     </div>
 </mat-card>

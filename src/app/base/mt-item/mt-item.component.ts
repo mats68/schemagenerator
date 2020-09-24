@@ -11,7 +11,7 @@ import { IComponent } from '../types';
 export class MtItemComponent implements OnInit {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
-
+  
   constructor() { }
 
   ngOnInit(): void {
