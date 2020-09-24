@@ -34,12 +34,13 @@ ng add @angular/material
 - grid system (cols-property)
 - onResize in schemaManager
 - datatable
+- not validate bug in grid
 
 ### todo:
-- not validate bug in grid
+- focus input
+- panel with all errors, (mit Feldnamen am anfang, can jump)
 - btn nok (color usw)
 - styles for label u.a.
-- focus input
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
 - sm.translate function ("de", "fr", "it")
@@ -48,7 +49,6 @@ ng add @angular/material
 - readonly 
 - default properties, for inputs (eg. appearance) in schema
 - validation
-  panel with all errors, (mit Feldnamen am anfang, can jump)
 - Validation
 - disabled (input, check, btn...)
 

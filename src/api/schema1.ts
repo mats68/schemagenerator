@@ -285,6 +285,27 @@ export const schema1: ISchema =
       ]
     },
     {
+      type: 'expansionspanel',
+      label: 'Focus Input',
+      children: [
+        {
+          type: 'button',
+          cols: 'md-2',
+          kind: 'raised',
+          label: 'Focus Input',
+          onClick(sm) {
+            sm.DoFocus(sm.CompsByField.focusinput);
+          }
+        },
+        {
+          type: 'input',
+          cols: 'md-5',
+          field: 'focusinput',
+          label: 'Focus',
+        }
+      ]
+    },
+    {
       type: 'datatable',
       label: 'Adressen',
       field: 'adresses',

@@ -1,5 +1,5 @@
-// https://stackoverflow.com/questions/44597807/angular-2-material-using-mds-autocomplete-example-in-a-form
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { SchemaManager } from '../../base/schemaManager';
 import { IComponent, IMaskOptions } from 'src/app/base/types';
@@ -10,12 +10,14 @@ import { IComponent, IMaskOptions } from 'src/app/base/types';
   templateUrl: './mt-input.component.html',
   styleUrls: ['./mt-input.component.scss']
 })
-export class MtInputComponent implements OnInit {
+export class MtInputComponent implements OnInit, OnDestroy  {
+  @ViewChild("name") nameField: ElementRef;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   options: string[];
   filteredOptions: string[];
   maskOptions: IMaskOptions;
+  subscription: Subscription;
 
   constructor() {  }
 
@@ -24,6 +26,9 @@ export class MtInputComponent implements OnInit {
     this.filteredOptions = this.options;
     this.maskOptions = this.comp.maskOptions || {};
     if (!this.comp.mask) this.maskOptions = {};
+    this.subscription =  this.sm.OnFocus.subscribe({
+      next: (comp) => {if (comp === this.comp) {this.nameField.nativeElement.focus();}}
+    });
   }
 
   get Value(): string {
@@ -48,6 +53,9 @@ export class MtInputComponent implements OnInit {
     this.sm.validate(this.comp);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
 
 
 

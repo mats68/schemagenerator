@@ -1,5 +1,6 @@
 import { strings } from './strings';
 import { ISchema, IComponent, ISelectOptionItems, DataType, IScreenSize } from './types';
+import { Subject } from 'rxjs';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -20,6 +21,7 @@ export class SchemaManager {
   CompsByName: any;
   CompsByField: any;
   Errors: IError[];
+  OnFocus: Subject<IComponent>;
   
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -58,6 +60,8 @@ export class SchemaManager {
     this.InitLanguage(schema.language);
     this.InitScreenSize();
     this.ArrayInd = -1;
+    this.OnFocus = new Subject<IComponent>();
+
   }
 
   InitSchema(schema: ISchema) {
@@ -287,6 +291,11 @@ export class SchemaManager {
     const hasGrid = comp.children.find(f => f.cols);
     return !!hasGrid;
   }
+
+  DoFocus(comp: IComponent) {
+    this.OnFocus.next(comp);
+  }
+
 
   private traverseSchema(comp: IComponent, fn) {
     fn(comp);
