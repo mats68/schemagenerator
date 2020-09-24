@@ -413,6 +413,17 @@ export const schema1: ISchema =
         sm.refresh_UI();
       }
     },
+    {
+      type: 'button',
+      kind: 'raised',
+      cols: 'md-1',
+      label: 'Focus prev',
+      onClick(sm: SchemaManager) {
+        const comp = sm.CompsByField.prev;
+        sm.DoFocus(comp);
+        // sm.refresh_UI();
+      }
+    },
 
   ]
 

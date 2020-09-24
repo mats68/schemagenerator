@@ -1,9 +1,14 @@
 import { strings } from './strings';
-import { ISchema, IComponent, ISelectOptionItems, DataType, IScreenSize } from './types';
+import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize } from './types';
 import { Subject } from 'rxjs';
 
 export interface ISettings {
   requiredSuffix: string;
+}
+
+export interface ICompExt {
+  comp: IComponent,
+  parent: IComponent,
 }
 
 export interface IError {
@@ -18,6 +23,7 @@ export class SchemaManager {
   ArrayInd: number;
   ValuesChanged: boolean;
   // private origValues: any;
+  CompArray: ICompExt[];
   CompsByName: any;
   CompsByField: any;
   Errors: IError[];
@@ -66,14 +72,17 @@ export class SchemaManager {
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
+    this.CompArray = [];
     this.CompsByName = {};
     this.CompsByField = {};
     this.Errors = [];
-    const fn = (comp: IComponent) => {
+    const fn = (comp: IComponent, parent: IComponent) => {
+      this.CompArray.push({comp, parent})
+
       if (comp.name) { this.CompsByName[comp.name] = comp; }
       if (comp.field) { this.CompsByField[comp.field] = comp; }
     }
-    this.traverseSchema(this.Schema, fn);
+    this.traverseSchema(this.Schema, null, fn);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
 
   }
@@ -272,14 +281,10 @@ export class SchemaManager {
 
   getColsClass(comp: IComponent, prop: string = 'cols'): string {
     let ret: string = this.getPropValue(comp, prop) || '';
-    
     let xs = ret.indexOf('xs') > -1 ? ret.substr(ret.indexOf('xs')+3, 2) : '12';
     let sm = ret.indexOf('sm') > -1 ? ret.substr(ret.indexOf('sm')+3, 2) : xs;
     let md = ret.indexOf('md') > -1 ? ret.substr(ret.indexOf('md')+3, 2) : sm;
     let lg = ret.indexOf('lg') > -1 ? ret.substr(ret.indexOf('lg')+3, 2) : md;
-
-    
-    // console.log(comp.field, `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`);
     return `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`
   }
   
@@ -290,17 +295,30 @@ export class SchemaManager {
   }
 
   DoFocus(comp: IComponent) {
-    this.OnFocus.next(comp);
+    this.MakeVisible(comp);
+    setTimeout(() => this.OnFocus.next(comp), 100);
+    // this.OnFocus.next(comp);
   }
 
+  MakeVisible(comp: IComponent) {
+    let ext = this.CompArray.find(c => c.comp === comp);
+    
+    while (ext && ext.parent) {
+      if (ext.parent.type == ComponentType.expansionspanel) {
+        ext.parent.expanded = true;
+      }
+      ext = this.CompArray.find(c => c.comp === ext.parent);
+    }
 
-  private traverseSchema(comp: IComponent, fn) {
-    fn(comp);
+  }
+
+  private traverseSchema(comp: IComponent, parentComp: IComponent, fn) {
+    fn(comp, parentComp);
     if (comp.children) {
-      comp.children.forEach(c => this.traverseSchema(c, fn));
+      comp.children.forEach(c => this.traverseSchema(c, comp, fn));
     }
     if (comp.tabs) {
-      comp.tabs.forEach(c => this.traverseSchema(c, fn));
+      comp.tabs.forEach(c => this.traverseSchema(c, comp, fn));
     }
   }
 
