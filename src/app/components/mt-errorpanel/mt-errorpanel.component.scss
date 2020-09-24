@@ -1,0 +1,16 @@
+.menu{
+    display: flex;
+    align-items: center;
+}
+
+.menu-spacer {
+    flex: 1 1 auto;
+}
+
+.menuicon {
+    margin: 0;
+}
+
+.error-color {
+    color: red;
+}

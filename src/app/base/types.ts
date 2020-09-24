@@ -105,6 +105,7 @@ export enum ComponentType {
     button = 'button',
     toolbar = 'toolbar',
     divider = 'divider',
+    errorpanel = 'errorpanel',
   }
 
   export enum DataType {

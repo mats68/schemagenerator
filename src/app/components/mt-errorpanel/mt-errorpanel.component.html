@@ -1,0 +1,17 @@
+<mat-card>
+    <div class="menu">
+        <div class="mat-h2">
+            {{comp.label}}
+        </div>
+        <span class="menu-spacer"></span>
+        <button mat-icon-button 
+            (click)='hidePanel()'>
+            <mat-icon >close</mat-icon>
+        </button>
+    </div>
+
+
+    <div *ngFor='let error of Errors' (click)='clickError(error.comp)' class="error-color">
+        {{error.error}}
+    </div>
+</mat-card>

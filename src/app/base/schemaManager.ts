@@ -220,7 +220,7 @@ export class SchemaManager {
   private removeError(comp: IComponent) { 
     const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
     if (error) {
-      this.Errors.filter(e => e != error);
+      this.Errors = this.Errors.filter(e => e !== error);
     } 
   }
 

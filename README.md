@@ -35,9 +35,10 @@ ng add @angular/material
 - onResize in schemaManager
 - datatable
 - not validate bug in grid
+- events in schemaManager (Observables)
+- focus input
 
 ### todo:
-- focus input
 - panel with all errors, (mit Feldnamen am anfang, can jump)
 - btn nok (color usw)
 - styles for label u.a.

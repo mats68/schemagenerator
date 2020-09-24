@@ -380,6 +380,10 @@ export const schema1: ISchema =
       ]
     },
     {
+      type: 'errorpanel',
+      label: 'Fehler',
+    },    
+    {
       type: 'divider',
       style: 'margin-top: 60px;'
     },
@@ -399,6 +403,15 @@ export const schema1: ISchema =
       kind: 'raised',
       cols: 'md-1',
       label: 'Submit'
+    },
+    {
+      type: 'button',
+      kind: 'raised',
+      cols: 'md-1',
+      label: 'refresh UI',
+      onClick(sm: SchemaManager) {
+        sm.refresh_UI();
+      }
     },
 
   ]
