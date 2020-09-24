@@ -24,8 +24,8 @@ export class SchemaManager {
   ValuesChanged: boolean;
   // private origValues: any;
   CompArray: ICompExt[];
-  CompsByName: any;
-  CompsByField: any;
+  // CompsByName: any;
+  // CompsByField: any;
   Errors: IError[];
   OnFocus: Subject<IComponent>;
   
@@ -73,14 +73,9 @@ export class SchemaManager {
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     this.CompArray = [];
-    this.CompsByName = {};
-    this.CompsByField = {};
     this.Errors = [];
     const fn = (comp: IComponent, parent: IComponent) => {
       this.CompArray.push({comp, parent})
-
-      if (comp.name) { this.CompsByName[comp.name] = comp; }
-      if (comp.field) { this.CompsByField[comp.field] = comp; }
     }
     this.traverseSchema(this.Schema, null, fn);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
@@ -92,10 +87,10 @@ export class SchemaManager {
       this.Values = values;
     } else {
       this.Values = {};
-      Object.keys(this.CompsByField).forEach(comp => {
-        if (this.CompsByField[comp].default) {
-          const val = this.getPropValue(this.CompsByField[comp], 'default');
-          this.Values[comp] = val;
+      this.CompArray.forEach(ca => {
+        if (ca.comp.field && ca.comp.default) {
+          const val = this.getPropValue(ca.comp, 'default');
+          this.Values[ca.comp.field] = val;
         }
       });
     }
@@ -208,8 +203,10 @@ export class SchemaManager {
   }
 
   validateAll() {
-    Object.keys(this.CompsByField).forEach(comp => {
-      this.validate(this.CompsByField[comp]);
+    this.CompArray.forEach(ca => {
+      if (ca.comp.field) {
+        this.validate(ca.comp);
+      }
     });
   }
 
@@ -248,11 +245,20 @@ export class SchemaManager {
     return `${width}${style}`;
   }
 
-  toggleVisible(name: string, visible: boolean) {
-    const c = name ? this.CompsByName[name] : null;
-    if (c) {
-      c.hidden = !visible;
-    }
+  // toggleVisible(name: string, visible: boolean) {
+  //   const c = name ? this.CompsByName[name] : null;
+  //   if (c) {
+  //     c.hidden = !visible;
+  //   }
+  // }
+  getCompByName(name: string): IComponent | undefined {
+    const c = this.CompArray.find(ca => ca.comp.name === name);
+    return c ? c.comp : undefined;
+  }
+
+  getCompByField(field: string): IComponent | undefined {
+    const c = this.CompArray.find(ca => ca.comp.field === field);
+    return c ? c.comp : undefined;
   }
 
   selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
