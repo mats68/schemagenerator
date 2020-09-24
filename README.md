@@ -39,6 +39,7 @@ ng add @angular/material
 - focus input
 
 ### todo:
+- exp on expand set property
 - panel with all errors, (mit Feldnamen am anfang, can jump)
 - btn nok (color usw)
 - styles for label u.a.

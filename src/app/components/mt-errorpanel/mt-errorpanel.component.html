@@ -11,7 +11,7 @@
     </div>
 
 
-    <div *ngFor='let error of Errors' (click)='clickError(error.comp)'>
+    <div *ngFor='let error of Errors' (click)='clickError(error)'>
         <span *ngIf='error.comp && error.comp.label' class="error-label">{{getErrorLabel(error)}}</span>
         <span class="error-msg">{{error.error}}</span>
     </div>

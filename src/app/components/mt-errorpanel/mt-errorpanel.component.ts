@@ -25,8 +25,8 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
     this.hidden = (!this.Errors || this.Errors.length === 0)
   }
 
-  clickError(comp: IComponent) {
-    this.sm.DoFocus(comp);
+  clickError(error: IError) {
+    this.sm.DoFocus(error.comp, error.arrayInd);
   }
 
   hidePanel() {

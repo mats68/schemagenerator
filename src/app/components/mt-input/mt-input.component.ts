@@ -26,8 +26,13 @@ export class MtInputComponent implements OnInit, OnDestroy  {
     this.filteredOptions = this.options;
     this.maskOptions = this.comp.maskOptions || {};
     if (!this.comp.mask) this.maskOptions = {};
-    this.subscription =  this.sm.OnFocus.subscribe({
-      next: (comp) => {if (comp === this.comp) {this.nameField.nativeElement.focus();}}
+    const sm: SchemaManager = this.sm.ParentSchemaManager ? this.sm.ParentSchemaManager : this.sm;
+    this.subscription =  sm.OnFocus.subscribe({
+      next: (comp) => {
+        if (comp === this.comp) {
+          this.nameField.nativeElement.focus();
+        }
+      }
     });
   }
 

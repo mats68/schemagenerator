@@ -7,9 +7,10 @@ import { IComponent } from '../../base/types';
   templateUrl: './mt-datatable.component.html',
   styleUrls: ['./mt-datatable.component.scss']
 })
-export class MtDatatableComponent implements OnInit {
+export class MtDatatableComponent implements OnInit, OnChanges {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
+  @Input() curRowInd: number;
   data: any[] = [];
   subsm: SchemaManager;
   currow: any;
@@ -18,7 +19,7 @@ export class MtDatatableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.subsm = new SchemaManager(this.comp);
+    this.subsm = new SchemaManager(this.comp, null, this.sm);
     this.subsm.Errors = this.sm.Errors;
     this.data = this.sm.getValue(this.comp);
 
@@ -49,6 +50,12 @@ export class MtDatatableComponent implements OnInit {
       },
     ]
       
+    }
+  }
+
+  ngOnChanges() {
+    if (!isNaN(this.curRowInd)) {
+      this.currow = this.data[this.curRowInd];
     }
   }
 

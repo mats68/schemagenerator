@@ -1,7 +1,7 @@
 <mt-form *ngIf='isComp("form")' [comp]='comp' [sm]='sm'></mt-form>
 <mt-tabs *ngIf='isComp("tabs")' [comp]='comp' [sm]='sm'></mt-tabs>
 <mt-exp *ngIf='isComp("expansionspanel")' [comp]='comp' [sm]='sm'></mt-exp>
-<mt-datatable *ngIf='isComp("datatable")' [comp]='comp' [sm]='sm'></mt-datatable>
+<mt-datatable *ngIf='isComp("datatable")' [comp]='comp' [sm]='sm' [curRowInd]='comp.curRowInd'></mt-datatable>
 
 <mt-input *ngIf='isComp("input")' [comp]='comp' [sm]='sm'></mt-input>
 <mt-checkbox *ngIf='isComp("checkbox")' [comp]='comp' [sm]='sm'></mt-checkbox>

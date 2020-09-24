@@ -26,6 +26,7 @@ export class SchemaManager {
   CompArray: ICompExt[];
   Errors: IError[];
   OnFocus: Subject<IComponent>;
+  ParentSchemaManager: SchemaManager;
   
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -58,8 +59,9 @@ export class SchemaManager {
     requiredSuffix: ' *',
   }
 
-  constructor(schema: ISchema, values: any = null) {
+  constructor(schema: ISchema, values: any = null, parentSchemaManager: SchemaManager = null) {
     this.InitSchema(schema);
+    this.ParentSchemaManager = parentSchemaManager;
     this.InitValues(values);
     this.InitLanguage(schema.language);
     this.InitScreenSize();
@@ -306,18 +308,19 @@ export class SchemaManager {
     return !!hasGrid;
   }
 
-  DoFocus(comp: IComponent) {
-    this.MakeVisible(comp);
+  DoFocus(comp: IComponent, arrayInd: number = -1) {
+    this.MakeVisible(comp, arrayInd);
     setTimeout(() => this.OnFocus.next(comp), 100);
-    // this.OnFocus.next(comp);
   }
 
-  MakeVisible(comp: IComponent) {
+  MakeVisible(comp: IComponent, arrayInd: number) {
     let ext = this.CompArray.find(c => c.comp === comp);
     
     while (ext && ext.parent) {
       if (ext.parent.type == ComponentType.expansionspanel) {
         ext.parent.expanded = true;
+      } else if (ext.parent.type == ComponentType.datatable) {
+        ext.parent.curRowInd = arrayInd;
       }
       ext = this.CompArray.find(c => c.comp === ext.parent);
     }
