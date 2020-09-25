@@ -20,7 +20,6 @@ export class MtContainerComponent implements OnInit {
 
   getHighlight(child: IComponent): string {
     if (!child.field || child.type === ComponentType.datatable) return '';
-    if (!child.field) return '';
     let val1, val2
     if (this.sm.ParentSchemaManager) {
       const psm = this.sm.ParentSchemaManager;
