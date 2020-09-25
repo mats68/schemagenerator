@@ -1,6 +1,6 @@
-<mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
+<mat-form-field [style]='sm.getStyle(comp)'>
   <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
-  <span matPrefix>{{comp.prefix}}</span>
+  <span matPrefix *ngIf='comp.prefix'>{{comp.prefix}}</span>
   <input *ngIf='Typ === 0'
     [mask]='comp.mask' [thousandSeparator]='maskOptions.thousandSeparator'
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'

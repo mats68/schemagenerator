@@ -31,7 +31,7 @@ export const schema2: ISchema =
                     ]
                 },
                 {
-                    label: 'Checks',
+                    label: 'Check & Radio',
                     type: 'tab',
                     children: [
                         {
@@ -39,6 +39,15 @@ export const schema2: ISchema =
                             label: 'check1',
                             required: true,
                             field: 'check1',
+                        },
+                        {
+                            type: 'radiogroup',
+                            label: 'Radiogroup',
+                            cols: 'sm-12',
+                            dataType: 'int',
+                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}],
+                            required: true,
+                            field: 'radio1',
                         }
                     ]
                 },

@@ -1,3 +1,3 @@
-<mat-checkbox *ngIf='comp && sm' #name [(ngModel)]='Value' [style]='sm.getStyle(comp)' [disabled]='sm.getPropValue(comp, "disabled")'>
+<mat-checkbox #name [(ngModel)]='Value' [style]='sm.getStyle(comp)' [disabled]='sm.getPropValue(comp, "disabled")' class="check-box">
     {{sm.getLabel(comp)}}
 </mat-checkbox>

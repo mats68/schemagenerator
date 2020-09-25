@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@an
 import { Subscription } from 'rxjs';
 
 import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from 'src/app/base/types';
+import { IComponent, ISelectOptionItems } from 'src/app/base/types';
 
 @Component({
   selector: 'mt-radio',
@@ -13,11 +13,14 @@ export class MtRadioComponent implements OnInit {
   @ViewChild('name') nameField: any;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
+  optionsAsObj: ISelectOptionItems;
   subscription: Subscription;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.optionsAsObj = this.sm.selectOptionsAsObjects(this.comp);
+
     this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
       next: (comp) => {
         if (comp === this.comp) {
@@ -27,5 +30,14 @@ export class MtRadioComponent implements OnInit {
       }
     });
   }
+
+  get Value(): any {
+    return this.sm.getValue(this.comp);
+  }
+
+  set Value(val: any) {
+    this.sm.updateValue(this.comp, val);
+  }
+
 
 }

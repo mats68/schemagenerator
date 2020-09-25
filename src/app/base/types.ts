@@ -41,6 +41,7 @@ export interface IComponent {
     inputType?: string,
     width?: string,
     suffix?: string,
+    prefix?: string,
     mask?: string | IComponentStringFunction,
     maskOptions?: IMaskOptions,
     rows?: number,
