@@ -40,6 +40,7 @@ ng add @angular/material
 - teil-Schema einbinden (mit ...)
 - tabs set selected index
 - panel mit all errors, (mit Feldnamen am anfang)
+- drag-drop data-table rows
 
 ### todo:
 - Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?

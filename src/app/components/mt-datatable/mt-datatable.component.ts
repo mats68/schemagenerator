@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SchemaManager } from '../../base/schemaManager';
 import { IComponent } from '../../base/types';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'mt-datatable',
   templateUrl: './mt-datatable.component.html',
@@ -114,6 +114,8 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     return !this.currow;
   }
 
-
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+  }
 
 }
