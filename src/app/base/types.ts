@@ -67,7 +67,7 @@ export interface IComponent {
     cardView?: boolean,
     tabs?: Array<IComponent>,
     selectedTabIndex?: number,
-    html?: string,
+    html?: string | IComponentStringFunction,
    
     // [key: string]: any,
 }

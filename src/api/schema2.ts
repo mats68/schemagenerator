@@ -77,11 +77,23 @@ export const schema2: ISchema =
                         },
                         {
                            type: 'html',
-                           style: 'margin: 30px;',
+                           style: 'margin: 10px;',
                            html: `<p>was ist <b>lost</b> </p>`
 
-                        }
-                    ]
+                        },
+                        {
+                            type: 'html',
+                            style: 'margin: 10px;',
+                            label: 'Thaler',
+                            html: (sm, comp) => {
+                                return `<div class="row">
+                                <div class="col-lg-6">Thaler1</div>
+                                <div class="col-lg-6">Thaler2</div>
+                            </div> `;
+                            }
+ 
+                         },
+                     ]
                 },
                 {
                     label: 'Test',
