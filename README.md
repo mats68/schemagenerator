@@ -67,3 +67,4 @@ ng add @angular/material
 - split
 - Dokumente vergleichen?
 - show loader
+- tests ?

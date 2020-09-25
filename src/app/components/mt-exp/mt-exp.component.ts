@@ -16,6 +16,14 @@ export class MtExpComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  afterExpand() {
+    if (!this.comp.expanded) this.comp.expanded = true;
+  }
+
+  afterCollapse() {
+    if (this.comp.expanded) this.comp.expanded = false;
+  }
+
 
 
 }
