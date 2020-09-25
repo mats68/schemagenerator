@@ -5,7 +5,7 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, 
+- Components: input, checkbox,  button, select, radio, label,
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
   - autocomplete nur string[] options
@@ -42,7 +42,7 @@ ng add @angular/material
 - panel mit all errors, (mit Feldnamen am anfang)
 
 ### todo:
-- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
+- Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - btn nok (color usw)
 - styles for label u.a.
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
