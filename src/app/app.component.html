@@ -31,8 +31,14 @@
     </mat-select>
 </mat-form-field>
 
-<div class="formstyle" *ngIf='curschema'>
-  <vs-form [schema]='curschema' [values]='curvalues' [settings]='Settings'></vs-form>
+<mat-checkbox [(ngModel)]='diffView'>Diff View</mat-checkbox>
+
+<div class="formstyle" *ngIf='curschema && !diffView'>
+    <vs-form [schema]='curschema' [values]='curvalues' [settings]='Settings'></vs-form>
+</div>
+
+<div class="diff" *ngIf='diffView'>
+  <vs-diff [schema]='Schema1' [values1]='Values1' [values2]='Values2' [settings]='Settings'></vs-diff>
 </div>
 
 <div style="margin-top: 100px;">Values</div>

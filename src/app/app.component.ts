@@ -1,10 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { SchemaManager, ISettings } from './base/schemaManager';
-import { schema1, values1 } from '../api/schema1';
-import { schema2, values2 } from '../api/schema2';
+import { schema1, values1, values2 } from '../api/schema1';
+import { schema2 } from '../api/schema2';
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import {RestService} from '../api/rest.service';
+import { ISchema } from './base/types';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,14 @@ import {RestService} from '../api/rest.service';
 export class AppComponent implements OnInit {
   curschema: any;
   curvalues: any;
+  Schema1: ISchema;
+  Values1: any;
+  Values2: any;
   extschemas: string[];
   _schemaManger: SchemaManager;
   service: RestService;
-
+  diffView: boolean; 
+  
   Settings: ISettings = {
     language: 'de',
     requiredSuffix: ' *',
@@ -27,6 +32,9 @@ export class AppComponent implements OnInit {
 
   constructor(restService: RestService) {
     this.service = restService;
+    this.Schema1 = schema1;
+    this.Values1 = values1;
+    this.Values2 = values2;
   
   }  
   get schemaManger(): SchemaManager {

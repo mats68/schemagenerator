@@ -21,6 +21,7 @@ export interface IError {
 export class SchemaManager {
   Schema: ISchema;
   Values: any;
+  DiffValues: any;
   ValuesChanged: boolean;
   Settings: ISettings;
   Strings: any;
@@ -89,7 +90,10 @@ export class SchemaManager {
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
   }
 
-  InitValues(values: any, arrayInd: number = -1) {
+  InitValues(values: any, arrayInd: number = -1, diffValues: any = null) {
+    if (diffValues) {
+      this.DiffValues = diffValues;
+    }
     if (values) {
       this.Values = values;
     } else {
@@ -101,11 +105,7 @@ export class SchemaManager {
         }
       });
     }
-    if (this.ParentSchemaManager) {
-      this.Errors = [];
-
-    }
-    if (arrayInd === -1) {
+    if (!this.ParentSchemaManager) {
       this.Errors = [];
       this.AllValidated = false;
       this.ValuesChanged = false;

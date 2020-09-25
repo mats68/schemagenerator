@@ -69,6 +69,7 @@ import { MtRadioComponent } from './components/mt-radio/mt-radio.component';
 import { MtLblComponent } from './components/mt-lbl/mt-lbl.component';
 import { MtPanelComponent } from './components/mt-panel/mt-panel.component';
 import { MtCardComponent } from './components/mt-card/mt-card.component';
+import { VsDiffComponent } from './base/vs-diff/vs-diff.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -97,6 +98,7 @@ const maskConfig: Partial<IConfig> = {
     MtLblComponent,
     MtPanelComponent,
     MtCardComponent,
+    VsDiffComponent,
   ],
   imports: [
     BrowserModule,

@@ -70,19 +70,19 @@ export const schema1: ISchema =
       type: 'checkbox',
       label: 'Check1',
       field: 'check1',
-      cols: 'xs-4',
+      cols: 'xs-3 md-4',
     },
     {
       type: 'checkbox',
       label: 'Check2',
       field: 'check2',
-      cols: 'xs-4',
+      cols: 'xs-3 md-4',
     },
     {
       type: 'checkbox',
       label: 'Check3',
       field: 'check3',
-      cols: 'xs-4',
+      cols: 'xs-3 md-4',
     },
     {
       type: 'expansionspanel',
@@ -431,7 +431,6 @@ export const schema1: ISchema =
 export const values1 = {
   text1: 'AA',
   text2: 'one',
-  check1: true,
   numbermask: 123.55,
   number: 800,
   adresses: [
@@ -450,3 +449,27 @@ export const values1 = {
 
   ]
 };
+
+export const values2 = {
+  text1: 'BB',
+  check1: true,
+  numbermask: 144,
+  number: 800,
+  multiline: 'dada',
+  adresses: [
+    {
+      typ: 'Rechnungsadresse',
+      name: 'Thaler Matthias',
+      ort: 'Bern',
+      email: 'Matthias@gmail.com',
+    },
+    {
+      typ: 'Versandadresse',
+      name: 'Meier Hans',
+      ort: 'Zürich',
+      email: 'MeierHans@gmail.com'
+    }
+
+  ]
+};
+
