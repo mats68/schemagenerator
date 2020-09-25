@@ -66,6 +66,9 @@ import { MtDatatableComponent } from './components/mt-datatable/mt-datatable.com
 import { MtErrorpanelComponent } from './components/mt-errorpanel/mt-errorpanel.component';
 import { MtTabsComponent } from './components/mt-tabs/mt-tabs.component';
 import { MtRadioComponent } from './components/mt-radio/mt-radio.component';
+import { MtLblComponent } from './components/mt-lbl/mt-lbl.component';
+import { MtPanelComponent } from './components/mt-panel/mt-panel.component';
+import { MtCardComponent } from './components/mt-card/mt-card.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -91,6 +94,9 @@ const maskConfig: Partial<IConfig> = {
     MtErrorpanelComponent,
     MtTabsComponent,
     MtRadioComponent,
+    MtLblComponent,
+    MtPanelComponent,
+    MtCardComponent,
   ],
   imports: [
     BrowserModule,

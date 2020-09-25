@@ -2,6 +2,9 @@
 <mt-tabs *ngIf='isComp("tabs")' [comp]='comp' [sm]='sm'></mt-tabs>
 <mt-exp *ngIf='isComp("expansionspanel")' [comp]='comp' [sm]='sm'></mt-exp>
 <mt-datatable *ngIf='isComp("datatable")' [comp]='comp' [sm]='sm' [curRowInd]='comp.curRowInd'></mt-datatable>
+<mt-panel *ngIf='isComp("panel")' [comp]='comp' [sm]='sm'></mt-panel>
+<mt-card *ngIf='isComp("card")' [comp]='comp' [sm]='sm'></mt-card>
+
 
 <mt-input *ngIf='isComp("input")' [comp]='comp' [sm]='sm' [isSelect]='false'></mt-input>
 <mt-input *ngIf='isComp("select")' [comp]='comp' [sm]='sm' [isSelect]='true'></mt-input>
@@ -10,5 +13,6 @@
 
 <mt-toolbar *ngIf='isComp("toolbar")' [comp]='comp' [sm]='sm'></mt-toolbar>
 <mt-btn *ngIf='isComp("button")' [comp]='comp' [sm]='sm'></mt-btn>
+<mt-lbl *ngIf='isComp("label")' [comp]='comp' [sm]='sm'></mt-lbl>
 <mt-divider *ngIf='isComp("divider")' [comp]='comp' [sm]='sm'></mt-divider>
 <mt-errorpanel *ngIf='isComp("errorpanel")' [comp]='comp' [sm]='sm' [Errors]='sm.Errors' [ErrorCount]='sm.Errors.length'></mt-errorpanel>
