@@ -12,6 +12,7 @@ import { IComponent, IMaskOptions, ISelectOptionItems } from 'src/app/base/types
 })
 export class MtInputComponent implements OnInit, OnDestroy  {
   @ViewChild("name") nameField: ElementRef;
+  @ViewChild('namesel') nameselField: any;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   @Input() isSelect: boolean;
@@ -36,7 +37,9 @@ export class MtInputComponent implements OnInit, OnDestroy  {
     this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
       next: (comp) => {
         if (comp === this.comp) {
-          this.nameField.nativeElement.focus();
+          if (this.nameField) this.nameField.nativeElement.focus();
+          if (this.nameselField) this.nameselField.focus();
+          
         }
       }
     });

@@ -19,7 +19,9 @@
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
     [disabled]='sm.getPropValue(comp, "disabled")' />
-  <mat-select *ngIf='comp.options && isSelect' #name [(ngModel)]='Value' (blur)='onBlur()'
+  <mat-select *ngIf='comp.options && isSelect' #namesel 
+    [(ngModel)]='Value' 
+    (blur)='onBlur()'
     [disabled]='sm.getPropValue(comp, "disabled")'>
     <mat-option *ngFor="let item of optionsAsObj" [value]="item.value">
       {{item.text}}
