@@ -4,12 +4,19 @@ import { Subscription } from 'rxjs';
 import { SchemaManager } from '../../base/schemaManager';
 import { IComponent, IMaskOptions, ISelectOptionItems } from 'src/app/base/types';
 
+enum InpTyp {
+  normal,
+  textarea,
+  autocomplete,
+  select
+}
 
 @Component({
   selector: 'mt-input',
   templateUrl: './mt-input.component.html',
   styleUrls: ['./mt-input.component.scss']
 })
+
 export class MtInputComponent implements OnInit, OnDestroy  {
   @ViewChild("name") nameField: ElementRef;
   @ViewChild('namesel') nameselField: any;
@@ -17,21 +24,27 @@ export class MtInputComponent implements OnInit, OnDestroy  {
   @Input() comp: IComponent;
   @Input() isSelect: boolean;
 
-  options: string[];
+  optionsAsString: string[];
   optionsAsObj: ISelectOptionItems;
   filteredOptions: string[];
   maskOptions: IMaskOptions;
   subscription: Subscription;
+  Typ: InpTyp;
 
   constructor() {  }
 
   ngOnInit(): void {
+    this.Typ = InpTyp.normal;
+
     if (this.isSelect) {
+      this.Typ = InpTyp.select;
       this.optionsAsObj = this.sm.selectOptionsAsObjects(this.comp);
-    } else if (this.comp.options) {
-      this.options = this.comp.options as string[];
+    } else if (this.comp.options && Array.isArray(this.comp.options) && this.comp.options.length > 0) {
+      this.Typ = InpTyp.autocomplete;
+      this.optionsAsString = this.sm.selectOptionsAsStrings(this.comp);
     }
-    this.filteredOptions = this.options;
+    if (this.comp.multiline) this.Typ = InpTyp.textarea;
+    this.filteredOptions = this.optionsAsString;
     this.maskOptions = this.comp.maskOptions || {};
     if (!this.comp.mask) this.maskOptions = {};
     this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
@@ -59,7 +72,7 @@ export class MtInputComponent implements OnInit, OnDestroy  {
 
   Filter(value: string) {
     const filterValue = value.toLowerCase();
-    this.filteredOptions = this.options.filter(option => option.toLowerCase().includes(filterValue));
+    this.filteredOptions = this.optionsAsString.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 

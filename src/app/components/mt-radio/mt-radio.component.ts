@@ -5,23 +5,15 @@ import { SchemaManager } from '../../base/schemaManager';
 import { IComponent } from 'src/app/base/types';
 
 @Component({
-  selector: 'mt-checkbox',
-  templateUrl: './mt-checkbox.component.html',
-  styleUrls: ['./mt-checkbox.component.scss']
+  selector: 'mt-radio',
+  templateUrl: './mt-radio.component.html',
+  styleUrls: ['./mt-radio.component.scss']
 })
-export class MtCheckboxComponent implements OnInit {
+export class MtRadioComponent implements OnInit {
   @ViewChild('name') nameField: any;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   subscription: Subscription;
-
-  get Value(): boolean {
-    return this.sm.getValue(this.comp);
-  }
-
-  set Value(val: boolean) {
-    this.sm.updateValue(this.comp, val);
-  }
 
   constructor() { }
 
@@ -35,6 +27,5 @@ export class MtCheckboxComponent implements OnInit {
       }
     });
   }
-
 
 }
