@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { SchemaManager } from '../../base/schemaManager';
 import { IComponent } from 'src/app/base/types';
 
@@ -11,18 +13,17 @@ export class MtCheckboxComponent implements OnInit {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  getValue(): boolean {
+  get Value(): boolean {
     return this.sm.getValue(this.comp);
   }
 
-
-  onChange(val: boolean): void {
+  set Value(val: boolean) {
     this.sm.updateValue(this.comp, val);
+  }
+
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
 
