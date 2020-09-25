@@ -1,6 +1,4 @@
-<mat-card>
-    [style]='sm.getStyle(comp)'
-    [disabled]='sm.getPropValue(comp, "disabled")'>
+<mat-card [style]='sm.getStyle(comp)'>
     <mat-card-header>
         <mat-card-title>
             {{comp.label}}

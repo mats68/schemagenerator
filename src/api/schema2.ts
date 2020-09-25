@@ -52,6 +52,32 @@ export const schema2: ISchema =
                     ]
                 },
                 {
+                    label: 'Card & Panel',
+                    type: 'tab',
+                    children: [
+                        {
+                            type: 'card',
+                            label: 'Card',
+                            children: [
+                                {
+                                    type: 'label',
+                                    label: 'Label1'
+                                }
+                            ]
+                        },
+                        {
+                            type: 'panel',
+                            children: [
+                                {
+                                    type: 'label',
+                                    label: 'Label2'
+                                }
+                            ]
+
+                        }
+                    ]
+                },
+                {
                     label: 'Test',
                     type: 'tab',
                     children: [

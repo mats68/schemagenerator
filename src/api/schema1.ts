@@ -31,6 +31,12 @@ export const schema1: ISchema =
       label(sm: SchemaManager): string {
         return sm.Language === 'de' ? 'Standort' : 'Position';
       },
+      onChange(sm: SchemaManager, comp: IComponent) {
+        let val: string = sm.getValue(comp) || '';
+        val = val.trim().toLowerCase();
+        sm.updateValue(comp, val);
+
+      },
       field: 'text1'
     },
     {
