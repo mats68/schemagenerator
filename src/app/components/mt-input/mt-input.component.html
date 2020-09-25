@@ -1,24 +1,31 @@
 <mat-form-field *ngIf='comp && sm' [style]='sm.getStyle(comp)'>
   <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
   <span matPrefix>{{comp.prefix}}</span>
-  <input *ngIf='!comp.multiline && !comp.options' 
+  <input *ngIf='!comp.multiline && !comp.options && !isSelect'
     [mask]='comp.mask' [thousandSeparator]='maskOptions.thousandSeparator'
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [type]='comp.inputType'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
     [disabled]='sm.getPropValue(comp, "disabled")' />
-  <textarea *ngIf='comp.multiline' 
+  <textarea *ngIf='comp.multiline'
     [rows]='comp.rows'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
     [disabled]='sm.getPropValue(comp, "disabled")'>
   </textarea>
-  <input *ngIf='comp.options' 
-    [matAutocomplete]="auto" 
+  <input *ngIf='comp.options && !isSelect'
+    [matAutocomplete]="auto"
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
-    [disabled]='sm.getPropValue(comp, "disabled")'  />
+    [disabled]='sm.getPropValue(comp, "disabled")' />
+  <mat-select *ngIf='comp.options && isSelect' #name [(ngModel)]='Value' (blur)='onBlur()'
+    [disabled]='sm.getPropValue(comp, "disabled")'>
+    <mat-option *ngFor="let item of optionsAsObj" [value]="item.value">
+      {{item.text}}
+    </mat-option>
+
+  </mat-select>
   <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
   <mat-hint>
     <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>

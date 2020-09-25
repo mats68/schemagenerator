@@ -60,6 +60,28 @@ export const schema2: ISchema =
                         },
                     ]
                 },
+                {
+                    label: 'Selects',
+                    type: 'tab',
+                    children: [
+                        {
+                            type: 'select',
+                            label: 'Numerischer Wert',
+                            field: 'select1',
+                            dataType: 'int',
+                            required: true,
+                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}]
+                        },
+                        {
+                            type: 'select',
+                            label: 'Text',
+                            field: 'select2',
+                            required: true,
+                            options: ['Eins', 'Zwei', 'Drei', 'Vier']
+                        }
+
+                    ]
+                }
             ]
         },
         ...buttons

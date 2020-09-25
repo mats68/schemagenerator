@@ -42,12 +42,12 @@ ng add @angular/material
 - panel mit all errors, (mit Feldnamen am anfang)
 
 ### todo:
+- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - btn nok (color usw)
 - styles for label u.a.
 - input prefix und suffix (icon oder text)npm install --save ngx-mask
 - settings objekt 
 - sm.translate function ("de", "fr", "it")
-- Components: select, radio, label, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - schemamanager innerhalb mt-form
 - readonly 
 - default properties, for inputs (eg. appearance) in schema

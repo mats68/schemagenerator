@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@an
 import { Subscription } from 'rxjs';
 
 import { SchemaManager } from '../../base/schemaManager';
-import { IComponent, IMaskOptions } from 'src/app/base/types';
+import { IComponent, IMaskOptions, ISelectOptionItems } from 'src/app/base/types';
 
 
 @Component({
@@ -14,7 +14,10 @@ export class MtInputComponent implements OnInit, OnDestroy  {
   @ViewChild("name") nameField: ElementRef;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
+  @Input() isSelect: boolean;
+
   options: string[];
+  optionsAsObj: ISelectOptionItems;
   filteredOptions: string[];
   maskOptions: IMaskOptions;
   subscription: Subscription;
@@ -22,7 +25,11 @@ export class MtInputComponent implements OnInit, OnDestroy  {
   constructor() {  }
 
   ngOnInit(): void {
-    this.options = this.comp.options as string[];
+    if (this.isSelect) {
+      this.optionsAsObj = this.sm.selectOptionsAsObjects(this.comp);
+    } else if (this.comp.options) {
+      this.options = this.comp.options as string[];
+    }
     this.filteredOptions = this.options;
     this.maskOptions = this.comp.maskOptions || {};
     if (!this.comp.mask) this.maskOptions = {};
