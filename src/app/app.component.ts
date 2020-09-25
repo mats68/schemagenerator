@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   Settings: ISettings = {
     language: 'de',
-    requiredSuffix: ' **',
+    requiredSuffix: ' *',
   }
 
 
