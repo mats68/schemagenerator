@@ -70,6 +70,7 @@ import { MtLblComponent } from './components/mt-lbl/mt-lbl.component';
 import { MtPanelComponent } from './components/mt-panel/mt-panel.component';
 import { MtCardComponent } from './components/mt-card/mt-card.component';
 import { VsDiffComponent } from './base/vs-diff/vs-diff.component';
+import { MtHtmlComponent } from './components/mt-html/mt-html.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -99,6 +100,7 @@ const maskConfig: Partial<IConfig> = {
     MtPanelComponent,
     MtCardComponent,
     VsDiffComponent,
+    MtHtmlComponent,
   ],
   imports: [
     BrowserModule,

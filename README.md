@@ -5,7 +5,7 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, select, radio, label,
+- Components: input, checkbox,  button, select, radio, label,html,
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
   - autocomplete nur string[] options

@@ -67,6 +67,7 @@ export interface IComponent {
     cardView?: boolean,
     tabs?: Array<IComponent>,
     selectedTabIndex?: number,
+    html?: string,
    
     // [key: string]: any,
 }
@@ -105,6 +106,7 @@ export enum ComponentType {
     switch = 'switch',
     // static
     label = 'label',
+    html = 'html',
     button = 'button',
     toolbar = 'toolbar',
     divider = 'divider',

@@ -74,6 +74,12 @@ export const schema2: ISchema =
                                 }
                             ]
 
+                        },
+                        {
+                           type: 'html',
+                           style: 'margin: 30px;',
+                           html: `<p>was ist <b>lost</b> </p>`
+
                         }
                     ]
                 },
