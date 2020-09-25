@@ -32,12 +32,14 @@ export class MtContainerComponent implements OnInit {
       const arr1 = psm.Values[c1.parent.field];
       const arr2 = psm.DiffValues[c1.parent.field];
       if (!arr1 || !Array.isArray(arr1) || !arr2 || !Array.isArray(arr2) || ind >= arr1.length || ind >= arr2.length) return '';
-      val1 = arr1[ind][child.field];
-      val2 = arr2[ind][child.field];
+      val1 = this.sm.getValue(child, arr1[ind]);
+      val2 = this.sm.getValue(child, arr2[ind]);
+      // val1 = arr1[ind][child.field];
+      // val2 = arr2[ind][child.field];
     } else {
       if (!this.sm.DiffValues) return '';
-      val1 = this.sm.Values[child.field];
-      val2 = this.sm.DiffValues[child.field];
+      val1 = this.sm.getValue(child);
+      val2 = this.sm.getValue(child, this.sm.DiffValues);
     }
     if (val1 !== val2) return ' highlight';
     return '';

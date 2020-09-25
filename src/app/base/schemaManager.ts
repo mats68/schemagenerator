@@ -159,16 +159,16 @@ export class SchemaManager {
   getLabel(comp: IComponent): string {
     return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
   }
-
-  getValue(comp: IComponent): any {
+                          
+  getValue(comp: IComponent, values: any = null): any {  //values could be diff-values
     let val;
     if (!comp.field) {
       console.error('field not specified !');
       console.dir(JSON.stringify(comp));
       return undefined;
     }
-
-    val = this.Values[comp.field];
+    const Values = values || this.Values;
+    val = Values[comp.field];
 
     if (!val) {
       if (comp.type === 'checkbox') {
