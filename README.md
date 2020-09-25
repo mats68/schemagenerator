@@ -37,10 +37,11 @@ ng add @angular/material
 - not validate bug in grid
 - events in schemaManager (Observables)
 - focus input
+- teil-Schema einbinden (mit ...)
+- tabs set selected index
+- panel mit all errors, (mit Feldnamen am anfang)
 
 ### todo:
-- tabs set selected index
-- panel with all errors, (mit Feldnamen am anfang, can jump)
 - btn nok (color usw)
 - styles for label u.a.
 - input prefix und suffix (icon oder text)npm install --save ngx-mask

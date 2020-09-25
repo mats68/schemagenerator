@@ -13,16 +13,12 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   @Input() Errors: IError[];
   @Input() ErrorCount: number;
 
-  hidden: boolean;
-
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.hidden = (!this.Errors || this.Errors.length === 0 || !this.sm.AllValidated);
   }
 
   clickError(error: IError) {
@@ -30,13 +26,17 @@ export class MtErrorpanelComponent implements OnInit, OnChanges {
   }
 
   hidePanel() {
-    this.hidden = true;
+    this.sm.AllValidated = false;
+  }
+
+  panelVisible(): boolean {
+    return (this.Errors && this.Errors.length > 0 && this.sm.AllValidated);
   }
 
 getErrorLabel(error: IError): string {
     let lb = '';
     if (!error.comp) return lb;
-    lb = this.sm.getLabel(error.comp);
+    lb = this.sm.getPropValue(error.comp, 'label');
     if (!lb) return '';
     const suff = error.arrayInd !== -1 ? ` ${this.sm.Strings.row} [${error.arrayInd+1}]` : '';
     return `${lb}${suff}`;
