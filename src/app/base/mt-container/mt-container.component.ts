@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from 'src/app/base/types';
-import { CheckboxRequiredValidator } from '@angular/forms';
+import { ComponentType, IComponent } from 'src/app/base/types';
 
 @Component({
   selector: 'mt-container',
@@ -20,14 +19,12 @@ export class MtContainerComponent implements OnInit {
   }
 
   getHighlight(child: IComponent): string {
-    if (!this.sm.DiffValues) return '';
+    if (!this.sm.DiffValues || !child.field || child.type === ComponentType.datatable) return '';
     if (!child.field) return '';
     const val1 = this.sm.Values[child.field];
     const val2 = this.sm.DiffValues[child.field];
     if (val1 !== val2) return ' highlight';
     return '';
-
-
   }
 
 

@@ -88,6 +88,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   toggleExpand(row: any) {
+
     this.InitCurRow(row);
   }
 
@@ -95,9 +96,11 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   InitCurRow(row: any) {
     if (row === null || this.currow === row) {
       this.currow = null;
+      this.curRowInd = -1;
     } else {
       this.currow = row;
       const ind = this.data.findIndex(r => r === row);
+      if (this.curRowInd !== ind) this.curRowInd = ind;
       this.subsm.InitValues(row, ind);
     } 
   }

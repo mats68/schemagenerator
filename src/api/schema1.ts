@@ -29,7 +29,6 @@ export const schema1: ISchema =
     {
       type: 'input',
       name: 'firstInput',
-      cols: 'sm-12 lg-6',
       required: true,
       label(sm: SchemaManager): string {
         return sm.Language === 'de' ? 'Standort' : 'Position';
@@ -39,7 +38,6 @@ export const schema1: ISchema =
     {
       type: 'input',
       label: 'Autocomplete',
-      cols: 'sm-12 lg-6',
       hint: 'Choose an item',
       default: 'one',
       required: true,
@@ -296,6 +294,15 @@ export const schema1: ISchema =
           onClick(sm) {
             sm.DoFocus(sm.getCompByField('focusinput'));
           }
+        },
+        {
+          type: 'radiogroup',
+          label: 'Radiogroup',
+          cols: 'sm-12',
+          dataType: 'int',
+          options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}],
+          required: true,
+          field: 'radio1',
         },
         {
           type: 'input',
