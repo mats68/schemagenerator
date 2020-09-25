@@ -19,10 +19,26 @@ export class MtContainerComponent implements OnInit {
   }
 
   getHighlight(child: IComponent): string {
-    if (!this.sm.DiffValues || !child.field || child.type === ComponentType.datatable) return '';
+    if (!child.field || child.type === ComponentType.datatable) return '';
     if (!child.field) return '';
-    const val1 = this.sm.Values[child.field];
-    const val2 = this.sm.DiffValues[child.field];
+    let val1, val2
+    if (this.sm.ParentSchemaManager) {
+      const psm = this.sm.ParentSchemaManager;
+      if (!psm.DiffValues) return '';
+      const ind = this.sm.ArrayInd;
+      if (isNaN(ind)) return '';
+      const c1 = psm.getCompByField(child.field);
+      if (!c1 || !c1.comp || !c1.parent || !c1.parent.field) return '';
+      const arr1 = psm.Values[c1.parent.field];
+      const arr2 = psm.DiffValues[c1.parent.field];
+      if (!arr1 || !Array.isArray(arr1) || !arr2 || !Array.isArray(arr2) || ind >= arr1.length || ind >= arr2.length) return '';
+      val1 = arr1[ind][child.field];
+      val2 = arr2[ind][child.field];
+    } else {
+      if (!this.sm.DiffValues) return '';
+      val1 = this.sm.Values[child.field];
+      val2 = this.sm.DiffValues[child.field];
+    }
     if (val1 !== val2) return ' highlight';
     return '';
   }

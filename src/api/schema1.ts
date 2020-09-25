@@ -16,13 +16,11 @@ export const schema1: ISchema =
     console.log('form submitted');
   },
   onResize(sm) {
-    const c = sm.getCompByName('tb');
-    c!.menuView = sm.ScreenSize === 'xs';
+    sm.getCompByName('tb')!.comp.menuView = sm.ScreenSize === 'xs';
   },
   onDataLoaded(sm) {
     const liste = sm.Schema.auswahllisten.mitarbeiter;
-    const c = sm.getCompByName('mitarbeiter');
-    c!.options = Object.values(liste) as string[];
+    sm.getCompByName('mitarbeiter').comp.options = Object.values(liste) as string[];
     sm.refresh_UI();
   },
   children: [
@@ -96,8 +94,7 @@ export const schema1: ISchema =
           label: 'Hide Panel 2',
           field: 'check10',
           onChange(sm, comp, val): void {
-            const c = sm.getCompByName('panel2');
-            if (c) c.hidden = !val; 
+            sm.getCompByName('panel2').comp.hidden = !val; 
           }
         },
         {
@@ -292,7 +289,7 @@ export const schema1: ISchema =
           kind: 'raised',
           label: 'Focus Input',
           onClick(sm) {
-            sm.DoFocus(sm.getCompByField('focusinput'));
+            sm.DoFocus(sm.getCompByField('focusinput').comp);
           }
         },
         {
@@ -427,7 +424,7 @@ export const schema1: ISchema =
       cols: 'md-1',
       label: 'Focus prev',
       onClick(sm: SchemaManager) {
-        sm.DoFocus(sm.getCompByField('prev'));
+        sm.DoFocus(sm.getCompByField('prev').comp);
       }
     },
 

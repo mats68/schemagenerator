@@ -285,14 +285,12 @@ export class SchemaManager {
     return `${width}${style}`;
   }
 
-  getCompByName(name: string): IComponent | undefined {
-    const c = this.CompArray.find(ca => ca.comp.name === name);
-    return c ? c.comp : undefined;
+  getCompByName(name: string): ICompExt | undefined {
+    return this.CompArray.find(ca => ca.comp.name === name);
   }
 
-  getCompByField(field: string): IComponent | undefined {
-    const c = this.CompArray.find(ca => ca.comp.field === field);
-    return c ? c.comp : undefined;
+  getCompByField(field: string): ICompExt | undefined {
+    return this.CompArray.find(ca => ca.comp.field === field);
   }
 
   selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
