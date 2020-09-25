@@ -340,11 +340,19 @@ export class SchemaManager {
   }
 
   MakeVisible(comp: IComponent, arrayInd: number) {
+    let curTab: IComponent = null;
     let ext = this.CompArray.find(c => c.comp === comp);
     
     while (ext && ext.parent) {
       if (ext.parent.type == ComponentType.expansionspanel) {
         ext.parent.expanded = true;
+      } else if (ext.parent.type == ComponentType.tab) {
+        curTab = ext.parent;
+      } else if (ext.parent.type == ComponentType.tabs) {
+        if (curTab && ext.parent.tabs && Array.isArray(ext.parent.tabs)) {
+          const ind = ext.parent.tabs.indexOf(curTab);
+          ext.parent.selectedTabIndex = ind;
+        }
       } else if (ext.parent.type == ComponentType.datatable) {
         ext.parent.curRowInd = arrayInd;
       }

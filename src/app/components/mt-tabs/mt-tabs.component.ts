@@ -17,4 +17,8 @@ export class MtTabsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  selectedIndexChange(num: number) {
+    if (this.comp.selectedTabIndex !== num) this.comp.selectedTabIndex = num;
+  }
+
 }

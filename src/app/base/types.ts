@@ -65,6 +65,8 @@ export interface IComponent {
     menuView?: boolean,
     cardView?: boolean,
     tabs?: Array<IComponent>,
+    selectedTabIndex?: number,
+   
     // [key: string]: any,
 }
 

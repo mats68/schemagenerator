@@ -39,7 +39,7 @@ ng add @angular/material
 - focus input
 
 ### todo:
-- exp on expand set property
+- tabs set selected index
 - panel with all errors, (mit Feldnamen am anfang, can jump)
 - btn nok (color usw)
 - styles for label u.a.
@@ -52,6 +52,7 @@ ng add @angular/material
 - default properties, for inputs (eg. appearance) in schema
 - validation
 - Validation
+- on tabs etc: statt label component
 - disabled (input, check, btn...)
 
 - Button type: 'standard', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 

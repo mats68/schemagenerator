@@ -1,5 +1,6 @@
 import { SchemaManager } from '../app/base/schemaManager';
 import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../app/base/types';
+import {buttons } from './schemaButtons'
 
 export const schema2: ISchema =
 {
@@ -18,16 +19,14 @@ export const schema2: ISchema =
                             name: 'firstInput',
                             label: 'Text1',
                             field: 'text1',
-                            default: 'Standard'
+                            required: true,
                         },
                         {
                             type: 'input',
                             name: 'secondInput',
                             label: 'Text2',
                             field: 'text2',
-                            default() {
-                                return 'Test2';
-                            }
+                            required: true,
                         },
                     ]
                 },
@@ -38,12 +37,32 @@ export const schema2: ISchema =
                         {
                             type: 'checkbox',
                             label: 'check1',
+                            required: true,
                             field: 'check1',
                         }
                     ]
-                }
+                },
+                {
+                    label: 'Test',
+                    type: 'tab',
+                    children: [
+                        {
+                            type: 'input',
+                            label: 'Test',
+                            field: 'Test',
+                            required: true,
+                        },
+                        {
+                            type: 'input',
+                            label: 'Test2',
+                            field: 'Test2',
+                            required: true,
+                        },
+                    ]
+                },
             ]
         },
+        ...buttons
     ]
 }
 
