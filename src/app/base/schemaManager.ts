@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 
 export interface ISettings {
   requiredSuffix: string;
+  language: string;
 }
 
 export interface ICompExt {
@@ -20,14 +21,18 @@ export interface IError {
 export class SchemaManager {
   Schema: ISchema;
   Values: any;
-  ArrayInd: number;
   ValuesChanged: boolean;
-  // private origValues: any;
+  Settings: ISettings;
+  Strings: any;
+
   CompArray: ICompExt[];
-  Errors: IError[];
-  OnFocus: Subject<IComponent>;
+  ArrayInd: number;
   ParentSchemaManager: SchemaManager;
+
+  Errors: IError[];
   AllValidated: boolean;
+
+  OnFocus: Subject<IComponent>;
   
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -37,7 +42,7 @@ export class SchemaManager {
   set ScreenSize(val: IScreenSize) {
     if (this._ScreenSize !== val) {
       this._ScreenSize = val;
-      if (this.Schema.onResize) {
+      if (this.Schema?.onResize) {
         this.Schema.onResize(this)
       }
     }
@@ -52,19 +57,20 @@ export class SchemaManager {
     setTimeout(() => this._NeedsRefreshUI = false);
   }
 
-  Language: string;
-  Strings: any;
-
-
-  Settings: ISettings = {
-    requiredSuffix: ' *',
+  get Language(): string {
+    return this.Settings.language;
   }
 
-  constructor(schema: ISchema, values: any = null, parentSchemaManager: SchemaManager = null) {
-    this.InitSchema(schema);
+  set Language(val: string) {
+    if (this.Settings.language !== val) {
+      this.Settings.language = val; 
+      this.Strings = strings[this.Settings.language];
+    }
+  }
+
+  constructor(parentSchemaManager: SchemaManager = null, settings: ISettings = null) {
     this.ParentSchemaManager = parentSchemaManager;
-    this.InitValues(values);
-    this.InitLanguage(schema.language);
+    this.InitSettings(settings);
     this.InitScreenSize();
     this.ArrayInd = -1;
     this.OnFocus = new Subject<IComponent>();
@@ -73,14 +79,14 @@ export class SchemaManager {
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     this.CompArray = [];
-    this.Errors = [];
+    this.Errors = this.ParentSchemaManager ? this.ParentSchemaManager.Errors : [];
     this.AllValidated = false;
     const fn = (comp: IComponent, parent: IComponent) => {
       this.CompArray.push({comp, parent})
     }
     this.traverseSchema(this.Schema, null, fn);
+    this.InitValues(this.Values);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
-
   }
 
   InitValues(values: any, arrayInd: number = -1) {
@@ -95,6 +101,10 @@ export class SchemaManager {
         }
       });
     }
+    if (this.ParentSchemaManager) {
+      this.Errors = [];
+
+    }
     if (arrayInd === -1) {
       this.Errors = [];
       this.AllValidated = false;
@@ -106,12 +116,18 @@ export class SchemaManager {
 
   }
 
-  InitLanguage(language: string) {
-    if (!language) {
-      language = 'de';
+  InitSettings(settings: ISettings) {
+    if (this.ParentSchemaManager) {
+      this.Settings = this.ParentSchemaManager.Settings;
+    } else if (settings) {
+      this.Settings = settings;
+    } else {
+      this.Settings = {
+          requiredSuffix: ' *',
+          language: 'de',
+      }
     }
-    this.Schema.language = language;
-    this.Strings = strings[this.Schema.language];
+    this.Strings = strings[this.Settings.language];
   }
 
   InitScreenSize() {
@@ -345,6 +361,10 @@ export class SchemaManager {
     if (comp.tabs) {
       comp.tabs.forEach(c => this.traverseSchema(c, comp, fn));
     }
+  }
+
+  getParentSM(): SchemaManager {
+    return this.ParentSchemaManager ? this.ParentSchemaManager : this;
   }
 
 

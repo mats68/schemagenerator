@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ISchema } from 'src/app/base/types';
-import { SchemaManager } from '../../base/schemaManager';
+import { SchemaManager, ISettings } from '../../base/schemaManager';
 
 @Component({
   selector: 'vs-form',
@@ -12,6 +12,7 @@ import { SchemaManager } from '../../base/schemaManager';
 export class VsFormComponent implements OnInit, OnChanges {
   @Input() schema: ISchema;
   @Input() values: any;
+  @Input() settings: ISettings;
   schemaManger: SchemaManager;
 
   constructor() { }
@@ -21,12 +22,14 @@ export class VsFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (!this.schemaManger) {
-      this.schemaManger = new SchemaManager(this.schema, this.values);
-      } else {
-      if (this.schema !== this.schemaManger.Schema) this.schemaManger.InitSchema(this.schema);
-      if (this.values !== this.schemaManger.Values) this.schemaManger.InitValues(this.values);
-
+      this.schemaManger = new SchemaManager(null, this.settings);
     }
+    if (this.schema !== this.schemaManger.Schema) {
+      this.schemaManger.InitSchema(this.schema);
+    } else if (this.values !== this.schemaManger.Values) {
+      this.schemaManger.InitValues(this.values);
+    }
+ 
   }
 
   onResize(event){

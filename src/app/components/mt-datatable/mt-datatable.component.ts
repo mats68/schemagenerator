@@ -19,8 +19,9 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    this.subsm = new SchemaManager(this.comp, null, this.sm);
-    this.subsm.Errors = this.sm.Errors;
+    this.subsm = new SchemaManager(this.sm, this.sm.Settings);
+    this.subsm.InitSchema(this.comp);
+
     this.data = this.sm.getValue(this.comp);
 
     this.toolbar = {

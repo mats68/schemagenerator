@@ -23,7 +23,6 @@ export interface ISchema extends IComponent {
   onInitValues?: ISchemaVoidFunction,
   onDataLoaded?: ISchemaVoidFunction,
   onResize?: ISchemaVoidFunction,
-  language?: string,
   auswahllisten?: any,
 }
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { SchemaManager } from './base/schemaManager';
+import { SchemaManager, ISettings } from './base/schemaManager';
 import { schema1, values1 } from '../api/schema1';
 import { schema2, values2 } from '../api/schema2';
 declare var schemas: any;
@@ -18,6 +18,11 @@ export class AppComponent implements OnInit {
   extschemas: string[];
   _schemaManger: SchemaManager;
   service: RestService;
+
+  Settings: ISettings = {
+    language: 'de',
+    requiredSuffix: ' **',
+  }
 
 
   constructor(restService: RestService) {
@@ -58,7 +63,7 @@ export class AppComponent implements OnInit {
     return this._sprache;
   }
   set sprache(val: string) {
-    this.schemaManger.InitLanguage(val);
+    this.schemaManger.Language = val;
     this._sprache = val;
   }
   private _schema: string = 'schema1';
