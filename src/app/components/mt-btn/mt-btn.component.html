@@ -1,32 +1,72 @@
-<button [class]='btnClass'
+<button mat-button *ngIf='k("standard")'
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
   (click)='onClick()'
-  [disabled]='sm.getPropValue(comp, "disabled")'
-  [style]="sm.getStyle(comp)"
-  >
-  <mat-icon *ngIf='isIcon'>{{comp.icon}}</mat-icon>
-  <span *ngIf='!isIcon'>{{sm.getLabel(comp)}}</span>
+  [matTooltip]='tooltip()'>
+  <span>{{label()}}</span>
 </button>
 
-<button *ngIf='k("minifab")' 
+<button mat-flat-button *ngIf='k("flat")'
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'>
+  <span>{{label()}}</span>
+</button>
+
+<button mat-raised-button *ngIf='k("raised")'
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'>
+  <span>{{label()}}</span>
+</button>
+
+<button mat-stroked-button *ngIf='k("stroked")'
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'>
+  <span>{{label()}}</span>
+</button>
+
+<button *ngIf='k("icon")'
+  mat-icon-button
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'>
+  <mat-icon>{{comp.icon}}</mat-icon>
+</button>
+
+<button *ngIf='k("minifab")'
   mat-mini-fab
   [type]='type()'
   [disabled]='disabled()'
   [style]='style()'
   [color]='color()'
   (click)='onClick()'
-  [matTooltip]='tooltip()'
->
+  [matTooltip]='tooltip()'>
   <mat-icon>{{comp.icon}}</mat-icon>
 </button>
 
-<button *ngIf='k("fab")' 
+<button *ngIf='k("fab")'
   mat-fab
   [type]='type()'
   [disabled]='disabled()'
   [style]='style()'
   [color]='color()'
   (click)='onClick()'
-  [matTooltip]='tooltip()'
->
+  [matTooltip]='tooltip()'>
   <mat-icon>{{comp.icon}}</mat-icon>
 </button>

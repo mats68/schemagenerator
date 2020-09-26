@@ -42,9 +42,9 @@ ng add @angular/material
 - panel mit all errors, (mit Feldnamen am anfang)
 - drag-drop data-table rows
 - appearance form field
+- getstyle: remove 100% , instead make class
 
 ### todo:
-- getstyle: remove 100% , instead make class
 - style for all tags
 - base component with inheritance
 - Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
