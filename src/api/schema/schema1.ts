@@ -295,6 +295,19 @@ export const schema1: ISchema =
             buttonClick(comp);
           }
         },
+        {
+          type: 'divider',
+        },
+        {
+          type: ComponentType.link,
+          kind: ButtonKind.standard,
+          label: 'Link',
+          cols: 'sm-1',
+          tooltip: 'link',
+          color: 'primary',
+          href: 'https://www.sbb.ch',
+          openInNewTab: true,
+        },
 
       ]
     },

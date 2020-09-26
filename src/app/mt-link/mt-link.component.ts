@@ -3,11 +3,11 @@ import { ButtonKind } from 'src/app/base/types';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
-  selector: 'mt-btn',
-  templateUrl: './mt-btn.component.html',
-  styleUrls: ['./mt-btn.component.scss']
+  selector: 'mt-link',
+  templateUrl: './mt-link.component.html',
+  styleUrls: ['./mt-link.component.scss']
 })
-export class MtBtnComponent extends MtBaseComponent implements OnInit  {
+export class MtLinkComponent extends MtBaseComponent implements OnInit {
   kind: keyof typeof ButtonKind = ButtonKind.standard;
 
   ngOnInit(): void {
@@ -18,11 +18,12 @@ export class MtBtnComponent extends MtBaseComponent implements OnInit  {
     return this.kind === kind;
   }
 
-  onClick() {
-    if (this.comp.onClick) {
-      this.comp.onClick(this.sm, this.comp);
-    }
+  href(): string {
+    return this.sm.getPropValue(this.comp, 'href');
+  } 
+
+  target(): string {
+    return this.comp.openInNewTab ? '_blank' : '';
   }
 
-
- }
+}

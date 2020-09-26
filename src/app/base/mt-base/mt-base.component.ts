@@ -32,7 +32,7 @@ export class MtBaseComponent {
   }
 
   tooltip() {
-    return this.comp.tooltip;
+    return this.sm.getPropValue(this.comp, 'tooltip');
   }
 
 }

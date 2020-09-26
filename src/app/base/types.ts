@@ -69,6 +69,8 @@ export interface IComponent {
     tabs?: Array<IComponent>,
     selectedTabIndex?: number,
     html?: string | IComponentStringFunction,
+    href?: string | IComponentStringFunction,
+    openInNewTab?: boolean,
    
     // [key: string]: any,
 }
@@ -109,6 +111,7 @@ export enum ComponentType {
     label = 'label',
     html = 'html',
     button = 'button',
+    link = 'link',
     toolbar = 'toolbar',
     divider = 'divider',
     errorpanel = 'errorpanel',
