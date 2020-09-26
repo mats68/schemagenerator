@@ -41,6 +41,14 @@ export const schema2: ISchema =
                             field: 'check1',
                         },
                         {
+                            type: 'switch',
+                            label: (sm,comp) => {
+                                return  sm.getValue(comp) ? 'Ja' : 'Nein';
+                            },
+                            required: true,
+                            field: 'switch1',
+                        },
+                        {
                             type: 'radiogroup',
                             label: 'Radiogroup',
                             cols: 'sm-12',
