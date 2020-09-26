@@ -65,7 +65,6 @@ export interface IComponent {
     toolbarColor?: keyof typeof Color,
     menuView?: boolean,
     cardView?: boolean,
-    tabs?: Array<IComponent>,
     noWrap?: boolean,
     selectedTabIndex?: number,
     html?: string | IComponentStringFunction,

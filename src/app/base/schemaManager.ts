@@ -354,8 +354,8 @@ export class SchemaManager {
       } else if (ext.parent.type == ComponentType.tab) {
         curTab = ext.parent;
       } else if (ext.parent.type == ComponentType.tabs) {
-        if (curTab && ext.parent.tabs && Array.isArray(ext.parent.tabs)) {
-          const ind = ext.parent.tabs.indexOf(curTab);
+        if (curTab && ext.parent.children && Array.isArray(ext.parent.children)) {
+          const ind = ext.parent.children.indexOf(curTab);
           ext.parent.selectedTabIndex = ind;
         }
       } else if (ext.parent.type == ComponentType.datatable) {
@@ -370,9 +370,6 @@ export class SchemaManager {
     fn(comp, parentComp);
     if (comp.children) {
       comp.children.forEach(c => this.traverseSchema(c, comp, fn));
-    }
-    if (comp.tabs) {
-      comp.tabs.forEach(c => this.traverseSchema(c, comp, fn));
     }
   }
 

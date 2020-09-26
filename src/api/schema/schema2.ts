@@ -9,7 +9,7 @@ export const schema2: ISchema =
     children: [
         {
             type: 'tabs',
-            tabs: [
+            children: [
                 {
                     label: 'Inputs',
                     type: 'tab',
