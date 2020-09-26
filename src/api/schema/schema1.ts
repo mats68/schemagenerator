@@ -1,5 +1,5 @@
-import { SchemaManager } from '../app/base/schemaManager';
-import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../app/base/types';
+import { SchemaManager } from '../../app/base/schemaManager';
+import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../../app/base/types';
 
 function buttonClick(comp) {
   alert(comp.label);

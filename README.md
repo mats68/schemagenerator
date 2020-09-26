@@ -45,6 +45,7 @@ ng add @angular/material
 
 ### todo:
 - getstyle: remove 100% , instead make class
+- style for all tags
 - base component with inheritance
 - Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - btn nok (color usw)

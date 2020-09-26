@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { SchemaManager, ISettings } from './base/schemaManager';
-import { schema1, values1, values2 } from '../api/schema1';
-import { schema2 } from '../api/schema2';
+import { schema1, values1, values2 } from '../api/schema/schema1';
+import { schema2 } from '../api/schema/schema2';
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import {RestService} from '../api/rest.service';
