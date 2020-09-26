@@ -1,10 +1,11 @@
 import { strings } from './strings';
-import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize } from './types';
+import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance } from './types';
 import { Subject } from 'rxjs';
 
 export interface ISettings {
   requiredSuffix: string;
   language: string;
+  appearance?: IAppearance;
 }
 
 export interface ICompExt {
@@ -324,6 +325,12 @@ export class SchemaManager {
     let md = ret.indexOf('md') > -1 ? ret.substr(ret.indexOf('md')+3, 2) : sm;
     let lg = ret.indexOf('lg') > -1 ? ret.substr(ret.indexOf('lg')+3, 2) : md;
     return `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`
+  }
+
+  getAppearance(comp: IComponent): IAppearance {
+    if (comp.appearance) return comp.appearance;
+    if (this.Settings.appearance) return this.Settings.appearance;
+    return 'standard';
   }
   
   usesGrid(comp: IComponent): boolean {

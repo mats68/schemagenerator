@@ -41,6 +41,7 @@ ng add @angular/material
 - tabs set selected index
 - panel mit all errors, (mit Feldnamen am anfang)
 - drag-drop data-table rows
+- appearance form field
 
 ### todo:
 - Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
@@ -70,4 +71,6 @@ ng add @angular/material
 - split
 - Dokumente vergleichen?
 - show loader
+- filter propertys by value
+- hover-effekt bei table
 - tests ?

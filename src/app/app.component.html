@@ -15,7 +15,17 @@
 
 
 <mat-form-field appearance="fill" class="top">
-    <mat-label>Values:</mat-label>
+    <mat-label>Appearance:</mat-label>
+    <mat-select [(value)]="appearance">
+        <mat-option value="legacy">legacy</mat-option>
+        <mat-option value="standard">standard</mat-option>
+        <mat-option value="fill">fill</mat-option>
+        <mat-option value="outline">outline</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill" class="top">
+    <mat-label>Werte:</mat-label>
     <mat-select [(value)]="optvalues">
         <mat-option value="1">Leere Werte</mat-option>
         <mat-option value="2">Werte laden</mat-option>

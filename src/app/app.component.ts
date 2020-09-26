@@ -5,7 +5,7 @@ import { schema2 } from '../api/schema2';
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import {RestService} from '../api/rest.service';
-import { ISchema } from './base/types';
+import { IAppearance, ISchema } from './base/types';
 
 @Component({
   selector: 'app-root',
@@ -99,6 +99,15 @@ export class AppComponent implements OnInit {
   set optvalues(val: string) {
     this._optvalues = val;
     this.updateSchema();
+  }
+
+  private _appearance: IAppearance = 'standard';
+  get appearance(): IAppearance {
+    return this._appearance;
+  }
+  set appearance(val: IAppearance) {
+    this._appearance = val;
+    this.Settings.appearance = val;
   }
 
   updateSchema() {

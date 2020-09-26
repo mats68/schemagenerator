@@ -8,6 +8,7 @@ export type ISchemaVoidFunction = (sm: SchemaManager) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg';
+export type IAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 
 export interface ISelectOptionItem {
     value: string | number,
@@ -54,6 +55,7 @@ export interface IComponent {
     onClick?: IComponentVoidFunction,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
+    appearance?: IAppearance,
     cols?: string | IComponentStringFunction,
     datacols?: string | IComponentStringFunction,
     curRowInd?: number,
