@@ -1,4 +1,4 @@
-<mat-toolbar [color]='comp.color'>
+<mat-toolbar [color]='color'>
     <mat-toolbar-row>
         <button *ngIf='comp.menuView' mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>menu</mat-icon>
@@ -12,7 +12,7 @@
             </button>
         </mat-menu>
         <div>
-            {{sm.getLabel(comp)}}
+            {{label}}
         </div>
         <span class="menu-spacer"></span>
         <div *ngIf='!comp.menuView'>

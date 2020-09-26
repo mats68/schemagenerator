@@ -11,27 +11,27 @@ export class MtBaseComponent {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   
-  label() {
+  get label() {
     return this.sm.getLabel(this.comp);
   }
 
-  type(): string {
+  get type(): string {
     return this.comp.type || 'button';
   }
 
-  style(): string {
+  get style(): string {
     return this.sm.getStyle(this.comp);
   }
 
-  color() {
+  get color() {
     return this.comp.color;
   }
 
-  disabled(): boolean {
+  get disabled(): boolean {
     return this.sm.getPropValue(this.comp, 'disabled');
   }
 
-  tooltip() {
+  get tooltip() {
     return this.sm.getPropValue(this.comp, 'tooltip');
   }
 

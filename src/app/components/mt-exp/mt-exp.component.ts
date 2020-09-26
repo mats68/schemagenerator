@@ -1,17 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from 'src/app/base/types';
+import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
   selector: 'mt-exp',
   templateUrl: './mt-exp.component.html',
   styleUrls: ['./mt-exp.component.scss']
 })
-export class MtExpComponent implements OnInit {
-  @Input() sm: SchemaManager;
-  @Input() comp: IComponent;
-
-  constructor() { }
+export class MtExpComponent extends MtBaseComponent implements OnInit {
 
   ngOnInit(): void {
   }

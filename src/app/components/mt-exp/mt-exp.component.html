@@ -1,10 +1,10 @@
 <mat-expansion-panel 
-    class="panel" [style]='sm.getStyle(comp)' [expanded]='comp.expanded'
-    [disabled]='sm.getPropValue(comp, "disabled")'
+    class="panel" [style]='style' [expanded]='comp.expanded'
+    [disabled]='disabled'
     (afterExpand)='afterExpand()' (afterCollapse)='afterCollapse()'>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            {{sm.getLabel(comp)}}
+            {{label}}
         </mat-panel-title>
     </mat-expansion-panel-header>
 

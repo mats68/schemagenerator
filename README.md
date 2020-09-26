@@ -5,7 +5,7 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, select, radio, label,html,
+- Components: input, checkbox,  button, link, select, radio, label,html,
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
   - autocomplete nur string[] options
@@ -43,6 +43,7 @@ ng add @angular/material
 - drag-drop data-table rows
 - appearance form field
 - getstyle: remove 100% , instead make class
+- Dokumente vergleichen
 
 ### todo:
 - style for all tags
@@ -60,19 +61,12 @@ ng add @angular/material
 - Validation
 - on tabs etc: statt label component
 - disabled (input, check, btn...)
-
-- Button type: 'standard', 'raised', 'stroked', 'flat', 'icon', 'fab', 'mini-fab' 
-         link: (falls link, dann <a>)
-         icon: (falls type = 'icon', 'fab', 'mini-fab')
-  
-- Grid system ?
 - unbound Fields (not in Values)
 - exp.panel ev. expanded on start
 - input w prefix, suffix, hint, multiline
 - übersetzung (label, titel, hint, placeholder als funktion)
 - tooltip
 - split
-- Dokumente vergleichen?
 - show loader
 - filter propertys by value
 - hover-effekt bei table

@@ -1,19 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from 'src/app/base/types';
+import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
   selector: 'mt-form',
   templateUrl: './mt-form.component.html',
   styleUrls: ['./mt-form.component.scss']
 })
-export class MtFormComponent implements OnInit {
-  @Input() sm: SchemaManager;
-  @Input() comp: IComponent;
-  constructor() { }
+export class MtFormComponent extends MtBaseComponent implements OnInit {
 
   ngOnInit(): void {
-    // console.log(this.comp);
   }
   onSubmit() {
     if (this.sm.Schema.onSubmit) this.sm.Schema.onSubmit(this.sm);

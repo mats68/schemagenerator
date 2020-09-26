@@ -19,11 +19,10 @@ export class MtContainerComponent implements OnInit {
   }
 
   getHighlight(child: IComponent): string {
-    if (!child.field || child.type === ComponentType.datatable) return '';
+    if (!child.field || !this.sm.getParentSM().DiffValues || child.type === ComponentType.datatable) return '';
     let val1, val2
     if (this.sm.ParentSchemaManager) {
       const psm = this.sm.ParentSchemaManager;
-      if (!psm.DiffValues) return '';
       const ind = this.sm.ArrayInd;
       if (isNaN(ind)) return '';
       const c1 = psm.getCompByField(child.field);
@@ -33,10 +32,7 @@ export class MtContainerComponent implements OnInit {
       if (!arr1 || !Array.isArray(arr1) || !arr2 || !Array.isArray(arr2) || ind >= arr1.length || ind >= arr2.length) return '';
       val1 = this.sm.getValue(child, arr1[ind]);
       val2 = this.sm.getValue(child, arr2[ind]);
-      // val1 = arr1[ind][child.field];
-      // val2 = arr2[ind][child.field];
     } else {
-      if (!this.sm.DiffValues) return '';
       val1 = this.sm.getValue(child);
       val2 = this.sm.getValue(child, this.sm.DiffValues);
     }
