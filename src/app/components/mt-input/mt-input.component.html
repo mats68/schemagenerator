@@ -6,23 +6,23 @@
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [type]='comp.inputType'
-    [placeholder]='sm.getPropValue(comp, "placeholder")'
-    [disabled]='sm.getPropValue(comp, "disabled")' />
+    [placeholder]='placeholder'
+    [disabled]='disabled' />
   <textarea *ngIf='Typ === 1'
     [rows]='comp.rows'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
-    [placeholder]='sm.getPropValue(comp, "placeholder")'
-    [disabled]='sm.getPropValue(comp, "disabled")'>
+    [placeholder]='placeholder'
+    [disabled]='disabled'>
   </textarea>
   <input *ngIf='Typ === 2'
     [matAutocomplete]="auto"
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
-    [placeholder]='sm.getPropValue(comp, "placeholder")'
-    [disabled]='sm.getPropValue(comp, "disabled")' />
+    [placeholder]='placeholder'
+    [disabled]='disabled' />
   <mat-select *ngIf='Typ === 3' #name 
     [(ngModel)]='Value' 
     (blur)='onBlur()'
-    [disabled]='sm.getPropValue(comp, "disabled")'>
+    [disabled]='disabled'>
     <mat-option *ngFor="let item of OptionsAsObjects" [value]="item.value">
       {{item.text}}
     </mat-option>
@@ -31,7 +31,7 @@
   <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
   <mat-hint>
     <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
-    <div *ngIf='comp.hint && !getError()'>{{sm.getPropValue(comp, 'hint')}}</div>
+    <div *ngIf='comp.hint && !getError()'>{{hint}}</div>
   </mat-hint>
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions" [value]="option">

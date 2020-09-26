@@ -401,18 +401,32 @@ export const schema1: ISchema =
       type: 'toolbar',
       label: 'Eine Toolbar',
       name: 'tb',
-      toolbarItems: [
+      children: [
         {
-          label: 'First',
+          type: 'button',
+          kind: 'minifab',
+          tooltip: 'First',
           icon: 'menu',
           color: 'primary',
           onClick(sm, comp) {alert(comp.label)}
         },
         {
-          label: 'Delete',
+          type: 'button',
+          kind: 'minifab',
+          tooltip: 'Delete',
           icon: 'delete',
           color: 'warn',
           onClick(sm, comp) {alert(comp.label)}
+        },
+        {
+          type: 'button',
+          kind: 'minifab',
+          tooltip: 'Change To Menu-View',
+          icon: 'favorite',
+          color: 'warn',
+          onClick(sm, comp) {
+            sm.getCompByName('tb').comp.menuView = true;
+          }
         },
       ]
     },

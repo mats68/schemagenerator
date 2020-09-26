@@ -1,10 +1,18 @@
-<div *ngIf='usesGrid' class="row">
-  <div *ngFor='let child of comp.children' [class]="sm.getColsClass(child) + getHighlight(child)">
-    <mt-item [comp]='child' [sm]='sm'></mt-item>
+<ng-container *ngIf='!comp.noWrap'>
+  <div *ngIf='usesGrid' class="row">
+    <div *ngFor='let child of comp.children' [class]="sm.getColsClass(child) + getHighlight(child)">
+      <mt-item [comp]='child' [sm]='sm'></mt-item>
+    </div>
   </div>
-</div>
 
-<div *ngIf='!usesGrid' >
-  <div *ngFor='let child of comp.children' [class]='getHighlight(child)'>
-    <mt-item [comp]='child' [sm]='sm'></mt-item>
-</div>
+  <div *ngIf='!usesGrid'>
+    <div *ngFor='let child of comp.children' [class]='getHighlight(child)'>
+      <mt-item [comp]='child' [sm]='sm'></mt-item>
+    </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf='comp.noWrap'>
+  <mt-item *ngFor='let child of comp.children' [comp]='child' [sm]='sm'></mt-item>
+</ng-container>

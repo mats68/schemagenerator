@@ -45,8 +45,16 @@ export class MtBaseComponent {
     return this.sm.getPropValue(this.comp, 'disabled');
   }
 
+  get placeholder(): boolean {
+    return this.sm.getPropValue(this.comp, 'placeholder');
+  }
+
   get tooltip() {
     return this.sm.getPropValue(this.comp, 'tooltip');
+  }
+
+  get hint() {
+    return this.sm.getPropValue(this.comp, 'hint');
   }
 
   get OptionsAsObjects(): ISelectOptionItems {

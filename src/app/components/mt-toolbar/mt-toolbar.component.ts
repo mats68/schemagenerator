@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
+import { IComponent } from 'src/app/base/types';
 
 
 @Component({
@@ -9,9 +10,12 @@ import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 })
 
 export class MtToolbarComponent extends MtBaseComponent implements OnInit {
-  smallScreen: boolean;
-
   ngOnInit(): void {
+    this.comp.noWrap = true;
+    this.comp.children.forEach(c => {if (!c.style) c.style = 'margin-left: 10px;';});
   }
 
+  getMenuLabel(item: IComponent): string {
+    return this.sm.getPropValue(item, 'label') || this.sm.getPropValue(item, 'tooltip');
+  }
 }

@@ -28,22 +28,28 @@ export class MtDatatableComponent implements OnInit, OnChanges {
       type: 'toolbar',
       label: this.comp.label,
       color: this.comp.toolbarColor,
-      toolbarItems: [
+      children: [
       {
-        label: this.sm.Strings.ds_ins,
+        type: 'button',
+        kind: 'minifab',
+        tooltip: this.sm.Strings.ds_ins,
         icon: 'add',
         color: 'primary',
         onClick: () => {this.Insert()}
       },
       {
-        label: this.sm.Strings.ds_copy,
+        type: 'button',
+        kind: 'minifab',
+        tooltip: this.sm.Strings.ds_copy,
         icon: 'content_copy',
         color: 'primary',
         disabled: () => {return this.isDisabled()},
         onClick: () => {this.CopyRow()}
       },
       {
-        label: this.sm.Strings.ds_del,
+        type: 'button',
+        kind: 'minifab',
+        tooltip: this.sm.Strings.ds_del,
         icon: 'delete',
         color: 'primary',
         disabled: () => {return this.isDisabled()},
