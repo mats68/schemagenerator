@@ -1,5 +1,5 @@
 <mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)' class="form-field">
-  <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
+  <mt-lbl [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-lbl>
   <span matPrefix *ngIf='comp.prefix'>{{comp.prefix}}</span>
   <input *ngIf='Typ === 0'
     [mask]='comp.mask' [thousandSeparator]='maskOptions.thousandSeparator'
@@ -19,11 +19,11 @@
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
     [placeholder]='sm.getPropValue(comp, "placeholder")'
     [disabled]='sm.getPropValue(comp, "disabled")' />
-  <mat-select *ngIf='Typ === 3' #namesel 
+  <mat-select *ngIf='Typ === 3' #name 
     [(ngModel)]='Value' 
     (blur)='onBlur()'
     [disabled]='sm.getPropValue(comp, "disabled")'>
-    <mat-option *ngFor="let item of optionsAsObj" [value]="item.value">
+    <mat-option *ngFor="let item of OptionsAsObjects" [value]="item.value">
       {{item.text}}
     </mat-option>
 

@@ -58,7 +58,6 @@ import { MtFormComponent } from './components/mt-form/mt-form.component';
 import { MtExpComponent } from './components/mt-exp/mt-exp.component';
 import { MtBtnComponent } from './components/mt-btn/mt-btn.component';
 import { MtDividerComponent } from './components/mt-divider/mt-divider.component';
-import { MtLabelComponent } from './components/mt-label/mt-label.component';
 import { MtContainerComponent } from './base/mt-container/mt-container.component';
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import { MtToolbarComponent } from './components/mt-toolbar/mt-toolbar.component';
@@ -90,7 +89,6 @@ const maskConfig: Partial<IConfig> = {
     MtExpComponent,
     MtBtnComponent,
     MtDividerComponent,
-    MtLabelComponent,
     MtContainerComponent,
     VsFormComponent,
     MtToolbarComponent,

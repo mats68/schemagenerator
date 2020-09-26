@@ -1,16 +1,30 @@
-import { Component, Input  } from '@angular/core';
+import { Component, Input, ViewChild  } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from 'src/app/base/types';
+import { IComponent, ISelectOptionItems } from 'src/app/base/types';
 
 @Component({
   selector: 'mt-base',
   template: ''
 })
 export class MtBaseComponent {
+  @ViewChild('name') nameField: any;
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
+  _OptionsAsStrings: string[];
+  _OptionsAsObjects: ISelectOptionItems;
+  subscription: Subscription;
+
   
+  get Value(): any {
+    return this.sm.getValue(this.comp);
+  }
+
+  set Value(val: any) {
+    this.sm.updateValue(this.comp, val);
+  }
+
   get label() {
     return this.sm.getLabel(this.comp);
   }
@@ -34,5 +48,38 @@ export class MtBaseComponent {
   get tooltip() {
     return this.sm.getPropValue(this.comp, 'tooltip');
   }
+
+  get OptionsAsObjects(): ISelectOptionItems {
+    if (!this._OptionsAsObjects) {
+      this._OptionsAsObjects = this.sm.selectOptionsAsObjects(this.comp);
+    }
+    return this._OptionsAsObjects;
+  }
+
+  get OptionsAsStrings(): string[] {
+    if (!this._OptionsAsStrings) {
+      this._OptionsAsStrings = this.sm.selectOptionsAsStrings(this.comp);
+    }
+    return this._OptionsAsStrings;
+  }
+
+  registerFocus() {
+    this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
+      next: (comp) => {
+        if (comp === this.comp && this.nameField) {
+          if (this.nameField.nativeElement && this.nameField.nativeElement.focus) {
+            this.nameField.nativeElement.focus();
+          } else if (this.nameField.focus) {
+            this.nameField.focus();
+          }
+        }
+      }
+    });
+  }
+
+  unregisterFocus() {
+    this.subscription.unsubscribe();
+  }
+
 
 }
