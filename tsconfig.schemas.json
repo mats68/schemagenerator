@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/schemajs",
+    "module": "none",
+    "target": "ES5"
+  },
+  "include": [
+    "./src/api/schema/*"
+  ]
+}

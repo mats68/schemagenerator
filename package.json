@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compileschema": "tsc src/api"
+    "compileschema": "tsc -p .\tsconfig.schemas.json"
   },
   "private": true,
   "dependencies": {
