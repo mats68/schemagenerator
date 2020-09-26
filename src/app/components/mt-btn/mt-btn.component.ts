@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ButtonKind } from 'src/app/base/types';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 

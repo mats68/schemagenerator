@@ -1,22 +1,18 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
-import { SchemaManager } from '../../base/schemaManager';
-import { IComponent, ISelectOptionItems } from 'src/app/base/types';
+import { ISelectOptionItems } from 'src/app/base/types';
 
 @Component({
   selector: 'mt-radio',
   templateUrl: './mt-radio.component.html',
   styleUrls: ['./mt-radio.component.scss']
 })
-export class MtRadioComponent implements OnInit {
+export class MtRadioComponent extends MtBaseComponent implements OnInit, OnDestroy {
   @ViewChild('name') nameField: any;
-  @Input() sm: SchemaManager;
-  @Input() comp: IComponent;
   optionsAsObj: ISelectOptionItems;
   subscription: Subscription;
-
-  constructor() { }
 
   ngOnInit(): void {
     this.optionsAsObj = this.sm.selectOptionsAsObjects(this.comp);
@@ -24,7 +20,7 @@ export class MtRadioComponent implements OnInit {
     this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
       next: (comp) => {
         if (comp === this.comp) {
-          if (this.nameField) this.nameField.focus();
+          if (this.nameField) this.nameField.nativeElement.focus();
          
         }
       }
@@ -38,6 +34,10 @@ export class MtRadioComponent implements OnInit {
   set Value(val: any) {
     this.sm.updateValue(this.comp, val);
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
 
 
 }
