@@ -44,6 +44,8 @@ ng add @angular/material
 - appearance form field
 
 ### todo:
+- getstyle: remove 100% , instead make class
+- base component with inheritance
 - Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
 - btn nok (color usw)
 - styles for label u.a.

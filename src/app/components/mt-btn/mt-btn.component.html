@@ -1,9 +1,32 @@
 <button [class]='btnClass'
   (click)='onClick()'
-  [type]='comp.isSubmit ? "submit" : "button"'
   [disabled]='sm.getPropValue(comp, "disabled")'
   [style]="sm.getStyle(comp)"
   >
   <mat-icon *ngIf='isIcon'>{{comp.icon}}</mat-icon>
   <span *ngIf='!isIcon'>{{sm.getLabel(comp)}}</span>
+</button>
+
+<button *ngIf='k("minifab")' 
+  mat-mini-fab
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'
+>
+  <mat-icon>{{comp.icon}}</mat-icon>
+</button>
+
+<button *ngIf='k("fab")' 
+  mat-fab
+  [type]='type()'
+  [disabled]='disabled()'
+  [style]='style()'
+  [color]='color()'
+  (click)='onClick()'
+  [matTooltip]='tooltip()'
+>
+  <mat-icon>{{comp.icon}}</mat-icon>
 </button>

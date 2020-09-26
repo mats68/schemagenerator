@@ -22,7 +22,7 @@ export const buttons: Array<IComponent> = [
   },
   {
     type: 'button',
-    isSubmit: true,
+    inputType: 'submit',
     kind: 'raised',
     cols: 'md-1',
     label: 'Submit'

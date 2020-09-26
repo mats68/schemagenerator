@@ -60,7 +60,6 @@ export interface IComponent {
     datacols?: string | IComponentStringFunction,
     curRowInd?: number,
     kind?: keyof typeof ButtonKind,
-    isSubmit?: boolean,
     icon?: string,
     expanded?: boolean,
     toolbarColor?: keyof typeof Color,

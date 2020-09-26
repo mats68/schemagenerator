@@ -281,7 +281,7 @@ export class SchemaManager {
   }
 
   getStyle(comp: IComponent): string {
-    const width = comp.width ? `width: ${comp.width};` : 'width: 100%;';
+    const width = comp.width ? `width: ${comp.width};` : '';
     const style = comp.style ?? '';
     return `${width}${style}`;
   }

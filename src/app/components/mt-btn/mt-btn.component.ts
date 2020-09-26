@@ -29,6 +29,30 @@ export class MtBtnComponent implements OnInit {
     this.isIcon = ['icon', 'fab', 'minifab'].includes(kind) && !!this.comp.icon;
   }
 
+  k(kind: string): boolean {
+    return this.comp.kind === kind;
+  }
+
+  type(): string {
+    return this.comp.type || 'button';
+  }
+
+  style(): string {
+    return this.sm.getStyle(this.comp);
+  }
+
+  color() {
+    return this.comp.color;
+  }
+
+  disabled(): boolean {
+    return this.sm.getPropValue(this.comp, 'disabled');
+  }
+
+  tooltip() {
+    return this.comp.tooltip;
+  }
+
   onClick() {
     if (this.comp.onClick) {
       this.comp.onClick(this.sm, this.comp);

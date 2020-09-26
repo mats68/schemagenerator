@@ -1,4 +1,4 @@
-<mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)'>
+<mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)' class="form-field">
   <mt-label [comp]='comp' [sm]='sm' [ngClass]='{"error-color" : getError()}'></mt-label>
   <span matPrefix *ngIf='comp.prefix'>{{comp.prefix}}</span>
   <input *ngIf='Typ === 0'

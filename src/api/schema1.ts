@@ -51,6 +51,7 @@ export const schema1: ISchema =
     {
       type: 'input',
       label: 'Integer',
+      cols: 'md-6',
       dataType: 'int',
       required: true,
       field: 'int1'
@@ -58,6 +59,7 @@ export const schema1: ISchema =
     {
       type: 'input',
       label: 'Float',
+      cols: 'md-6',
       dataType: 'float',
       required: true,
       field: 'float1'
@@ -275,8 +277,17 @@ export const schema1: ISchema =
           type: ComponentType.button,
           kind: ButtonKind.minifab,
           // style: 'background-color: blue; width: 30px; height: 30px; color: white',
-          width: '45px',
           label: 'minifab button',
+          icon: 'menu',
+          onClick(sm: SchemaManager, comp: IComponent) {
+            buttonClick(comp);
+          }
+        },
+        {
+          type: ComponentType.button,
+          kind: ButtonKind.fab,
+          label: 'fab button',
+          color: 'primary',
           icon: 'menu',
           onClick(sm: SchemaManager, comp: IComponent) {
             buttonClick(comp);
@@ -410,7 +421,7 @@ export const schema1: ISchema =
     },
     {
       type: 'button',
-      isSubmit: true,
+      inputType: 'submit',
       kind: 'raised',
       cols: 'md-1',
       label: 'Submit'
