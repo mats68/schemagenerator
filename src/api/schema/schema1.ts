@@ -1,5 +1,6 @@
 import { SchemaManager } from '../../app/base/schemaManager';
 import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../../app/base/types';
+import {buttons} from './schemaButtons';
 
 function buttonClick(comp) {
   alert(comp.label);
@@ -9,6 +10,7 @@ export const schema1: ISchema =
 {
   type: 'form',
   name: 'schema1',
+  unnoetig: true,
   onInitSchema(sm) {
 
   },
@@ -430,40 +432,7 @@ export const schema1: ISchema =
         },
       ]
     },
-    {
-      type: 'errorpanel',
-      label: 'Fehler',
-    },    
-    {
-      type: 'divider',
-      style: 'margin-top: 60px;'
-    },
-    {
-      type: 'button',
-      label: 'Speichern',
-      style: 'color: blue',
-      kind: 'raised',
-      cols: 'md-1',
-      onClick(sm: SchemaManager) {
-        sm.validateAll();
-      }
-    },
-    {
-      type: 'button',
-      inputType: 'submit',
-      kind: 'raised',
-      cols: 'md-1',
-      label: 'Submit'
-    },
-    {
-      type: 'button',
-      kind: 'raised',
-      cols: 'md-1',
-      label: 'refresh UI',
-      onClick(sm: SchemaManager) {
-        sm.refresh_UI();
-      }
-    },
+    ...buttons,
     {
       type: 'button',
       kind: 'raised',

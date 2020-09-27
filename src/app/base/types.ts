@@ -181,6 +181,7 @@ export enum ComponentType {
     slider = 'slider',
     checkbox = 'checkbox',
     switch = 'switch',
+    chips = 'chips',
     // static
     label = 'label',
     html = 'html',
@@ -188,6 +189,7 @@ export enum ComponentType {
     link = 'link',
     toolbar = 'toolbar',
     divider = 'divider',
+    icon = 'icon',
     errorpanel = 'errorpanel',
   }
 

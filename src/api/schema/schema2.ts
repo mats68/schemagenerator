@@ -1,6 +1,6 @@
 import { SchemaManager } from '../../app/base/schemaManager';
 import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../../app/base/types';
-import {buttons } from '../schemaButtons'
+import {buttons } from './schemaButtons'
 
 export const schema2: ISchema =
 {

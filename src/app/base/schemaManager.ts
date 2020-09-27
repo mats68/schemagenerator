@@ -1,5 +1,5 @@
 import { strings } from './strings';
-import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance } from './types';
+import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance, SchemaKeys, ComponentKeys, IComponentPartial, IComponentProps } from './types';
 import { Subject } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
@@ -21,6 +21,17 @@ export interface IError {
   arrayInd: number; //index of array in datatable
   error: string;
 }
+export enum ISchemaErrorType {
+  error = 'error',
+  warning = 'warning',
+}
+
+export interface ISchemaError {
+  comp?: IComponent;
+  error: string;
+  type: ISchemaErrorType;
+}
+
 
 export class SchemaManager {
   Schema: ISchema;
@@ -435,14 +446,59 @@ export class SchemaManager {
     return this.ParentSchemaManager ? this.ParentSchemaManager : this;
   }
 
-  CheckSchema() {
-    //type 
+  CheckSchema(): ISchemaError[] {
+    //no type 
+    // warning falls nicht prop aus IComponent
     // no double names or fields
     // container must have children
     //input usw must have field
-    // warning falls nicht prop aus IComponent
-    
+    //input usw should have label
 
+    const notype = 'type Property is missing';
+    const noChild = 'children Property is missing';
+    const noField = 'field Property is missing';
+    const noLabel = 'label Property is missing';
+    const doubleField = 'field Property is more than once used!';
+    const doubleName = 'name Property is more than once used!';
+    const unn = prop => `Unnecessary Property "${prop}"`;
+    const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"': ''}`;
+
+    const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
+    const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips];
+    const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button];
+
+    const Errs: ISchemaError[] = [];
+    const AddErr = (comp: IComponent, msg: string, isError: boolean) => {
+      const type = isError ? ISchemaErrorType.error : ISchemaErrorType.warning;
+      Errs.push({comp, error: err(msg,comp), type });  
+    }
+
+    const ck = Object.keys(ComponentKeys);
+    const sk = Object.keys(SchemaKeys).concat(ck);
+    const duplicateFields = [];
+    const duplicateNames = [];
+
+   
+    //Check components 
+    this.CompArray.forEach(ca => {
+      if (!ca.comp.type) {
+        AddErr(ca.comp,notype, true);
+      } else {
+        if (container.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.children)) AddErr(ca.comp,noChild, true);  
+        if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp,noField, true);  
+        if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp,noLabel, false);  
+      }
+      
+      ca.comp.field && duplicateFields[ca.comp.field] ? AddErr(ca.comp,doubleField, true) : duplicateFields[ca.comp.field] = true;
+      ca.comp.name && duplicateNames[ca.comp.name] ? AddErr(ca.comp,doubleName, true) : duplicateNames[ca.comp.name] = true;
+
+      const propKeys = ca.parent ? ck : sk;
+      Object.keys(ca.comp).forEach(k => {
+        if (propKeys.indexOf(k) === -1) AddErr(ca.comp,unn(k), false);  
+      });
+    });
+
+    return Errs;
   }
 
 
