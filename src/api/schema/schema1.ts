@@ -8,7 +8,7 @@ function buttonClick(comp) {
 export const schema1: ISchema =
 {
   type: 'form',
-  name: 'form',
+  name: 'schema1',
   onInitSchema(sm) {
 
   },

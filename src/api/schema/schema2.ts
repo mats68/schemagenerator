@@ -5,7 +5,7 @@ import {buttons } from '../schemaButtons'
 export const schema2: ISchema =
 {
     type: 'form',
-    name: 'form2',
+    name: 'schema2',
     children: [
         {
             type: 'tabs',

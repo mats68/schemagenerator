@@ -15,7 +15,9 @@ export class VsFormComponent implements OnInit, OnChanges {
   @Input() settings: ISettings;
   schemaManger: SchemaManager;
 
-  constructor() { }
+  constructor() { 
+
+  }
 
   ngOnInit(): void {
   }
@@ -24,7 +26,11 @@ export class VsFormComponent implements OnInit, OnChanges {
     if (!this.schemaManger) {
       this.schemaManger = new SchemaManager(null, this.settings);
     }
-    if (this.schema !== this.schemaManger.Schema) {
+    if (!this.schema.name) {
+      this.schema.name = Math.random().toString(36).substr(2, 5);
+    }
+
+    if (!this.schemaManger.Schema || this.schema.name !== this.schemaManger.Schema.name) {
       this.schemaManger.InitSchema(this.schema);
     } else if (this.values !== this.schemaManger.Values) {
       this.schemaManger.InitValues(this.values);

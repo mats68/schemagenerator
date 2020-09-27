@@ -6,6 +6,9 @@ export type IComponentAnyFunction = (sm: SchemaManager, comp: IComponent, value?
 export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
 export type ISchemaVoidFunction = (sm: SchemaManager) => void;
 export type ISelectOptionItemsFunction = (sm: SchemaManager, comp: IComponent, value?: any) => ISelectOptionItems | string[];
+// export type IPartialSchema = Partial<ISchema>;
+// export type IPartialComponent = Partial<IComponent>;
+
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg';
 export type IAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
@@ -17,18 +20,20 @@ export interface ISelectOptionItem {
 
 export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
+
 export interface ISchema extends IComponent {
-  name?: string,
   onSubmit?: ISchemaVoidFunction,
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
   onDataLoaded?: ISchemaVoidFunction,
   onResize?: ISchemaVoidFunction,
+  inheritFrom?: ISchema;
   auswahllisten?: any,
+  [key: string]: any,
 }
 
 export interface IComponent {
-    type: keyof typeof ComponentType;
+    type?: keyof typeof ComponentType;
     dataType?: keyof typeof DataType;
     label?: string | IComponentStringFunction,
     name?: string;

@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { SchemaManager, ISettings } from './base/schemaManager';
 import { schema1, values1, values2 } from '../api/schema/schema1';
 import { schema2 } from '../api/schema/schema2';
+import { schema3 } from '../api/schema/schema_extended';
+
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import {RestService} from '../api/rest.service';
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
   extschemas: string[];
   _schemaManger: SchemaManager;
   service: RestService;
-  diffView: boolean; 
+  diffView: boolean;
   
   Settings: ISettings = {
     language: 'de',
@@ -118,13 +120,16 @@ export class AppComponent implements OnInit {
       } else {
         this.curvalues = null;
       }
-    } else {
+    } else if (this.schema === 'schema2') {
       this.curschema = schema2;
       if (this.optvalues === '2') {
         this.curvalues = values2;
       } else {
         this.curvalues = null;
       }
+    } else {
+      this.curschema = schema3;
+      this.curvalues = null;
     }
     this.schemaManger.InitSchema(this.curschema);
     this.schemaManger.InitValues(this.curvalues);
@@ -143,5 +148,8 @@ export class AppComponent implements OnInit {
     return JSON.stringify(this.schemaManger?.Values ?? '', null, 2);
   }
 
+  getSchema(): string {
+    return JSON.stringify(this.schemaManger?.Schema ?? '', null, 2);
+  }
 
 }

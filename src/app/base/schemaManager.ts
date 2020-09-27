@@ -1,6 +1,9 @@
 import { strings } from './strings';
 import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance } from './types';
 import { Subject } from 'rxjs';
+import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
+
 
 export interface ISettings {
   requiredSuffix: string;
@@ -80,6 +83,8 @@ export class SchemaManager {
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
+    if (this.Schema.inheritFrom) this.InitInherits();
+    
     this.CompArray = [];
     this.Errors = this.ParentSchemaManager ? this.ParentSchemaManager.Errors : [];
     this.AllValidated = false;
@@ -89,6 +94,40 @@ export class SchemaManager {
     this.traverseSchema(this.Schema, null, fn);
     this.InitValues(this.Values);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
+  }
+
+  private InitInherits() {
+    const getComp = (CompArray: ICompExt[], name: string, field: string = ''): ICompExt | undefined => {
+      if (name) {
+        return CompArray.find(ca => ca.comp.name === name);
+      } else if (field) {
+        return CompArray.find(ca => ca.comp.field === field);
+      }
+      return undefined;
+    }
+  
+    if (this.Schema.inheritFrom.inheritFrom) {
+      console.error('inherits schema should not have a inherits schema himself !');
+      return;
+    }
+    
+    const baseSchema: ISchema = cloneDeep(this.Schema.inheritFrom);
+    baseSchema.name = this.Schema.name;
+
+    const compsBase: ICompExt[] = [];
+    this.traverseSchema(baseSchema, null, (comp, parent) => compsBase.push({comp,parent}));
+
+    const compsExt: ICompExt[] = [];
+    this.traverseSchema(this.Schema, null, (comp, parent) => compsExt.push({comp,parent}));
+
+    compsExt.forEach(ec => {
+      var bc = getComp(compsBase, ec.comp.name, ec.comp.field);
+      if (bc && !bc.comp.children) {
+        merge(bc.comp, ec.comp);
+      }
+    })
+    this.Schema = baseSchema;
+
   }
 
   InitValues(values: any, arrayInd: number = -1, diffValues: any = null) {

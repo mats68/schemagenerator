@@ -3,6 +3,7 @@
     <mat-select [(value)]="schema">
         <mat-option value="schema1">schema1</mat-option>
         <mat-option value="schema2">schema2</mat-option>
+        <mat-option value="schema3">schema3</mat-option>
     </mat-select>
 </mat-form-field>
 
@@ -49,6 +50,10 @@
     </div>
     <div style="margin-top: 100px;">Values</div>
     <div>{{getValues()}}</div>
+
+    <div style="margin-top: 100px;">Schema</div>
+    <div>{{getSchema()}}</div>
+    
 </div>
 
 
