@@ -5,7 +5,7 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, link, select, radio, label,html,
+- Components: input, checkbox,  button, link, select, radio, label,html,tabs
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
   - autocomplete nur string[] options
@@ -45,31 +45,18 @@ ng add @angular/material
 - getstyle: remove 100% , instead make class
 - Dokumente vergleichen
 - inherit from Base-Schema
+- settings objekt 
+- übersetzung (label, titel, hint, placeholder als funktion)
 
 ### todo:
+- input prefix und suffix (icon, button oder text)
+- tests für checkschema funktion
 - style for all tags
-- base component with inheritance
-- Components: Chips, ja/nein Panel,Date, Sidenav ?, Tabs ?
-- btn nok (color usw)
-- styles for label u.a.
-- input prefix und suffix (icon oder text)npm install --save ngx-mask
-- settings objekt 
+- Components: Chips, ja/nein Panel,Date,icon,chips 
 - sm.translate function ("de", "fr", "it")
-- schemamanager innerhalb mt-form
 - readonly 
-- default properties, for inputs (eg. appearance) in schema
-- validation
 - Validation
-- on tabs etc: statt label component
-- disabled (input, check, btn...)
 - unbound Fields (not in Values)
-- exp.panel ev. expanded on start
-- input w prefix, suffix, hint, multiline
-- übersetzung (label, titel, hint, placeholder als funktion)
-- tooltip
-- split
 - show loader
 - filter propertys by value
 - hover-effekt bei table
-- tests ?
-- checkschema function: sever errors and warnings
