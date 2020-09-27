@@ -114,15 +114,34 @@ export class SchemaManager {
     const baseSchema: ISchema = cloneDeep(this.Schema.inheritFrom);
     baseSchema.name = this.Schema.name;
 
-    const compsBase: ICompExt[] = [];
-    this.traverseSchema(baseSchema, null, (comp, parent) => compsBase.push({comp,parent}));
+    const updateArray = (schema: ISchema): ICompExt[]  => {
+      let arr: ICompExt[] = [];
+      this.traverseSchema(schema, null, (comp, parent) => arr.push({comp,parent}));
+      return arr;
+    }
 
-    const compsExt: ICompExt[] = [];
-    this.traverseSchema(this.Schema, null, (comp, parent) => compsExt.push({comp,parent}));
+    let compsBase = updateArray(baseSchema);
+    // this.traverseSchema(baseSchema, null, (comp, parent) => compsBase.push({comp,parent}));
+
+    let compsExt = updateArray(this.Schema);
+
+
+    // neue Komponenten hinzufügen
+    compsExt.forEach(ec => {
+      compsBase = updateArray(baseSchema);
+      let bc = getComp(compsBase, ec.comp.name, ec.comp.field);
+      if (!bc && ec.parent) {
+        bc = getComp(compsBase, ec.parent.name, ec.parent.field);
+        if (bc && bc.comp.children) { 
+          bc.comp.children.push(ec.comp);
+        } 
+      }
+    })
+
 
     compsExt.forEach(ec => {
       var bc = getComp(compsBase, ec.comp.name, ec.comp.field);
-      if (bc && !bc.comp.children) {
+      if (bc) {
         merge(bc.comp, ec.comp);
       }
     })
@@ -414,6 +433,16 @@ export class SchemaManager {
 
   getParentSM(): SchemaManager {
     return this.ParentSchemaManager ? this.ParentSchemaManager : this;
+  }
+
+  CheckSchema() {
+    //type 
+    // no double names or fields
+    // container must have children
+    //input usw must have field
+    // warning falls nicht prop aus IComponent
+    
+
   }
 
 

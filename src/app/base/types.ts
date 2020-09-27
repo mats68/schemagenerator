@@ -20,8 +20,15 @@ export interface ISelectOptionItem {
 
 export interface ISelectOptionItems extends Array<ISelectOptionItem> { }
 
+export interface ISchema extends ISchemaProps, IComponent {
+  [key: string]: any,
+}
 
-export interface ISchema extends IComponent {
+export interface ISchemaPartial extends ISchemaProps, IComponentPartial {
+  [key: string]: any,
+}
+
+export interface ISchemaProps  {
   onSubmit?: ISchemaVoidFunction,
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
@@ -29,11 +36,19 @@ export interface ISchema extends IComponent {
   onResize?: ISchemaVoidFunction,
   inheritFrom?: ISchema;
   auswahllisten?: any,
-  [key: string]: any,
 }
 
-export interface IComponent {
-    type?: keyof typeof ComponentType;
+export interface IComponent extends IComponentProps {
+  type: keyof typeof ComponentType;
+  children?: Array<IComponent>,
+}
+
+export interface IComponentPartial extends IComponentProps {
+  type?: keyof typeof ComponentType;
+  children?: Array<IComponentPartial>,
+}
+
+export interface IComponentProps {
     dataType?: keyof typeof DataType;
     label?: string | IComponentStringFunction,
     name?: string;
@@ -42,7 +57,6 @@ export interface IComponent {
     hidden?: boolean,
     tooltip?: string | IComponentStringFunction,
     hint?: string | IComponentStringFunction,
-    children?: Array<IComponent>,
     default?: any,
     inputType?: string,
     width?: string,
@@ -75,9 +89,65 @@ export interface IComponent {
     html?: string | IComponentStringFunction,
     href?: string | IComponentStringFunction,
     openInNewTab?: boolean,
-   
-    // [key: string]: any,
 }
+
+type KeysEnum<T> = { [P in keyof Required<T>]: true };
+export const ComponentKeys: KeysEnum<IComponent> = {
+  type: true,
+  dataType: true,
+  label: true,
+  name: true,
+  field: true,
+  style: true,
+  hidden: true,
+  tooltip: true,
+  hint: true,
+  children: true,
+  default: true,
+  inputType: true,
+  width: true,
+  suffix: true,
+  prefix: true,
+  mask: true,
+  maskOptions: true,
+  rows: true,
+  multiline: true,
+  required: true,
+  color: true,
+  validate: true,
+  onChange: true,
+  summary: true,
+  onClick: true,
+  disabled: true,
+  options: true,
+  appearance: true,
+  cols: true,
+  datacols: true,
+  curRowInd: true,
+  kind: true,
+  icon: true,
+  expanded: true,
+  toolbarColor: true,
+  menuView: true,
+  cardView: true,
+  noWrap: true,
+  selectedTabIndex: true,
+  html: true,
+  href: true,
+  openInNewTab: true,
+};
+
+export const SchemaKeys: KeysEnum<ISchemaProps> = {
+  onSubmit: true,
+  onInitSchema: true,
+  onInitValues: true,
+  onDataLoaded: true,
+  onResize: true,
+  inheritFrom: true,
+  auswahllisten: true,
+  
+}
+
 
 export interface IMaskOptions {
   thousandSeparator?: string,
