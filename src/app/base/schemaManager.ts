@@ -23,9 +23,22 @@ export interface IError {
   arrayInd: number; //index of array in datatable
   error: string;
 }
+
 export enum ISchemaErrorType {
   error = 'error',
   warning = 'warning',
+}
+
+export enum IValueType {
+  undefined = 'undefined',
+  null = 'null',
+  string = 'string',
+  number = 'number',
+  boolean = 'boolean',
+  function = 'function',
+  array = 'array',
+  object = 'object',
+  component = 'component',
 }
 
 export interface ISchemaError {
@@ -453,6 +466,31 @@ export class SchemaManager {
 
   getParentSM(): SchemaManager {
     return this.ParentSchemaManager ? this.ParentSchemaManager : this;
+  }
+
+  checkValueType(val: any): IValueType {
+    if (typeof  val === 'undefined') {
+      return IValueType.undefined;
+    } else if (val === null) {
+      return IValueType.null;
+    } else if (typeof val === 'string') {
+      return IValueType.string;
+    } else if (typeof val === 'number') {
+      return IValueType.number;
+    } else if (typeof val === 'boolean') {
+      return IValueType.boolean;
+    } else if (typeof val === 'function') {
+      return IValueType.function;
+    } else if (Array.isArray(val)) {
+      return IValueType.array;
+    } else if (typeof val === 'object') {
+      if (val.type) {
+        return IValueType.component;
+      } else {
+        return IValueType.object;
+      }
+    }
+
   }
 
   CheckSchema(): ISchemaError[] {
