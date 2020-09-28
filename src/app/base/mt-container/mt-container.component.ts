@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaManager } from '../../base/schemaManager';
 import { ComponentType, IComponent } from 'src/app/base/types';
+import get from 'lodash.get';
+import set from 'lodash.set';
 
 @Component({
   selector: 'mt-container',
@@ -27,8 +29,8 @@ export class MtContainerComponent implements OnInit {
       if (isNaN(ind)) return '';
       const c1 = psm.getCompByField(child.field);
       if (!c1 || !c1.comp || !c1.parent || !c1.parent.field) return '';
-      const arr1 = psm.Values[c1.parent.field];
-      const arr2 = psm.DiffValues[c1.parent.field];
+      const arr1 = get(psm.Values,c1.parent.field);
+      const arr2 = get(psm.DiffValues, c1.parent.field);
       if (!arr1 || !Array.isArray(arr1) || !arr2 || !Array.isArray(arr2) || ind >= arr1.length || ind >= arr2.length) return '';
       val1 = this.sm.getValue(child, arr1[ind]);
       val2 = this.sm.getValue(child, arr2[ind]);
