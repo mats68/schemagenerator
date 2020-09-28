@@ -3,6 +3,8 @@ import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScre
 import { Subject } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
+import get from 'lodash.get';
+import set from 'lodash.set';
 
 
 export interface ISettings {
@@ -171,7 +173,7 @@ export class SchemaManager {
       this.CompArray.forEach(ca => {
         if (ca.comp.field && ca.comp.default) {
           const val = this.getPropValue(ca.comp, 'default');
-          this.Values[ca.comp.field] = val;
+          set(this.Values, ca.comp.field, val);
         }
       });
     }
@@ -238,7 +240,7 @@ export class SchemaManager {
       return undefined;
     }
     const Values = values || this.Values;
-    val = Values[comp.field];
+    val = get(Values, comp.field);
 
     if (!val) {
       if (comp.type === 'checkbox') {
@@ -254,6 +256,12 @@ export class SchemaManager {
 
   updateValue(comp: IComponent, val: any): void {
 
+    if (!comp.field) {
+      console.error('field not specified !');
+      console.dir(JSON.stringify(comp));
+      return;
+    }
+
     if (comp.dataType === DataType.float) {
       val = parseFloat(val);
       if (isNaN(val)) val = null;
@@ -264,8 +272,9 @@ export class SchemaManager {
       if (isNaN(val)) val = null;
     }
 
-    if (this.Values[comp.field] === val) return;
-    this.Values[comp.field] = val;
+    const curVal = get(this.Values, comp.field);
+    if (curVal === val) return;
+    set(this.Values, comp.field, val);
     this.validate(comp, val);
 
     if (comp.onChange) {
@@ -295,12 +304,12 @@ export class SchemaManager {
     this.CompArray.forEach(ca => {
       if (ca.comp.field) {
         if (ca.comp.type === ComponentType.datatable) {
-          const arrVal = this.Values[ca.comp.field];
+          const arrVal = get(this.Values, ca.comp.field);
           this.validate(ca.comp,arrVal);
           if (arrVal && Array.isArray(arrVal)) {
             arrVal.forEach((obj, ind) => {
               ca.comp.children.forEach(comp => {
-                const value = obj[comp.field];
+                const value = get(obj,comp.field);
                 this.validate(comp, value, ind);
               })
             })

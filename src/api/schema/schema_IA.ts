@@ -195,7 +195,7 @@ export const schema_IA: ISchema =
                             name: 'pnAdrVerwaltung',
                             hidden: true,
                             children: [
-                                ...adress('verwaltung_', true)
+                                ...adress('verwaltung.', true)
                             ]
 
                         },
@@ -211,7 +211,7 @@ export const schema_IA: ISchema =
                                     label: ' Adresse in telsearch.ch suchen...',
 
                                 },
-                                ...adress('architekt_')
+                                ...adress('architekt.')
                             ]
 
                         },
@@ -354,12 +354,14 @@ export const values_IA = {
     anzEinheiten: 1,
     Parzelle: '2',
     VersicherungsNr: '120',
-    verwaltung_name: 'Markus Plattenbeläge',
-    verwaltung_name2: 'Zementfliesen',
-    verwaltung_adresse: 'Bleienbachstrasse 26b',
-    verwaltung_plz: '4900',
-    verwaltung_ort: 'Langenthal',
-    verwaltung_tel: '079 603 64 04',
+    verwaltung: {
+        name: 'Markus Plattenbeläge',
+        name2: 'Zementfliesen',
+        adresse: 'Bleienbachstrasse 26b',
+        plz: '4900',
+        ort: 'Langenthal',
+        tel: '079 603 64 04',
+    },
     steuereinrichtungen: [
         {
             kunde: "Meier, Bern",
