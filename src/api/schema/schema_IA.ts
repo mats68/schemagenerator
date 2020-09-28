@@ -49,7 +49,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
     },
     {
         type: 'input',
-        field: PrefField + 'telefon',
+        field: PrefField + 'tel',
         label: 'Telefon',
         disabled
     },
@@ -75,6 +75,7 @@ export const schema_IA: ISchema =
             children: [
                 {
                     type: 'input',
+                    multiline: true,
                     field: 'standort',
                     label: 'Standort',
                     disabled: true,
@@ -91,6 +92,8 @@ export const schema_IA: ISchema =
                     type: 'input',
                     field: 'Gemeinde',
                     label: 'Gemeinde',
+                    dataType: 'int',
+                    mask: '0*',
                     disabled: true,
                     cols: 'md-6',
                 },
@@ -115,7 +118,7 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'input',
-                    field: 'Versicherungs-Nr',
+                    field: 'VersicherungsNr',
                     label: 'Versicherungs-Nr.',
                     cols: 'md-6',
                 },
@@ -210,13 +213,168 @@ export const schema_IA: ISchema =
                                 },
                                 ...adress('architekt_')
                             ]
-    
+
                         },
-                        ]
-            },
+                    ]
+                },
             ]
+        },
+        {
+            type: 'datatable',
+            label: 'Mess- und Steuereinrichtungen',
+            field: 'steuereinrichtungen',
+            cardView: true,
+            summary(sm, comp, row) {
+                const kunde = row.kunde ? `Kunde: ${row.kunde}` : '';
+                const rechnungsadresse = row.rechnungsadresse ? ` Rechnungsadresse: ${row.rechnungsadresse}` : '';
+                const gebaeudeteil = row.gebaeudeteil ? ` Gebäudeteil: ${row.gebaeudeteil}` : '';
+
+                return `${kunde} ${rechnungsadresse} ${gebaeudeteil}`;
+
+            },
+            children: [
+                {
+                    type: 'input',
+                    label: 'Kunde',
+                    field: 'kunde',
+                    required: true,
+                    cols: 'md-6',
+                },
+                {
+                    type: 'input',
+                    label: 'Rechnungsadresse',
+                    field: 'rechnungsadresse',
+                    required: true,
+                    cols: 'md-6',
+                },
+                {
+                    type: 'input',
+                    label: 'Gebäudeteil',
+                    field: 'gebaeudeteil',
+                    cols: 'md-6',
+                },
+                {
+                    type: 'input',
+                    label: 'Nutzung',
+                    field: 'nutzung',
+                    cols: 'md-6',
+                },
+                {
+                    type: 'input',
+                    label: 'Verbrauchsstelle VNB',
+                    field: 'Verbrauchsstelle',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'Stockwerk',
+                    field: 'Stockwerk',
+                    options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'Raumnummer',
+                    field: 'Raumnummer',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'VNB Tarif',
+                    field: 'VNBTarif',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'Sich.',
+                    field: 'sicher',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'Zählernummer VNB',
+                    field: 'Zählernummer',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'input',
+                    label: 'Mont. Ort',
+                    field: 'Mont',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'ZEV',
+                    field: 'zev',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'neu.',
+                    field: 'neu',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'vorh.',
+                    field: 'vorh',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'ausw.',
+                    field: 'ausw',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'dem.',
+                    field: 'dem',
+                    cols: 'md-4',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'umm.',
+                    field: 'umm',
+                    cols: 'md-4',
+                },
+            ]
+
         },
         ...buttons
 
     ]
+}
+
+
+export const values_IA = {
+    standort: 'Bernstrasse 128\n3072 Ostermundigen',
+    gebaeudeart: 'MFH',
+    Gemeinde: 'Muri',
+    anzEinheiten: 1,
+    Parzelle: '2',
+    VersicherungsNr: '120',
+    verwaltung_name: 'Markus Plattenbeläge',
+    verwaltung_name2: 'Zementfliesen',
+    verwaltung_adresse: 'Bleienbachstrasse 26b',
+    verwaltung_plz: '4900',
+    verwaltung_ort: 'Langenthal',
+    verwaltung_tel: '079 603 64 04',
+    steuereinrichtungen: [
+        {
+            kunde: "Meier, Bern",
+            rechnungsadresse: 'Bernstrasse 111, 3001 Bern',
+            gebaeudeteil: '1. OG',
+            Raumnummer: '2',
+        },
+        {
+            kunde: "Karrer, Zürich",
+            rechnungsadresse: 'Brandschenkestrasse 90, 8002 Zürich',
+            gebaeudeteil: '1. UG',
+            Raumnummer: '1',
+        },
+    ]
+
+
+
 }

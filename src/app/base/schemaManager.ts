@@ -453,6 +453,8 @@ export class SchemaManager {
     // container must have children
     //input usw must have field
     //input usw should have label
+    // datatable: summary falls cardView
+    // options falls select oder radio
 
     const notype = 'type Property is missing';
     const noChild = 'children Property is missing';
@@ -461,11 +463,13 @@ export class SchemaManager {
     const noLabel = 'label Property is missing';
     const doubleField = 'field Property is more than once used!';
     const doubleName = 'name Property is more than once used!';
+    const noSummary = 'summary is necessary in datatable cardview';
+    const noOptions = 'options Property is necessary';
     const unn = prop => `Unnecessary Property "${prop}"`;
     const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"': ''}`;
 
     const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
-    const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips];
+    const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips, ComponentType.datatable];
     const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.tabs, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button];
 
     const Errs: ISchemaError[] = [];
@@ -493,12 +497,13 @@ export class SchemaManager {
               AddErr(ca.comp,zeroChild, true);  
             }
           }
-
         }
-
-        
+       
         if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp,noField, true);  
         if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp,noLabel, false);  
+
+        if ((ca.comp.type === ComponentType.select || ca.comp.type === ComponentType.radiogroup) && !ca.comp.options) AddErr(ca.comp,noOptions, true);  
+        if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp,noSummary, true);  
       }
       
       ca.comp.field && duplicateFields[ca.comp.field] ? AddErr(ca.comp,doubleField, true) : duplicateFields[ca.comp.field] = true;
