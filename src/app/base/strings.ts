@@ -5,6 +5,8 @@ export const strings = {
         ds_copy: 'Datensatz kopieren',
         ds_del: 'Datensatz löschen',
         row: 'Zeile Nr.',
+        switch_yes: 'Ja',
+        switch_no: 'Nein',
     },
     en: {
         required: 'Input required',
@@ -12,5 +14,7 @@ export const strings = {
         ds_copy: 'Copy Record',
         ds_del: 'Delete Record',
         row: 'Row Nr.',
+        switch_yes: 'Yes',
+        switch_no: 'No',
     }
 }

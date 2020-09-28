@@ -70,7 +70,6 @@ export const schema_IA: ISchema =
         },
         {
             type: 'expansionspanel',
-            expanded: true,
             label: 'Ort der Installation',
             children: [
                 {
@@ -132,7 +131,6 @@ export const schema_IA: ISchema =
         },
         {
             type: 'expansionspanel',
-            expanded: true,
             label: 'Adressen / Geschäftspartner',
             children: [
                 {
@@ -167,6 +165,7 @@ export const schema_IA: ISchema =
                             type: 'radiogroup',
                             field: 'Sprache',
                             label: 'Sprache',
+                            required: true,
                             options: ['De', 'Fr', 'It'],
                         },
 
@@ -223,6 +222,7 @@ export const schema_IA: ISchema =
             type: 'datatable',
             label: 'Mess- und Steuereinrichtungen',
             field: 'steuereinrichtungen',
+            required: true,
             cardView: true,
             summary(sm, comp, row) {
                 const kunde = row.kunde ? `Kunde: <b>${row.kunde}</b><br/>` : '';
@@ -341,6 +341,21 @@ export const schema_IA: ISchema =
                 },
             ]
 
+        },
+        {
+            type: 'switchpanel',
+            label: 'Bemerkungen',
+            field: 'switcher_bemerkungen',
+            children: [
+                {
+                    type: 'input',
+                    multiline: true,
+                    rows: 6,
+                    label: 'Bemerkungen',
+                    field: 'testw'
+                }
+
+            ]
         },
         ...buttons
 

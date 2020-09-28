@@ -167,12 +167,13 @@ export interface IToolbarItem {
 
 export enum ComponentType {
     // containers
-    card = 'card',
+    form = 'form',
     panel = 'panel',
+    card = 'card',
     expansionspanel = 'expansionspanel',
     tabs = 'tabs',
     tab = 'tab',
-    form = 'form',
+    switchpanel = 'switchpanel',
     datatable = 'datatable',
     //fields
     input = 'input',

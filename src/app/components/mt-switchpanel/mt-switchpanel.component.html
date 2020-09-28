@@ -1,0 +1,16 @@
+<mat-card [style]='style'>
+    <div class="header">
+        <div>
+            {{label}}
+        </div>
+        <div class="switch">
+            {{switchText}}
+            <mat-slide-toggle [(ngModel)]='valueSwitch'>
+            </mat-slide-toggle>
+        </div>
+    </div>
+    <mat-card-content *ngIf='valueSwitch'>
+        <mt-container [comp]='comp' [sm]='sm'></mt-container>
+    </mat-card-content>
+
+</mat-card>
