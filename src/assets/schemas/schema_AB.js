@@ -1,4 +1,4 @@
-schemas.IA = {
+schemas.AB = {
     type: 'form',
     name: 'form2',
     children: [{

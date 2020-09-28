@@ -50,6 +50,7 @@ ng add @angular/material
 
 ### todo:
 - input prefix und suffix (icon, button oder text)
+- min max length bei input
 - tests für checkschema funktion
 - style for all tags
 - Components: Chips, ja/nein Panel,Date,icon,chips 
