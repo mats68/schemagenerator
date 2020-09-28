@@ -244,6 +244,19 @@ export class SchemaManager {
   getLabel(comp: IComponent): string {
     return this.getPropValue(comp, 'label') + (comp.required ? this.Settings.requiredSuffix : '');
   }
+  private hasNoValue(value: any): boolean {
+    const typ = this.checkValueType(value);
+    let noVal = false;
+    if (typ === IValueType.undefined || typ === IValueType.null) {
+      noVal = true;
+    } else if (typ === IValueType.string && value === '') {
+      noVal = true;
+    } else if (typ === IValueType.array && value.length === 0) {
+      noVal = true;
+    }
+    return noVal;
+
+  }
                           
   getValue(comp: IComponent, values: any = null): any {  //values could be diff-values
     let val;
@@ -255,7 +268,7 @@ export class SchemaManager {
     const Values = values || this.Values;
     val = get(Values, comp.field);
 
-    if (!val) {
+    if (this.hasNoValue(val)) {
       if (comp.type === 'checkbox') {
         return false;
       }
@@ -300,7 +313,8 @@ export class SchemaManager {
   validate(comp: IComponent, value: any, arrayInd: number = -1): void {
     if (arrayInd === - 1) arrayInd = this.ArrayInd;
     let msg = '';
-    if (!value && comp.required) {
+
+    if (this.hasNoValue(value) && comp.required) {
       msg = `${this.Strings.required}`;
     } else if (comp.validate) {
       msg = comp.validate(this, comp, value);
