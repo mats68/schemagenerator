@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { SchemaManager } from '../../base/schemaManager';
-import { IComponent } from '../../base/types';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { IValueType, SchemaManager } from '../../base/schemaManager';
+import { IComponent, IComponentPartial } from '../../base/types';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'mt-datatable',
   templateUrl: './mt-datatable.component.html',
@@ -29,34 +29,34 @@ export class MtDatatableComponent implements OnInit, OnChanges {
       label: this.comp.label,
       color: this.comp.toolbarColor,
       children: [
-      {
-        type: 'button',
-        kind: 'minifab',
-        tooltip: this.sm.Strings.ds_ins,
-        icon: 'add',
-        color: 'primary',
-        onClick: () => {this.Insert()}
-      },
-      {
-        type: 'button',
-        kind: 'minifab',
-        tooltip: this.sm.Strings.ds_copy,
-        icon: 'content_copy',
-        color: 'primary',
-        disabled: () => {return this.isDisabled()},
-        onClick: () => {this.CopyRow()}
-      },
-      {
-        type: 'button',
-        kind: 'minifab',
-        tooltip: this.sm.Strings.ds_del,
-        icon: 'delete',
-        color: 'primary',
-        disabled: () => {return this.isDisabled()},
-        onClick: () => {this.DeleteRow()}
-      },
-    ]
-      
+        {
+          type: 'button',
+          kind: 'minifab',
+          tooltip: this.sm.Strings.ds_ins,
+          icon: 'add',
+          color: 'primary',
+          onClick: () => { this.Insert() }
+        },
+        {
+          type: 'button',
+          kind: 'minifab',
+          tooltip: this.sm.Strings.ds_copy,
+          icon: 'content_copy',
+          color: 'primary',
+          disabled: () => { return this.isDisabled() },
+          onClick: () => { this.CopyRow() }
+        },
+        {
+          type: 'button',
+          kind: 'minifab',
+          tooltip: this.sm.Strings.ds_del,
+          icon: 'delete',
+          color: 'primary',
+          disabled: () => { return this.isDisabled() },
+          onClick: () => { this.DeleteRow() }
+        },
+      ]
+
     }
   }
 
@@ -67,7 +67,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   Insert(): void {
-    const row  = {};
+    const row = {};
     this.data.push(row);
     this.sm.updateValue(this.comp, this.data);
     this.InitCurRow(row);
@@ -108,12 +108,24 @@ export class MtDatatableComponent implements OnInit, OnChanges {
       const ind = this.data.findIndex(r => r === row);
       if (this.curRowInd !== ind) this.curRowInd = ind;
       this.subsm.InitValues(row, ind);
-    } 
+    }
   }
 
 
-  summary(row: any) {
-    return this.comp.summary(this.sm, this.comp, row);
+  summary(row: any): IComponent {
+    const summary: any = this.comp.summary;
+    const ret = summary(this.sm, this.comp, row);
+    const typ: IValueType = this.sm.checkValueType(ret);
+    if (typ === IValueType.string) {
+      return {
+        type: 'label',
+        label: ret
+      }
+    } else if (typ === IValueType.component) { 
+      return ret;
+    } else {
+      console.error('summary function must return a string or a component', this.comp);
+    }
   }
 
   isDisabled(): boolean {

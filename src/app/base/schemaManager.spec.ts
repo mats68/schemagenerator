@@ -26,6 +26,9 @@ describe('SchemaManager', () => {
         x = y => y+1;
         res = schemaManager.checkValueType(x);
         expect(res).toEqual(IValueType.function);
+        x = [];
+        res = schemaManager.checkValueType(x);
+        expect(res).toEqual(IValueType.array);
         x = {a: 1};
         res = schemaManager.checkValueType(x);
         expect(res).toEqual(IValueType.object);

@@ -225,12 +225,13 @@ export const schema_IA: ISchema =
             field: 'steuereinrichtungen',
             cardView: true,
             summary(sm, comp, row) {
-                const kunde = row.kunde ? `Kunde: ${row.kunde}` : '';
+                const kunde = row.kunde ? `Kunde: <b>${row.kunde}</b><br/>` : '';
                 const rechnungsadresse = row.rechnungsadresse ? ` Rechnungsadresse: ${row.rechnungsadresse}` : '';
                 const gebaeudeteil = row.gebaeudeteil ? ` Gebäudeteil: ${row.gebaeudeteil}` : '';
-
-                return `${kunde} ${rechnungsadresse} ${gebaeudeteil}`;
-
+                return {
+                    type: 'html',
+                    html: `${kunde} ${rechnungsadresse} ${gebaeudeteil}`
+                }
             },
             children: [
                 {

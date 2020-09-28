@@ -4,7 +4,7 @@
         [class]='sm.getColsClass(comp, "datacols") + " card"' cdkDrag>
         <div class="menu" (click)='toggleExpand(row)'>
             <div>
-                {{summary(row)}}
+                <mt-item [comp]='summary(row)' [sm]='sm'></mt-item>
             </div>
             <span class="menu-spacer"></span>
             <button mat-icon-button 

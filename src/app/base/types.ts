@@ -2,6 +2,7 @@ import { SchemaManager } from './schemaManager';
 
 export type IComponentStringFunction = (sm: SchemaManager, comp: IComponent, value?: any) => string;
 export type IComponentBoolFunction = (sm: SchemaManager, comp: IComponent, value?: any) => boolean;
+export type IComponentComponentFunction = (sm: SchemaManager, comp: IComponent, value?: any) => IComponent;
 export type IComponentAnyFunction = (sm: SchemaManager, comp: IComponent, value?: any) => any;
 export type IComponentVoidFunction = (sm: SchemaManager, comp: IComponent, value?: any) => void;
 export type ISchemaVoidFunction = (sm: SchemaManager) => void;
@@ -70,7 +71,7 @@ export interface IComponentProps {
     color?: keyof typeof Color,
     validate?: IComponentStringFunction,
     onChange?: IComponentVoidFunction,
-    summary?: IComponentStringFunction,
+    summary?: IComponentStringFunction | IComponentComponentFunction,
     onClick?: IComponentVoidFunction,
     disabled?: boolean | IComponentBoolFunction,
     options?: ISelectOptionItems | ISelectOptionItemsFunction | string[],
