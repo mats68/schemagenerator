@@ -3,6 +3,7 @@ import { SchemaManager, ISettings } from './base/schemaManager';
 import { schema1, values1, values2 } from '../api/schema/schema1';
 import { schema2 } from '../api/schema/schema2';
 import { schema3 } from '../api/schema/schema_extended';
+import { schema_IA } from '../api/schema/schema_IA';
 
 declare var schemas: any;
 import { VsFormComponent } from './base/vs-form/vs-form.component';
@@ -50,7 +51,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.extschemas = [];
     Object.keys(schemas).forEach(s => this.extschemas.push(s));
-    this.curschema = schema1;
+    this.curschema = schema_IA;
     
     this.curschema.auswahllisten = {};
     this.service.getAuswahlliste('vnb').subscribe((data: any) => {
@@ -76,7 +77,7 @@ export class AppComponent implements OnInit {
     this.schemaManger.Language = val;
     this._sprache = val;
   }
-  private _schema: string = 'schema1';
+  private _schema: string = 'schema_IA';
   get schema(): string {
     return this._schema;
   }
@@ -127,8 +128,11 @@ export class AppComponent implements OnInit {
       } else {
         this.curvalues = null;
       }
-    } else {
+    } else if (this.schema === 'schema3') {
       this.curschema = schema3;
+      this.curvalues = null;
+    } else if (this.schema === 'schema_IA') {
+      this.curschema = schema_IA;
       this.curvalues = null;
     }
     this.schemaManger.InitSchema(this.curschema);

@@ -49,6 +49,7 @@ ng add @angular/material
 - übersetzung (label, titel, hint, placeholder als funktion)
 
 ### todo:
+- . in field => sub object z.B. verwaltung.name
 - input prefix und suffix (icon, button oder text)
 - min max length bei input
 - tests für checkschema funktion

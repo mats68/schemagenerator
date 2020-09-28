@@ -456,6 +456,7 @@ export class SchemaManager {
 
     const notype = 'type Property is missing';
     const noChild = 'children Property is missing';
+    const zeroChild = 'children Property has no entry';
     const noField = 'field Property is missing';
     const noLabel = 'label Property is missing';
     const doubleField = 'field Property is more than once used!';
@@ -465,7 +466,7 @@ export class SchemaManager {
 
     const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
     const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips];
-    const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button];
+    const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.tabs, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button];
 
     const Errs: ISchemaError[] = [];
     const AddErr = (comp: IComponent, msg: string, isError: boolean) => {
@@ -484,7 +485,18 @@ export class SchemaManager {
       if (!ca.comp.type) {
         AddErr(ca.comp,notype, true);
       } else {
-        if (container.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.children)) AddErr(ca.comp,noChild, true);  
+        if (container.indexOf(ca.comp.type as ComponentType) >= 0) {
+          if (!ca.comp.children) {
+            AddErr(ca.comp,noChild, true);  
+          } else {
+            if (!Array.isArray(ca.comp.children) || ca.comp.children.length === 0)  {
+              AddErr(ca.comp,zeroChild, true);  
+            }
+          }
+
+        }
+
+        
         if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp,noField, true);  
         if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp,noLabel, false);  
       }

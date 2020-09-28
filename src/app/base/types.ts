@@ -40,12 +40,12 @@ export interface ISchemaProps  {
 
 export interface IComponent extends IComponentProps {
   type: keyof typeof ComponentType;
-  children?: Array<IComponent>,
+  children?: Array<IComponent>;
 }
 
 export interface IComponentPartial extends IComponentProps {
   type?: keyof typeof ComponentType;
-  children?: Array<IComponentPartial>,
+  children?: Array<IComponentPartial>;
 }
 
 export interface IComponentProps {
@@ -54,7 +54,7 @@ export interface IComponentProps {
     name?: string;
     field?: string,
     style?: string | IComponentStringFunction,
-    hidden?: boolean,
+    hidden?: boolean | IComponentBoolFunction,
     tooltip?: string | IComponentStringFunction,
     hint?: string | IComponentStringFunction,
     default?: any,

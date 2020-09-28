@@ -1,3 +1,4 @@
+<mt-lbl [sm]='sm' [comp]='comp'></mt-lbl>
 <mat-radio-group #name [(ngModel)]='Value' [style]='style' [disabled]='disabled' class="radio-group">
     <mat-radio-button *ngFor='let item of OptionsAsObjects' [value]='item.value' class="radio-button">{{item.text}}</mat-radio-button>
 </mat-radio-group>
