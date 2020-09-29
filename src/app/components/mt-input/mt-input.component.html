@@ -6,6 +6,8 @@
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [type]='comp.inputType'
+    [minlength]='comp.minlength'
+    [maxlength]='comp.maxlength'
     [placeholder]='placeholder'
     [disabled]='disabled' />
   <textarea *ngIf='Typ === 1'
@@ -17,6 +19,8 @@
   <input *ngIf='Typ === 2'
     [matAutocomplete]="auto"
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
+    [minlength]='comp.minlength'
+    [maxlength]='comp.maxlength'
     [placeholder]='placeholder'
     [disabled]='disabled' />
   <mat-select *ngIf='Typ === 3' #name 

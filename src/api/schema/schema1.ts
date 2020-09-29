@@ -194,6 +194,21 @@ export const schema1: ISchema =
         },
         {
           type: 'input',
+          label: 'Max 3 Chars',
+          maxlength: 3,
+          cols: 'lg-3',
+          field: 'max'
+        },
+        {
+          type: 'input',
+          label: 'Min 3 Chars, Max. 10',
+          minlength: 3,
+          maxlength: 10,
+          cols: 'lg-3',
+          field: 'min'
+        },
+        {
+          type: 'input',
           inputType: 'number',
           dataType: 'float',
           label: 'Number',

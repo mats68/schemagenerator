@@ -47,9 +47,9 @@ ng add @angular/material
 - inherit from Base-Schema
 - settings objekt 
 - übersetzung (label, titel, hint, placeholder als funktion)
+- . in field => sub object z.B. verwaltung.name
 
 ### todo:
-- . in field => sub object z.B. verwaltung.name
 - input prefix und suffix (icon, button oder text)
 - min max length bei input
 - tests für checkschema funktion
