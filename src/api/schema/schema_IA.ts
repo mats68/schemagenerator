@@ -70,6 +70,7 @@ export const schema_IA: ISchema =
         },
         {
             type: 'expansionspanel',
+            expanded: true,
             label: 'Ort der Installation',
             children: [
                 {
@@ -111,6 +112,7 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'input',
+                    autofocus: true,
                     field: 'Gebäudeteil',
                     label: 'Gebäudeteil',
                     cols: 'md-6',
@@ -216,6 +218,92 @@ export const schema_IA: ISchema =
                         },
                     ]
                 },
+            ]
+        },
+        {
+            type: 'expansionspanel',
+            label: 'Verbraucher, Erzeuger, Speicher',
+            expanded: true,
+            children: [
+                {
+                    type: 'switchpanel',
+                    field: 'switch_verbraucher',
+                    label: 'Liste der Verbraucher, Erzeuger, Speicher',
+                    children: [
+                        {
+                            type: 'checkbox',
+                            style: 'margin-top: 10px; margin-bottom: 10px;',
+                            field: 'Liste_gemass_beilage',
+                            label: 'Liste gemäss Beilage'
+                        },
+                        {
+                            type: 'datatable',
+                            label: 'Liste der Verbraucher, Erzeuger, Speicher',
+                            field: 'Liste_der_Verbraucher',
+                            summary(sm, comp, row) {
+                                const bezeichnung = row.bezeichnung ? `Bezeichnung: <b>${row.bezeichnung}</b><br/>` : '';
+                                const anzahl = row.anzahl_v ? `Anzahl: <b>${row.anzahl_v}</b><br/>` : '';
+                                return {
+                                    type: 'html',
+                                    html: `${bezeichnung} ${anzahl}`
+                                }
+                            },
+                            children: [
+                                {
+                                    type: 'input',
+                                    field: 'anzahl_v',
+                                    label: 'Anzahl',
+                                    dataType: 'int',
+                                    cols: 'md-6',
+                                    mask: '0*',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    field: 'verbr',
+                                    label: 'Verbr.',
+                                    cols: 'md-2',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    field: 'erz',
+                                    label: 'Erz.',
+                                    cols: 'md-2',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    field: 'spei',
+                                    label: 'Spei.',
+                                    cols: 'md-2',
+                                },
+                                {
+                                    type: 'input',
+                                    field: 'bezeichnung',
+                                    label: 'Bezeichnung',
+                                    tooltip: 'Bezeichnung des Verbrauchers, Erzeugers, Speichers',
+                                    options: ['Beleuchtung','Kochherd mit Backofen','Kochherd ohne Backofen','Backofen','Geschirrspüler','Waschautomat','Waschautomat mit Zählerumschalter','Wäschetrockner','Boiler .... l, Aufheizzeit .... h','Motoren ohne Anschlussgesuch','Motoren mit Anschlussgesuch','Wärmepumpe ohne Anschlussgesuch','Wärmepumpe mit Anschlussgesuch','Apparat Netzrückwirkungen verursachend'],
+                                    cols: 'md-8',
+                                },
+                                {
+                                    type: 'input',
+                                    field: 'tag_date',
+                                    label: 'techn. Anschlussgesuch (TAG) vom',
+                                    cols: 'md-4',
+                                },
+                                {
+                                    type: 'input',
+                                    field: 'anzahl',
+                                    label: 'Leistung Bezug',
+                                    tooltip: 'Leistung Bezug vom Netz [kVA]',
+                                    dataType: 'float',
+                                    cols: 'md-3',
+                                    mask: '0*.0*',
+                                },
+                                
+                            ]
+                        },
+                    ]
+                }
+
             ]
         },
         {
@@ -378,6 +466,7 @@ export const values_IA = {
         ort: 'Langenthal',
         tel: '079 603 64 04',
     },
+    switcher_bemerkungen: true,
     steuereinrichtungen: [
         {
             kunde: "Meier, Bern",

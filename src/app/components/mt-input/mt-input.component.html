@@ -9,11 +9,13 @@
     [minlength]='comp.minlength'
     [maxlength]='comp.maxlength'
     [placeholder]='placeholder'
+    [autofocus]='comp.autofocus'
     [disabled]='disabled' />
   <textarea *ngIf='Typ === 1'
     [rows]='comp.rows'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [placeholder]='placeholder'
+    [autofocus]='comp.autofocus'
     [disabled]='disabled'>
   </textarea>
   <input *ngIf='Typ === 2'
@@ -22,6 +24,7 @@
     [minlength]='comp.minlength'
     [maxlength]='comp.maxlength'
     [placeholder]='placeholder'
+    [autofocus]='comp.autofocus'
     [disabled]='disabled' />
   <mat-select *ngIf='Typ === 3' #name 
     [(ngModel)]='Value' 

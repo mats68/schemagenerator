@@ -29,6 +29,7 @@ export const schema1: ISchema =
     {
       type: 'input',
       name: 'firstInput',
+      autofocus: true,
       required: true,
       label(sm: SchemaManager): string {
         return sm.Language === 'de' ? 'Standort' : 'Position';
