@@ -21,4 +21,8 @@ export class MtItemComponent implements OnInit {
     return !this.comp.hidden && this.comp.type == type;
   }
 
+  dataTableData() {
+    return this.sm.getValue(this.comp);
+  }
+
 }

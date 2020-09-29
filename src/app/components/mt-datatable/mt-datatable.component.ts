@@ -11,7 +11,8 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   @Input() sm: SchemaManager;
   @Input() comp: IComponent;
   @Input() curRowInd: number;
-  data: any[] = [];
+  @Input() data: any;
+  // data: any[] = [];
   subsm: SchemaManager;
   currow: any;
 
@@ -59,7 +60,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.data = this.sm.getValue(this.comp);
+    // this.data = this.sm.getValue(this.comp);
     if (!isNaN(this.curRowInd) && this.data.length > this.curRowInd) {
       this.InitCurRow(this.data[this.curRowInd]);
     }
