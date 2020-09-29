@@ -293,7 +293,7 @@ export class SchemaManager {
       if (comp.type === 'checkbox') {
         return false;
       }
-      if (comp.type === 'datatable') {
+      if (comp.type === 'datatable' || comp.multiselect) {
         return [];
       }
       return '';

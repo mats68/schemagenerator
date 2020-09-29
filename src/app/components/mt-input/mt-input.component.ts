@@ -79,7 +79,7 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
     const index = Value.indexOf(item);
 
     if (index >= 0) {
-      this.Value.splice(index, 1);
+      Value.splice(index, 1);
       this.sm.updateValue(this.comp, Value);
     }
   }
