@@ -41,7 +41,7 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
     } else if (this.comp.multiselect) {
       this.Typ = InpTyp.chips;
     } 
-    
+
     if (this.comp.options) {
       if (this.Typ === InpTyp.normal) this.Typ = InpTyp.autocomplete; 
       this.filteredOptions = this.OptionsAsStrings;
@@ -72,10 +72,15 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
   }
 
   removeChip(item: string): void {
-    const index = this.Value.indexOf(item);
+    let Value = this.sm.getValue(this.comp);
+    const typ = this.sm.checkValueType(Value);
+    if (!(typ === IValueType.array)) Value = [];
+
+    const index = Value.indexOf(item);
 
     if (index >= 0) {
       this.Value.splice(index, 1);
+      this.sm.updateValue(this.comp, Value);
     }
   }
 
