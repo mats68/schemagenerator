@@ -1,7 +1,7 @@
 <mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)' class="form-field">
   <mat-label [ngClass]='{"error-color" : getError()}'>{{label}}</mat-label>
   <span matPrefix *ngIf='comp.prefix'>{{comp.prefix}}</span>
-  <input *ngIf='Typ === 0'
+  <input *ngIf='Typ === inpTyp.normal'
     [mask]='comp.mask' [thousandSeparator]='maskOptions.thousandSeparator'
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
@@ -11,14 +11,7 @@
     [placeholder]='placeholder'
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />
-  <textarea *ngIf='Typ === 1'
-    [rows]='comp.rows'
-    matInput #name [(ngModel)]='Value' (blur)='onBlur()'
-    [placeholder]='placeholder'
-    [autofocus]='comp.autofocus'
-    [disabled]='disabled'>
-  </textarea>
-  <input *ngIf='Typ === 2'
+  <input *ngIf='Typ === inpTyp.autocomplete'
     [matAutocomplete]="auto"
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
     [minlength]='comp.minlength'
@@ -26,15 +19,22 @@
     [placeholder]='placeholder'
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />
-  <mat-select *ngIf='Typ === 3' #name 
+  <textarea *ngIf='Typ === inpTyp.textarea'
+    matInput #name [(ngModel)]='Value' (blur)='onBlur()'
+    [rows]='comp.rows'
+    [placeholder]='placeholder'
+    [autofocus]='comp.autofocus'
+    [disabled]='disabled'>
+  </textarea>
+  <mat-select *ngIf='Typ === inpTyp.select'
+    #name
     [multiple]='comp.multiselect'
-    [(ngModel)]='Value' 
+    [(ngModel)]='Value'
     (blur)='onBlur()'
     [disabled]='disabled'>
     <mat-option *ngFor="let item of OptionsAsObjects" [value]="item.value">
       {{item.text}}
     </mat-option>
-
   </mat-select>
   <span matSuffix *ngIf='comp.suffix' class="suffix">{{comp.suffix}}</span>
   <mat-hint>

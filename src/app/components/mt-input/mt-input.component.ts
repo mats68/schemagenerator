@@ -4,8 +4,8 @@ import { IMaskOptions } from 'src/app/base/types';
 
 enum InpTyp {
   normal,
-  textarea,
   autocomplete,
+  textarea,
   select
 }
 
@@ -20,6 +20,7 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
 
   filteredOptions: string[];
   maskOptions: IMaskOptions;
+  inpTyp = InpTyp;
   Typ: InpTyp;
 
   ngOnInit(): void {
@@ -43,7 +44,6 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
     const filterValue = value.toLowerCase();
     this.filteredOptions = this.OptionsAsStrings.filter(option => option.toLowerCase().includes(filterValue));
   }
-
 
   ngOnDestroy() {
     this.unregisterFocus();
