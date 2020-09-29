@@ -1,16 +1,26 @@
 import { strings } from './strings';
-import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance, SchemaKeys, ComponentKeys, IComponentPartial, IComponentProps } from './types';
+import { ISchema, IComponent, ComponentType, ISelectOptionItems, DataType, IScreenSize, IAppearance, SchemaKeys, ComponentKeys } from './types';
 import { Subject } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 import get from 'lodash.get';
 import set from 'lodash.set';
 
-
 export interface ISettings {
   requiredSuffix: string;
   language: string;
   appearance?: IAppearance;
+  date: {
+    parse: {
+      dateInput: string,
+    },
+    display: {
+      dateInput: string,
+      monthYearLabel: string,
+      dateA11yLabel?: string,
+      monthYearA11yLabel?: string,
+    },
+  }
 }
 
 export interface ICompExt {
@@ -64,7 +74,7 @@ export class SchemaManager {
   AllValidated: boolean;
 
   OnFocus: Subject<IComponent>;
-  
+
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
     return this._ScreenSize;
@@ -94,7 +104,7 @@ export class SchemaManager {
 
   set Language(val: string) {
     if (this.Settings.language !== val) {
-      this.Settings.language = val; 
+      this.Settings.language = val;
       this.Strings = strings[this.Settings.language];
     }
   }
@@ -110,12 +120,12 @@ export class SchemaManager {
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     if (this.Schema.inheritFrom) this.InitInherits();
-    
+
     this.CompArray = [];
     this.Errors = this.ParentSchemaManager ? this.ParentSchemaManager.Errors : [];
     this.AllValidated = false;
     const fn = (comp: IComponent, parent: IComponent) => {
-      this.CompArray.push({comp, parent})
+      this.CompArray.push({ comp, parent })
     }
     this.traverseSchema(this.Schema, null, fn);
     this.InitValues(this.Values);
@@ -131,18 +141,18 @@ export class SchemaManager {
       }
       return undefined;
     }
-  
+
     if (this.Schema.inheritFrom.inheritFrom) {
       console.error('inherits schema should not have a inherits schema himself !');
       return;
     }
-    
+
     const baseSchema: ISchema = cloneDeep(this.Schema.inheritFrom);
     baseSchema.name = this.Schema.name;
 
-    const updateArray = (schema: ISchema): ICompExt[]  => {
+    const updateArray = (schema: ISchema): ICompExt[] => {
       let arr: ICompExt[] = [];
-      this.traverseSchema(schema, null, (comp, parent) => arr.push({comp,parent}));
+      this.traverseSchema(schema, null, (comp, parent) => arr.push({ comp, parent }));
       return arr;
     }
 
@@ -158,9 +168,9 @@ export class SchemaManager {
       let bc = getComp(compsBase, ec.comp.name, ec.comp.field);
       if (!bc && ec.parent) {
         bc = getComp(compsBase, ec.parent.name, ec.parent.field);
-        if (bc && bc.comp.children) { 
+        if (bc && bc.comp.children) {
           bc.comp.children.push(ec.comp);
-        } 
+        }
       }
     })
 
@@ -208,8 +218,19 @@ export class SchemaManager {
       this.Settings = settings;
     } else {
       this.Settings = {
-          requiredSuffix: ' *',
-          language: 'de',
+        requiredSuffix: ' *',
+        language: 'de',
+        date: {
+          parse: {
+            dateInput: 'DD.MM.YYYY',
+          },
+          display: {
+            dateInput: 'DD.MM.YYYY',
+            monthYearLabel: 'MMM YYYY',
+            dateA11yLabel: 'LL',
+            monthYearA11yLabel: 'MMMM YYYY',
+          },
+        }
       }
     }
     this.Strings = strings[this.Settings.language];
@@ -218,11 +239,11 @@ export class SchemaManager {
   InitScreenSize() {
     if (screen.width >= 1200) {
       this.ScreenSize = 'lg';
-    } else if (screen.width >= 992) { 
+    } else if (screen.width >= 992) {
       this.ScreenSize = 'md';
-    } else if (screen.width >= 768) { 
+    } else if (screen.width >= 768) {
       this.ScreenSize = 'sm';
-    } else { 
+    } else {
       this.ScreenSize = 'xs';
     }
   }
@@ -257,7 +278,7 @@ export class SchemaManager {
     return noVal;
 
   }
-                          
+
   getValue(comp: IComponent, values: any = null): any {  //values could be diff-values
     let val;
     if (!comp.field) {
@@ -318,7 +339,7 @@ export class SchemaManager {
       msg = `${this.Strings.required}`;
     } else if (comp.validate) {
       msg = comp.validate(this, comp, value);
-    } 
+    }
     if (msg) {
       this.addError(comp, msg, arrayInd);
     } else {
@@ -332,11 +353,11 @@ export class SchemaManager {
       if (ca.comp.field) {
         if (ca.comp.type === ComponentType.datatable) {
           const arrVal = get(this.Values, ca.comp.field);
-          this.validate(ca.comp,arrVal);
+          this.validate(ca.comp, arrVal);
           if (arrVal && Array.isArray(arrVal)) {
             arrVal.forEach((obj, ind) => {
               ca.comp.children.forEach(comp => {
-                const value = get(obj,comp.field);
+                const value = get(obj, comp.field);
                 this.validate(comp, value, ind);
               })
             })
@@ -363,25 +384,25 @@ export class SchemaManager {
     }
   }
 
-  private removeError(comp: IComponent, arrayInd: number) { 
+  private removeError(comp: IComponent, arrayInd: number) {
     const ind = this.Errors.findIndex(e => e.comp === comp && e.arrayInd === arrayInd);
     if (ind > -1) {
-      this.Errors.splice(ind,1);
-    } 
+      this.Errors.splice(ind, 1);
+    }
   }
 
-  removeAllErrors() { 
+  removeAllErrors() {
     this.Errors = [];
   }
 
 
 
-  getError(comp: IComponent) { 
+  getError(comp: IComponent) {
     let msg = '';
     const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
     if (error) {
       msg = error.error;
-    } 
+    }
     return msg;
   }
 
@@ -425,10 +446,10 @@ export class SchemaManager {
 
   getColsClass(comp: IComponent, prop: string = 'cols'): string {
     let ret: string = this.getPropValue(comp, prop) || '';
-    let xs = ret.indexOf('xs') > -1 ? ret.substr(ret.indexOf('xs')+3, 2) : '12';
-    let sm = ret.indexOf('sm') > -1 ? ret.substr(ret.indexOf('sm')+3, 2) : xs;
-    let md = ret.indexOf('md') > -1 ? ret.substr(ret.indexOf('md')+3, 2) : sm;
-    let lg = ret.indexOf('lg') > -1 ? ret.substr(ret.indexOf('lg')+3, 2) : md;
+    let xs = ret.indexOf('xs') > -1 ? ret.substr(ret.indexOf('xs') + 3, 2) : '12';
+    let sm = ret.indexOf('sm') > -1 ? ret.substr(ret.indexOf('sm') + 3, 2) : xs;
+    let md = ret.indexOf('md') > -1 ? ret.substr(ret.indexOf('md') + 3, 2) : sm;
+    let lg = ret.indexOf('lg') > -1 ? ret.substr(ret.indexOf('lg') + 3, 2) : md;
     return `col-xs-${xs} col-sm-${sm} col-md-${md} col-lg-${lg}`
   }
 
@@ -437,7 +458,7 @@ export class SchemaManager {
     if (this.Settings.appearance) return this.Settings.appearance;
     return 'standard';
   }
-  
+
   usesGrid(comp: IComponent): boolean {
     if (!comp.children) return false;
     const hasGrid = comp.children.find(f => f.cols);
@@ -452,7 +473,7 @@ export class SchemaManager {
   MakeVisible(comp: IComponent, arrayInd: number) {
     let curTab: IComponent = null;
     let ext = this.CompArray.find(c => c.comp === comp);
-    
+
     while (ext && ext.parent) {
       if (ext.parent.type == ComponentType.expansionspanel) {
         ext.parent.expanded = true;
@@ -483,7 +504,7 @@ export class SchemaManager {
   }
 
   checkValueType(val: any): IValueType {
-    if (typeof  val === 'undefined') {
+    if (typeof val === 'undefined') {
       return IValueType.undefined;
     } else if (val === null) {
       return IValueType.null;
@@ -527,7 +548,7 @@ export class SchemaManager {
     const noSummary = 'summary is necessary in datatable cardview';
     const noOptions = 'options Property is necessary';
     const unn = prop => `Unnecessary Property "${prop}"`;
-    const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"': ''}`;
+    const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"' : ''}`;
 
     const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
     const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips, ComponentType.datatable];
@@ -536,7 +557,7 @@ export class SchemaManager {
     const Errs: ISchemaError[] = [];
     const AddErr = (comp: IComponent, msg: string, isError: boolean) => {
       const type = isError ? ISchemaErrorType.error : ISchemaErrorType.warning;
-      Errs.push({comp, error: err(msg,comp), type });  
+      Errs.push({ comp, error: err(msg, comp), type });
     }
 
     const ck = Object.keys(ComponentKeys);
@@ -544,35 +565,35 @@ export class SchemaManager {
     const duplicateFields = [];
     const duplicateNames = [];
 
-   
+
     //Check components 
     this.CompArray.forEach(ca => {
       if (!ca.comp.type) {
-        AddErr(ca.comp,notype, true);
+        AddErr(ca.comp, notype, true);
       } else {
         if (container.indexOf(ca.comp.type as ComponentType) >= 0) {
           if (!ca.comp.children) {
-            AddErr(ca.comp,noChild, true);  
+            AddErr(ca.comp, noChild, true);
           } else {
-            if (!Array.isArray(ca.comp.children) || ca.comp.children.length === 0)  {
-              AddErr(ca.comp,zeroChild, true);  
+            if (!Array.isArray(ca.comp.children) || ca.comp.children.length === 0) {
+              AddErr(ca.comp, zeroChild, true);
             }
           }
         }
-       
-        if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp,noField, true);  
-        if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp,noLabel, false);  
 
-        if ((ca.comp.type === ComponentType.select || ca.comp.type === ComponentType.radiogroup) && !ca.comp.options) AddErr(ca.comp,noOptions, true);  
-        if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp,noSummary, true);  
+        if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp, noField, true);
+        if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp, noLabel, false);
+
+        if ((ca.comp.type === ComponentType.select || ca.comp.type === ComponentType.radiogroup) && !ca.comp.options) AddErr(ca.comp, noOptions, true);
+        if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp, noSummary, true);
       }
-      
-      ca.comp.field && duplicateFields[ca.comp.field] ? AddErr(ca.comp,doubleField, true) : duplicateFields[ca.comp.field] = true;
-      ca.comp.name && duplicateNames[ca.comp.name] ? AddErr(ca.comp,doubleName, true) : duplicateNames[ca.comp.name] = true;
+
+      ca.comp.field && duplicateFields[ca.comp.field] ? AddErr(ca.comp, doubleField, true) : duplicateFields[ca.comp.field] = true;
+      ca.comp.name && duplicateNames[ca.comp.name] ? AddErr(ca.comp, doubleName, true) : duplicateNames[ca.comp.name] = true;
 
       const propKeys = ca.parent ? ck : sk;
       Object.keys(ca.comp).forEach(k => {
-        if (propKeys.indexOf(k) === -1) AddErr(ca.comp,unn(k), false);  
+        if (propKeys.indexOf(k) === -1) AddErr(ca.comp, unn(k), false);
       });
     });
 

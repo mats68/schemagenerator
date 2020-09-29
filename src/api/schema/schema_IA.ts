@@ -68,6 +68,11 @@ export const schema_IA: ISchema =
             label: 'Installationsanzeige',
             style: 'font-size: 30px; margin-top: 10px; margin-bottom: 10px;'
         },
+        // {
+        //     type: 'date',
+        //     label: 'Installationsanzeige per',
+        //     field: 'date1',
+        // },
         {
             type: 'expansionspanel',
             expanded: true,
@@ -308,9 +313,17 @@ export const schema_IA: ISchema =
 
                             ]
                         },
+                        {
+                            type: 'input',
+                            dataType: 'float',
+                            cols: 'md-4',
+                            mask: '0*.0*',
+                            label: 'Leistung Total Bezug vom Netz',
+                            field: 'LeistungBezugNetz',
+                            suffix: 'kVA',
+                        },
                     ]
                 }
-
             ]
         },
         {
@@ -434,6 +447,13 @@ export const schema_IA: ISchema =
                     field: 'umm',
                     cols: 'md-4',
                 },
+                {
+                    type: 'select',
+                    label: 'AS Multiselect',
+                    field: 'multi_1',
+                    options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
+                    multiselect: true,
+                }
             ]
 
         },
