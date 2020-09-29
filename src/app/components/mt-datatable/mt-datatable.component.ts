@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IValueType, SchemaManager } from '../../base/schemaManager';
-import { IComponent, IComponentPartial } from '../../base/types';
+import { IComponent } from '../../base/types';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'mt-datatable',
@@ -21,8 +21,6 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.subsm = new SchemaManager(this.sm, this.sm.Settings);
     this.subsm.InitSchema(this.comp);
-
-    this.data = this.sm.getValue(this.comp);
 
     this.toolbar = {
       type: 'toolbar',
@@ -61,6 +59,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.data = this.sm.getValue(this.comp);
     if (!isNaN(this.curRowInd) && this.data.length > this.curRowInd) {
       this.InitCurRow(this.data[this.curRowInd]);
     }

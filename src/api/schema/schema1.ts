@@ -99,11 +99,17 @@ export const schema1: ISchema =
           field: 'text10',
         },
         {
+          type: 'input',
+          multiselect: true,
+          label: 'Text101',
+          field: 'text101',
+        },
+        {
           type: 'checkbox',
           label: 'Hide Panel 2',
           field: 'check10',
           onChange(sm, comp, val): void {
-            sm.getCompByName('panel2').comp.hidden = !val; 
+            sm.getCompByName('panel2').comp.hidden = val; 
           }
         },
         {

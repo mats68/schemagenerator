@@ -125,6 +125,7 @@ export class AppComponent implements OnInit {
     }
     this._values = val;
     this.schemaManger.InitValues(this.curvalues);
+    // this.schemaManger.refresh_UI();
   }
 
   private _appearance: IAppearance = 'standard';
