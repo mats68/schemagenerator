@@ -231,15 +231,22 @@ export const schema_IA: ISchema =
                     label: 'Liste der Verbraucher, Erzeuger, Speicher',
                     children: [
                         {
-                            type: 'checkbox',
+                            type: 'panel',
                             style: 'margin-top: 10px; margin-bottom: 10px;',
-                            field: 'Liste_gemass_beilage',
-                            label: 'Liste gemäss Beilage'
+                            children: [
+                                {
+                                    type: 'checkbox',
+                                    field: 'Liste_gemass_beilage',
+                                    label: 'Liste gemäss Beilage'
+                                },
+                            ]
+
                         },
                         {
                             type: 'datatable',
                             label: 'Liste der Verbraucher, Erzeuger, Speicher',
                             field: 'Liste_der_Verbraucher',
+                            cardView: true,
                             summary(sm, comp, row) {
                                 const bezeichnung = row.bezeichnung ? `Bezeichnung: <b>${row.bezeichnung}</b><br/>` : '';
                                 const anzahl = row.anzahl_v ? `Anzahl: <b>${row.anzahl_v}</b><br/>` : '';
@@ -280,7 +287,7 @@ export const schema_IA: ISchema =
                                     field: 'bezeichnung',
                                     label: 'Bezeichnung',
                                     tooltip: 'Bezeichnung des Verbrauchers, Erzeugers, Speichers',
-                                    options: ['Beleuchtung','Kochherd mit Backofen','Kochherd ohne Backofen','Backofen','Geschirrspüler','Waschautomat','Waschautomat mit Zählerumschalter','Wäschetrockner','Boiler .... l, Aufheizzeit .... h','Motoren ohne Anschlussgesuch','Motoren mit Anschlussgesuch','Wärmepumpe ohne Anschlussgesuch','Wärmepumpe mit Anschlussgesuch','Apparat Netzrückwirkungen verursachend'],
+                                    options: ['Beleuchtung', 'Kochherd mit Backofen', 'Kochherd ohne Backofen', 'Backofen', 'Geschirrspüler', 'Waschautomat', 'Waschautomat mit Zählerumschalter', 'Wäschetrockner', 'Boiler .... l, Aufheizzeit .... h', 'Motoren ohne Anschlussgesuch', 'Motoren mit Anschlussgesuch', 'Wärmepumpe ohne Anschlussgesuch', 'Wärmepumpe mit Anschlussgesuch', 'Apparat Netzrückwirkungen verursachend'],
                                     cols: 'md-8',
                                 },
                                 {
@@ -298,7 +305,7 @@ export const schema_IA: ISchema =
                                     cols: 'md-3',
                                     mask: '0*.0*',
                                 },
-                                
+
                             ]
                         },
                     ]
