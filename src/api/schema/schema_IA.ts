@@ -69,24 +69,6 @@ export const schema_IA: ISchema =
             style: 'font-size: 30px; margin-top: 10px; margin-bottom: 10px;'
         },
         {
-            type: 'input',
-            label: 'chips',
-            multiselect: true,
-            field: 'dada'
-        },
-        {
-            type: 'input',
-            label: 'chips',
-            options: ['De', 'Fr', 'It'],
-            multiselect: true,
-            field: 'dada1'
-        },
-        // {
-        //     type: 'date',
-        //     label: 'Installationsanzeige per',
-        //     field: 'date1',
-        // },
-        {
             type: 'expansionspanel',
             expanded: true,
             label: 'Ort der Installation',

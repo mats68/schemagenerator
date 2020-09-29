@@ -463,7 +463,7 @@ export const schema1: ISchema =
 
 };
 
-export const values1 = {
+export const values1_1 = {
   text1: 'AA',
   text2: 'one',
   numbermask: 123.55,
@@ -485,7 +485,7 @@ export const values1 = {
   ]
 };
 
-export const values2 = {
+export const values1_2 = {
   text1: 'BB',
   check1: true,
   numbermask: 144,

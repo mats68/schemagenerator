@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { values2 } from 'src/api/schema/schema1';
 import { ISchema } from 'src/app/base/types';
 import { SchemaManager, ISettings } from '../../base/schemaManager';
 

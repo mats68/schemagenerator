@@ -8,11 +8,11 @@ export const schema2: ISchema =
     name: 'schema2',
     children: [
         {
-            type: 'tabs',
+            type: 'expansionspanel',
             children: [
                 {
                     label: 'Inputs',
-                    type: 'tab',
+                    type: 'expansionspanel',
                     children: [
                         {
                             type: 'input',
@@ -156,25 +156,25 @@ export const schema2: ISchema =
                             required: true,
                             options: ['Eins', 'Zwei', 'Drei', 'Vier']
                         },
-                        // {
-                        //     type: 'input',
-                        //     label: 'Multiselect Chips',
-                        //     field: 'multiselect_chips1',
-                        //     multiselect: true,
-                        // },
-                        // {
-                        //     type: 'input',
-                        //     label: 'Multiselect Chips with options',
-                        //     field: 'multiselect_chips2',
-                        //     multiselect: true,
-                        //     options: ['Eins', 'Zwei', 'Drei', 'Vier']
-                        // },
+                        {
+                            type: 'input',
+                            label: 'Multiselect Chips',
+                            field: 'multiselect_chips1',
+                            multiselect: true,
+                        },
+                        {
+                            type: 'input',
+                            label: 'Multiselect Chips with options',
+                            field: 'multiselect_chips2',
+                            multiselect: true,
+                            options: ['Eins', 'Zwei', 'Drei', 'Vier']
+                        },
 
                     ]
                 }
             ]
         },
-        // ...buttons
+        ...buttons
     ]
 }
 

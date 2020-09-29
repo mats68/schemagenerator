@@ -1,24 +1,22 @@
 <mat-form-field appearance="fill" class="top">
     <mat-label>Schema:</mat-label>
-    <mat-select [(value)]="schema">
-        <mat-option value="schema1">schema1</mat-option>
-        <mat-option value="schema_IA">schema_IA</mat-option>
-        <mat-option value="schema2">schema2</mat-option>
-        <mat-option value="schema3">schema3</mat-option>
+    <mat-select [(ngModel)]="schema">
+        <mat-option *ngFor='let schema of schemas_arr' [value]='schema'>{{schema}}</mat-option>
     </mat-select>
 </mat-form-field>
 
 <mat-form-field appearance="fill" class="top">
-    <mat-label>External Schema:</mat-label>
-    <mat-select [(value)]="extschema">
-        <mat-option *ngFor='let ext of extschemas' [value]="ext">{{ext}}</mat-option>
+    <mat-label>Values:</mat-label>
+    <mat-select [(ngModel)]="values">
+        <mat-option value='0'>Leere Werte</mat-option>
+        <mat-option *ngFor='let values of values_arr' [value]='values'>{{values}}</mat-option>
     </mat-select>
 </mat-form-field>
 
 
 <mat-form-field appearance="fill" class="top">
     <mat-label>Appearance:</mat-label>
-    <mat-select [(value)]="appearance">
+    <mat-select [(ngModel)]="appearance">
         <mat-option value="legacy">legacy</mat-option>
         <mat-option value="standard">standard</mat-option>
         <mat-option value="fill">fill</mat-option>
@@ -26,18 +24,10 @@
     </mat-select>
 </mat-form-field>
 
-<mat-form-field appearance="fill" class="top">
-    <mat-label>Werte:</mat-label>
-    <mat-select [(value)]="optvalues">
-        <mat-option value="1">Leere Werte</mat-option>
-        <mat-option value="2">Werte laden</mat-option>
-    </mat-select>
-</mat-form-field>
-
 
 <mat-form-field appearance="fill" class="top">
     <mat-label>Sprache:</mat-label>
-    <mat-select [(value)]="sprache">
+    <mat-select [(ngModel)]="sprache">
         <mat-option value="de">de</mat-option>
         <mat-option value="en">en</mat-option>
     </mat-select>
@@ -59,5 +49,5 @@
 
 
 <div class="diff" *ngIf='diffView'>
-    <vs-diff [schema]='Schema1' [values1]='Values1' [values2]='Values2' [settings]='Settings'></vs-diff>
+    <vs-diff [schema]='schemas_obj.schema1' [values1]='values_obj.values1_1' [values2]='values_obj.values1_2' [settings]='Settings'></vs-diff>
 </div>
