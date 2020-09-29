@@ -33,10 +33,8 @@ export interface ISchemaProps  {
   onSubmit?: ISchemaVoidFunction,
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
-  onDataLoaded?: ISchemaVoidFunction,
   onResize?: ISchemaVoidFunction,
   inheritFrom?: ISchema;
-  auswahllisten?: any,
 }
 
 export interface IComponent extends IComponentProps {
@@ -150,11 +148,8 @@ export const SchemaKeys: KeysEnum<ISchemaProps> = {
   onSubmit: true,
   onInitSchema: true,
   onInitValues: true,
-  onDataLoaded: true,
   onResize: true,
   inheritFrom: true,
-  auswahllisten: true,
-  
 }
 
 

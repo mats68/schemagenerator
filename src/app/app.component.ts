@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
   curvalues: any = {};
   _schemaManger: SchemaManager;
   diffView: boolean;
+  auswahllisten: any = {};
 
   Settings: ISettings = {
     language: 'de',
@@ -69,19 +70,25 @@ export class AppComponent implements OnInit {
     this.schemas_arr = Object.keys(this.schemas_obj);
     this.values_arr = Object.keys(this.values_obj);
 
-    this.schema = this.schemas_arr[0];
-    this.values = '0';
-
     this.service.getAuswahlliste('vnb').subscribe((data: any) => {
-      this.curschema.auswahllisten.vnb = data.Daten;
-      this.curschema.auswahllisten.DataLoaded();
+      this.auswahllisten.vnb = data.Daten;
+      this.loadAuswahllisteInSchema();
     });
 
     this.service.getAuswahlliste('mitarbeiter').subscribe((data: any) => {
-      this.curschema.auswahllisten.mitarbeiter = data.Daten;
-      this.curschema.auswahllisten.DataLoaded();
+      this.auswahllisten.mitarbeiter = data.Daten;
+      this.loadAuswahllisteInSchema();
+      if (!this.schema) {
+        this.schema = this.schemas_arr[0];
+      }
     });
 
+  }
+
+  private loadAuswahllisteInSchema() {
+    if (this.curschema.loadAuswahllisten && this.auswahllisten) {
+      this.curschema.loadAuswahllisten(this.schemaManger, this.auswahllisten);
+    }
 
   }
 
@@ -103,6 +110,7 @@ export class AppComponent implements OnInit {
     this._schema = val;
     this.schemaManger.InitSchema(this.curschema);
     this.schemaManger.InitValues(this.curvalues);
+    this.loadAuswahllisteInSchema();
   }
 
   private _values: string;

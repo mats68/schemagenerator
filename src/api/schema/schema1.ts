@@ -11,8 +11,10 @@ export const schema1: ISchema =
   type: 'form',
   name: 'schema1',
   unnoetig: true,
-  onInitSchema(sm) {
-
+  loadAuswahllisten(sm: SchemaManager, auswahllisten: any) {
+    if (auswahllisten.mitarbeiter) {
+      sm.getCompByField('mitarbeiter').comp.options = Object.values(auswahllisten.mitarbeiter) as string[];
+    }
   },
   onSubmit(sm) {
     console.log('form submitted');
@@ -20,11 +22,7 @@ export const schema1: ISchema =
   onResize(sm) {
     sm.getCompByName('tb')!.comp.menuView = sm.ScreenSize === 'xs';
   },
-  onDataLoaded(sm) {
-    const liste = sm.Schema.auswahllisten.mitarbeiter;
-    sm.getCompByName('mitarbeiter').comp.options = Object.values(liste) as string[];
-    sm.refresh_UI();
-  },
+  
   children: [
     {
       type: 'input',
