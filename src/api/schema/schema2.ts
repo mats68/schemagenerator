@@ -156,6 +156,19 @@ export const schema2: ISchema =
                             required: true,
                             options: ['Eins', 'Zwei', 'Drei', 'Vier']
                         },
+                        {
+                            type: 'input',
+                            label: 'Multiselect Chips',
+                            field: 'multiselect_chips1',
+                            multiselect: true,
+                        },
+                        {
+                            type: 'input',
+                            label: 'Multiselect Chips with options',
+                            field: 'multiselect_chips2',
+                            multiselect: true,
+                            options: ['Eins', 'Zwei', 'Drei', 'Vier']
+                        },
 
                     ]
                 }
@@ -166,6 +179,7 @@ export const schema2: ISchema =
 }
 
 export const values2 = {
-    text1: 'Text 2'
+    text1: 'Text 2',
+    multiselect_chips1 : ['Eins']
 }
 

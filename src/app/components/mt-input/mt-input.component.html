@@ -19,6 +19,25 @@
     [placeholder]='placeholder'
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />
+  <mat-chip-list *ngIf='Typ === inpTyp.chips' #chipList>
+    <mat-chip
+      *ngFor="let item of Value"
+      [selectable]='true'
+      [removable]='true'
+      (removed)="removeChip(item)">
+      {{item}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+    [matAutocomplete]="auto"
+    [matChipInputFor]="chipList"
+    (matChipInputTokenEnd)="addChip($event)"
+    matInput #name (blur)='onBlur()'
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [placeholder]='placeholder'
+    [autofocus]='comp.autofocus'
+    [disabled]='disabled' />
+  </mat-chip-list>
   <textarea *ngIf='Typ === inpTyp.textarea'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [rows]='comp.rows'
@@ -41,7 +60,7 @@
     <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
     <div *ngIf='comp.hint && !getError()'>{{hint}}</div>
   </mat-hint>
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="itemSelected($event)">
     <mat-option *ngFor="let option of filteredOptions" [value]="option">
       {{option}}
     </mat-option>
