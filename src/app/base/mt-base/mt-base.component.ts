@@ -57,6 +57,15 @@ export class MtBaseComponent {
     return this.sm.getPropValue(this.comp, 'hint');
   }
 
+  onBlur(): void {
+    const value = this.sm.getValue(this.comp);
+    this.sm.validate(this.comp, value);
+  }
+
+  getError() {
+    return this.sm.getError(this.comp);
+  }
+
   get OptionsAsObjects(): ISelectOptionItems {
     if (!this._OptionsAsObjects) {
       this._OptionsAsObjects = this.sm.selectOptionsAsObjects(this.comp);

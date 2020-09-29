@@ -291,7 +291,7 @@ export const schema_IA: ISchema =
                                     cols: 'md-8',
                                 },
                                 {
-                                    type: 'input',
+                                    type: 'date',
                                     field: 'tag_date',
                                     label: 'techn. Anschlussgesuch (TAG) vom',
                                     cols: 'md-4',

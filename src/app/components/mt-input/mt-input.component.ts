@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy  } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy  } from '@angular/core';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
-
-import { IComponent, IMaskOptions, ISelectOptionItems } from 'src/app/base/types';
+import { IMaskOptions } from 'src/app/base/types';
 
 enum InpTyp {
   normal,
@@ -40,20 +39,11 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
     if (!this.comp.mask) this.maskOptions = {};
   }
 
-  getError() {
-    return this.sm.getError(this.comp);
-  }
-
   Filter(value: string) {
     const filterValue = value.toLowerCase();
     this.filteredOptions = this.OptionsAsStrings.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-
-  onBlur(): void {
-    const value = this.sm.getValue(this.comp);
-    this.sm.validate(this.comp, value);
-  }
 
   ngOnDestroy() {
     this.unregisterFocus();

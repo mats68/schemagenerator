@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -27,6 +27,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -74,6 +75,7 @@ import { MtBaseComponent } from './base/mt-base/mt-base.component';
 import { MtLinkComponent } from './components/mt-link/mt-link.component';
 import { MtSwitchComponent } from './components/mt-switch/mt-switch.component';
 import { MtSwitchpanelComponent } from './components/mt-switchpanel/mt-switchpanel.component';
+import { MtDateComponent } from './components/mt-date/mt-date.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -107,6 +109,7 @@ const maskConfig: Partial<IConfig> = {
     MtLinkComponent,
     MtSwitchComponent,
     MtSwitchpanelComponent,
+    MtDateComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,6 +145,7 @@ const maskConfig: Partial<IConfig> = {
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
+    MatMomentDateModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -162,6 +166,7 @@ const maskConfig: Partial<IConfig> = {
     PortalModule,
     ScrollingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxMaskModule.forRoot(maskConfig),
     HttpClientModule,
   ],
