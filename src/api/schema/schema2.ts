@@ -139,7 +139,23 @@ export const schema2: ISchema =
                             field: 'select2',
                             required: true,
                             options: ['Eins', 'Zwei', 'Drei', 'Vier']
-                        }
+                        },
+                        {
+                            type: 'select',
+                            label: 'Multiselect Numerischer Wert',
+                            multiselect: true,
+                            field: 'multiselect1',
+                            required: true,
+                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}]
+                        },
+                        {
+                            type: 'select',
+                            label: 'Multiselect Text',
+                            field: 'multiselect2',
+                            multiselect: true,
+                            required: true,
+                            options: ['Eins', 'Zwei', 'Drei', 'Vier']
+                        },
 
                     ]
                 }

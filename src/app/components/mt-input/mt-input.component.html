@@ -27,6 +27,7 @@
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />
   <mat-select *ngIf='Typ === 3' #name 
+    [multiple]='comp.multiselect'
     [(ngModel)]='Value' 
     (blur)='onBlur()'
     [disabled]='disabled'>
