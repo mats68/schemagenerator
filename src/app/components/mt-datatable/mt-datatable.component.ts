@@ -15,14 +15,25 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   // data: any[] = [];
   subsm: SchemaManager;
   currow: any;
+  captions: string[];
 
+  fields: IComponent[];
   toolbar: IComponent;
+  
   constructor() { }
 
   ngOnInit(): void {
     this.subsm = new SchemaManager(this.sm, this.sm.Settings);
     this.subsm.InitSchema(this.comp);
 
+    this.fields = this.comp.children.filter(c => c.field);
+
+    this.captions = this.fields.map(c => {
+      const lb = this.sm.getPropValue(c, 'label');
+      return lb || 'no label specified!';
+    })
+
+    
     this.toolbar = {
       type: 'toolbar',
       label: this.comp.label,
@@ -120,7 +131,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
         type: 'label',
         label: ret
       }
-    } else if (typ === IValueType.component) { 
+    } else if (typ === IValueType.component) {
       return ret;
     } else {
       console.error('summary function must return a string or a component', this.comp);

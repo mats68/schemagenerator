@@ -5,7 +5,7 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, link, select, radio, label,html,tabs, chips,       errorpanel
+- Components: input, checkbox,  button, link, select, radio, label,html,tabs, chips,       errorpanel, icon, slider
 (multilselect), date
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
@@ -53,12 +53,12 @@ ng add @angular/material
 - . in field => sub object z.B. verwaltung.name
 
 ### todo:
+- table-view
+- remove sub-sm
 - input prefix und suffix (icon, button oder text)
 - tests für checkschema funktion
 - style for all tags
-- Components: icon, slider
 - readonly 
-- Validation
 - unbound Fields (not in Values)
 - show loader
 - filter propertys by value

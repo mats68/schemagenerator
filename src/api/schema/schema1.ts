@@ -413,7 +413,7 @@ export const schema1: ISchema =
       label: 'Adressen',
       field: 'adresses',
       required: true,
-      cardView: true,
+      // cardView: true,
       // datacols: 'lg-6',
       summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';
