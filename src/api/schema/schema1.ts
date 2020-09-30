@@ -30,7 +30,7 @@ export const schema1: ISchema =
       autofocus: true,
       required: true,
       label(sm: SchemaManager): string {
-        return sm.Language === 'de' ? 'Standort' : 'Position';
+        return sm.Settings.language === 'de' ? 'Standort' : 'Position';
       },
       onChange(sm: SchemaManager, comp: IComponent) {
         let val: string = sm.getValue(comp) || '';
@@ -39,6 +39,12 @@ export const schema1: ISchema =
 
       },
       field: 'text1'
+    },
+    {
+      type: 'date',
+      label: 'Datum',
+      field: 'date',
+      cols: 'sm-4'
     },
     {
       type: 'input',

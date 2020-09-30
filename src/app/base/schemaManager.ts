@@ -17,8 +17,6 @@ export interface ISettings {
     display: {
       dateInput: string,
       monthYearLabel: string,
-      dateA11yLabel?: string,
-      monthYearA11yLabel?: string,
     },
   }
 }
@@ -98,16 +96,16 @@ export class SchemaManager {
     setTimeout(() => this._NeedsRefreshUI = false);
   }
 
-  get Language(): string {
-    return this.Settings.language;
-  }
+  // get Language(): string {
+  //   return this.Settings.language;
+  // }
 
-  set Language(val: string) {
-    if (this.Settings.language !== val) {
-      this.Settings.language = val;
-      this.Strings = strings[this.Settings.language];
-    }
-  }
+  // set Language(val: string) {
+  //   if (this.Settings.language !== val) {
+  //     this.Settings.language = val;
+  //     this.Strings = strings[this.Settings.language];
+  //   }
+  // }
 
   constructor(parentSchemaManager: SchemaManager = null, settings: ISettings = null) {
     this.ParentSchemaManager = parentSchemaManager;
@@ -226,14 +224,13 @@ export class SchemaManager {
           },
           display: {
             dateInput: 'DD.MM.YYYY',
-            monthYearLabel: 'MMM YYYY',
-            dateA11yLabel: 'LL',
-            monthYearA11yLabel: 'MMMM YYYY',
+            monthYearLabel: 'MMM YYYY'
           },
         }
       }
     }
     this.Strings = strings[this.Settings.language];
+
   }
 
   InitScreenSize() {
@@ -565,7 +562,6 @@ export class SchemaManager {
     const duplicateFields = [];
     const duplicateNames = [];
 
-
     //Check components 
     this.CompArray.forEach(ca => {
       if (!ca.comp.type) {
@@ -588,8 +584,22 @@ export class SchemaManager {
         if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp, noSummary, true);
       }
 
-      ca.comp.field && duplicateFields[ca.comp.field] ? AddErr(ca.comp, doubleField, true) : duplicateFields[ca.comp.field] = true;
-      ca.comp.name && duplicateNames[ca.comp.name] ? AddErr(ca.comp, doubleName, true) : duplicateNames[ca.comp.name] = true;
+      if (ca.comp.field) {
+        let field = ca.comp.field
+        if (ca.parent && ca.comp.type === ComponentType.datatable) {
+          field = ca.parent.field + '.' + field;
+        }
+        duplicateFields[field] ? AddErr(ca.comp, doubleField, true) : duplicateFields[field] = true;
+      }
+
+      if (ca.comp.name) {
+        let name = ca.comp.name
+        if (ca.parent) {
+          let pname = ca.parent.name ? ca.parent.name : (ca.parent.field ? ca.parent.field : '');
+          name = pname + '.' + name;
+        }
+        duplicateNames[name] ? AddErr(ca.comp, doubleName, true) : duplicateNames[name] = true;
+      }
 
       const propKeys = ca.parent ? ck : sk;
       Object.keys(ca.comp).forEach(k => {

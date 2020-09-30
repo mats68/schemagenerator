@@ -10,6 +10,65 @@ import { VsFormComponent } from './base/vs-form/vs-form.component';
 import { RestService } from '../api/rest.service';
 import { IAppearance, ISchema } from './base/types';
 
+const Settings_de: ISettings = {
+  language: 'de',
+  requiredSuffix: ' *',
+  date: {
+    parse: {
+      dateInput: 'DD.MM.YYYY',
+    },
+    display: {
+      dateInput: 'DD.MM.YYYY',
+      monthYearLabel: 'MMM YYYY',
+    },
+  }
+}
+
+const Settings_fr: ISettings = {
+  language: 'fr',
+  requiredSuffix: ' *',
+  date: {
+    parse: {
+      dateInput: 'DD-MM-YYYY',
+    },
+    display: {
+      dateInput: 'DD-MM-YYYY',
+      monthYearLabel: 'MMM YYYY',
+    },
+  }
+}
+
+const Settings_it: ISettings = {
+  language: 'it',
+  requiredSuffix: ' *',
+  date: {
+    parse: {
+      dateInput: 'DD:MM:YYYY',
+    },
+    display: {
+      dateInput: 'DD:MM:YYYY',
+      monthYearLabel: 'MMM YYYY',
+    },
+  }
+}
+
+
+
+const Settings_en: ISettings = {
+  language: 'en',
+  requiredSuffix: ' *',
+  date: {
+    parse: {
+      dateInput: 'YYYY/MM/DD',
+    },
+    display: {
+      dateInput: 'YYYY/MM/DD',
+      monthYearLabel: 'MMM YYYY',
+    },
+  }
+}
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -38,20 +97,7 @@ export class AppComponent implements OnInit {
   diffView: boolean;
   auswahllisten: any = {};
 
-  Settings: ISettings = {
-    language: 'de',
-    requiredSuffix: ' *',
-    date: {
-      parse: {
-        dateInput: 'DD.MM.YYYY',
-      },
-      display: {
-        dateInput: 'DD.MM.YYYY',
-        monthYearLabel: 'MMM YYYY',
-      },
-    }
-  }
-
+  Settings: ISettings = Settings_de;
 
   constructor(private service: RestService) {
 
@@ -97,8 +143,13 @@ export class AppComponent implements OnInit {
     return this._sprache;
   }
   set sprache(val: string) {
-    this.schemaManger.Language = val;
     this._sprache = val;
+    if (val === 'de') this.Settings = Settings_de;
+    if (val === 'fr') this.Settings = Settings_fr;
+    if (val === 'it') this.Settings = Settings_it;
+    if (val === 'en') this.Settings = Settings_en;
+    this.schemaManger.InitSettings(this.Settings);
+    this.schemaManger.refresh_UI();
   }
 
   private _schema: string;

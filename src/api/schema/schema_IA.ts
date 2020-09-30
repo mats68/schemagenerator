@@ -6,6 +6,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
     {
         type: 'input',
         field: PrefField + 'name',
+        name: 'name',
         label: 'Name',
         disabled
     },

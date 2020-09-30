@@ -1,7 +1,13 @@
-<mat-form-field appearance="fill">
-    <mat-label>{{comp.label}}</mat-label>
-    <input matInput [matDatepicker]="dp" [formControl]="date">
-    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-    <mat-datepicker #dp></mat-datepicker>
-  </mat-form-field>
-  
+<mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)' class="form-field">
+  <mat-label [ngClass]='{"error-color" : getError()}'>{{label}}</mat-label>
+  <input matInput #name [(ngModel)]='Value' (blur)='onBlur()'
+  [disabled]='disabled'
+  [matDatepicker]="dp" 
+  [formControl]="date"  />
+  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+  <mat-datepicker #dp></mat-datepicker>
+  <mat-hint>
+    <div *ngIf='getError()' class="error-color error-font">{{getError()}}</div>
+    <div *ngIf='comp.hint && !getError()'>{{hint}}</div>
+  </mat-hint>
+</mat-form-field>
