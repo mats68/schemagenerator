@@ -247,6 +247,7 @@ export const schema_IA: ISchema =
                             type: 'datatable',
                             label: 'Liste der Verbraucher, Erzeuger, Speicher',
                             field: 'Liste_der_Verbraucher',
+                            dragdrop: true,
                             cardView: true,
                             summary(sm, comp, row) {
                                 const bezeichnung = row.bezeichnung ? `Bezeichnung: <b>${row.bezeichnung}</b><br/>` : '';
@@ -328,6 +329,7 @@ export const schema_IA: ISchema =
             field: 'steuereinrichtungen',
             required: true,
             cardView: true,
+            dragdrop: true,
             summary(sm, comp, row) {
                 const kunde = row.kunde ? `Kunde: <b>${row.kunde}</b><br/>` : '';
                 const rechnungsadresse = row.rechnungsadresse ? ` Rechnungsadresse: ${row.rechnungsadresse}` : '';
@@ -444,7 +446,7 @@ export const schema_IA: ISchema =
                     cols: 'md-4',
                 },
                 {
-                    type: 'select',
+                    type: 'input',
                     label: 'AS Multiselect',
                     field: 'multi_1',
                     options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],

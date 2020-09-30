@@ -1,7 +1,7 @@
 <mt-toolbar [comp]='toolbar' [sm]='sm'></mt-toolbar>
 <div *ngIf='comp.cardView' class="row" cdkDropList (cdkDropListDropped)="drop($event)">
     <mat-card *ngFor="let row of data"
-        [class]='sm.getColsClass(comp, "datacols") + " card"' cdkDrag>
+        [class]='sm.getColsClass(comp, "datacols") + " card"' cdkDrag [cdkDragDisabled]="!comp.dragdrop">
         <div class="menu" (click)='toggleExpand(row)'>
             <div>
                 <mt-item [comp]='summary(row)' [sm]='sm'></mt-item>

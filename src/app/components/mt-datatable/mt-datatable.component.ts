@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IValueType, SchemaManager } from '../../base/schemaManager';
-import { IComponent } from '../../base/types';
+import { IValueType, SchemaManager } from 'src/app/base/schemaManager';
+import { IComponent } from 'src/app/base/types';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'mt-datatable',
@@ -94,7 +94,6 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   toggleExpand(row: any) {
-
     this.InitCurRow(row);
   }
 
@@ -102,11 +101,11 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   InitCurRow(row: any) {
     if (row === null || this.currow === row) {
       this.currow = null;
-      this.curRowInd = -1;
+      // this.curRowInd = -1;
     } else {
       this.currow = row;
       const ind = this.data.findIndex(r => r === row);
-      if (this.curRowInd !== ind) this.curRowInd = ind;
+      // if (this.curRowInd !== ind) this.curRowInd = ind;
       this.subsm.InitValues(row, ind);
     }
   }
@@ -133,7 +132,9 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+    if (this.comp.dragdrop) {
+      moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+    }
   }
 
 }
