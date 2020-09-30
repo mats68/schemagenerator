@@ -544,12 +544,13 @@ export class SchemaManager {
     const doubleName = 'name Property is more than once used!';
     const noSummary = 'summary is necessary in datatable cardview';
     const noOptions = 'options Property is necessary';
+    const noIcon = 'icon Property is necessary';
     const unn = prop => `Unnecessary Property "${prop}"`;
     const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"' : ''}`;
 
     const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
-    const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.chips, ComponentType.datatable];
-    const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.tabs, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button];
+    const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.datatable];
+    const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.tabs, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button, ComponentType.icon];
 
     const Errs: ISchemaError[] = [];
     const AddErr = (comp: IComponent, msg: string, isError: boolean) => {
@@ -582,6 +583,7 @@ export class SchemaManager {
 
         if ((ca.comp.type === ComponentType.select || ca.comp.type === ComponentType.radiogroup) && !ca.comp.options) AddErr(ca.comp, noOptions, true);
         if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp, noSummary, true);
+        if ((ca.comp.type === ComponentType.icon ) && !ca.comp.icon) AddErr(ca.comp, noIcon, true);
       }
 
       if (ca.comp.field) {

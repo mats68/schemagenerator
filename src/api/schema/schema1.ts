@@ -336,6 +336,32 @@ export const schema1: ISchema =
           href: 'https://www.sbb.ch',
           openInNewTab: true,
         },
+        {
+          type: 'divider',
+        },
+        {
+          type: 'label',
+          label: 'Icons:',
+          cols: 'sm-2'
+        },
+        {
+          type: 'icon',
+          icon: 'home',
+          color: 'primary',
+          cols: 'sm-1'
+        },
+        {
+          type: 'icon',
+          icon: 'cancel',
+          color: 'warn',
+          cols: 'sm-1'
+        },
+        {
+          type: 'icon',
+          icon: 'menu',
+          cols: 'sm-1'
+        },
+    
 
       ]
     },
@@ -513,6 +539,12 @@ export const values1_2 = {
       name: 'Meier Hans',
       ort: 'Zürich',
       email: 'MeierHans@gmail.com'
+    },
+    {
+      typ: 'Versandadresse',
+      name: 'Müller Fritz',
+      ort: 'Altdorf',
+      email: 'MüllerFritzs@gmail.com'
     }
 
   ]

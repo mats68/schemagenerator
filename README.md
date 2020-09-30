@@ -5,13 +5,15 @@ ng add @angular/material
 
 ## Features
 - uses angular-material
-- Components: input, checkbox,  button, link, select, radio, label,html,tabs
+- Components: input, checkbox,  button, link, select, radio, label,html,tabs, chips,       errorpanel
+(multilselect), date
   - Autocomplete: input with option, filter
   - nur input; kein autocomplete
   - autocomplete nur string[] options
   - Select options with strings or objects like {value: 1, text: 'one'}...
   - common properties: label, field, width, style, default
   - types defined for component
+  - multiselect 
   - datatype: number, float..
  - Containers: form, panel, expansionpanel
    - Card Grid
@@ -25,7 +27,7 @@ ng add @angular/material
   - requrired fields with *         
 - properties can be functions or value
 - check if form has changed (enable button)
-- switch language
+- switch language (settings)
 - switch schema at runtime
 - switch values at runtime
 - refresh UI 
@@ -54,8 +56,7 @@ ng add @angular/material
 - input prefix und suffix (icon, button oder text)
 - tests für checkschema funktion
 - style for all tags
-- Components: Chips, ja/nein Panel,Date,icon,chips 
-- sm.translate function ("de", "fr", "it")
+- Components: icon, slider
 - readonly 
 - Validation
 - unbound Fields (not in Values)
