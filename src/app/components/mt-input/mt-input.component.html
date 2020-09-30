@@ -6,16 +6,16 @@
     [dropSpecialCharacters]='maskOptions.dropSpecialCharacters' [showMaskTyped]='maskOptions.showMaskTyped'
     matInput #name [(ngModel)]='Value' (blur)='onBlur()'
     [type]='comp.inputType'
-    [minlength]='comp.minlength'
-    [maxlength]='comp.maxlength'
+    [minlength]='comp.min'
+    [maxlength]='comp.max'
     [placeholder]='placeholder'
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />
   <input *ngIf='Typ === inpTyp.autocomplete'
     [matAutocomplete]="auto"
     matInput #name [(ngModel)]='Value' (ngModelChange)='Filter(Value)' (blur)='onBlur()'
-    [minlength]='comp.minlength'
-    [maxlength]='comp.maxlength'
+    [minlength]='comp.min'
+    [maxlength]='comp.max'
     [placeholder]='placeholder'
     [autofocus]='comp.autofocus'
     [disabled]='disabled' />

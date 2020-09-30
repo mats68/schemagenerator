@@ -310,8 +310,7 @@ export class SchemaManager {
       val = parseFloat(val);
       if (isNaN(val)) val = null;
 
-    }
-    if (comp.dataType === DataType.int) {
+    } else if (comp.dataType === DataType.int) {
       val = parseInt(val);
       if (isNaN(val)) val = null;
     }

@@ -41,6 +41,19 @@ export const schema1: ISchema =
       field: 'text1'
     },
     {
+      type: 'slider',
+      label: 'Slider',
+      field: 'slider',
+      thumbLabel: true,
+      cols: 'sm-4'
+    },
+    {
+      type: 'input',
+      label: 'Slider',
+      field: 'slider1',
+      cols: 'sm-4'
+    },
+    {
       type: 'date',
       label: 'Datum',
       field: 'date',
@@ -206,15 +219,15 @@ export const schema1: ISchema =
         {
           type: 'input',
           label: 'Max 3 Chars',
-          maxlength: 3,
+          max: 3,
           cols: 'lg-3',
           field: 'max'
         },
         {
           type: 'input',
           label: 'Min 3 Chars, Max. 10',
-          minlength: 3,
-          maxlength: 10,
+          min: 3,
+          max: 10,
           cols: 'lg-3',
           field: 'min'
         },
