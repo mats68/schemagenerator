@@ -188,6 +188,16 @@ export class AppComponent implements OnInit {
     this.Settings.appearance = val;
   }
 
+  _allDisabled: boolean;
+  get allDisabled(): boolean {
+    return this._allDisabled;
+  }
+  set allDisabled(val: boolean) {
+    this._allDisabled = val;
+    this.schemaManger.DisableAll(val);
+  }
+
+
   // updateSchema() {
   //   if (this.schema === 'schema1') {
   //     this.curschema = schema1;

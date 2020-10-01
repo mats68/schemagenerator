@@ -27,6 +27,12 @@ export interface IError {
   error: string;
 }
 
+export interface IHighlight {
+  comp: IComponent;
+  arrayInd: number;
+}
+
+
 export enum ISchemaErrorType {
   error = 'error',
   warning = 'warning',
@@ -62,9 +68,22 @@ export class SchemaManager {
   CompArray: IComponent[];
 
   Errors: IError[];
+  highlightedFields: IHighlight[];
   AllValidated: boolean;
 
   OnFocus: Subject<IComponent>;
+
+  private _AllDisabled: boolean;
+  get AllDisabled(): boolean {
+    return this._AllDisabled;
+  }
+
+  DisableAll(disabled: boolean = true) {
+    if (this._AllDisabled !== disabled) {
+      this._AllDisabled = disabled;
+    }
+  }
+
 
   private _ScreenSize: IScreenSize;
   get ScreenSize(): IScreenSize {
@@ -79,6 +98,7 @@ export class SchemaManager {
       }
     }
   }
+
 
   private _NeedsRefreshUI: boolean = false;
   get NeedsRefreshUI(): boolean {
@@ -187,7 +207,6 @@ export class SchemaManager {
     this.ValuesChanged = false;
 
     if (this.Schema.onInitValues) this.Schema.onInitValues(this);
-
   }
 
   InitValuesArray(comp: IComponent, Values: any) {
@@ -236,6 +255,38 @@ export class SchemaManager {
       this.ScreenSize = 'xs';
     }
   }
+
+  InitHighlightDiffValues() {
+    if (!this.DiffValues) return;
+    this.highlightedFields = [];
+    this.CompArray.forEach(c => {
+      if (c.parentComp && c.parentComp.type !== ComponentType.datatable) {
+        this.InitHighlightDiffValueComp(c);
+      }
+    });
+    console.log(this.highlightedFields);
+  }
+
+  InitHighlightDiffValueComp(comp: IComponent, arrayInd: number = -1) {
+    if (!this.DiffValues || !this.highlightedFields) return;
+    if (comp.field && comp.parentComp) {
+      const val1 = this.getValue(comp);
+      const val2 = this.getValue(comp, this.DiffValues);
+      const ind = this.highlightedFields.findIndex(h => h.comp === comp && h.arrayInd === arrayInd);
+      if (val1 === val2) {
+        if (ind > -1) this.highlightedFields.splice(ind, 1);
+      } else {
+        if (ind === -1) this.highlightedFields.push({comp, arrayInd});
+      }
+    }
+  }
+
+  getDiffHighlight(comp: IComponent, arrayInd: number = -1): boolean {
+    if (!this.DiffValues || !this.highlightedFields ) return false;
+    const h = this.highlightedFields.find(h => h.comp === comp && h.arrayInd === arrayInd);
+    return !!h;
+  }
+
 
   DataLoaded() {
     if (this.Schema.onDataLoaded) this.Schema.onDataLoaded(this);
@@ -334,6 +385,8 @@ export class SchemaManager {
     if (comp.onChange) {
       comp.onChange(this, comp, val);
     }
+
+    this.InitHighlightDiffValueComp(comp, arrayInd);
 
     this.ValuesChanged = true;
   }
@@ -469,29 +522,35 @@ export class SchemaManager {
   }
 
   DoFocus(comp: IComponent, arrayInd: number = -1) {
-    this.MakeVisible(comp, arrayInd);
-    setTimeout(() => this.OnFocus.next(comp), 100);
+    const ok = this.MakeVisible(comp, arrayInd);
+    if (ok) setTimeout(() => this.OnFocus.next(comp), 100);
   }
 
-  MakeVisible(comp: IComponent, arrayInd: number) {
+  MakeVisible(comp: IComponent, arrayInd: number): boolean {
     let curTab: IComponent = null;
     let cur = comp;
+    let ok = true;
 
-    while (cur && cur.parentComp) {
+    while (cur && cur.parentComp && ok) {
       if (cur.parentComp.type == ComponentType.expansionspanel) {
-        cur.parentComp.expanded = true;
+        ok = !cur.parentComp.disabled;
+        if (ok) cur.parentComp.expanded = true;
       } else if (cur.parentComp.type == ComponentType.tab) {
         curTab = cur.parentComp;
       } else if (cur.parentComp.type == ComponentType.tabs) {
         if (curTab && cur.parentComp.children && Array.isArray(cur.parentComp.children)) {
-          const ind = cur.parentComp.children.indexOf(curTab);
-          cur.parentComp.selectedTabIndex = ind;
+          ok = !curTab.disabled;
+          if (ok) {
+            const ind = cur.parentComp.children.indexOf(curTab);
+            cur.parentComp.selectedTabIndex = ind;
+          }
         }
       } else if (cur.parentComp.type == ComponentType.datatable) {
         cur.parentComp.curRowInd = arrayInd;
       }
       cur = cur.parentComp;
     }
+    return ok;
 
   }
 

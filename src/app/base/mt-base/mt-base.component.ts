@@ -42,6 +42,7 @@ export class MtBaseComponent {
   }
 
   get disabled(): boolean {
+    if (this.sm.AllDisabled) return true;
     return this.sm.getPropValue(this.comp, 'disabled');
   }
 

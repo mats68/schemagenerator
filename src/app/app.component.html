@@ -35,7 +35,9 @@
     </mat-select>
 </mat-form-field>
 
-<mat-checkbox [(ngModel)]='diffView'>Diff View</mat-checkbox>
+<mat-checkbox [(ngModel)]='allDisabled' class="top">All Disabled</mat-checkbox>
+
+<mat-checkbox [(ngModel)]='diffView' class="top">Diff View</mat-checkbox>
 
 <div *ngIf='curschema && !diffView'>
     <div class="formstyle">

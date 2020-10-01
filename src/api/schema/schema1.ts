@@ -32,12 +32,6 @@ export const schema1: ISchema =
       label(sm: SchemaManager): string {
         return sm.Settings.language === 'de' ? 'Standort' : 'Position';
       },
-      onChange(sm: SchemaManager, comp: IComponent) {
-        let val: string = sm.getValue(comp) || '';
-        val = val.trim().toLowerCase();
-        sm.updateValue(comp, val);
-
-      },
       field: 'text1'
     },
     {
@@ -88,7 +82,15 @@ export const schema1: ISchema =
       type: 'input',
       label: 'Mitarbeiter',
       options: [],
+      cols: 'md-6',
       field: 'mitarbeiter'
+    },
+    {
+      type: 'input',
+      label: 'Disabled',
+      disabled: true,
+      cols: 'md-6',
+      field: 'dis1'
     },
     {
       type: 'checkbox',
