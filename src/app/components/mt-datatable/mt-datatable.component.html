@@ -25,7 +25,7 @@
                 <td class="mat-cell" [style]='getCellStyle(0)'></td>
             </tr>
             <ng-container *ngFor="let row of data; let ind = index">
-                <tr class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
+                <tr class="mat-row table-row" (click)='toggleExpand(row)' cdkDrag [cdkDragDisabled]="!comp.dragdrop">
                     <td class="mat-cell table-cell" *ngFor='let feld of fields' [style]='getCellStyle(ind)'>
                         {{getCellValue(feld,ind)}}
                     </td>
@@ -38,7 +38,7 @@
                     </td>
                 </tr>
                 <tr *ngIf='currow === row'>
-                    <td [colspan]='(fields.length + 1)'>
+                    <td [colSpan]='(fields.length + 1)'>
                         <mt-container [comp]='comp' [sm]='sm'></mt-container>
                     </td>
                 </tr>

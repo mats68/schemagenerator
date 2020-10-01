@@ -22,6 +22,10 @@ export const schema1: ISchema =
   onResize(sm) {
     sm.getCompByName('tb').menuView = sm.ScreenSize === 'xs';
   },
+  validate(sm) {
+    if (sm.getValue(sm.getCompByField('text1')) !== 'AA') return 'Text1 is not "AA"';
+    return '';
+  },
   
   children: [
     {

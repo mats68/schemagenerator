@@ -406,6 +406,7 @@ export class SchemaManager {
 
   validateAll() {
     this.Errors = []
+    this.validate(this.Schema, '');
     this.CompArray.forEach(c => {
       if (c.field) {
         if (c.type === ComponentType.datatable) {
