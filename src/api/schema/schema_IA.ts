@@ -446,10 +446,11 @@ export const schema_IA: ISchema =
                     cols: 'md-4',
                 },
                 {
-                    type: 'input',
+                    type: 'select',
                     label: 'AS Multiselect',
                     field: 'multi_1',
                     options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
+                    cols: 'md-6',
                     multiselect: true,
                 }
             ]
@@ -498,6 +499,7 @@ export const values_IA = {
             rechnungsadresse: 'Bernstrasse 111, 3001 Bern',
             gebaeudeteil: '1. OG',
             Raumnummer: '2',
+            multi_1: []
         },
         {
             kunde: "Karrer, Zürich",

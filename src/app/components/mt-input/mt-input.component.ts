@@ -41,7 +41,6 @@ export class MtInputComponent extends MtBaseComponent implements OnInit, OnDestr
     } else if (this.comp.multiselect) {
       this.Typ = InpTyp.chips;
     } 
-
     if (this.comp.options) {
       if (this.Typ === InpTyp.normal) this.Typ = InpTyp.autocomplete; 
       this.filteredOptions = this.OptionsAsStrings;

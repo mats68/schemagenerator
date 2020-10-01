@@ -265,6 +265,26 @@ export const schema1: ISchema =
       ]
     },
     {
+      type: 'expansionspanel',
+      label: 'Select & Multiselect',
+      children: [
+        {
+          type: 'input',
+          label: 'multiselect',
+          multiselect: true,
+          field: 'multiselect1',
+          options: ['one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight']
+        },
+        {
+          type: 'select',
+          label: 'multiselect',
+          field: 'multiselect2',
+          multiselect: true,
+          options: ['one', 'two', 'test', 'three', 'four', 'five', 'six', 'seven', 'eight']
+        }
+      ]
+    },
+    {
       type: ComponentType.expansionspanel,
       label: 'Buttons',
       children: [
@@ -431,7 +451,7 @@ export const schema1: ISchema =
           type: 'input',
           label: 'Adresstyp',
           field: 'typ',
-          options: ["Rechnungsadresse", "Versandadresse"],
+          options: ["Rechnungsadresse", "Versandadresse", "Wohnadresse"],
           required: true,
           cols: 'md-6',
         },
