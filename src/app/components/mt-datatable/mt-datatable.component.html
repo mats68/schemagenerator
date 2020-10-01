@@ -24,12 +24,12 @@
                 <td class="mat-cell table-cell" *ngFor='let cap of captions' [style]='getCellStyle(0)'>{{cap}}</td>
                 <td class="mat-cell" [style]='getCellStyle(0)'></td>
             </tr>
-            <ng-container *ngFor="let row of data; let ind = index" >
+            <ng-container *ngFor="let row of data; let ind = index">
                 <tr class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
                     <td class="mat-cell table-cell" *ngFor='let feld of fields' [style]='getCellStyle(ind)'>
                         {{getCellValue(feld,ind)}}
                     </td>
-                    <td class="mat-cell" [style]='getCellStyle(ind)'>
+                    <td class="mat-cell" [style]='getCellStyle(ind) + "width: 20px;"'>
                         <button mat-icon-button
                             (click)='toggleExpand(row); $event.stopPropagation()'>
                             <mat-icon *ngIf='currow === row'>expand_less</mat-icon>
@@ -38,7 +38,9 @@
                     </td>
                 </tr>
                 <tr *ngIf='currow === row'>
-                    <mt-container [comp]='comp' [sm]='sm'></mt-container>
+                    <td [colspan]='(fields.length + 1)'>
+                        <mt-container [comp]='comp' [sm]='sm'></mt-container>
+                    </td>
                 </tr>
             </ng-container>
         </tbody>

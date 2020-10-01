@@ -8,7 +8,7 @@ import { schema_IA, values_IA } from '../api/schema/schema_IA';
 declare var schemas: any; //Schemas aus index.html eingebunden
 import { VsFormComponent } from './base/vs-form/vs-form.component';
 import { RestService } from '../api/rest.service';
-import { IAppearance, ISchema } from './base/types';
+import { ComponentType, IAppearance, ISchema } from './base/types';
 
 const Settings_de: ISettings = {
   language: 'de',
@@ -187,6 +187,29 @@ export class AppComponent implements OnInit {
     this._appearance = val;
     this.Settings.appearance = val;
   }
+
+  private _cardView: boolean;
+  get cardView(): boolean {
+    return this._cardView;
+  }
+  set cardView(val: boolean) {
+    this._cardView = val;
+    this.schemaManger.CompArray.forEach(c => {
+      if (c.type === ComponentType.datatable) c.cardView = val;
+    });
+  }
+
+  private _dragdrop: boolean;
+  get dragdrop(): boolean {
+    return this._dragdrop;
+  }
+  set dragdrop(val: boolean) {
+    this._dragdrop = val;
+    this.schemaManger.CompArray.forEach(c => {
+      if (c.type === ComponentType.datatable) c.dragdrop = val;
+    });
+  }
+    
 
   _allDisabled: boolean;
   get allDisabled(): boolean {

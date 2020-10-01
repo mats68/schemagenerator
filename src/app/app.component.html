@@ -35,6 +35,12 @@
     </mat-select>
 </mat-form-field>
 
+<span style="border: solid; padding: 10px;">
+    <span>Tabelle:</span>
+    <mat-checkbox [(ngModel)]='cardView' class="top">CardView</mat-checkbox>
+    <mat-checkbox [(ngModel)]='dragdrop' class="top">DragDrop</mat-checkbox>
+</span>
+
 <mat-checkbox [(ngModel)]='allDisabled' class="top">All Disabled</mat-checkbox>
 
 <mat-checkbox [(ngModel)]='diffView' class="top">Diff View</mat-checkbox>
