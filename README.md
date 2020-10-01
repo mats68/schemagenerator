@@ -53,8 +53,8 @@ ng add @angular/material
 - . in field => sub object z.B. verwaltung.name
 
 ### todo:
-- remove sub-schemaManager
 - table-view
+- removeAllErrors per comp (nach delete row)
 - input prefix und suffix (icon, button oder text)
 - tests für checkschema funktion
 - style for all tags

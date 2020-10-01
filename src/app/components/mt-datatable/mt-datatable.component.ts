@@ -65,24 +65,25 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (!isNaN(this.curRowInd) && this.data.length > this.curRowInd) {
-      this.InitCurRow(this.data[this.curRowInd]);
+    const typ = this.sm.checkValueType(this.curRowInd);
+    if (typ === IValueType.number && this.data.length > this.curRowInd) {
+      this.InitCurRow(this.curRowInd);
     }
   }
 
   Insert(): void {
     const row = {};
-    this.data.push(row);
+    const len = this.data.push(row);
     this.sm.updateValue(this.comp, this.data);
-    this.InitCurRow(row);
+    this.InitCurRow(len-1);
   }
 
   CopyRow(): void {
     if (!this.currow) return;
     const newrow = JSON.parse(JSON.stringify(this.currow));
-    this.data.push(newrow);
+    const len = this.data.push(newrow);
     this.sm.updateValue(this.comp, this.data);
-    this.InitCurRow(newrow);
+    this.InitCurRow(len-1);
   }
 
   DeleteRow(): void {
@@ -93,7 +94,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     if (this.sm.AllValidated) {
       this.sm.validateAll();
     }
-    this.InitCurRow(null);
+    this.InitCurRow(-1);
 
   }
 
@@ -102,16 +103,13 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
 
-  InitCurRow(row: any) {
-    if (row === null || this.currow === row) {
+  InitCurRow(rowInd: number) {
+    if (rowInd === -1) {
       this.currow = null;
-      // this.curRowInd = -1;
       this.comp.curRowInd = -1;
     } else {
-      this.currow = row;
-      const ind = this.data.findIndex(r => r === row);
-      // if (this.curRowInd !== ind) this.curRowInd = ind;
-      this.comp.curRowInd = ind;
+      if (this.comp.curRowInd !== rowInd) this.comp.curRowInd = rowInd;
+      this.currow = this.data[rowInd];
     }
   }
 
