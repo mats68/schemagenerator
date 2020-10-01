@@ -152,7 +152,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
 
   getCellStyle(ind: number) {
     if (ind < this.data.length - 1) {
-      return 'padding: 0;border-bottom-style: solid;border-bottom-width: thin;';
+      return 'border-bottom-style: solid;border-bottom-width: thin;border-spacing: 0';
     }
   }
 

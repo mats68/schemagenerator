@@ -21,11 +21,26 @@
     <table class="mat-table mat-elevation-z8 table">
         <tbody>
             <tr class="mat-row table-row table-header-row">
-                <td class="mat-cell" *ngFor='let cap of captions' [style]='getCellStyle(0)'>{{cap}}</td>
+                <td class="mat-cell table-cell" *ngFor='let cap of captions' [style]='getCellStyle(0)'>{{cap}}</td>
+                <td class="mat-cell" [style]='getCellStyle(0)'></td>
             </tr>
-            <tr *ngFor="let row of data; let ind = index" class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
-                <td class="mat-cell" *ngFor='let feld of fields' [style]='getCellStyle(ind)'>{{getCellValue(feld,ind)}}</td>
-            </tr>
+            <ng-container *ngFor="let row of data; let ind = index" >
+                <tr class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
+                    <td class="mat-cell table-cell" *ngFor='let feld of fields' [style]='getCellStyle(ind)'>
+                        {{getCellValue(feld,ind)}}
+                    </td>
+                    <td class="mat-cell" [style]='getCellStyle(ind)'>
+                        <button mat-icon-button
+                            (click)='toggleExpand(row); $event.stopPropagation()'>
+                            <mat-icon *ngIf='currow === row'>expand_less</mat-icon>
+                            <mat-icon *ngIf='currow !== row'>expand_more</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf='currow === row'>
+                    <mt-container [comp]='comp' [sm]='sm'></mt-container>
+                </tr>
+            </ng-container>
         </tbody>
     </table>
 </div>

@@ -54,6 +54,7 @@ ng add @angular/material
 
 ### todo:
 - table-view
+  - getcellheader und getCellValue as function on schema (can give back component)
 - lesen (getValue) & speichern (updateValue, onChange)  eines anderen wertes
 - highlight diff in tables und arrays
 - removeAllErrors per comp (nach delete row)
