@@ -185,9 +185,9 @@ export const schema_IA: ISchema =
                             options: ['Verwaltung', 'Architekt'],
                             onChange(sm, comp, val) {
                                 let ac = sm.getCompByName('pnAdrVerwaltung');
-                                ac.comp.hidden = val === comp.options[1];
+                                ac.hidden = val === comp.options[1];
                                 ac = sm.getCompByName('pnAdrArchitekt');
-                                ac.comp.hidden = val === comp.options[0];
+                                ac.hidden = val === comp.options[0];
 
                             }
                         },

@@ -24,7 +24,7 @@ export class VsFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (!this.schemaManger) {
-      this.schemaManger = new SchemaManager(null, this.settings);
+      this.schemaManger = new SchemaManager(this.settings);
     }
     if (!this.schema.name) {
       this.schema.name = Math.random().toString(36).substr(2, 5);

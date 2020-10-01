@@ -13,14 +13,14 @@ export const schema1: ISchema =
   unnoetig: true,
   loadAuswahllisten(sm: SchemaManager, auswahllisten: any) {
     if (auswahllisten.mitarbeiter) {
-      sm.getCompByField('mitarbeiter').comp.options = Object.values(auswahllisten.mitarbeiter) as string[];
+      sm.getCompByField('mitarbeiter').options = Object.values(auswahllisten.mitarbeiter) as string[];
     }
   },
   onSubmit(sm) {
     console.log('form submitted');
   },
   onResize(sm) {
-    sm.getCompByName('tb')!.comp.menuView = sm.ScreenSize === 'xs';
+    sm.getCompByName('tb').menuView = sm.ScreenSize === 'xs';
   },
   
   children: [
@@ -128,7 +128,7 @@ export const schema1: ISchema =
           label: 'Hide Panel 2',
           field: 'check10',
           onChange(sm, comp, val): void {
-            sm.getCompByName('panel2').comp.hidden = val; 
+            sm.getCompByName('panel2').hidden = val; 
           }
         },
         {
@@ -388,7 +388,7 @@ export const schema1: ISchema =
           kind: 'raised',
           label: 'Focus Input',
           onClick(sm) {
-            sm.DoFocus(sm.getCompByField('focusinput').comp);
+            sm.DoFocus(sm.getCompByField('focusinput'));
           }
         },
         {
@@ -413,7 +413,8 @@ export const schema1: ISchema =
       label: 'Adressen',
       field: 'adresses',
       required: true,
-      // cardView: true,
+      cardView: true,
+      dragdrop: true,
       // datacols: 'lg-6',
       summary(sm, comp, row) {
         const name = row.name ? `Name: ${row.name}` : '';
@@ -492,7 +493,7 @@ export const schema1: ISchema =
           icon: 'favorite',
           color: 'warn',
           onClick(sm, comp) {
-            sm.getCompByName('tb').comp.menuView = true;
+            sm.getCompByName('tb').menuView = true;
           }
         },
       ]
@@ -504,7 +505,7 @@ export const schema1: ISchema =
       cols: 'md-1',
       label: 'Focus prev',
       onClick(sm: SchemaManager) {
-        sm.DoFocus(sm.getCompByField('prev').comp);
+        sm.DoFocus(sm.getCompByField('prev'));
       }
     },
 

@@ -21,11 +21,6 @@ export interface ISettings {
   }
 }
 
-export interface ICompExt {
-  comp: IComponent,
-  parent: IComponent,
-}
-
 export interface IError {
   comp: IComponent;
   arrayInd: number; //index of array in datatable
@@ -64,9 +59,7 @@ export class SchemaManager {
   Settings: ISettings;
   Strings: any;
 
-  CompArray: ICompExt[];
-  ArrayInd: number;
-  ParentSchemaManager: SchemaManager;
+  CompArray: IComponent[];
 
   Errors: IError[];
   AllValidated: boolean;
@@ -96,34 +89,21 @@ export class SchemaManager {
     setTimeout(() => this._NeedsRefreshUI = false);
   }
 
-  // get Language(): string {
-  //   return this.Settings.language;
-  // }
-
-  // set Language(val: string) {
-  //   if (this.Settings.language !== val) {
-  //     this.Settings.language = val;
-  //     this.Strings = strings[this.Settings.language];
-  //   }
-  // }
-
-  constructor(parentSchemaManager: SchemaManager = null, settings: ISettings = null) {
-    this.ParentSchemaManager = parentSchemaManager;
+  constructor(settings: ISettings = null) {
     this.InitSettings(settings);
     this.InitScreenSize();
-    this.ArrayInd = -1;
     this.OnFocus = new Subject<IComponent>();
   }
 
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     if (this.Schema.inheritFrom) this.InitInherits();
-
     this.CompArray = [];
-    this.Errors = this.ParentSchemaManager ? this.ParentSchemaManager.Errors : [];
+    this.Errors = [];
     this.AllValidated = false;
     const fn = (comp: IComponent, parent: IComponent) => {
-      this.CompArray.push({ comp, parent })
+      comp.parentComp = parent;
+      this.CompArray.push(comp)
     }
     this.traverseSchema(this.Schema, null, fn);
     this.InitValues(this.Values);
@@ -131,11 +111,11 @@ export class SchemaManager {
   }
 
   private InitInherits() {
-    const getComp = (CompArray: ICompExt[], name: string, field: string = ''): ICompExt | undefined => {
+    const getComp = (CompArray: IComponent[], name: string, field: string = ''): IComponent | undefined => {
       if (name) {
-        return CompArray.find(ca => ca.comp.name === name);
+        return CompArray.find(c => c.name === name);
       } else if (field) {
-        return CompArray.find(ca => ca.comp.field === field);
+        return CompArray.find(c => c.field === field);
       }
       return undefined;
     }
@@ -145,45 +125,46 @@ export class SchemaManager {
       return;
     }
 
-    const baseSchema: ISchema = cloneDeep(this.Schema.inheritFrom);
-    baseSchema.name = this.Schema.name;
-
-    const updateArray = (schema: ISchema): ICompExt[] => {
-      let arr: ICompExt[] = [];
-      this.traverseSchema(schema, null, (comp, parent) => arr.push({ comp, parent }));
+    const updateArray = (schema: ISchema): IComponent[] => {
+      let arr: IComponent[] = [];
+      this.traverseSchema(schema, null, (comp, parent) => {
+        comp.parentComp = parent;
+        arr.push(comp);
+      });
       return arr;
     }
 
+    const baseSchema: ISchema = cloneDeep(this.Schema.inheritFrom);
+    baseSchema.name = this.Schema.name;
+
+
     let compsBase = updateArray(baseSchema);
-    // this.traverseSchema(baseSchema, null, (comp, parent) => compsBase.push({comp,parent}));
-
     let compsExt = updateArray(this.Schema);
-
 
     // neue Komponenten hinzufügen
     compsExt.forEach(ec => {
       compsBase = updateArray(baseSchema);
-      let bc = getComp(compsBase, ec.comp.name, ec.comp.field);
-      if (!bc && ec.parent) {
-        bc = getComp(compsBase, ec.parent.name, ec.parent.field);
-        if (bc && bc.comp.children) {
-          bc.comp.children.push(ec.comp);
+      let bc = getComp(compsBase, ec.name, ec.field);
+      if (!bc && ec.parentComp) {
+        bc = getComp(compsBase, ec.name, ec.field);
+        if (bc && bc.children) {
+          bc.children.push(ec);
         }
       }
     })
 
 
     compsExt.forEach(ec => {
-      var bc = getComp(compsBase, ec.comp.name, ec.comp.field);
+      var bc = getComp(compsBase, ec.name, ec.field);
       if (bc) {
-        merge(bc.comp, ec.comp);
+        merge(bc, ec);
       }
     })
     this.Schema = baseSchema;
 
   }
 
-  InitValues(values: any, arrayInd: number = -1, diffValues: any = null) {
+  InitValues(values: any, diffValues: any = null) {
     if (diffValues) {
       this.DiffValues = diffValues;
     }
@@ -191,29 +172,29 @@ export class SchemaManager {
       this.Values = values;
     } else {
       this.Values = {};
-      this.CompArray.forEach(ca => {
-        if (ca.comp.field && ca.comp.default) {
-          const val = this.getPropValue(ca.comp, 'default');
-          set(this.Values, ca.comp.field, val);
+      this.CompArray.forEach(c => {
+        if (c.field && c.default) {
+          const val = this.getPropValue(c, 'default');
+          // todo this.updateValue() ohne onchange, validate
+          // set(this.Values, c.field, val);
         }
       });
     }
-    if (!this.ParentSchemaManager) {
-      this.Errors = [];
-      this.AllValidated = false;
-      this.ValuesChanged = false;
-    }
-    this.ArrayInd = arrayInd;
+
+    this.Errors = [];
+    this.AllValidated = false;
+    this.ValuesChanged = false;
+
     if (this.Schema.onInitValues) this.Schema.onInitValues(this);
-    // this.origValues = JSON.parse(JSON.stringify(this.Values));
 
   }
 
   InitSettings(settings: ISettings) {
-    if (this.ParentSchemaManager) {
-      this.Settings = this.ParentSchemaManager.Settings;
-    } else if (settings) {
-      this.Settings = settings;
+    if (settings) {
+      this.Settings = {
+        ...this.Settings,
+        ...settings
+      }
     } else {
       this.Settings = {
         requiredSuffix: ' *',
@@ -276,21 +257,38 @@ export class SchemaManager {
 
   }
 
-  getValue(comp: IComponent, values: any = null): any {  //values could be diff-values
-    let val;
+  getParentValues(comp: IComponent, values: any, arrayInd: number = -1): any {
+    const pcomp = comp.parentComp;
+    if (pcomp && pcomp.type === ComponentType.datatable) {
+      let ind = arrayInd;
+      if (ind === -1) {
+        const typ = this.checkValueType(pcomp.curRowInd);
+        if (typ === IValueType.number) {
+          ind = pcomp.curRowInd;
+        }
+      }
+      if (ind > -1) {
+        return values[pcomp.field][ind];
+      }
+      return null;
+    }
+    return values;
+  }
+
+  getValue(comp: IComponent, values: any = null, arrayInd: number = -1): any {  //values could be diff-values
     if (!comp.field) {
       console.error('field not specified !');
       console.dir(JSON.stringify(comp));
       return undefined;
     }
-    const Values = values || this.Values;
-    val = get(Values, comp.field);
+    const Values = this.getParentValues(comp, values || this.Values, arrayInd);
+    const val = get(Values, comp.field);
 
     if (this.hasNoValue(val)) {
       if (comp.type === 'checkbox') {
         return false;
       }
-      if (comp.type === 'datatable' || comp.multiselect) {
+      if (comp.type === ComponentType.datatable || comp.multiselect) {
         return [];
       }
       return '';
@@ -298,13 +296,15 @@ export class SchemaManager {
     return val;
   }
 
-  updateValue(comp: IComponent, val: any): void {
+  updateValue(comp: IComponent, val: any, arrayInd: number = -1): void {
 
     if (!comp.field) {
       console.error('field not specified !');
       console.dir(JSON.stringify(comp));
       return;
     }
+
+    const Values = this.getParentValues(comp, this.Values, arrayInd);
 
     if (comp.dataType === DataType.float) {
       val = parseFloat(val);
@@ -315,9 +315,9 @@ export class SchemaManager {
       if (isNaN(val)) val = null;
     }
 
-    const curVal = get(this.Values, comp.field);
+    const curVal = get(Values, comp.field);
     if (curVal === val) return;
-    set(this.Values, comp.field, val);
+    set(Values, comp.field, val);
     this.validate(comp, val);
 
     if (comp.onChange) {
@@ -328,9 +328,7 @@ export class SchemaManager {
   }
 
   validate(comp: IComponent, value: any, arrayInd: number = -1): void {
-    if (arrayInd === - 1) arrayInd = this.ArrayInd;
     let msg = '';
-
     if (this.hasNoValue(value) && comp.required) {
       msg = `${this.Strings.required}`;
     } else if (comp.validate) {
@@ -345,22 +343,23 @@ export class SchemaManager {
 
   validateAll() {
     this.Errors = []
-    this.CompArray.forEach(ca => {
-      if (ca.comp.field) {
-        if (ca.comp.type === ComponentType.datatable) {
-          const arrVal = get(this.Values, ca.comp.field);
-          this.validate(ca.comp, arrVal);
-          if (arrVal && Array.isArray(arrVal)) {
+    this.CompArray.forEach(c => {
+      if (c.field) {
+        if (c.type === ComponentType.datatable) {
+          const arrVal = get(this.Values, c.field);
+          this.validate(c, arrVal);
+          const typ = this.checkValueType(arrVal);
+          if (typ === IValueType.array) {
             arrVal.forEach((obj, ind) => {
-              ca.comp.children.forEach(comp => {
+              c.children.forEach(comp => {
                 const value = get(obj, comp.field);
                 this.validate(comp, value, ind);
               })
             })
           }
-        } else if (ca.parent.type !== ComponentType.datatable) {
-          const value = this.getValue(ca.comp);
-          this.validate(ca.comp, value);
+        } else if (c.parentComp.type !== ComponentType.datatable) {
+          const value = this.getValue(c);
+          this.validate(c, value);
         }
       }
     });
@@ -394,12 +393,9 @@ export class SchemaManager {
 
 
   getError(comp: IComponent) {
-    let msg = '';
-    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === this.ArrayInd);
-    if (error) {
-      msg = error.error;
-    }
-    return msg;
+    const arrayInd = comp.parentComp && comp.parentComp.type === ComponentType.datatable && comp.parentComp.curRowInd ? comp.parentComp.curRowInd : -1;
+    const error = this.Errors.find(e => e.comp === comp && e.arrayInd === arrayInd);
+    return error ? error.error : '';
   }
 
   getStyle(comp: IComponent): string {
@@ -408,12 +404,12 @@ export class SchemaManager {
     return `${width}${style}`;
   }
 
-  getCompByName(name: string): ICompExt | undefined {
-    return this.CompArray.find(ca => ca.comp.name === name);
+  getCompByName(name: string): IComponent | undefined {
+    return this.CompArray.find(c => c.name === name);
   }
 
-  getCompByField(field: string): ICompExt | undefined {
-    return this.CompArray.find(ca => ca.comp.field === field);
+  getCompByField(field: string): IComponent | undefined {
+    return this.CompArray.find(c => c.field === field);
   }
 
   selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
@@ -468,22 +464,22 @@ export class SchemaManager {
 
   MakeVisible(comp: IComponent, arrayInd: number) {
     let curTab: IComponent = null;
-    let ext = this.CompArray.find(c => c.comp === comp);
+    let cur = comp;
 
-    while (ext && ext.parent) {
-      if (ext.parent.type == ComponentType.expansionspanel) {
-        ext.parent.expanded = true;
-      } else if (ext.parent.type == ComponentType.tab) {
-        curTab = ext.parent;
-      } else if (ext.parent.type == ComponentType.tabs) {
-        if (curTab && ext.parent.children && Array.isArray(ext.parent.children)) {
-          const ind = ext.parent.children.indexOf(curTab);
-          ext.parent.selectedTabIndex = ind;
+    while (cur && cur.parentComp) {
+      if (cur.parentComp.type == ComponentType.expansionspanel) {
+        cur.parentComp.expanded = true;
+      } else if (cur.parentComp.type == ComponentType.tab) {
+        curTab = cur.parentComp;
+      } else if (cur.parentComp.type == ComponentType.tabs) {
+        if (curTab && cur.parentComp.children && Array.isArray(cur.parentComp.children)) {
+          const ind = cur.parentComp.children.indexOf(curTab);
+          cur.parentComp.selectedTabIndex = ind;
         }
-      } else if (ext.parent.type == ComponentType.datatable) {
-        ext.parent.curRowInd = arrayInd;
+      } else if (cur.parentComp.type == ComponentType.datatable) {
+        cur.parentComp.curRowInd = arrayInd;
       }
-      ext = this.CompArray.find(c => c.comp === ext.parent);
+      cur = cur.parentComp;
     }
 
   }
@@ -493,10 +489,6 @@ export class SchemaManager {
     if (comp.children) {
       comp.children.forEach(c => this.traverseSchema(c, comp, fn));
     }
-  }
-
-  getParentSM(): SchemaManager {
-    return this.ParentSchemaManager ? this.ParentSchemaManager : this;
   }
 
   checkValueType(val: any): IValueType {
@@ -533,6 +525,9 @@ export class SchemaManager {
     //input usw should have label
     // datatable: summary falls cardView
     // options falls select oder radio
+    //todo
+    // check type in keys
+    // datatable not in datatable
 
     const notype = 'type Property is missing';
     const noChild = 'children Property is missing';
@@ -547,7 +542,7 @@ export class SchemaManager {
     const unn = prop => `Unnecessary Property "${prop}"`;
     const err = (msg: string, comp: IComponent): string => `${msg}${comp.name ? ', name: "' + comp.name + '"' : ''}${comp.field ? ', field: "' + comp.field + '"' : ''}`;
 
-    const container: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
+    const containers: ComponentType[] = [ComponentType.form, ComponentType.card, ComponentType.panel, ComponentType.expansionspanel, ComponentType.tabs, ComponentType.tab, ComponentType.toolbar, ComponentType.datatable];
     const fields: ComponentType[] = [ComponentType.input, ComponentType.select, ComponentType.date, ComponentType.checkbox, ComponentType.switch, ComponentType.radiogroup, ComponentType.slider, ComponentType.datatable];
     const noLabels: ComponentType[] = [ComponentType.divider, ComponentType.tabs, ComponentType.panel, ComponentType.html, ComponentType.errorpanel, ComponentType.icon, ComponentType.form, ComponentType.button, ComponentType.icon];
 
@@ -563,48 +558,49 @@ export class SchemaManager {
     const duplicateNames = [];
 
     //Check components 
-    this.CompArray.forEach(ca => {
-      if (!ca.comp.type) {
-        AddErr(ca.comp, notype, true);
+    this.CompArray.forEach(c => {
+      if (!c.type) {
+        AddErr(c, notype, true);
       } else {
-        if (container.indexOf(ca.comp.type as ComponentType) >= 0) {
-          if (!ca.comp.children) {
-            AddErr(ca.comp, noChild, true);
+        if (containers.indexOf(c.type as ComponentType) >= 0) {
+          if (!c.children) {
+            AddErr(c, noChild, true);
           } else {
-            if (!Array.isArray(ca.comp.children) || ca.comp.children.length === 0) {
-              AddErr(ca.comp, zeroChild, true);
+            const typ = this.checkValueType(c.children);
+            if (typ !== IValueType.array || c.children.length === 0) {
+              AddErr(c, zeroChild, true);
             }
           }
         }
 
-        if (fields.indexOf(ca.comp.type as ComponentType) >= 0 && (!ca.comp.field)) AddErr(ca.comp, noField, true);
-        if (noLabels.indexOf(ca.comp.type as ComponentType) === -1 && (!ca.comp.label)) AddErr(ca.comp, noLabel, false);
+        if (fields.indexOf(c.type as ComponentType) >= 0 && (!c.field)) AddErr(c, noField, true);
+        if (noLabels.indexOf(c.type as ComponentType) === -1 && (!c.label)) AddErr(c, noLabel, false);
 
-        if ((ca.comp.type === ComponentType.select || ca.comp.type === ComponentType.radiogroup) && !ca.comp.options) AddErr(ca.comp, noOptions, true);
-        if (ca.comp.type === ComponentType.datatable && ca.comp.cardView && !ca.comp.summary) AddErr(ca.comp, noSummary, true);
-        if ((ca.comp.type === ComponentType.icon ) && !ca.comp.icon) AddErr(ca.comp, noIcon, true);
+        if ((c.type === ComponentType.select || c.type === ComponentType.radiogroup) && !c.options) AddErr(c, noOptions, true);
+        if (c.type === ComponentType.datatable && c.cardView && !c.summary) AddErr(c, noSummary, true);
+        if ((c.type === ComponentType.icon) && !c.icon) AddErr(c, noIcon, true);
       }
 
-      if (ca.comp.field) {
-        let field = ca.comp.field
-        if (ca.parent && ca.comp.type === ComponentType.datatable) {
-          field = ca.parent.field + '.' + field;
+      if (c.field) {
+        let field = c.field
+        if (c.parentComp && c.type === ComponentType.datatable) {
+          field = c.parentComp.field + '.' + field;
         }
-        duplicateFields[field] ? AddErr(ca.comp, doubleField, true) : duplicateFields[field] = true;
+        duplicateFields[field] ? AddErr(c, doubleField, true) : duplicateFields[field] = true;
       }
 
-      if (ca.comp.name) {
-        let name = ca.comp.name
-        if (ca.parent) {
-          let pname = ca.parent.name ? ca.parent.name : (ca.parent.field ? ca.parent.field : '');
+      if (c.name) {
+        let name = c.name
+        if (c.parentComp) {
+          let pname = c.parentComp.name ? c.parentComp.name : (c.parentComp.field ? c.parentComp.field : '');
           name = pname + '.' + name;
         }
-        duplicateNames[name] ? AddErr(ca.comp, doubleName, true) : duplicateNames[name] = true;
+        duplicateNames[name] ? AddErr(c, doubleName, true) : duplicateNames[name] = true;
       }
 
-      const propKeys = ca.parent ? ck : sk;
-      Object.keys(ca.comp).forEach(k => {
-        if (propKeys.indexOf(k) === -1) AddErr(ca.comp, unn(k), false);
+      const propKeys = c.parentComp ? ck : sk;
+      Object.keys(c).forEach(k => {
+        if (propKeys.indexOf(k) === -1) AddErr(c, unn(k), false);
       });
     });
 

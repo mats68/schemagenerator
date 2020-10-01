@@ -81,7 +81,7 @@ export class MtBaseComponent {
   }
 
   registerFocus() {
-    this.subscription =  this.sm.getParentSM().OnFocus.subscribe({
+    this.subscription =  this.sm.OnFocus.subscribe({
       next: (comp) => {
         if (comp === this.comp && this.nameField) {
           if (this.nameField.nativeElement && this.nameField.nativeElement.focus) {

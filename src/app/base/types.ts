@@ -95,6 +95,7 @@ export interface IComponentProps {
     html?: string | IComponentStringFunction,
     href?: string | IComponentStringFunction,
     openInNewTab?: boolean,
+    parentComp?: IComponent,
 }
 
 type KeysEnum<T> = { [P in keyof Required<T>]: true };
@@ -148,6 +149,7 @@ export const ComponentKeys: KeysEnum<IComponent> = {
   html: true,
   href: true,
   openInNewTab: true,
+  parentComp: true,
 };
 
 export const SchemaKeys: KeysEnum<ISchemaProps> = {

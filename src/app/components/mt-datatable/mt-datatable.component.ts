@@ -12,8 +12,6 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   @Input() comp: IComponent;
   @Input() curRowInd: number;
   @Input() data: any;
-  // data: any[] = [];
-  subsm: SchemaManager;
   currow: any;
   captions: string[];
 
@@ -23,11 +21,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    this.subsm = new SchemaManager(this.sm, this.sm.Settings);
-    this.subsm.InitSchema(this.comp);
-
     this.fields = this.comp.children.filter(c => c.field);
-
     this.captions = this.fields.map(c => {
       const lb = this.sm.getPropValue(c, 'label');
       return lb || 'no label specified!';
@@ -71,7 +65,6 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    // this.data = this.sm.getValue(this.comp);
     if (!isNaN(this.curRowInd) && this.data.length > this.curRowInd) {
       this.InitCurRow(this.data[this.curRowInd]);
     }
@@ -113,11 +106,12 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     if (row === null || this.currow === row) {
       this.currow = null;
       // this.curRowInd = -1;
+      this.comp.curRowInd = -1;
     } else {
       this.currow = row;
       const ind = this.data.findIndex(r => r === row);
       // if (this.curRowInd !== ind) this.curRowInd = ind;
-      this.subsm.InitValues(row, ind);
+      this.comp.curRowInd = ind;
     }
   }
 

@@ -18,12 +18,12 @@ export class VsDiffComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.schemaManger1 = new SchemaManager(null, this.settings);
-    this.schemaManger2 = new SchemaManager(null, this.settings);
+    this.schemaManger1 = new SchemaManager(this.settings);
+    this.schemaManger2 = new SchemaManager(this.settings);
     this.schemaManger1.InitSchema(this.schema);
     this.schemaManger2.InitSchema(this.schema);
-    this.schemaManger1.InitValues(this.values1, -1, this.values2);
-    this.schemaManger2.InitValues(this.values2, -1, this.values1);
+    this.schemaManger1.InitValues(this.values1, this.values2);
+    this.schemaManger2.InitValues(this.values2, this.values1);
   }
 
 
