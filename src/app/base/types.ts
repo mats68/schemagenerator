@@ -90,7 +90,7 @@ export interface IComponentProps {
     toolbarColor?: keyof typeof Color,
     menuView?: boolean,
     cardView?: boolean,
-    noWrap?: boolean,
+    noWrap?: boolean, //todo remove
     selectedTabIndex?: number,
     html?: string | IComponentStringFunction,
     href?: string | IComponentStringFunction,

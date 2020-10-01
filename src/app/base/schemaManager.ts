@@ -174,9 +174,10 @@ export class SchemaManager {
       this.Values = {};
       this.CompArray.forEach(c => {
         if (c.field && c.default) {
-          const val = this.getPropValue(c, 'default');
-          // todo this.updateValue() ohne onchange, validate
-          // set(this.Values, c.field, val);
+          if (c.type !== ComponentType.datatable && c.parentComp && c.parentComp.type  !== ComponentType.datatable ) {
+            const val = this.getPropValue(c, 'default');
+            set(this.Values, c.field, val);
+          }
         }
       });
     }
@@ -187,6 +188,16 @@ export class SchemaManager {
 
     if (this.Schema.onInitValues) this.Schema.onInitValues(this);
 
+  }
+
+  InitValuesArray(comp: IComponent, Values: any) {
+    if (comp.type !== ComponentType.datatable) return;
+    comp.children.forEach(c => {
+      if (c.field && c.default) { 
+        const val = this.getPropValue(c, 'default');
+        set(Values, c.field, val);
+      }
+    });
   }
 
   InitSettings(settings: ISettings) {

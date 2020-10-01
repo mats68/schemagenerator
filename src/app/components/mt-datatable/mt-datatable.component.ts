@@ -75,6 +75,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     const row = {};
     const len = this.data.push(row);
     this.sm.updateValue(this.comp, this.data);
+    this.sm.InitValuesArray(this.comp, this.data[len-1]);
     this.InitCurRow(len-1);
   }
 
