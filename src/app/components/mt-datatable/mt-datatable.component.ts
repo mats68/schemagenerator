@@ -99,7 +99,9 @@ export class MtDatatableComponent implements OnInit, OnChanges {
   }
 
   toggleExpand(row: any) {
-    this.InitCurRow(row);
+    let ind = this.data.findIndex(r => r === row);
+    if (this.comp.curRowInd === ind) ind = -1; 
+    this.InitCurRow(ind);
   }
 
 
