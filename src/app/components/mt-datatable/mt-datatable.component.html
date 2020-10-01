@@ -21,10 +21,10 @@
     <table class="mat-table mat-elevation-z8 table">
         <tbody>
             <tr class="mat-row table-row table-header-row">
-                <td class="mat-cell table-cell" *ngFor='let cap of captions'>{{cap}}</td>
+                <td class="mat-cell" *ngFor='let cap of captions' [style]='getCellStyle(0)'>{{cap}}</td>
             </tr>
             <tr *ngFor="let row of data; let ind = index" class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
-                <td class="mat-cell table-cell" *ngFor='let feld of fields'>{{getCellValue(feld,ind)}}</td>
+                <td class="mat-cell" *ngFor='let feld of fields' [style]='getCellStyle(ind)'>{{getCellValue(feld,ind)}}</td>
             </tr>
         </tbody>
     </table>

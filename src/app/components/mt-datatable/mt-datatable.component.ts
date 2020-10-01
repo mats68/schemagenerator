@@ -150,6 +150,12 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     return this.sm.getValue(comp,this.sm.Values,arrayInd);
   }
 
+  getCellStyle(ind: number) {
+    if (ind < this.data.length - 1) {
+      return 'padding: 0;border-bottom-style: solid;border-bottom-width: thin;';
+    }
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     if (this.comp.dragdrop) {
       moveItemInArray(this.data, event.previousIndex, event.currentIndex);
