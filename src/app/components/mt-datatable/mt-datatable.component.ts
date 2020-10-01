@@ -47,7 +47,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
           tooltip: this.sm.Strings.ds_copy,
           icon: 'content_copy',
           color: 'primary',
-          disabled: () => { return this.isDisabled() },
+          disabled: () => { return this.hasCurRow() },
           onClick: () => { this.CopyRow() }
         },
         {
@@ -56,7 +56,7 @@ export class MtDatatableComponent implements OnInit, OnChanges {
           tooltip: this.sm.Strings.ds_del,
           icon: 'delete',
           color: 'primary',
-          disabled: () => { return this.isDisabled() },
+          disabled: () => { return this.hasCurRow() },
           onClick: () => { this.DeleteRow() }
         },
       ]
@@ -133,8 +133,21 @@ export class MtDatatableComponent implements OnInit, OnChanges {
     }
   }
 
-  isDisabled(): boolean {
+  hasCurRow(): boolean {
     return !this.currow;
+  }
+
+  hasData(): boolean {
+    let has = false;
+    const typ = this.sm.checkValueType(this.data);
+    if (typ === IValueType.array && this.data.length > 0) {
+      has = true;
+    }
+    return has;
+  }
+
+  getCellValue(comp: IComponent, arrayInd: number): string {
+    return this.sm.getValue(comp,this.sm.Values,arrayInd);
   }
 
   drop(event: CdkDragDrop<string[]>) {

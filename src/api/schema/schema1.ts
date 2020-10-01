@@ -435,7 +435,7 @@ export const schema1: ISchema =
       label: 'Adressen',
       field: 'adresses',
       required: true,
-      cardView: true,
+      // cardView: true,
       dragdrop: true,
       // datacols: 'lg-6',
       summary(sm, comp, row) {

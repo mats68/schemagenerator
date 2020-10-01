@@ -55,6 +55,7 @@ ng add @angular/material
 ### todo:
 - table-view
 - lesen (getValue) & speichern (updateValue, onChange)  eines anderen wertes
+- highlight diff in tables und arrays
 - removeAllErrors per comp (nach delete row)
 - input prefix und suffix (icon, button oder text)
 - tests für checkschema funktion

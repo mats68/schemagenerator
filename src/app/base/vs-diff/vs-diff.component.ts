@@ -26,7 +26,7 @@ export class VsDiffComponent implements OnInit {
     this.schemaManger1.InitValues(this.values1, this.values2);
     this.schemaManger2.InitValues(this.values2);
     this.schemaManger2.DisableAll();
-    this.schemaManger1.InitHighlightDiffValues();
+    this.schemaManger1.InitDiffHighlight();
   }
 
 

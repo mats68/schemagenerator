@@ -256,18 +256,17 @@ export class SchemaManager {
     }
   }
 
-  InitHighlightDiffValues() {
+  InitDiffHighlight() {
     if (!this.DiffValues) return;
     this.highlightedFields = [];
     this.CompArray.forEach(c => {
       if (c.parentComp && c.parentComp.type !== ComponentType.datatable) {
-        this.InitHighlightDiffValueComp(c);
+        this.InitDiffHighlightComp(c);
       }
     });
-    console.log(this.highlightedFields);
   }
 
-  InitHighlightDiffValueComp(comp: IComponent, arrayInd: number = -1) {
+  InitDiffHighlightComp(comp: IComponent, arrayInd: number = -1) {
     if (!this.DiffValues || !this.highlightedFields) return;
     if (comp.field && comp.parentComp) {
       const val1 = this.getValue(comp);
@@ -386,7 +385,7 @@ export class SchemaManager {
       comp.onChange(this, comp, val);
     }
 
-    this.InitHighlightDiffValueComp(comp, arrayInd);
+    this.InitDiffHighlightComp(comp, arrayInd);
 
     this.ValuesChanged = true;
   }

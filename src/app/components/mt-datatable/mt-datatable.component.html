@@ -17,16 +17,14 @@
         <mt-container [comp]='comp' [sm]='sm' *ngIf='currow === row'></mt-container>
     </mat-card>
 </div>
-<div *ngIf='!comp.cardView'>
-    <table class="mat-table mat-elevation-z8">
-        <thead class="mat-header">
-            <tr class="mat-header-row">
-                <th class="mat-header-cell" *ngFor='let cap of captions'>{{cap}}</th>
-            </tr>
-        </thead>
+<div *ngIf='!comp.cardView && hasData()' cdkDropList (cdkDropListDropped)="drop($event)" class="table-outer">
+    <table class="mat-table mat-elevation-z8 table">
         <tbody>
-            <tr *ngFor="let row of data" class="mat-row">
-                <td class="mat-cell" *ngFor='let feld of fields'>todo</td>
+            <tr class="mat-row table-row table-header-row">
+                <td class="mat-cell table-cell" *ngFor='let cap of captions'>{{cap}}</td>
+            </tr>
+            <tr *ngFor="let row of data; let ind = index" class="mat-row table-row" cdkDrag [cdkDragDisabled]="!comp.dragdrop">
+                <td class="mat-cell table-cell" *ngFor='let feld of fields'>{{getCellValue(feld,ind)}}</td>
             </tr>
         </tbody>
     </table>

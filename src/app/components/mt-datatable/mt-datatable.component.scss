@@ -22,6 +22,25 @@
     margin: 0;
 }
 
-table {
+.table-outer {
+    margin: 5px;
+}
+
+.table {
     width: 100%;
+}
+
+.table-row {
+    height: 40px;
+}
+
+.table-cell {
+    padding: 0;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}
+
+
+.table-header-row {
+    font-weight: 550;
 }
