@@ -1,18 +1,48 @@
 import { SchemaManager } from '../../app/base/schemaManager';
 import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../../app/base/types';
-import {buttons } from './schemaButtons'
+import { buttons } from './schemaButtons'
 
+const showPanel = (sm: SchemaManager, comp: IComponent) => {
+  const pn = comp.name.substring(2);
+  sm.getCompByName('sidenav').children.forEach(c => {
+      c.hidden = true;
+  });
+  sm.getCompByName(pn).hidden = false;
+  
+}
 export const schema2: ISchema =
 {
     type: 'form',
     name: 'schema2',
+    onInitSchema(sm) {
+        let menuitems: IComponent[] = [];
+        sm.getCompByName('sidenav').children.forEach(c => {
+            menuitems.push({
+                type: 'button',
+                label: c.label,
+                name: 'm_' + c.name,
+                onClick(sm, comp) {
+                    showPanel(sm, comp);
+                }
+            })
+        });
+        sm.getCompByName('sidenav').menu = menuitems;
+    },
     children: [
         {
-            type: 'expansionspanel',
+            type: 'sidenav',
+            name: 'sidenav',
+            menu: [
+                {
+                    type: 'button',
+                    label: 'Button1',
+                }
+            ],
             children: [
                 {
                     label: 'Inputs',
                     type: 'expansionspanel',
+                    name: 'inputs',
                     children: [
                         {
                             type: 'input',
@@ -32,7 +62,8 @@ export const schema2: ISchema =
                 },
                 {
                     label: 'Check & Radio',
-                    type: 'tab',
+                    type: 'expansionspanel',
+                    name: 'Check & Radio',
                     children: [
                         {
                             type: 'checkbox',
@@ -42,8 +73,8 @@ export const schema2: ISchema =
                         },
                         {
                             type: 'switch',
-                            label: (sm,comp) => {
-                                return  sm.getValue(comp) ? 'Ja' : 'Nein';
+                            label: (sm, comp) => {
+                                return sm.getValue(comp) ? 'Ja' : 'Nein';
                             },
                             required: true,
                             field: 'switch1',
@@ -53,7 +84,7 @@ export const schema2: ISchema =
                             label: 'Radiogroup',
                             cols: 'sm-12',
                             dataType: 'int',
-                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}],
+                            options: [{ value: 1, text: 'Eins' }, { value: 2, text: 'Zwei' }, { value: 3, text: 'Drei' }, { value: 4, text: 'Vier' }],
                             required: true,
                             field: 'radio1',
                         }
@@ -61,7 +92,8 @@ export const schema2: ISchema =
                 },
                 {
                     label: 'Card & Panel',
-                    type: 'tab',
+                    name: 'Card & Panel',
+                    type: 'expansionspanel',
                     children: [
                         {
                             type: 'card',
@@ -84,9 +116,9 @@ export const schema2: ISchema =
 
                         },
                         {
-                           type: 'html',
-                           style: 'margin: 10px;',
-                           html: `<p>was ist <b>lost</b> </p>`
+                            type: 'html',
+                            style: 'margin: 10px;',
+                            html: `<p>was ist <b>lost</b> </p>`
 
                         },
                         {
@@ -95,17 +127,18 @@ export const schema2: ISchema =
                             label: 'Thaler',
                             html: (sm, comp) => {
                                 return `<div class="row">
-                                <div class="col-lg-6">Thaler1</div>
-                                <div class="col-lg-6">Thaler2</div>
-                            </div> `;
+                                        <div class="col-lg-6">Thaler1</div>
+                                        <div class="col-lg-6">Thaler2</div>
+                                    </div> `;
                             }
- 
-                         },
-                     ]
+
+                        },
+                    ]
                 },
                 {
                     label: 'Test',
-                    type: 'tab',
+                    name: 'Test',
+                    type: 'expansionspanel',
                     children: [
                         {
                             type: 'input',
@@ -123,7 +156,8 @@ export const schema2: ISchema =
                 },
                 {
                     label: 'Selects',
-                    type: 'tab',
+                    name: 'Selects',
+                    type: 'expansionspanel',
                     children: [
                         {
                             type: 'select',
@@ -131,7 +165,7 @@ export const schema2: ISchema =
                             field: 'select1',
                             dataType: 'int',
                             required: true,
-                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}]
+                            options: [{ value: 1, text: 'Eins' }, { value: 2, text: 'Zwei' }, { value: 3, text: 'Drei' }, { value: 4, text: 'Vier' }]
                         },
                         {
                             type: 'select',
@@ -146,7 +180,7 @@ export const schema2: ISchema =
                             multiselect: true,
                             field: 'multiselect1',
                             required: true,
-                            options: [{value: 1, text: 'Eins'}, {value: 2, text: 'Zwei'}, {value: 3, text: 'Drei'}, {value: 4, text: 'Vier'}]
+                            options: [{ value: 1, text: 'Eins' }, { value: 2, text: 'Zwei' }, { value: 3, text: 'Drei' }, { value: 4, text: 'Vier' }]
                         },
                         {
                             type: 'select',
@@ -169,14 +203,13 @@ export const schema2: ISchema =
                             multiselect: true,
                             options: ['Eins', 'Zwei', 'Drei', 'Vier']
                         },
-
                     ]
                 }
             ]
-        },
-        ...buttons
+        }
     ]
 }
+
 
 export const values2 = {
     text1: 'Text 2',

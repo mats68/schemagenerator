@@ -95,8 +95,9 @@ export interface IComponentProps {
     html?: string | IComponentStringFunction,
     href?: string | IComponentStringFunction,
     openInNewTab?: boolean,
+    menu?: Array<IComponent>;
     parentComp?: IComponent,
-}
+  }
 
 type KeysEnum<T> = { [P in keyof Required<T>]: true };
 export const ComponentKeys: KeysEnum<IComponent> = {
@@ -150,6 +151,7 @@ export const ComponentKeys: KeysEnum<IComponent> = {
   href: true,
   openInNewTab: true,
   parentComp: true,
+  menu: true,
 };
 
 export const SchemaKeys: KeysEnum<ISchemaProps> = {
@@ -186,6 +188,7 @@ export enum ComponentType {
     tab = 'tab',
     switchpanel = 'switchpanel',
     datatable = 'datatable',
+    sidenav = 'sidenav',
     //fields
     input = 'input',
     select = 'select',

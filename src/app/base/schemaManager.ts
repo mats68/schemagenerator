@@ -644,7 +644,7 @@ export class SchemaManager {
         }
 
         if (fields.indexOf(c.type as ComponentType) >= 0 && (!c.field)) AddErr(c, noField, true);
-        if (noLabels.indexOf(c.type as ComponentType) === -1 && (!c.label)) AddErr(c, noLabel, false);
+        if (noLabels.indexOf(c.type as ComponentType) === -1 && (this.checkValueType(c.label) === IValueType.undefined)) AddErr(c, noLabel, false);
 
         if ((c.type === ComponentType.select || c.type === ComponentType.radiogroup) && !c.options) AddErr(c, noOptions, true);
         if (c.type === ComponentType.datatable && c.cardView && !c.summary) AddErr(c, noSummary, true);

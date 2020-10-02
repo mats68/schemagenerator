@@ -31,7 +31,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
     {
         type: 'input',
         field: PrefField + 'plz',
-        cols: 'col-md-4',
+        cols: 'md-4',
         label: 'PLZ',
         disabled
     },
@@ -39,7 +39,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
         label: 'Ort',
         type: 'input',
         field: PrefField + 'ort',
-        cols: 'col-md-8',
+        cols: 'md-8',
         disabled
     },
     {
@@ -80,7 +80,7 @@ export const schema_IA: ISchema =
                     field: 'standort',
                     label: 'Standort',
                     disabled: true,
-                    cols: 'md-6',
+                    cols: 'md-3',
                 },
                 {
                     type: 'input',
@@ -102,6 +102,7 @@ export const schema_IA: ISchema =
                     type: 'input',
                     field: 'anzEinheiten',
                     label: 'Anz. Einheiten / Zähler',
+                    mask: '0*',
                     cols: 'md-6',
                 },
                 {
@@ -223,6 +224,41 @@ export const schema_IA: ISchema =
         },
         {
             type: 'expansionspanel',
+            label: 'Installationsbeschrieb',
+            children: [
+                {
+                    type: 'input',
+                    field: 'installationsbeschrieb',
+                    multiline: true,
+                    rows: 6,
+                    label: '',
+                    appearance: 'outline',
+                    cols: 'md-6'
+                },
+                {
+                    type: 'select',
+                    field: 'installationstyp',
+                    label: 'Typ',
+                    multiselect: true,
+                    cols: 'md-6',
+                    options: ['Neuanlage','Änderung/Erweit.','Rückbau','Bauanschluss','Temporär','Festplatz']
+                }
+            ]
+        },
+        {
+            type: 'expansionspanel',
+            label: 'Netzanschluss',
+            children: [
+                {
+                    type: 'input',
+                    label: 'Standort',
+                    required: true,
+                    field: 'StandortNetzanschluss'
+                }
+            ]
+        },
+        {
+            type: 'expansionspanel',
             label: 'Verbraucher, Erzeuger, Speicher',
             expanded: true,
             children: [
@@ -287,8 +323,7 @@ export const schema_IA: ISchema =
                                 {
                                     type: 'input',
                                     field: 'bezeichnung',
-                                    label: 'Bezeichnung',
-                                    tooltip: 'Bezeichnung des Verbrauchers, Erzeugers, Speichers',
+                                    label: 'Bezeichnung des Verbrauchers, Erzeugers, Speichers ',
                                     options: ['Beleuchtung', 'Kochherd mit Backofen', 'Kochherd ohne Backofen', 'Backofen', 'Geschirrspüler', 'Waschautomat', 'Waschautomat mit Zählerumschalter', 'Wäschetrockner', 'Boiler .... l, Aufheizzeit .... h', 'Motoren ohne Anschlussgesuch', 'Motoren mit Anschlussgesuch', 'Wärmepumpe ohne Anschlussgesuch', 'Wärmepumpe mit Anschlussgesuch', 'Apparat Netzrückwirkungen verursachend'],
                                     cols: 'md-8',
                                 },
@@ -482,6 +517,7 @@ export const values_IA = {
     gebaeudeart: 'MFH',
     Gemeinde: 'Muri',
     anzEinheiten: 1,
+    installationsbeschrieb: 'Neubau\nmit chinesischen Geräten',
     Parzelle: '2',
     VersicherungsNr: '120',
     verwaltung: {

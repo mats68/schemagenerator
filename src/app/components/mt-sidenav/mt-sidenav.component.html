@@ -1,0 +1,22 @@
+<div class="container">
+    <mat-toolbar color="primary" class="toolbar">
+        <button mat-icon-button (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="app-name">Responsive App</h1>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav #snav mode="side">
+            <mat-nav-list>
+                <div *ngFor='let item of comp.menu'>
+                    <mt-item [comp]='item' [sm]='sm'></mt-item>
+                </div>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="sidenav-content">
+            <mt-container [comp]='comp' [sm]='sm'></mt-container>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

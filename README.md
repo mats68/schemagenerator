@@ -53,9 +53,16 @@ ng add @angular/material
 - . in field => sub object z.B. verwaltung.name
 
 ### todo:
+- design nur 1 spalte, fixe breite der inputs (s. TAG )
+- side-navigator 
+- hide panels based on menu
+
 - table-view
   - getcellheader und getCellValue as function on schema (can give back component)
+- field in exp tabs um zustand zu speichern
 - lesen (getValue) & speichern (updateValue, onChange) event auf schema eines anderen wertes
+- tooltip überall
+- error in tabs
 - ev. mehr evens wie blur click dblclick focus 
 - highlight diff in tables und arrays
 - removeAllErrors per comp (nach delete row)

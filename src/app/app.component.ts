@@ -52,8 +52,6 @@ const Settings_it: ISettings = {
   }
 }
 
-
-
 const Settings_en: ISettings = {
   language: 'en',
   requiredSuffix: ' *',
@@ -77,17 +75,17 @@ const Settings_en: ISettings = {
 
 export class AppComponent implements OnInit {
   schemas_obj = {
+    schema_IA,
     schema1,
     schema2,
     schema3,
-    schema_IA,
   }
   schemas_arr = [];
 
   values_obj = {
+    values_IA,
     values1_1,
     values1_2,
-    values_IA,
   }
   values_arr = [];
 
@@ -124,10 +122,15 @@ export class AppComponent implements OnInit {
     this.service.getAuswahlliste('mitarbeiter').subscribe((data: any) => {
       this.auswahllisten.mitarbeiter = data.Daten;
       this.loadAuswahllisteInSchema();
-      if (!this.schema) {
-        this.schema = this.schemas_arr[0];
-      }
+      // if (!this.schema) {
+      //   this.schema = this.schemas_arr[0];
+      // }
     });
+
+    
+    this.schema = this.schemas_arr[0];
+    // setTimeout(() => this.values = this.values_arr[0], 100);
+
 
   }
 
@@ -176,7 +179,6 @@ export class AppComponent implements OnInit {
     }
     this._values = val;
     this.schemaManger.InitValues(this.curvalues);
-    // this.schemaManger.refresh_UI();
   }
 
   private _appearance: IAppearance = 'standard';

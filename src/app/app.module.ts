@@ -78,6 +78,7 @@ import { MtSwitchpanelComponent } from './components/mt-switchpanel/mt-switchpan
 import { MtDateComponent } from './components/mt-date/mt-date.component';
 import { MtIconComponent } from './components/mt-icon/mt-icon.component';
 import { MtSliderComponent } from './components/mt-slider/mt-slider.component';
+import { MtSidenavComponent } from './components/mt-sidenav/mt-sidenav.component';
 
 const maskConfig: Partial<IConfig> = {
   dropSpecialCharacters: false,
@@ -114,6 +115,7 @@ const maskConfig: Partial<IConfig> = {
     MtDateComponent,
     MtIconComponent,
     MtSliderComponent,
+    MtSidenavComponent,
   ],
   imports: [
     BrowserModule,
