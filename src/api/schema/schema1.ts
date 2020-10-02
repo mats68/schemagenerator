@@ -117,11 +117,17 @@ export const schema1: ISchema =
     {
       type: 'expansionspanel',
       label: 'Panel1',
+      styles: {
+        container: 'display: grid;grid-template-columns: auto auto auto auto;  grid-gap: 10px;'
+      },
       children: [
         {
           type: 'input',
           label: 'Text10',
           field: 'text10',
+          styles: {
+            item: 'grid-column: 2 / span 2;',
+          }
         },
         {
           type: 'input',

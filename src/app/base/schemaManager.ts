@@ -470,9 +470,7 @@ export class SchemaManager {
     } else {
       if (comp.styles && comp.styles[stylename]) {
         return comp.styles[stylename];
-      } else {
-        console.error('stylename not found: ', stylename, comp);
-      }
+      } 
     }
 
   }
