@@ -7,7 +7,7 @@
     </mat-toolbar>
 
     <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #snav mode="side">
+        <mat-sidenav #snav mode="side" [opened]='true'>
             <mat-nav-list>
                 <div *ngFor='let item of comp.menu'>
                     <mt-item [comp]='item' [sm]='sm'></mt-item>

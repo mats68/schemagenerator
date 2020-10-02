@@ -84,7 +84,7 @@ const showPanel = (sm: SchemaManager, comp: IComponent) => {
         c.style = 'font-weight: 200;';
     });
     comp.color = 'primary';
-    comp.icon = 'trending_flat';
+    // comp.icon = 'trending_flat';
     comp.style = 'font-weight: 500;';
 
     sm.getCompByName('sidenav').children.forEach(c => {
@@ -403,142 +403,151 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'datatable',
+            type: 'expansionspanel',
             label: 'Mess- und Steuereinrichtungen',
             name: 'Mess- und Steuereinrichtungen',
-            field: 'steuereinrichtungen',
-            required: true,
-            cardView: true,
-            dragdrop: true,
-            summary(sm, comp, row) {
-                const kunde = row.kunde ? `Kunde: <b>${row.kunde}</b><br/>` : '';
-                const rechnungsadresse = row.rechnungsadresse ? ` Rechnungsadresse: ${row.rechnungsadresse}` : '';
-                const gebaeudeteil = row.gebaeudeteil ? ` Gebäudeteil: ${row.gebaeudeteil}` : '';
-                return {
-                    type: 'html',
-                    html: `${kunde} ${rechnungsadresse} ${gebaeudeteil}`
-                }
-            },
             children: [
                 {
-                    type: 'input',
-                    label: 'Kunde',
-                    field: 'kunde',
+                    type: 'datatable',
+                    label: 'Mess- und Steuereinrichtungen',
+                    field: 'steuereinrichtungen',
                     required: true,
-                    cols: 'md-6',
+                    cardView: true,
+                    dragdrop: true,
+                    summary(sm, comp, row) {
+                        const kunde = row.kunde ? `Kunde: <b>${row.kunde}</b><br/>` : '';
+                        const rechnungsadresse = row.rechnungsadresse ? ` Rechnungsadresse: ${row.rechnungsadresse}` : '';
+                        const gebaeudeteil = row.gebaeudeteil ? ` Gebäudeteil: ${row.gebaeudeteil}` : '';
+                        return {
+                            type: 'html',
+                            html: `${kunde} ${rechnungsadresse} ${gebaeudeteil}`
+                        }
+                    },
+                    children: [
+                        {
+                            type: 'input',
+                            label: 'Kunde',
+                            field: 'kunde',
+                            required: true,
+                            cols: 'md-6',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Rechnungsadresse',
+                            field: 'rechnungsadresse',
+                            required: true,
+                            cols: 'md-6',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Gebäudeteil',
+                            field: 'gebaeudeteil',
+                            cols: 'md-6',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Nutzung',
+                            field: 'nutzung',
+                            cols: 'md-6',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Verbrauchsstelle VNB',
+                            field: 'Verbrauchsstelle',
+                            cols: 'md-3',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Stockwerk',
+                            field: 'Stockwerk',
+                            options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
+                            cols: 'md-3',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Raumnummer',
+                            field: 'Raumnummer',
+                            cols: 'md-3',
+                        },
+                        {
+                            type: 'input',
+                            label: 'VNB Tarif',
+                            field: 'VNBTarif',
+                            cols: 'md-3',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Sich.',
+                            field: 'sicher',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Zählernummer VNB',
+                            field: 'Zählernummer',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'input',
+                            label: 'Mont. Ort',
+                            field: 'Mont',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'ZEV',
+                            field: 'zev',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'neu.',
+                            field: 'neu',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'vorh.',
+                            field: 'vorh',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'ausw.',
+                            field: 'ausw',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'dem.',
+                            field: 'dem',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'umm.',
+                            field: 'umm',
+                            cols: 'md-4',
+                        },
+                        {
+                            type: 'select',
+                            label: 'AS Multiselect',
+                            field: 'multi_1',
+                            options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
+                            cols: 'md-6',
+                            multiselect: true,
+                        }
+                    ]
+        
                 },
-                {
-                    type: 'input',
-                    label: 'Rechnungsadresse',
-                    field: 'rechnungsadresse',
-                    required: true,
-                    cols: 'md-6',
-                },
-                {
-                    type: 'input',
-                    label: 'Gebäudeteil',
-                    field: 'gebaeudeteil',
-                    cols: 'md-6',
-                },
-                {
-                    type: 'input',
-                    label: 'Nutzung',
-                    field: 'nutzung',
-                    cols: 'md-6',
-                },
-                {
-                    type: 'input',
-                    label: 'Verbrauchsstelle VNB',
-                    field: 'Verbrauchsstelle',
-                    cols: 'md-3',
-                },
-                {
-                    type: 'input',
-                    label: 'Stockwerk',
-                    field: 'Stockwerk',
-                    options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
-                    cols: 'md-3',
-                },
-                {
-                    type: 'input',
-                    label: 'Raumnummer',
-                    field: 'Raumnummer',
-                    cols: 'md-3',
-                },
-                {
-                    type: 'input',
-                    label: 'VNB Tarif',
-                    field: 'VNBTarif',
-                    cols: 'md-3',
-                },
-                {
-                    type: 'input',
-                    label: 'Sich.',
-                    field: 'sicher',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'input',
-                    label: 'Zählernummer VNB',
-                    field: 'Zählernummer',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'input',
-                    label: 'Mont. Ort',
-                    field: 'Mont',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'ZEV',
-                    field: 'zev',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'neu.',
-                    field: 'neu',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'vorh.',
-                    field: 'vorh',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'ausw.',
-                    field: 'ausw',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'dem.',
-                    field: 'dem',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'checkbox',
-                    label: 'umm.',
-                    field: 'umm',
-                    cols: 'md-4',
-                },
-                {
-                    type: 'select',
-                    label: 'AS Multiselect',
-                    field: 'multi_1',
-                    options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
-                    cols: 'md-6',
-                    multiselect: true,
-                }
+        
             ]
 
         },
         {
             type: 'switchpanel',
             label: 'Bemerkungen',
+            name: 'Bemerkungen',
             field: 'switcher_bemerkungen',
             children: [
                 {
