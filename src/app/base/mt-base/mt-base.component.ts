@@ -34,7 +34,11 @@ export class MtBaseComponent {
   }
 
   get style(): string {
-    return this.sm.getStyle(this.comp);
+    return this.sm.getStyle(this.comp, '');
+  }
+
+  styles(stylename: string): string {
+    return this.sm.getStyle(this.comp, stylename);
   }
 
   get color() {

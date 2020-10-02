@@ -462,10 +462,19 @@ export class SchemaManager {
     return error ? error.error : '';
   }
 
-  getStyle(comp: IComponent): string {
-    const width = comp.width ? `width: ${comp.width};` : '';
-    const style = comp.style ?? '';
-    return `${width}${style}`;
+  getStyle(comp: IComponent, stylename: string): string {
+    if (stylename === '') {
+      const width = comp.width ? `width: ${comp.width};` : '';
+      const style = comp.style ?? '';
+      return `${width}${style}`;
+    } else {
+      if (comp.styles && comp.styles[stylename]) {
+        return comp.styles[stylename];
+      } else {
+        console.error('stylename not found: ', stylename, comp);
+      }
+    }
+
   }
 
   getCompByName(name: string): IComponent | undefined {

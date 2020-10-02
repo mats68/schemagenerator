@@ -53,6 +53,7 @@ export interface IComponentProps {
     name?: string;
     field?: string,
     style?: string | IComponentStringFunction,
+    styles?: any,
     hidden?: boolean | IComponentBoolFunction,
     tooltip?: string | IComponentStringFunction,
     hint?: string | IComponentStringFunction,
@@ -107,6 +108,7 @@ export const ComponentKeys: KeysEnum<IComponent> = {
   name: true,
   field: true,
   style: true,
+  styles: true,
   hidden: true,
   tooltip: true,
   hint: true,

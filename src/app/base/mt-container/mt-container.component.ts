@@ -1,18 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IValueType, SchemaManager } from '../../base/schemaManager';
+import {  SchemaManager } from '../../base/schemaManager';
 import { ComponentType, IComponent } from 'src/app/base/types';
+import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
   selector: 'mt-container',
   templateUrl: './mt-container.component.html',
   styleUrls: ['./mt-container.component.scss']
 })
-export class MtContainerComponent implements OnInit {
-  @Input() sm: SchemaManager;
-  @Input() comp: IComponent;
+export class MtContainerComponent extends MtBaseComponent implements OnInit {
   usesGrid: boolean = false;
-
-  constructor() { }
 
   ngOnInit(): void {
     this.usesGrid = this.sm.usesGrid(this.comp);

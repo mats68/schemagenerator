@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div *ngIf='!usesGrid'>
+  <div *ngIf='!usesGrid' style="style">
     <div *ngFor='let child of comp.children' [class]='getHighlight(child)'>
       <mt-item [comp]='child' [sm]='sm'></mt-item>
     </div>

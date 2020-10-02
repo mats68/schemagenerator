@@ -1,4 +1,4 @@
-<mat-form-field [style]='sm.getStyle(comp)' [appearance]='sm.getAppearance(comp)' class="form-field">
+<mat-form-field [style]='style' [appearance]='sm.getAppearance(comp)' class="form-field">
   <mat-label [ngClass]='{"error-color" : getError()}'>{{label}}</mat-label>
   <input matInput #name [(ngModel)]='Value' (blur)='onBlur()'
   [disabled]='disabled'

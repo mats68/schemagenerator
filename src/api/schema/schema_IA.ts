@@ -73,14 +73,14 @@ const InitSidenav = (sm: SchemaManager) => {
         }
     });
     sm.getCompByName('sidenav').menu = menuitems;
-    showPanel(sm, sm.getCompByName('sidenav').children[0]);
+    showPanel(sm, menuitems[0]);
 }
 
 const showPanel = (sm: SchemaManager, comp: IComponent) => {
     const pn = comp.name.substring(2);
     sm.getCompByName('sidenav').menu.forEach(c => {
         c.color = '';
-        c.icon = '';
+        // c.icon = '';
         c.style = 'font-weight: 200;';
     });
     comp.color = 'primary';
