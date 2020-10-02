@@ -3,13 +3,23 @@ import { IComponent, ISchema, ComponentType, ButtonKind, Color } from '../../app
 import { buttons } from './schemaButtons'
 
 const showPanel = (sm: SchemaManager, comp: IComponent) => {
-  const pn = comp.name.substring(2);
-  sm.getCompByName('sidenav').children.forEach(c => {
-      c.hidden = true;
-  });
-  sm.getCompByName(pn).hidden = false;
-  
+    const pn = comp.name.substring(2);
+    sm.getCompByName('sidenav').menu.forEach(c => {
+        c.color = '';
+        c.icon = '';
+        c.style = 'font-weight: 200;';
+    });
+    comp.color = 'primary';
+    comp.icon =  'trending_flat';
+    comp.style = 'font-weight: 500;';
+
+    sm.getCompByName('sidenav').children.forEach(c => {
+        c.hidden = true;
+    });
+    sm.getCompByName(pn).hidden = false;
+    sm.getCompByName(pn).expanded = true;
 }
+
 export const schema2: ISchema =
 {
     type: 'form',
@@ -20,6 +30,7 @@ export const schema2: ISchema =
             menuitems.push({
                 type: 'button',
                 label: c.label,
+                style: 'font-weight: 200;',
                 name: 'm_' + c.name,
                 onClick(sm, comp) {
                     showPanel(sm, comp);

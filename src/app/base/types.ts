@@ -70,7 +70,7 @@ export interface IComponentProps {
     max?: number,
     step?: number,
     thumbLabel?: boolean,
-    color?: keyof typeof Color,
+    color?: Color,
     autofocus?: boolean, 
     multiselect?: boolean, 
     validate?: IComponentStringFunction,
@@ -87,7 +87,7 @@ export interface IComponentProps {
     kind?: keyof typeof ButtonKind,
     icon?: string,
     expanded?: boolean,
-    toolbarColor?: keyof typeof Color,
+    toolbarColor?: Color,
     menuView?: boolean,
     cardView?: boolean,
     noWrap?: boolean, //todo remove
@@ -172,7 +172,7 @@ export interface IMaskOptions {
 export interface IToolbarItem {
   label: string,
   icon: string,
-  color?: keyof typeof Color,
+  color?: Color,
   disabled?: boolean | IComponentBoolFunction,
   onClick?: IComponentVoidFunction,
 }
@@ -226,9 +226,5 @@ export enum ComponentType {
     minifab = 'minifab'
    }
 
-   export enum Color {
-    primary ='primary',
-    accent ='accent',
-    warn ='warn',
-
-   }
+   export type Color = '' | "primary" | "accent" | "warn";
+   

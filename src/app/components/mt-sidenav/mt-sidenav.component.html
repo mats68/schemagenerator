@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container" [style]='style'>
     <mat-toolbar color="primary" class="toolbar">
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <h1 class="app-name">Responsive App</h1>
+        <h1 class="app-name">{{label}}</h1>
     </mat-toolbar>
 
     <mat-sidenav-container class="sidenav-container">

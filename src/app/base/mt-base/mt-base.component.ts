@@ -26,7 +26,7 @@ export class MtBaseComponent {
   }
 
   get label() {
-    return this.sm.getLabel(this.comp);
+    return this.sm.getLabel(this.comp) || '';
   }
 
   get type(): string {

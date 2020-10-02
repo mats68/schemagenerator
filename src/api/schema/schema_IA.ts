@@ -57,22 +57,62 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
 ]
 
 
+const InitSidenav = (sm: SchemaManager) => {
+    let menuitems: IComponent[] = [];
+    sm.getCompByName('sidenav').children.forEach(c => {
+        if (c.children) {
+            menuitems.push({
+                type: 'button',
+                label: c.label,
+                style: 'font-weight: 200;',
+                name: 'm_' + c.name,
+                onClick(sm, comp) {
+                    showPanel(sm, comp);
+                }
+            });
+        }
+    });
+    sm.getCompByName('sidenav').menu = menuitems;
+    showPanel(sm, sm.getCompByName('sidenav').children[0]);
+}
+
+const showPanel = (sm: SchemaManager, comp: IComponent) => {
+    const pn = comp.name.substring(2);
+    sm.getCompByName('sidenav').menu.forEach(c => {
+        c.color = '';
+        c.icon = '';
+        c.style = 'font-weight: 200;';
+    });
+    comp.color = 'primary';
+    comp.icon = 'trending_flat';
+    comp.style = 'font-weight: 500;';
+
+    sm.getCompByName('sidenav').children.forEach(c => {
+        if (c.children) {
+            c.hidden = true;
+        }
+    });
+    sm.getCompByName(pn).hidden = false;
+    sm.getCompByName(pn).expanded = true;
+}
+
 
 
 export const schema_IA: ISchema =
 {
-    type: 'form',
-    name: 'schema_IA',
+    onInitSchema(sm) {
+        InitSidenav(sm);
+    },
+    type: 'sidenav',
+    label: 'Installationsanzeige',
+    menu: [],
+    name: 'sidenav',
     children: [
-        {
-            type: 'label',
-            label: 'Installationsanzeige',
-            style: 'font-size: 30px; margin-top: 10px; margin-bottom: 10px;'
-        },
         {
             type: 'expansionspanel',
             expanded: true,
             label: 'Ort der Installation',
+            name: 'Ort der Installation',
             children: [
                 {
                     type: 'input',
@@ -136,6 +176,7 @@ export const schema_IA: ISchema =
         {
             type: 'expansionspanel',
             label: 'Adressen / Geschäftspartner',
+            name: 'Adressen / Geschäftspartner',
             children: [
                 {
                     type: 'panel',
@@ -225,6 +266,7 @@ export const schema_IA: ISchema =
         {
             type: 'expansionspanel',
             label: 'Installationsbeschrieb',
+            name: 'Installationsbeschrieb',
             children: [
                 {
                     type: 'input',
@@ -241,13 +283,14 @@ export const schema_IA: ISchema =
                     label: 'Typ',
                     multiselect: true,
                     cols: 'md-6',
-                    options: ['Neuanlage','Änderung/Erweit.','Rückbau','Bauanschluss','Temporär','Festplatz']
+                    options: ['Neuanlage', 'Änderung/Erweit.', 'Rückbau', 'Bauanschluss', 'Temporär', 'Festplatz']
                 }
             ]
         },
         {
             type: 'expansionspanel',
             label: 'Netzanschluss',
+            name: 'Netzanschluss',
             children: [
                 {
                     type: 'input',
@@ -260,6 +303,7 @@ export const schema_IA: ISchema =
         {
             type: 'expansionspanel',
             label: 'Verbraucher, Erzeuger, Speicher',
+            name: 'Verbraucher, Erzeuger, Speicher',
             expanded: true,
             children: [
                 {
@@ -361,6 +405,7 @@ export const schema_IA: ISchema =
         {
             type: 'datatable',
             label: 'Mess- und Steuereinrichtungen',
+            name: 'Mess- und Steuereinrichtungen',
             field: 'steuereinrichtungen',
             required: true,
             cardView: true,

@@ -18,6 +18,8 @@ export class MtBtnComponent extends MtBaseComponent implements OnInit  {
     return this.kind === kind;
   }
 
+  
+
   onClick() {
     if (this.comp.onClick) {
       this.comp.onClick(this.sm, this.comp);
