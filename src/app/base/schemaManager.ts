@@ -122,7 +122,7 @@ export class SchemaManager {
   }
 
   InitSchema(schema: ISchema) {
-    this.Schema = schema;
+    this.Schema = cloneDeep(schema);
     if (this.Schema.inheritFrom) this.InitInherits();
     this.Errors = [];
     this.AllValidated = false;

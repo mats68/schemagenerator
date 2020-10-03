@@ -11,9 +11,6 @@ import { Subscription } from 'rxjs';
 export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDestroy, AfterViewInit {
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
-  showSpinner: boolean;
-  userName: string;
-  isAdmin: boolean;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
