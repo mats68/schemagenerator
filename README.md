@@ -74,3 +74,4 @@ ng add @angular/material
 - show loader
 - filter propertys by value
 - hover-effekt bei table
+- extra advantage for using vs-form: errorpanel, diff-view, filter by property of value

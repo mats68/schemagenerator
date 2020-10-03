@@ -113,6 +113,7 @@ export const schema_IA: ISchema =
         }
     },
     type: 'sidenav',
+    style: 'min-height: 800px',
     label: 'Installationsanzeige',
     menu: [],
     name: 'sidenav',
