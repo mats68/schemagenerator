@@ -11,7 +11,7 @@ import { IComponent } from 'src/app/base/types';
 
 export class MtToolbarComponent extends MtBaseComponent implements OnInit {
   ngOnInit(): void {
-    this.comp.noWrap = true;
+    this.comp.noLayout = true;
     this.comp.children.forEach(c => {if (!c.style) c.style = 'margin-left: 10px;';});
   }
 

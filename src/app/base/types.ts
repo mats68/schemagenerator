@@ -92,7 +92,7 @@ export interface IComponentProps {
     toolbarColor?: Color,
     menuView?: boolean,
     cardView?: boolean,
-    noWrap?: boolean, //todo remove
+    noLayout?: boolean, 
     selectedTabIndex?: number,
     html?: string | IComponentStringFunction,
     href?: string | IComponentStringFunction,
@@ -148,7 +148,7 @@ export const ComponentKeys: KeysEnum<IComponent> = {
   toolbarColor: true,
   menuView: true,
   cardView: true,
-  noWrap: true,
+  noLayout: true,
   selectedTabIndex: true,
   html: true,
   href: true,
