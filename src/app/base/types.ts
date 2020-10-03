@@ -34,6 +34,7 @@ export interface ISchemaProps  {
   onInitSchema?: ISchemaVoidFunction,
   onInitValues?: ISchemaVoidFunction,
   onResize?: ISchemaVoidFunction,
+  onMakeVisible?: IComponentVoidFunction,
   inheritFrom?: ISchema;
 }
 
@@ -161,6 +162,7 @@ export const SchemaKeys: KeysEnum<ISchemaProps> = {
   onInitSchema: true,
   onInitValues: true,
   onResize: true,
+  onMakeVisible: true,
   inheritFrom: true,
 }
 

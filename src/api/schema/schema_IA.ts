@@ -1,5 +1,6 @@
+import { Component } from '@angular/core';
 import { SchemaManager } from '../../app/base/schemaManager';
-import { IComponent, IComponentPartial, ISchema } from '../../app/base/types';
+import { ComponentType, IComponent, IComponentPartial, ISchema } from '../../app/base/types';
 import { buttons } from './schemaButtons';
 
 const adress = (PrefField: string, disabled: boolean = false): Array<IComponent> => [
@@ -102,6 +103,14 @@ export const schema_IA: ISchema =
 {
     onInitSchema(sm) {
         InitSidenav(sm);
+    },
+    onMakeVisible(sm, comp) {
+        if (comp.type === ComponentType.expansionspanel && comp.hidden && comp.name) {
+            const menu = sm.getCompByName('m_' + comp.name);
+            if (menu) {
+                showPanel(sm, menu);
+            }
+        }
     },
     type: 'sidenav',
     label: 'Installationsanzeige',

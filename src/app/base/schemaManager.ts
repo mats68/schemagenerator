@@ -539,6 +539,7 @@ export class SchemaManager {
     let ok = true;
 
     while (cur && cur.parentComp && ok) {
+      if (this.Schema.onMakeVisible) this.Schema.onMakeVisible(this, cur);
       if (cur.parentComp.type == ComponentType.expansionspanel) {
         ok = !cur.parentComp.disabled;
         if (ok) cur.parentComp.expanded = true;
@@ -565,6 +566,9 @@ export class SchemaManager {
     fn(comp, parentComp);
     if (comp.children) {
       comp.children.forEach(c => this.traverseSchema(c, comp, fn));
+    }
+    if (comp.menu) {
+      comp.menu.forEach(c => this.traverseSchema(c, comp, fn));
     }
   }
 
