@@ -27,6 +27,14 @@ export interface IError {
   error: string;
 }
 
+export type ITraverseCallback = (comp: IComponent, parent?: IComponent, options?: ITraverseOptions) => void;
+
+export interface ITraverseOptions {
+  done?: boolean;
+  fullTraverse?: boolean;
+}
+
+
 export interface IHighlight {
   comp: IComponent;
   arrayInd: number;
@@ -118,11 +126,11 @@ export class SchemaManager {
     if (this.Schema.inheritFrom) this.InitInherits();
     this.Errors = [];
     this.AllValidated = false;
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
+    this.traverseSchema((c,p) => {
       c.parentComp = p;
     });
     this.InitValues(this.Values);
-    if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
   }
 
   private InitInherits() {
@@ -142,10 +150,11 @@ export class SchemaManager {
 
     const updateArray = (schema: ISchema): IComponent[] => {
       let arr: IComponent[] = [];
-      this.traverseSchema(schema, null, (c, p) => {
+      const o: ITraverseOptions = {fullTraverse: true};
+      this.traverseSchema((c, p) => {
         c.parentComp = p;
         arr.push(c);
-      });
+      }, o, schema);
       return arr;
     }
 
@@ -187,7 +196,7 @@ export class SchemaManager {
       this.Values = values;
     } else {
       this.Values = {};
-      this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+      this.traverseSchema(c => {
         if (c.field && c.default) {
           if (c.type !== ComponentType.datatable && c.parentComp && c.parentComp.type  !== ComponentType.datatable ) {
             const val = this.getPropValue(c, 'default');
@@ -254,7 +263,7 @@ export class SchemaManager {
   InitDiffHighlight() {
     if (!this.DiffValues) return;
     this.highlightedFields = [];
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    this.traverseSchema(c => {
       if (c.parentComp && c.parentComp.type !== ComponentType.datatable) {
         this.InitDiffHighlightComp(c);
       }
@@ -402,7 +411,7 @@ export class SchemaManager {
   validateAll() {
     this.Errors = []
     this.validate(this.Schema, '');
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    this.traverseSchema(c => {
       if (c.field) {
         if (c.type === ComponentType.datatable) {
           const arrVal = get(this.Values, c.field);
@@ -472,16 +481,16 @@ export class SchemaManager {
 
   getCompByName(name: string): IComponent | undefined {
     let comp;
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    const o: ITraverseOptions = {fullTraverse: true};
+    this.traverseSchema(c => {
       if (c.name === name) comp = c;
-
-    });
+    }, o);
     return comp;
   }
 
   getCompByField(field: string): IComponent | undefined {
     let comp;
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    this.traverseSchema(c => {
       if (c.field === field) comp = c;
     });
     return comp;
@@ -566,13 +575,19 @@ export class SchemaManager {
 
   }
 
-  traverseSchema(comp: IComponent, parentComp: IComponent, fn) {
-    fn(comp, parentComp);
+  traverseSchema(fn: ITraverseCallback, options?: ITraverseOptions, comp?: IComponent, parentComp?: IComponent) {
+    if (options && options.done) return;
+    if (!comp) comp = this.Schema;
+    
+    fn(comp, parentComp, options);
+
     if (comp.children) {
-      comp.children.forEach(c => this.traverseSchema(c, comp, fn));
+      comp.children.forEach(c => this.traverseSchema(fn, options, c, comp));
     }
-    if (comp.menu) {
-      comp.menu.forEach(c => this.traverseSchema(c, comp, fn));
+    if (options && options.fullTraverse) {
+      if (comp.menu) {
+        comp.menu.forEach(c => this.traverseSchema(fn, options, c, comp));
+      }
     }
   }
 
@@ -643,7 +658,7 @@ export class SchemaManager {
     const duplicateNames = [];
 
     //Check components 
-    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+    this.traverseSchema(c => {
       if (!c.type) {
         AddErr(c, notype, true);
       } else {

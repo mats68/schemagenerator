@@ -196,7 +196,7 @@ export class AppComponent implements OnInit {
   }
   set cardView(val: boolean) {
     this._cardView = val;
-    this.schemaManger.traverseSchema(this.schemaManger.Schema, null, (c, p) => {
+    this.schemaManger.traverseSchema((c, p) => {
       if (c.type === ComponentType.datatable) c.cardView = val;
     });
   }
@@ -207,7 +207,7 @@ export class AppComponent implements OnInit {
   }
   set dragdrop(val: boolean) {
     this._dragdrop = val;
-    this.schemaManger.traverseSchema(this.schemaManger.Schema, null, (c, p) => {
+    this.schemaManger.traverseSchema((c, p) => {
       if (c.type === ComponentType.datatable) c.dragdrop = val;
     });
   }
