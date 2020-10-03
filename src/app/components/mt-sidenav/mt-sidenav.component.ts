@@ -42,6 +42,13 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
     // return this.navopen ? 'right' : 'full-width';
   }
 
+  contentVisible() {
+     if (this.mobileQuery.matches && this.navopen) {
+       return false;
+     }
+     return true;
+  }
+
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
