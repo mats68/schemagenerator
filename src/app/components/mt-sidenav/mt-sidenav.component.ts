@@ -7,10 +7,10 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestro
   templateUrl: './mt-sidenav.component.html',
   styleUrls: ['./mt-sidenav.component.scss']
 })
-export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
+export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDestroy, AfterViewInit {
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
-  @Input() navopen: boolean;
+  navopen: boolean = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -24,12 +24,30 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnCha
   }
 
   ngOnInit(): void {
-
+    
   }
 
-  ngOnChanges(): void {
-    console.log('te');
 
+  toggle() {
+    this.navopen = !this.navopen;  
+  }
+
+  isOpen(): boolean {
+    if (!this.mobileQuery.matches) {
+      return true;
+    } else  {
+      return !!this.navopen;
+    }
+  }
+
+  navClick() {
+    if (this.mobileQuery.matches) {
+      this.navopen = false;
+    }
+  }
+
+  navContent() {
+    // return this.navopen ? 'right' : 'full-width';
   }
 
   ngOnDestroy(): void {

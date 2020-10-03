@@ -94,7 +94,6 @@ const showPanel = (sm: SchemaManager, comp: IComponent) => {
             c.hidden = true;
         }
     });
-    sn.navopen = false;
     sm.getCompByName(pn).hidden = false;
     sm.getCompByName(pn).expanded = true;
 }
