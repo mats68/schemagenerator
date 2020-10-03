@@ -1,4 +1,4 @@
-<div class="navbar-container" [class.example-is-mobile]="mobileQuery.matches" [style]='style'>
+<div class="navbar-container" [style]='style'>
     <!-- Top navbar -->
     <mat-toolbar class="navbar" color="primary">
         <button mat-icon-button (click)="snav.toggle()">
@@ -14,7 +14,7 @@
         <!-- Side nav -->
         <mat-sidenav
             #snav
-            [opened]="!mobileQuery.matches"
+            [opened]="!mobileQuery.matches && navopen"
             [mode]="mobileQuery.matches ? 'over' : 'side'"
             [fixedInViewport]="mobileQuery.matches"
             fixedTopGap="56"

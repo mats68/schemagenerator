@@ -481,17 +481,24 @@ export class SchemaManager {
 
   getCompByName(name: string): IComponent | undefined {
     let comp;
-    const o: ITraverseOptions = {fullTraverse: true};
+    const o: ITraverseOptions = {done: false, fullTraverse: true};
     this.traverseSchema(c => {
-      if (c.name === name) comp = c;
+      if (c.name === name) {
+        o.done = true;
+        comp = c;
+      }
     }, o);
     return comp;
   }
 
   getCompByField(field: string): IComponent | undefined {
     let comp;
+    const o: ITraverseOptions = {done: false};
     this.traverseSchema(c => {
-      if (c.field === field) comp = c;
+      if (c.field === field) {
+        o.done = true;
+        comp = c
+      };
     });
     return comp;
   }
@@ -577,8 +584,9 @@ export class SchemaManager {
 
   traverseSchema(fn: ITraverseCallback, options?: ITraverseOptions, comp?: IComponent, parentComp?: IComponent) {
     if (options && options.done) return;
-    if (!comp) comp = this.Schema;
     
+    if (!comp) comp = this.Schema;
+
     fn(comp, parentComp, options);
 
     if (comp.children) {
@@ -658,6 +666,7 @@ export class SchemaManager {
     const duplicateNames = [];
 
     //Check components 
+    const o: ITraverseOptions = {fullTraverse: true};
     this.traverseSchema(c => {
       if (!c.type) {
         AddErr(c, notype, true);
@@ -702,7 +711,7 @@ export class SchemaManager {
       Object.keys(c).forEach(k => {
         if (propKeys.indexOf(k) === -1) AddErr(c, unn(k), false);
       });
-    });
+    }, o);
 
     return Errs;
   }

@@ -79,7 +79,8 @@ const InitSidenav = (sm: SchemaManager) => {
 
 const showPanel = (sm: SchemaManager, comp: IComponent) => {
     const pn = comp.name.substring(2);
-    sm.getCompByName('sidenav').menu.forEach(c => {
+    const sn = sm.getCompByName('sidenav');
+    sn.menu.forEach(c => {
         c.color = '';
         // c.icon = '';
         c.style = 'font-weight: 200;';
@@ -88,11 +89,12 @@ const showPanel = (sm: SchemaManager, comp: IComponent) => {
     // comp.icon = 'trending_flat';
     comp.style = 'font-weight: 500;';
 
-    sm.getCompByName('sidenav').children.forEach(c => {
+    sn.children.forEach(c => {
         if (c.children) {
             c.hidden = true;
         }
     });
+    sn.navopen = false;
     sm.getCompByName(pn).hidden = false;
     sm.getCompByName(pn).expanded = true;
 }

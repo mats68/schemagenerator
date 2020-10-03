@@ -5,7 +5,7 @@
 <mt-panel *ngIf='isComp("panel")' [comp]='comp' [sm]='sm'></mt-panel>
 <mt-switchpanel *ngIf='isComp("switchpanel")' [comp]='comp' [sm]='sm'></mt-switchpanel>
 <mt-card *ngIf='isComp("card")' [comp]='comp' [sm]='sm'></mt-card>
-<mt-sidenav *ngIf='isComp("sidenav")' [comp]='comp' [sm]='sm'></mt-sidenav>
+<mt-sidenav *ngIf='isComp("sidenav")' [comp]='comp' [sm]='sm' [navopen]='comp.navopen'></mt-sidenav>
 
 
 <mt-input *ngIf='isComp("input")' [comp]='comp' [sm]='sm' [isSelect]='false'></mt-input>

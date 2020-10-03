@@ -57,6 +57,7 @@ ng add @angular/material
 - side-navigator 
 - hide panels based on menu
 
+- library oder npm 
 - table-view
   - getcellheader und getCellValue as function on schema (can give back component)
 - field in exp tabs um zustand zu speichern

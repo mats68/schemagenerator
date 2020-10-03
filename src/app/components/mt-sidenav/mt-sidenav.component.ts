@@ -1,16 +1,16 @@
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'mt-sidenav',
   templateUrl: './mt-sidenav.component.html',
   styleUrls: ['./mt-sidenav.component.scss']
 })
-export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
+  @Input() navopen: boolean;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -24,6 +24,11 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngOnChanges(): void {
+    console.log('te');
 
   }
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnChanges } from '@angular/core';
 import { SchemaManager, ISettings } from './base/schemaManager';
 import { schema1, values1_1, values1_2 } from '../api/schema/schema1';
 import { schema2 } from '../api/schema/schema2';
@@ -128,7 +128,7 @@ export class AppComponent implements OnInit {
     });
 
 
-    this.schema = this.schemas_arr[1];
+    this.schema = this.schemas_arr[0];
     // setTimeout(() => this.values = this.values_arr[0], 100);
 
 
