@@ -15,8 +15,6 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   userName: string;
   isAdmin: boolean;
 
-  private autoLogoutSubscription: Subscription;
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
@@ -35,7 +33,6 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    this.autoLogoutSubscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {

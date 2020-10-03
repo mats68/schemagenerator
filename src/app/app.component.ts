@@ -127,8 +127,8 @@ export class AppComponent implements OnInit {
       // }
     });
 
-    
-    this.schema = this.schemas_arr[0];
+
+    this.schema = this.schemas_arr[1];
     // setTimeout(() => this.values = this.values_arr[0], 100);
 
 
@@ -196,7 +196,7 @@ export class AppComponent implements OnInit {
   }
   set cardView(val: boolean) {
     this._cardView = val;
-    this.schemaManger.CompArray.forEach(c => {
+    this.schemaManger.traverseSchema(this.schemaManger.Schema, null, (c, p) => {
       if (c.type === ComponentType.datatable) c.cardView = val;
     });
   }
@@ -207,11 +207,11 @@ export class AppComponent implements OnInit {
   }
   set dragdrop(val: boolean) {
     this._dragdrop = val;
-    this.schemaManger.CompArray.forEach(c => {
+    this.schemaManger.traverseSchema(this.schemaManger.Schema, null, (c, p) => {
       if (c.type === ComponentType.datatable) c.dragdrop = val;
     });
   }
-    
+
 
   _allDisabled: boolean;
   get allDisabled(): boolean {
@@ -221,39 +221,6 @@ export class AppComponent implements OnInit {
     this._allDisabled = val;
     this.schemaManger.DisableAll(val);
   }
-
-
-  // updateSchema() {
-  //   if (this.schema === 'schema1') {
-  //     this.curschema = schema1;
-  //     if (this.optvalues === '2') {
-  //       this.curvalues = values1;
-  //     } else {
-  //       this.curvalues = null;
-  //     }
-  //   } else if (this.schema === 'schema2') {
-  //     this.curschema = schema2;
-  //     if (this.optvalues === '2') {
-  //       this.curvalues = values2;
-  //     } else {
-  //       this.curvalues = null;
-  //     }
-  //   } else if (this.schema === 'schema3') {
-  //     this.curschema = schema3;
-  //     this.curvalues = null;
-  //   } else if (this.schema === 'schema_IA') {
-  //     this.curschema = schema_IA;
-  //     this.curvalues = values_IA;
-  //   }
-  //   this.schemaManger.InitSchema(this.curschema);
-  //   this.schemaManger.InitValues(this.curvalues);
-  //   this.schemaManger.refresh_UI();
-  // }
-
-  // updateExtSchema() {
-  //   this.curschema = schemas[this.extschema];
-  //   this.schemaManger.InitSchema(this.curschema);
-  // }
 
 
   title = 'Schemagenerator';

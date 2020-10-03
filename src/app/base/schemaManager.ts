@@ -65,8 +65,6 @@ export class SchemaManager {
   Settings: ISettings;
   Strings: any;
 
-  CompArray: IComponent[];
-
   Errors: IError[];
   highlightedFields: IHighlight[];
   AllValidated: boolean;
@@ -118,14 +116,11 @@ export class SchemaManager {
   InitSchema(schema: ISchema) {
     this.Schema = schema;
     if (this.Schema.inheritFrom) this.InitInherits();
-    this.CompArray = [];
     this.Errors = [];
     this.AllValidated = false;
-    const fn = (comp: IComponent, parent: IComponent) => {
-      comp.parentComp = parent;
-      this.CompArray.push(comp)
-    }
-    this.traverseSchema(this.Schema, null, fn);
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+      c.parentComp = p;
+    });
     this.InitValues(this.Values);
     if (this.Schema.onInitSchema) this.Schema.onInitSchema(this);
   }
@@ -147,9 +142,9 @@ export class SchemaManager {
 
     const updateArray = (schema: ISchema): IComponent[] => {
       let arr: IComponent[] = [];
-      this.traverseSchema(schema, null, (comp, parent) => {
-        comp.parentComp = parent;
-        arr.push(comp);
+      this.traverseSchema(schema, null, (c, p) => {
+        c.parentComp = p;
+        arr.push(c);
       });
       return arr;
     }
@@ -192,7 +187,7 @@ export class SchemaManager {
       this.Values = values;
     } else {
       this.Values = {};
-      this.CompArray.forEach(c => {
+      this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
         if (c.field && c.default) {
           if (c.type !== ComponentType.datatable && c.parentComp && c.parentComp.type  !== ComponentType.datatable ) {
             const val = this.getPropValue(c, 'default');
@@ -259,7 +254,7 @@ export class SchemaManager {
   InitDiffHighlight() {
     if (!this.DiffValues) return;
     this.highlightedFields = [];
-    this.CompArray.forEach(c => {
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
       if (c.parentComp && c.parentComp.type !== ComponentType.datatable) {
         this.InitDiffHighlightComp(c);
       }
@@ -407,7 +402,7 @@ export class SchemaManager {
   validateAll() {
     this.Errors = []
     this.validate(this.Schema, '');
-    this.CompArray.forEach(c => {
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
       if (c.field) {
         if (c.type === ComponentType.datatable) {
           const arrVal = get(this.Values, c.field);
@@ -476,11 +471,20 @@ export class SchemaManager {
   }
 
   getCompByName(name: string): IComponent | undefined {
-    return this.CompArray.find(c => c.name === name);
+    let comp;
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+      if (c.name === name) comp = c;
+
+    });
+    return comp;
   }
 
   getCompByField(field: string): IComponent | undefined {
-    return this.CompArray.find(c => c.field === field);
+    let comp;
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
+      if (c.field === field) comp = c;
+    });
+    return comp;
   }
 
   selectOptionsAsObjects(comp: IComponent): ISelectOptionItems {
@@ -562,7 +566,7 @@ export class SchemaManager {
 
   }
 
-  private traverseSchema(comp: IComponent, parentComp: IComponent, fn) {
+  traverseSchema(comp: IComponent, parentComp: IComponent, fn) {
     fn(comp, parentComp);
     if (comp.children) {
       comp.children.forEach(c => this.traverseSchema(c, comp, fn));
@@ -639,7 +643,7 @@ export class SchemaManager {
     const duplicateNames = [];
 
     //Check components 
-    this.CompArray.forEach(c => {
+    this.traverseSchema(this.Schema, null, (c: IComponent,p: IComponent) => {
       if (!c.type) {
         AddErr(c, notype, true);
       } else {
