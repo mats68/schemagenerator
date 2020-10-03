@@ -24,20 +24,12 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   }
 
   ngOnInit(): void {
-    
+    // this.navopen = !this.mobileQuery.matches;
   }
 
 
   toggle() {
     this.navopen = !this.navopen;  
-  }
-
-  isOpen(): boolean {
-    if (!this.mobileQuery.matches) {
-      return true;
-    } else  {
-      return !!this.navopen;
-    }
   }
 
   navClick() {

@@ -1,19 +1,19 @@
 <div class="sidenav-container" [style]='style'>
     <!-- Top navbar -->
     <mat-toolbar [color]='color' class="full-width">
-        <button mat-icon-button (click)="toggle()" *ngIf='mobileQuery.matches'>
+        <button mat-icon-button (click)="toggle()">
             <mat-icon>menu</mat-icon>
         </button>
         <h1>{{label}}</h1>
     </mat-toolbar>
 
-    <div *ngIf='isOpen()' (click)='navClick()'>
+    <div *ngIf='navopen' (click)='navClick()'>
         <div *ngFor='let item of comp.menu'>
             <mt-item [comp]='item' [sm]='sm'></mt-item>
         </div>
     </div>
 
-    <div>
+    <div [class]="navContent()">
         <mt-container [comp]='comp' [sm]='sm'></mt-container>
     </div>
 </div>
