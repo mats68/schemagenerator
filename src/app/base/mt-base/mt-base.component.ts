@@ -41,6 +41,12 @@ export class MtBaseComponent {
     return this.sm.getStyle(comp, stylename);
   }
 
+  getClass(pred?: string) {
+    const p = pred ? ' ' + pred : '';
+    return p + this.sm.getPropValue(this.comp, 'class');
+  }
+
+
   get color() {
     return this.comp.color;
   }

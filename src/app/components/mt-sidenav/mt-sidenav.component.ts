@@ -25,6 +25,7 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
 
   ngOnInit(): void {
     // this.navopen = !this.mobileQuery.matches;
+    // this.navopen = true;
   }
 
 
@@ -56,5 +57,6 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
 
   ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
+    this.navopen = !this.mobileQuery.matches;
   }
 }

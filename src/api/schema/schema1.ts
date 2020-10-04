@@ -10,6 +10,7 @@ export const schema1: ISchema =
 {
   type: 'form',
   name: 'schema1',
+  class: 'dummy',
   unnoetig: true,
   loadAuswahllisten(sm: SchemaManager, auswahllisten: any) {
     if (auswahllisten.mitarbeiter) {
