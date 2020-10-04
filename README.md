@@ -56,6 +56,7 @@ ng add @angular/material
 - design nur 1 spalte, fixe breite der inputs (s. TAG )
 - side-navigator 
 - hide panels based on menu
+- class 
 
 - library oder npm 
 - table-view
