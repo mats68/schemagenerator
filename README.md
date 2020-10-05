@@ -57,6 +57,7 @@ ng add @angular/material
 - side-navigator 
 - hide panels based on menu
 - class 
+- sidenav content bei zuklappen full width
 
 - library oder npm 
 - table-view

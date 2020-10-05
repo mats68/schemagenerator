@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
 import { SchemaManager } from '../../app/base/schemaManager';
-import { ComponentType, IComponent, IComponentPartial, ISchema } from '../../app/base/types';
+import { ComponentType, IComponent, ISchema } from '../../app/base/types';
 import { buttons } from './schemaButtons';
 
 const adress = (PrefField: string, disabled: boolean = false): Array<IComponent> => [
@@ -32,7 +31,6 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
     {
         type: 'input',
         field: PrefField + 'plz',
-        cols: 'md-4',
         label: 'PLZ',
         disabled
     },
@@ -40,7 +38,6 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
         label: 'Ort',
         type: 'input',
         field: PrefField + 'ort',
-        cols: 'md-8',
         disabled
     },
     {
@@ -56,6 +53,16 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
         disabled
     },
 ]
+
+const InitCardStyle = (sm: SchemaManager) => {
+    const stylecontent = 'margin-left: 150px;'
+    sm.getCompByName('sidenav').children.forEach(c => {
+        if (c.type === 'card') {
+            if (!c.styles) c.styles = {};
+            c.styles.content = stylecontent;
+        }
+    });
+}
 
 
 const InitSidenav = (sm: SchemaManager) => {
@@ -102,6 +109,7 @@ const showPanel = (sm: SchemaManager, comp: IComponent) => {
 export const schema_IA: ISchema =
 {
     onInitSchema(sm) {
+        InitCardStyle(sm);
         InitSidenav(sm);
     },
     onMakeVisible(sm, comp) {
@@ -122,6 +130,9 @@ export const schema_IA: ISchema =
             type: 'card',
             label: 'Ort der Installation',
             name: 'Ort der Installation',
+            styles: {
+                content: 'margin-left: 50px;'
+            },
             children: [
                 {
                     type: 'input',
@@ -129,14 +140,12 @@ export const schema_IA: ISchema =
                     field: 'standort',
                     label: 'Standort',
                     disabled: true,
-                    cols: 'md-3',
                 },
                 {
                     type: 'input',
                     field: 'gebaeudeart',
                     label: 'Gebäudeart',
                     disabled: true,
-                    cols: 'md-6',
                 },
                 {
                     type: 'input',
@@ -145,40 +154,34 @@ export const schema_IA: ISchema =
                     dataType: 'int',
                     mask: '0*',
                     disabled: true,
-                    cols: 'md-6',
                 },
                 {
                     type: 'input',
                     field: 'anzEinheiten',
                     label: 'Anz. Einheiten / Zähler',
                     mask: '0*',
-                    cols: 'md-6',
                 },
                 {
                     type: 'input',
                     field: 'Parzelle',
                     label: 'Parzelle',
                     disabled: true,
-                    cols: 'md-6',
                 },
                 {
                     type: 'input',
                     autofocus: true,
                     field: 'Gebäudeteil',
                     label: 'Gebäudeteil',
-                    cols: 'md-6',
                 },
                 {
                     type: 'input',
                     field: 'VersicherungsNr',
                     label: 'Versicherungs-Nr.',
-                    cols: 'md-6',
                 },
                 {
                     type: 'checkbox',
                     field: 'ZEV',
                     label: 'Zusammenschluss zum Eigenverbrauch (ZEV)',
-                    cols: 'md-6',
                 },
             ]
         },
@@ -189,7 +192,6 @@ export const schema_IA: ISchema =
             children: [
                 {
                     type: 'panel',
-                    cols: 'md-6',
                     children: [
                         {
                             type: 'input',
@@ -227,7 +229,6 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'panel',
-                    cols: 'md-6',
                     children: [
                         {
                             type: 'select',
@@ -284,14 +285,12 @@ export const schema_IA: ISchema =
                     rows: 6,
                     label: '',
                     appearance: 'outline',
-                    cols: 'md-6'
                 },
                 {
                     type: 'select',
                     field: 'installationstyp',
                     label: 'Typ',
                     multiselect: true,
-                    cols: 'md-6',
                     options: ['Neuanlage', 'Änderung/Erweit.', 'Rückbau', 'Bauanschluss', 'Temporär', 'Festplatz']
                 }
             ]
@@ -351,39 +350,33 @@ export const schema_IA: ISchema =
                                     field: 'anzahl_v',
                                     label: 'Anzahl',
                                     dataType: 'int',
-                                    cols: 'md-6',
                                     mask: '0*',
                                 },
                                 {
                                     type: 'checkbox',
                                     field: 'verbr',
                                     label: 'Verbr.',
-                                    cols: 'md-2',
                                 },
                                 {
                                     type: 'checkbox',
                                     field: 'erz',
                                     label: 'Erz.',
-                                    cols: 'md-2',
                                 },
                                 {
                                     type: 'checkbox',
                                     field: 'spei',
                                     label: 'Spei.',
-                                    cols: 'md-2',
                                 },
                                 {
                                     type: 'input',
                                     field: 'bezeichnung',
                                     label: 'Bezeichnung des Verbrauchers, Erzeugers, Speichers ',
                                     options: ['Beleuchtung', 'Kochherd mit Backofen', 'Kochherd ohne Backofen', 'Backofen', 'Geschirrspüler', 'Waschautomat', 'Waschautomat mit Zählerumschalter', 'Wäschetrockner', 'Boiler .... l, Aufheizzeit .... h', 'Motoren ohne Anschlussgesuch', 'Motoren mit Anschlussgesuch', 'Wärmepumpe ohne Anschlussgesuch', 'Wärmepumpe mit Anschlussgesuch', 'Apparat Netzrückwirkungen verursachend'],
-                                    cols: 'md-8',
                                 },
                                 {
                                     type: 'date',
                                     field: 'tag_date',
                                     label: 'techn. Anschlussgesuch (TAG) vom',
-                                    cols: 'md-4',
                                 },
                                 {
                                     type: 'input',
@@ -391,7 +384,6 @@ export const schema_IA: ISchema =
                                     label: 'Leistung Bezug',
                                     tooltip: 'Leistung Bezug vom Netz [kVA]',
                                     dataType: 'float',
-                                    cols: 'md-3',
                                     mask: '0*.0*',
                                 },
 
@@ -400,7 +392,6 @@ export const schema_IA: ISchema =
                         {
                             type: 'input',
                             dataType: 'float',
-                            cols: 'md-4',
                             mask: '0*.0*',
                             label: 'Leistung Total Bezug vom Netz',
                             field: 'LeistungBezugNetz',
@@ -437,118 +428,100 @@ export const schema_IA: ISchema =
                             label: 'Kunde',
                             field: 'kunde',
                             required: true,
-                            cols: 'md-6',
                         },
                         {
                             type: 'input',
                             label: 'Rechnungsadresse',
                             field: 'rechnungsadresse',
                             required: true,
-                            cols: 'md-6',
                         },
                         {
                             type: 'input',
                             label: 'Gebäudeteil',
                             field: 'gebaeudeteil',
-                            cols: 'md-6',
                         },
                         {
                             type: 'input',
                             label: 'Nutzung',
                             field: 'nutzung',
-                            cols: 'md-6',
                         },
                         {
                             type: 'input',
                             label: 'Verbrauchsstelle VNB',
                             field: 'Verbrauchsstelle',
-                            cols: 'md-3',
                         },
                         {
                             type: 'input',
                             label: 'Stockwerk',
                             field: 'Stockwerk',
                             options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
-                            cols: 'md-3',
                         },
                         {
                             type: 'input',
                             label: 'Raumnummer',
                             field: 'Raumnummer',
-                            cols: 'md-3',
                         },
                         {
                             type: 'input',
                             label: 'VNB Tarif',
                             field: 'VNBTarif',
-                            cols: 'md-3',
                         },
                         {
                             type: 'input',
                             label: 'Sich.',
                             field: 'sicher',
-                            cols: 'md-4',
                         },
                         {
                             type: 'input',
                             label: 'Zählernummer VNB',
                             field: 'Zählernummer',
-                            cols: 'md-4',
                         },
                         {
                             type: 'input',
                             label: 'Mont. Ort',
                             field: 'Mont',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'ZEV',
                             field: 'zev',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'neu.',
                             field: 'neu',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'vorh.',
                             field: 'vorh',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'ausw.',
                             field: 'ausw',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'dem.',
                             field: 'dem',
-                            cols: 'md-4',
                         },
                         {
                             type: 'checkbox',
                             label: 'umm.',
                             field: 'umm',
-                            cols: 'md-4',
                         },
                         {
                             type: 'select',
                             label: 'AS Multiselect',
                             field: 'multi_1',
                             options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
-                            cols: 'md-6',
                             multiselect: true,
                         }
                     ]
-        
+
                 },
-        
+
             ]
 
         },
@@ -568,7 +541,7 @@ export const schema_IA: ISchema =
 
             ]
         },
-        ...buttons
+        // ...buttons
 
     ]
 }

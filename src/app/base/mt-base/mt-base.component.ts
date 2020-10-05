@@ -47,7 +47,6 @@ export class MtBaseComponent {
     return p + this.sm.getPropValue(this.comp, 'class');
   }
 
-
   get color() {
     return this.comp.color;
   }
