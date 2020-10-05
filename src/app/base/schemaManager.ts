@@ -5,6 +5,7 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 import get from 'lodash.get';
 import set from 'lodash.set';
+import { Component } from '@angular/core';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -22,7 +23,7 @@ export interface ISettings {
 
 export interface IError {
   comp: IComponent;
-  arrayInd: number; //index of array in datatable
+  arrayInd: number; //index of array in data-table
   error: string;
 }
 
@@ -197,7 +198,7 @@ export class SchemaManager {
       this.Values = {};
       this.traverseSchema(c => {
         if (c.field && c.default) {
-          if (c.type !== ComponentType.datatable && c.parentComp && c.parentComp.type  !== ComponentType.datatable ) {
+          if (c.type !== ComponentType.datatable && !this.fieldIsInDataTable(c) ) {
             const val = this.getPropValue(c, 'default');
             set(this.Values, c.field, val);
           }
@@ -263,7 +264,7 @@ export class SchemaManager {
     if (!this.DiffValues) return;
     this.highlightedFields = [];
     this.traverseSchema(c => {
-      if (c.parentComp && c.parentComp.type !== ComponentType.datatable) {
+      if (c.parentComp && !this.fieldIsInDataTable(c)) {
         this.InitDiffHighlightComp(c);
       }
     });
@@ -289,10 +290,6 @@ export class SchemaManager {
     return !!h;
   }
 
-
-  DataLoaded() {
-    if (this.Schema.onDataLoaded) this.Schema.onDataLoaded(this);
-  }
 
   getPropValue(comp: IComponent, prop: string): any {
     if (typeof comp[prop] === 'undefined') {
@@ -424,7 +421,7 @@ export class SchemaManager {
               })
             })
           }
-        } else if (c.parentComp.type !== ComponentType.datatable) {
+        } else if (!this.fieldIsInDataTable(c)) {
           const value = this.getValue(c);
           this.validate(c, value);
         }
@@ -456,8 +453,6 @@ export class SchemaManager {
   removeAllErrors() {
     this.Errors = [];
   }
-
-
 
   getError(comp: IComponent) {
     const arrayInd = comp.parentComp && comp.parentComp.type === ComponentType.datatable && comp.parentComp.curRowInd ? comp.parentComp.curRowInd : -1;
@@ -572,8 +567,12 @@ export class SchemaManager {
             cur.parentComp.selectedTabIndex = ind;
           }
         }
-      } else if (cur.parentComp.type == ComponentType.datatable) {
-        cur.parentComp.curRowInd = arrayInd;
+      } else if (this.fieldIsInDataTable(cur)) {
+        let p = cur.parentComp;
+        while (p && p.type !== ComponentType.datatable) {
+          p = p.parentComp;
+        }
+        if (p  && p.type === ComponentType.datatable) p.curRowInd = arrayInd;
       }
       cur = cur.parentComp;
     }
@@ -596,6 +595,17 @@ export class SchemaManager {
         comp.menu.forEach(c => this.traverseSchema(fn, options, c, comp));
       }
     }
+  }
+
+  fieldIsInDataTable(comp: IComponent): boolean {
+    let p = comp.parentComp;
+    while (p) {
+      if (p.type === ComponentType.datatable) {
+        return true;
+      }
+      p = p.parentComp;
+    }
+    return false;
   }
 
   checkValueType(val: any): IValueType {

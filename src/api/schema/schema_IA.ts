@@ -29,16 +29,25 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
         disabled
     },
     {
-        type: 'input',
-        field: PrefField + 'plz',
-        label: 'PLZ',
-        disabled
-    },
-    {
-        label: 'Ort',
-        type: 'input',
-        field: PrefField + 'ort',
-        disabled
+        type: 'panel',
+        noLayout: true,
+        children: [
+            {
+                type: 'input',
+                field: PrefField + 'plz',
+                width: '100px',
+                style: 'margin-right: 10px',
+                label: 'PLZ',
+                disabled
+            },
+            {
+                label: 'Ort',
+                type: 'input',
+                field: PrefField + 'ort',
+                disabled
+            },
+        
+        ]
     },
     {
         type: 'input',
@@ -66,7 +75,7 @@ const InitCardStyle = (sm: SchemaManager) => {
 
 const InitStandardWidth = (sm: SchemaManager) => {
     sm.traverseSchema(c => {
-        if (c.type === 'input') {
+        if (c.type === 'input' || c.type === 'select') {
             if (!c.width) c.width = '500px';
         }
 
@@ -155,10 +164,8 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'input',
-                    field: 'Gemeinde',
+                    field: 'gemeinde',
                     label: 'Gemeinde',
-                    dataType: 'int',
-                    mask: '0*',
                     disabled: true,
                 },
                 {
@@ -248,17 +255,15 @@ export const schema_IA: ISchema =
                             type: 'select',
                             field: 'zus_adress',
                             label: 'Zusätzliche Adresse',
+                            width: '250px',
                             default(sm, comp) {
                                 comp.onChange(sm, comp, comp.options[0]);
                                 return comp.options[0];
                             },
                             options: ['Verwaltung', 'Architekt'],
                             onChange(sm, comp, val) {
-                                let ac = sm.getCompByName('pnAdrVerwaltung');
-                                ac.hidden = val === comp.options[1];
-                                ac = sm.getCompByName('pnAdrArchitekt');
-                                ac.hidden = val === comp.options[0];
-
+                                sm.getCompByName('pnAdrVerwaltung').hidden = val === comp.options[1];
+                                sm.getCompByName('pnAdrArchitekt').hidden = val === comp.options[0];
                             }
                         },
                         {
@@ -300,7 +305,8 @@ export const schema_IA: ISchema =
                     type: 'input',
                     field: 'installationsbeschrieb',
                     multiline: true,
-                    rows: 6,
+                    rows: 10,
+                    placeholder: '',
                     label: '',
                 },
                 {
@@ -393,6 +399,7 @@ export const schema_IA: ISchema =
                                 {
                                     type: 'date',
                                     field: 'tag_date',
+                                    width: '100px',
                                     label: 'techn. Anschlussgesuch (TAG) vom',
                                 },
                                 {
@@ -499,42 +506,41 @@ export const schema_IA: ISchema =
                             field: 'Mont',
                         },
                         {
-                            type: 'checkbox',
-                            label: 'ZEV',
-                            field: 'zev',
+                            type: 'panel',
+                            noLayout: true,
+                            children: [
+                                {
+                                    type: 'checkbox',
+                                    label: 'ZEV',
+                                    field: 'zev',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    label: 'neu.',
+                                    field: 'neu',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    label: 'vorh.',
+                                    field: 'vorh',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    label: 'ausw.',
+                                    field: 'ausw',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    label: 'dem.',
+                                    field: 'dem',
+                                },
+                                {
+                                    type: 'checkbox',
+                                    label: 'umm.',
+                                    field: 'umm',
+                                },
+                            ]
                         },
-                        {
-                            type: 'checkbox',
-                            label: 'neu.',
-                            field: 'neu',
-                        },
-                        {
-                            type: 'checkbox',
-                            label: 'vorh.',
-                            field: 'vorh',
-                        },
-                        {
-                            type: 'checkbox',
-                            label: 'ausw.',
-                            field: 'ausw',
-                        },
-                        {
-                            type: 'checkbox',
-                            label: 'dem.',
-                            field: 'dem',
-                        },
-                        {
-                            type: 'checkbox',
-                            label: 'umm.',
-                            field: 'umm',
-                        },
-                        {
-                            type: 'select',
-                            label: 'AS Multiselect',
-                            field: 'multi_1',
-                            options: ['ZEV', 'neu.', 'vorh.', 'ausw.', 'dem.', 'umm.'],
-                            multiselect: true,
-                        }
                     ]
 
                 },
@@ -567,9 +573,9 @@ export const schema_IA: ISchema =
 export const values_IA = {
     standort: 'Bernstrasse 128\n3072 Ostermundigen',
     gebaeudeart: 'MFH',
-    Gemeinde: 'Muri',
+    gemeinde: 'Muri',
     anzEinheiten: 1,
-    installationsbeschrieb: 'Neubau\nmit chinesischen Geräten',
+    installationsbeschrieb: 'Neubau\nmit div Geräten',
     Parzelle: '2',
     VersicherungsNr: '120',
     zus_adress: 'Verwaltung',
@@ -588,7 +594,7 @@ export const values_IA = {
             rechnungsadresse: 'Bernstrasse 111, 3001 Bern',
             gebaeudeteil: '1. OG',
             Raumnummer: '2',
-            multi_1: []
+            zev: true,
         },
         {
             kunde: "Karrer, Zürich",
