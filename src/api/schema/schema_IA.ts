@@ -64,6 +64,16 @@ const InitCardStyle = (sm: SchemaManager) => {
     });
 }
 
+const InitStandardWidth = (sm: SchemaManager) => {
+    sm.traverseSchema(c => {
+        if (c.type === 'input') {
+            if (!c.width) c.width = '500px';
+        }
+
+    });
+}
+
+
 
 const InitSidenav = (sm: SchemaManager) => {
     let menuitems: IComponent[] = [];
@@ -110,6 +120,7 @@ export const schema_IA: ISchema =
 {
     onInitSchema(sm) {
         InitCardStyle(sm);
+        InitStandardWidth(sm);
         InitSidenav(sm);
         sm.Schema.appearance = 'outline';
     },
@@ -144,12 +155,6 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'input',
-                    field: 'gebaeudeart',
-                    label: 'Gebäudeart',
-                    disabled: true,
-                },
-                {
-                    type: 'input',
                     field: 'Gemeinde',
                     label: 'Gemeinde',
                     dataType: 'int',
@@ -158,26 +163,34 @@ export const schema_IA: ISchema =
                 },
                 {
                     type: 'input',
-                    field: 'anzEinheiten',
-                    label: 'Anz. Einheiten / Zähler',
-                    mask: '0*',
+                    field: 'Parzelle',
+                    label: 'Parzelle',
+                    width: '100px',
+                    disabled: true,
                 },
                 {
                     type: 'input',
-                    field: 'Parzelle',
-                    label: 'Parzelle',
+                    field: 'VersicherungsNr',
+                    label: 'Versicherungs-Nr.',
+                },
+                {
+                    type: 'input',
+                    field: 'gebaeudeart',
+                    label: 'Gebäudeart',
                     disabled: true,
+                },
+                {
+                    type: 'input',
+                    field: 'anzEinheiten',
+                    label: 'Anz. Einheiten / Zähler',
+                    width: '150px',
+                    mask: '0*',
                 },
                 {
                     type: 'input',
                     autofocus: true,
                     field: 'Gebäudeteil',
                     label: 'Gebäudeteil',
-                },
-                {
-                    type: 'input',
-                    field: 'VersicherungsNr',
-                    label: 'Versicherungs-Nr.',
                 },
                 {
                     type: 'checkbox',
@@ -235,6 +248,10 @@ export const schema_IA: ISchema =
                             type: 'select',
                             field: 'zus_adress',
                             label: 'Zusätzliche Adresse',
+                            default(sm, comp) {
+                                comp.onChange(sm, comp, comp.options[0]);
+                                return comp.options[0];
+                            },
                             options: ['Verwaltung', 'Architekt'],
                             onChange(sm, comp, val) {
                                 let ac = sm.getCompByName('pnAdrVerwaltung');
@@ -555,6 +572,7 @@ export const values_IA = {
     installationsbeschrieb: 'Neubau\nmit chinesischen Geräten',
     Parzelle: '2',
     VersicherungsNr: '120',
+    zus_adress: 'Verwaltung',
     verwaltung: {
         name: 'Markus Plattenbeläge',
         name2: 'Zementfliesen',
