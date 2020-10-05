@@ -9,7 +9,6 @@ import set from 'lodash.set';
 export interface ISettings {
   requiredSuffix: string;
   language: string;
-  appearance?: IAppearance;
   date: {
     parse: {
       dateInput: string,
@@ -538,7 +537,7 @@ export class SchemaManager {
 
   getAppearance(comp: IComponent): IAppearance {
     if (comp.appearance) return comp.appearance;
-    if (this.Settings.appearance) return this.Settings.appearance;
+    if (this.Schema.appearance) return this.Schema.appearance;
     return 'standard';
   }
 

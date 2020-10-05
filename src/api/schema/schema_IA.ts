@@ -111,6 +111,7 @@ export const schema_IA: ISchema =
     onInitSchema(sm) {
         InitCardStyle(sm);
         InitSidenav(sm);
+        sm.Schema.appearance = 'outline';
     },
     onMakeVisible(sm, comp) {
         if (comp.type === ComponentType.card && comp.hidden && comp.name) {
@@ -284,7 +285,6 @@ export const schema_IA: ISchema =
                     multiline: true,
                     rows: 6,
                     label: '',
-                    appearance: 'outline',
                 },
                 {
                     type: 'select',

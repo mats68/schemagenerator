@@ -187,7 +187,7 @@ export class AppComponent implements OnInit {
   }
   set appearance(val: IAppearance) {
     this._appearance = val;
-    this.Settings.appearance = val;
+    this.curschema.appearance = val;
   }
 
   private _cardView: boolean;
