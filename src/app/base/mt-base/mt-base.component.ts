@@ -37,7 +37,8 @@ export class MtBaseComponent {
     return this.sm.getStyle(this.comp, '');
   }
 
-  styles(comp: IComponent, stylename: string): string {
+  styles(stylename: string, comp?: IComponent): string {
+    if (!comp) comp = this.comp;
     return this.sm.getStyle(comp, stylename);
   }
 

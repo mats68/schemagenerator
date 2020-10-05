@@ -7,11 +7,11 @@
         <h1>{{label}}</h1>
     </mat-toolbar>
 
-    <div *ngIf='navopen' (click)='navClick()'>
+    <mat-card *ngIf='navopen' (click)='navClick()'>
         <div *ngFor='let item of comp.menu'>
             <mt-item [comp]='item' [sm]='sm'></mt-item>
         </div>
-    </div>
+    </mat-card>
 
     <div [class]="navContent()" *ngIf='contentVisible()'>
         <mt-container [comp]='comp' [sm]='sm'></mt-container>
