@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { SchemaManager } from '../../base/schemaManager';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
@@ -10,11 +9,11 @@ import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 export class MtExpComponent extends MtBaseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
-    // this.registerScroll();
+    this.registerFocus();
   }
 
   ngOnDestroy() {
-    // this.unregisterScroll();
+    this.unregisterFocus();
   }
 
   afterExpand() {

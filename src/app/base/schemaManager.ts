@@ -77,7 +77,6 @@ export class SchemaManager {
   AllValidated: boolean;
 
   OnFocus: Subject<IComponent>;
-  OnScroll: Subject<IComponent>;
 
   private _AllDisabled: boolean;
   get AllDisabled(): boolean {
@@ -119,7 +118,6 @@ export class SchemaManager {
     this.InitSettings(settings);
     this.InitScreenSize();
     this.OnFocus = new Subject<IComponent>();
-    this.OnScroll = new Subject<IComponent>();
   }
 
   InitSchema(schema: ISchema) {
@@ -548,11 +546,7 @@ export class SchemaManager {
     if (ok) setTimeout(() => this.OnFocus.next(comp), 100);
   }
 
-  DoScroll(comp: IComponent, arrayInd: number = -1) {
-    const ok = this.MakeVisible(comp, arrayInd);
-    if (ok) setTimeout(() => this.OnScroll.next(comp), 100);
-  }
-
+ 
   MakeVisible(comp: IComponent, arrayInd: number): boolean {
     let curTab: IComponent = null;
     let cur = comp;

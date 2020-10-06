@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy,  } from '@angular/core';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
@@ -9,7 +9,13 @@ import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 export class MtSwitchpanelComponent extends MtBaseComponent implements OnInit {
 
   ngOnInit(): void {
+    this.registerFocus();
   }
+
+  ngOnDestroy() {
+    this.unregisterFocus();
+  }
+
   get switchText() {
     return this.valueSwitch ? this.sm.Strings.switch_yes : this.sm.Strings.switch_no;
   }

@@ -53,6 +53,7 @@ ng add @angular/material
 - . in field => sub object z.B. verwaltung.name
 
 ### todo:
+- layout: flex, grid custom, none
 - design nur 1 spalte, fixe breite der inputs (s. TAG )
 - side-navigator 
 - hide panels based on menu

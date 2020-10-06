@@ -61,20 +61,9 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
     },
 ]
 
-const InitCardStyle = (sm: SchemaManager) => {
-    const stylecontent = 'margin-left: 150px;'
-    sm.getCompByName('sidenav').children.forEach(c => {
-        if (c.type === 'expansionspanel') {
-            // c.expanded = true
-            // if (!c.styles) c.styles = {};
-            // c.styles.content = stylecontent;
-        }
-    });
-}
-
 const InitStandardWidth = (sm: SchemaManager) => {
     sm.traverseSchema(c => {
-        if (c.type === 'input' || c.type === 'select') {
+        if (c.type === 'input' || c.type === 'select' || c.type === 'date') {
             if (!c.width) c.width = '500px';
         }
 
@@ -111,9 +100,11 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
     });
     comp.color = 'primary';
     comp.style = 'font-weight: 500;';
-    sm.DoScroll(sm.getCompByName(pn));
 
-    // sm.getCompByName(pn).hidden = false;
+    const c = sm.getCompByName(pn).children[0];
+    if (c) sm.DoFocus(c);
+    sm.DoFocus(sm.getCompByName(pn));
+
 }
 
 
@@ -121,7 +112,6 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
 export const schema_IA: ISchema =
 {
     onInitSchema(sm) {
-        InitCardStyle(sm);
         InitStandardWidth(sm);
         InitSidenav(sm);
         sm.Schema.appearance = 'outline';
@@ -315,11 +305,25 @@ export const schema_IA: ISchema =
             name: 'Netzanschluss',
             children: [
                 {
-                    type: 'input',
-                    label: 'Standort',
-                    required: true,
-                    field: 'StandortNetzanschluss'
-                }
+                    type: 'panel',
+                    styles: {
+                        container: 'display: flex;'
+                    },
+                    children: [
+                        {
+                            type: 'input',
+                            label: 'Standort',
+                            required: true,
+                            field: 'StandortNetzanschluss'
+                        },
+                        {
+                            type: 'radiogroup',
+                            label: '',
+                            options: ['neu', 'bestehend'],
+                            field: 'StandortNetzanschlussradio'
+                        }
+                    ]
+                },
             ]
         },
         {
@@ -366,6 +370,7 @@ export const schema_IA: ISchema =
                                     dataType: 'int',
                                     mask: '0*',
                                 },
+                                
                                 {
                                     type: 'checkbox',
                                     field: 'verbr',
@@ -390,7 +395,6 @@ export const schema_IA: ISchema =
                                 {
                                     type: 'date',
                                     field: 'tag_date',
-                                    width: '100px',
                                     label: 'techn. Anschlussgesuch (TAG) vom',
                                 },
                                 {
@@ -410,8 +414,38 @@ export const schema_IA: ISchema =
                             mask: '0*.0*',
                             label: 'Leistung Total Bezug vom Netz',
                             field: 'LeistungBezugNetz',
+                            disabled: true,
                             suffix: 'kVA',
                         },
+                        {
+                            type: 'input',
+                            dataType: 'float',
+                            mask: '0*.0*',
+                            label: 'Leistung Total Abgabe ans Netz',
+                            field: 'LeistungAbgabeNetz',
+                            disabled: true,
+                            suffix: 'kVA',
+                        },
+                        {
+                            type: 'input',
+                            dataType: 'float',
+                            mask: '0*.0*',
+                            label: 'Voraussichtliche Maximalbelastung Total',
+                            field: 'LeistungMaximalbelastungNetz',
+                            suffix: 'kVA',
+                        },
+                        {
+                            type: 'panel',
+                            children: [
+                                {
+                                    type: 'checkbox',
+                                    field: 'aktiveSteuerungVNB',
+                                    label: 'aktive Steuerung VNB',
+                                },
+                            ]
+                        }
+
+
                     ]
                 }
             ]
@@ -555,7 +589,35 @@ export const schema_IA: ISchema =
 
             ]
         },
-        // ...buttons
+        {
+            type: 'switchpanel',
+            label: 'Beilagen',
+            name: 'Beilagen',
+            field: 'switcher_Beilagen',
+            children: [
+                {
+                    type: 'panel',
+                    styles: { container: 'display: flex;' },
+                    children: [
+                        {
+                            type: 'checkbox',
+                            label: 'Schema',
+                            field: 'schema'
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'Situationsplan',
+                            field: 'Situationsplan'
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'Anschlussgesuch TAG für',
+                            field: 'anschlussgesuch'
+                        },
+                    ]
+                },
+            ]
+        },
 
     ]
 }

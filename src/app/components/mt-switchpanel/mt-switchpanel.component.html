@@ -1,19 +1,19 @@
 <mat-card [style]='style'>
     <div class="header">
-        <button *ngIf='!valueSwitch' (click)='add()' mat-mini-fab color="primary" matTooltip="Hinzufügen">
+        <button #name *ngIf='!valueSwitch' (click)='add()' mat-mini-fab color="primary" matTooltip="Hinzufügen">
             <mat-icon>add</mat-icon>
         </button>
         <div class="label">
             {{label}}
         </div>
         <span class="menu-spacer"></span>
-        <button *ngIf='valueSwitch' mat-mini-fab color="standard" (click)='delete()'>
+        <button #name *ngIf='valueSwitch' mat-mini-fab color="standard" (click)='delete()'>
             <mat-icon>remove</mat-icon>
         </button>
 
 
     </div>
-    <mat-card-content *ngIf='valueSwitch'>
+    <mat-card-content *ngIf='valueSwitch' class="content">
         <mt-container [comp]='comp' [sm]='sm'></mt-container>
     </mat-card-content>
 

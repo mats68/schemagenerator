@@ -3,6 +3,7 @@
   grid-template-columns: max-content auto;
   grid-template-rows: max-content auto;
   grid-gap: 1rem;
+  padding: 10px
 }
 
 .sidenav-container-right {
@@ -10,6 +11,7 @@
   grid-template-columns: auto max-content;
   grid-template-rows: max-content auto;
   grid-gap: 1rem;
+  padding: 10px
 }
 
 .toolbar {
