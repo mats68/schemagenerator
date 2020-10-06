@@ -101,8 +101,8 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
     comp.color = 'primary';
     comp.style = 'font-weight: 500;';
 
-    const c = sm.getCompByName(pn).children[0];
-    if (c) sm.DoFocus(c);
+    //const c = sm.getCompByName(pn).children[0];
+    //if (c) sm.DoFocus(c);
     sm.DoFocus(sm.getCompByName(pn));
 
 }
@@ -132,7 +132,7 @@ export const schema_IA: ISchema =
     name: 'sidenav',
     children: [
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Ort der Installation',
             name: 'Ort der Installation',
             children: [
@@ -194,7 +194,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Adressen / Geschäftspartner',
             name: 'Adressen / Geschäftspartner',
             children: [
@@ -284,7 +284,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Installationsbeschrieb',
             name: 'Installationsbeschrieb',
             children: [
@@ -307,7 +307,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Netzanschluss',
             name: 'Netzanschluss',
             children: [
@@ -334,7 +334,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Verbraucher, Erzeuger, Speicher',
             name: 'Verbraucher, Erzeuger, Speicher',
             children: [
@@ -464,7 +464,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'expansionspanel',
+            type: 'switchpanel',
             label: 'Mess- und Steuereinrichtungen',
             name: 'Mess- und Steuereinrichtungen',
             children: [

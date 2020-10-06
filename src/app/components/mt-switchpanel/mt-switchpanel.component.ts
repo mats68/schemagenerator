@@ -7,6 +7,7 @@ import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
   styleUrls: ['./mt-switchpanel.component.scss']
 })
 export class MtSwitchpanelComponent extends MtBaseComponent implements OnInit {
+  opened: boolean;
 
   ngOnInit(): void {
     this.registerFocus();
@@ -16,16 +17,19 @@ export class MtSwitchpanelComponent extends MtBaseComponent implements OnInit {
     this.unregisterFocus();
   }
 
-  get switchText() {
-    return this.valueSwitch ? this.sm.Strings.switch_yes : this.sm.Strings.switch_no;
-  }
-
   get valueSwitch(): boolean {
-    return this.sm.getValue(this.comp);
+    if (this.comp.field) {
+      return this.sm.getValue(this.comp);
+    } else {
+      return this.opened;
+    }
   }
 
   set valueSwitch(val: boolean) {
-    this.sm.updateValue(this.comp, val);
+    if (this.comp.field) {
+      this.sm.updateValue(this.comp, val);
+    } 
+    this.opened = val;
   }
 
   add() {

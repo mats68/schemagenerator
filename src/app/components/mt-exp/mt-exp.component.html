@@ -1,7 +1,8 @@
-<mat-expansion-panel #name
+<mat-expansion-panel
     class="panel" [style]='style' [expanded]='comp.expanded'
     [disabled]='disabled'
     (afterExpand)='afterExpand()' (afterCollapse)='afterCollapse()'>
+    <div #name tabindex="1"></div>
     <mat-expansion-panel-header>
         <mat-panel-title>
             {{label}}
