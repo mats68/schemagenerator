@@ -293,6 +293,7 @@ export const schema_IA: ISchema =
                 {
                     type: 'select',
                     field: 'installationstyp',
+                    width: '1000px',
                     label: 'Typ',
                     multiselect: true,
                     options: ['Neuanlage', 'Änderung/Erweit.', 'Rückbau', 'Bauanschluss', 'Temporär', 'Festplatz']
@@ -370,22 +371,28 @@ export const schema_IA: ISchema =
                                     dataType: 'int',
                                     mask: '0*',
                                 },
-                                
                                 {
-                                    type: 'checkbox',
-                                    field: 'verbr',
-                                    label: 'Verbr.',
+                                    type: 'panel',
+                                    styles: { container: 'display: flex;' },
+                                    children: [
+                                        {
+                                            type: 'checkbox',
+                                            field: 'verbr',
+                                            label: 'Verbr.',
+                                        },
+                                        {
+                                            type: 'checkbox',
+                                            field: 'erz',
+                                            label: 'Erz.',
+                                        },
+                                        {
+                                            type: 'checkbox',
+                                            field: 'spei',
+                                            label: 'Spei.',
+                                        },
+                                    ]
                                 },
-                                {
-                                    type: 'checkbox',
-                                    field: 'erz',
-                                    label: 'Erz.',
-                                },
-                                {
-                                    type: 'checkbox',
-                                    field: 'spei',
-                                    label: 'Spei.',
-                                },
+
                                 {
                                     type: 'input',
                                     field: 'bezeichnung',
