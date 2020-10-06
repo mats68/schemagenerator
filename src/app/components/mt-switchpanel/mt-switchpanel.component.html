@@ -1,13 +1,17 @@
 <mat-card [style]='style'>
     <div class="header">
-        <div>
+        <button *ngIf='!valueSwitch' (click)='add()' mat-mini-fab color="primary" matTooltip="Hinzufügen">
+            <mat-icon>add</mat-icon>
+        </button>
+        <div class="label">
             {{label}}
         </div>
-        <div class="switch">
-            {{switchText}}
-            <mat-slide-toggle [(ngModel)]='valueSwitch'>
-            </mat-slide-toggle>
-        </div>
+        <span class="menu-spacer"></span>
+        <button *ngIf='valueSwitch' mat-mini-fab color="standard" (click)='delete()'>
+            <mat-icon>remove</mat-icon>
+        </button>
+
+
     </div>
     <mat-card-content *ngIf='valueSwitch'>
         <mt-container [comp]='comp' [sm]='sm'></mt-container>

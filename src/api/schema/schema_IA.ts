@@ -65,7 +65,7 @@ const InitCardStyle = (sm: SchemaManager) => {
     const stylecontent = 'margin-left: 150px;'
     sm.getCompByName('sidenav').children.forEach(c => {
         if (c.type === 'expansionspanel') {
-            c.expanded = true
+            // c.expanded = true
             // if (!c.styles) c.styles = {};
             // c.styles.content = stylecontent;
         }

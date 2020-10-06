@@ -22,5 +22,13 @@ export class MtSwitchpanelComponent extends MtBaseComponent implements OnInit {
     this.sm.updateValue(this.comp, val);
   }
 
+  add() {
+    this.valueSwitch = true;
+  }
+
+  delete() {
+    this.valueSwitch = false;
+  }
+
 
 }

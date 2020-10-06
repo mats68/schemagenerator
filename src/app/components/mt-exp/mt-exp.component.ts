@@ -10,11 +10,11 @@ import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 export class MtExpComponent extends MtBaseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
-    this.registerScroll();
+    // this.registerScroll();
   }
 
   ngOnDestroy() {
-    this.unregisterScroll();
+    // this.unregisterScroll();
   }
 
   afterExpand() {
