@@ -43,7 +43,7 @@ export class MtBaseComponent {
   }
 
   getClass(pred?: string) {
-    const p = pred ? ' ' + pred : '';
+    const p = pred ? pred + ' ' : '';
     return p + this.sm.getPropValue(this.comp, 'class');
   }
 

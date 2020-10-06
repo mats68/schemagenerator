@@ -144,17 +144,23 @@ export const schema_IA: ISchema =
                     disabled: true,
                 },
                 {
-                    type: 'input',
-                    field: 'gemeinde',
-                    label: 'Gemeinde',
-                    disabled: true,
-                },
-                {
-                    type: 'input',
-                    field: 'Parzelle',
-                    label: 'Parzelle',
-                    width: '100px',
-                    disabled: true,
+                    type: 'panel',
+                    styles: { container: 'display: flex;' },
+                    children: [
+                        {
+                            type: 'input',
+                            field: 'gemeinde',
+                            label: 'Gemeinde',
+                            disabled: true,
+                        },
+                        {
+                            type: 'input',
+                            field: 'Parzelle',
+                            label: 'Parzelle',
+                            width: '100px',
+                            disabled: true,
+                        },
+                    ]
                 },
                 {
                     type: 'input',
