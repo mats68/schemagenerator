@@ -1,6 +1,5 @@
 import { SchemaManager } from '../../app/base/schemaManager';
 import { ComponentType, IComponent, ISchema } from '../../app/base/types';
-import { buttons } from './schemaButtons';
 
 const adress = (PrefField: string, disabled: boolean = false): Array<IComponent> => [
     {
@@ -36,7 +35,6 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
                 type: 'input',
                 field: PrefField + 'plz',
                 width: '100px',
-                style: 'margin-right: 10px',
                 label: 'PLZ',
                 disabled
             },
@@ -66,9 +64,10 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
 const InitCardStyle = (sm: SchemaManager) => {
     const stylecontent = 'margin-left: 150px;'
     sm.getCompByName('sidenav').children.forEach(c => {
-        if (c.type === 'card') {
-            if (!c.styles) c.styles = {};
-            c.styles.content = stylecontent;
+        if (c.type === 'expansionspanel') {
+            c.expanded = true
+            // if (!c.styles) c.styles = {};
+            // c.styles.content = stylecontent;
         }
     });
 }
@@ -144,16 +143,14 @@ export const schema_IA: ISchema =
     type: 'sidenav',
     style: 'min-height: 800px',
     label: 'Installationsanzeige',
+    navpos: 'right',
     menu: [],
     name: 'sidenav',
     children: [
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Ort der Installation',
             name: 'Ort der Installation',
-            styles: {
-                content: 'margin-left: 50px;'
-            },
             children: [
                 {
                     type: 'input',
@@ -207,7 +204,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Adressen / Geschäftspartner',
             name: 'Adressen / Geschäftspartner',
             children: [
@@ -297,7 +294,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Installationsbeschrieb',
             name: 'Installationsbeschrieb',
             children: [
@@ -319,7 +316,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Netzanschluss',
             name: 'Netzanschluss',
             children: [
@@ -332,7 +329,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Verbraucher, Erzeuger, Speicher',
             name: 'Verbraucher, Erzeuger, Speicher',
             children: [
@@ -426,7 +423,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'card',
+            type: 'expansionspanel',
             label: 'Mess- und Steuereinrichtungen',
             name: 'Mess- und Steuereinrichtungen',
             children: [

@@ -100,6 +100,7 @@ export interface IComponentProps {
     href?: string | IComponentStringFunction,
     openInNewTab?: boolean,
     menu?: Array<IComponent>;
+    navpos?: 'left' | 'right',
     parentComp?: IComponent,
   }
 
@@ -157,8 +158,9 @@ export const ComponentKeys: KeysEnum<IComponent> = {
   html: true,
   href: true,
   openInNewTab: true,
-  parentComp: true,
   menu: true,
+  navpos: true,
+  parentComp: true,
 };
 
 export const SchemaKeys: KeysEnum<ISchemaProps> = {

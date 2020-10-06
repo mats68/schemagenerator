@@ -1,19 +1,23 @@
-<div class="sidenav-container" [style]='style'>
-    <!-- Top navbar -->
+<div [class]='sidenavContainer()' [style]='style'>
     <mat-toolbar [color]='color' class="full-width">
-        <button mat-icon-button (click)="toggle()">
+        <button *ngIf='navpos === "left"' mat-icon-button (click)="toggle()">
             <mat-icon>menu</mat-icon>
         </button>
         <h1>{{label}}</h1>
+        <span class="menu-spacer"></span>
+        <button *ngIf='navpos === "right"' mat-icon-button (click)="toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
     </mat-toolbar>
 
-    <mat-card *ngIf='navopen' (click)='navClick()'>
+    <mat-card *ngIf='navopen' (click)='navClick()' [class]="navDrawer()">
         <div *ngFor='let item of comp.menu'>
             <mt-item [comp]='item' [sm]='sm'></mt-item>
         </div>
     </mat-card>
 
-    <div [class]="navContent()" *ngIf='contentVisible()'>
+    <div *ngIf='contentVisible()' [class]="navContent()">
         <mt-container [comp]='comp' [sm]='sm'></mt-container>
     </div>
 </div>

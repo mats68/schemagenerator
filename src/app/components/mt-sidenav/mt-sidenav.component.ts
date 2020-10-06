@@ -11,6 +11,7 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
   navopen: boolean = false;
+  navpos: string;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -24,6 +25,8 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
   }
 
   ngOnInit(): void {
+    this.navpos = this.comp.navpos;
+    if (!this.navpos) this.navpos = 'left';
     // this.navopen = !this.mobileQuery.matches;
     // this.navopen = true;
   }
@@ -39,10 +42,6 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
     }
   }
 
-  navContent() {
-    // return this.navopen ? 'right' : 'full-width';
-  }
-
   contentVisible() {
      if (this.mobileQuery.matches && this.navopen) {
        return false;
@@ -50,6 +49,22 @@ export class MtSidenavComponent extends MtBaseComponent implements OnInit, OnDes
      return true;
   }
 
+  sidenavContainer() {
+    return this.navpos === 'left' ? 'sidenav-container-left' : 'sidenav-container-right';
+  }
+
+  navDrawer() {
+    return this.navpos === 'left' ? 'left' : 'right';
+  }
+
+  navContent() {
+    return this.navpos === 'left' ? 'right' : 'left';
+    // return this.navopen ? 'right' : 'full-width';
+  }
+
+
+
+ 
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);

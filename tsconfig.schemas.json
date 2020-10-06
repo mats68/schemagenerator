@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/schemajs",
-    "module": "none",
+    "module": "ES2015",
     "target": "ES5"
   },
   "include": [
