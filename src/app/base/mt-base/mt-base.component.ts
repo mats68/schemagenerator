@@ -14,7 +14,8 @@ export class MtBaseComponent {
   @Input() comp: IComponent;
   _OptionsAsStrings: string[];
   _OptionsAsObjects: ISelectOptionItems;
-  subscription: Subscription;
+  subscriptionFocus: Subscription;
+  subscriptionScroll: Subscription;
 
   
   get Value(): any {
@@ -92,7 +93,7 @@ export class MtBaseComponent {
   }
 
   registerFocus() {
-    this.subscription =  this.sm.OnFocus.subscribe({
+    this.subscriptionFocus =  this.sm.OnFocus.subscribe({
       next: (comp) => {
         if (comp === this.comp && this.nameField) {
           if (this.nameField.nativeElement && this.nameField.nativeElement.focus) {
@@ -106,8 +107,25 @@ export class MtBaseComponent {
   }
 
   unregisterFocus() {
-    this.subscription.unsubscribe();
+    this.subscriptionFocus.unsubscribe();
   }
+
+  registerScroll() {
+    this.subscriptionScroll =  this.sm.OnScroll.subscribe({
+      next: (comp) => {
+        if (comp === this.comp && this.nameField) {
+          if (this.nameField.id) {
+            document.getElementById(this.nameField.id).scrollIntoView();
+          }
+        }
+      }
+    });
+  }
+
+  unregisterScroll() {
+    this.subscriptionScroll.unsubscribe();
+  }
+
 
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit  } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MtBaseComponent } from 'src/app/base/mt-base/mt-base.component';
 
 @Component({
@@ -14,6 +14,6 @@ export class MtCheckboxComponent extends MtBaseComponent implements OnInit, OnDe
 
   ngOnDestroy() {
     this.unregisterFocus();
-}
+  }
 
 }

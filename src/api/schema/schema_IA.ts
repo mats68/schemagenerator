@@ -44,7 +44,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
                 field: PrefField + 'ort',
                 disabled
             },
-        
+
         ]
     },
     {
@@ -93,33 +93,27 @@ const InitSidenav = (sm: SchemaManager) => {
                 style: 'font-weight: 200;',
                 name: 'm_' + c.name,
                 onClick(sm, comp) {
-                    showPanel(sm, comp);
+                    scrollToPanel(sm, comp);
                 }
             });
         }
     });
     sm.getCompByName('sidenav').menu = menuitems;
-    showPanel(sm, menuitems[0]);
+    scrollToPanel(sm, menuitems[0]);
 }
 
-const showPanel = (sm: SchemaManager, comp: IComponent) => {
+const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
     const pn = comp.name.substring(2);
     const sn = sm.getCompByName('sidenav');
     sn.menu.forEach(c => {
         c.color = '';
-        // c.icon = '';
         c.style = 'font-weight: 200;';
     });
     comp.color = 'primary';
-    // comp.icon = 'trending_flat';
     comp.style = 'font-weight: 500;';
+    sm.DoScroll(sm.getCompByName(pn));
 
-    sn.children.forEach(c => {
-        if (c.children) {
-            c.hidden = true;
-        }
-    });
-    sm.getCompByName(pn).hidden = false;
+    // sm.getCompByName(pn).hidden = false;
 }
 
 
@@ -136,7 +130,7 @@ export const schema_IA: ISchema =
         if (comp.type === ComponentType.card && comp.hidden && comp.name) {
             const menu = sm.getCompByName('m_' + comp.name);
             if (menu) {
-                showPanel(sm, menu);
+                scrollToPanel(sm, menu);
             }
         }
     },

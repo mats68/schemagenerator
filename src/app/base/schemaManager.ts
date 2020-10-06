@@ -5,7 +5,6 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { Component } from '@angular/core';
 
 export interface ISettings {
   requiredSuffix: string;
@@ -78,6 +77,7 @@ export class SchemaManager {
   AllValidated: boolean;
 
   OnFocus: Subject<IComponent>;
+  OnScroll: Subject<IComponent>;
 
   private _AllDisabled: boolean;
   get AllDisabled(): boolean {
@@ -119,6 +119,7 @@ export class SchemaManager {
     this.InitSettings(settings);
     this.InitScreenSize();
     this.OnFocus = new Subject<IComponent>();
+    this.OnScroll = new Subject<IComponent>();
   }
 
   InitSchema(schema: ISchema) {
@@ -547,6 +548,11 @@ export class SchemaManager {
     if (ok) setTimeout(() => this.OnFocus.next(comp), 100);
   }
 
+  DoScroll(comp: IComponent, arrayInd: number = -1) {
+    const ok = this.MakeVisible(comp, arrayInd);
+    if (ok) setTimeout(() => this.OnScroll.next(comp), 100);
+  }
+
   MakeVisible(comp: IComponent, arrayInd: number): boolean {
     let curTab: IComponent = null;
     let cur = comp;
@@ -634,14 +640,6 @@ export class SchemaManager {
   }
 
   CheckSchema(): ISchemaError[] {
-    //no type 
-    // warning falls nicht prop aus IComponent
-    // no double names or fields
-    // container must have children
-    //input usw must have field
-    //input usw should have label
-    // datatable: summary falls cardView
-    // options falls select oder radio
     //todo
     // check type in keys
     // datatable not in datatable
