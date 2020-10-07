@@ -653,6 +653,7 @@ export const schema_IA: ISchema =
                                     field: 'anschlussgesuch',
                                     onChange(sm, comp, val) {
                                         sm.getCompByField('anschlussgesuchtext').disabled = !val;
+                                        if (val) sm.DoFocus(sm.getCompByField('anschlussgesuchtext'));
                                     }
                                 },
                                 {
@@ -688,6 +689,7 @@ export const schema_IA: ISchema =
                                     field: 'beilagenadd',
                                     onChange(sm, comp, val) {
                                         sm.getCompByField('beilagenaddtext').disabled = !val;
+                                        if (val) sm.DoFocus(sm.getCompByField('beilagenaddtext'));
                                     }
                                 },
                                 {
@@ -715,6 +717,7 @@ export const values_IA = {
     gemeinde: 'Muri',
     anzEinheiten: 1,
     installationsbeschrieb: 'Neubau\nmit div Geräten',
+    installationstyp: ['Neuanlage'],
     Parzelle: '2',
     VersicherungsNr: '120',
     zus_adress: 'Verwaltung',
@@ -726,7 +729,6 @@ export const values_IA = {
         ort: 'Langenthal',
         tel: '079 603 64 04',
     },
-    switcher_bemerkungen: true,
     steuereinrichtungen: [
         {
             kunde: "Meier, Bern",
