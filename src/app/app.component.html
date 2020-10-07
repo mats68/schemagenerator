@@ -1,58 +1,56 @@
-<mat-form-field appearance="fill" class="top">
-    <mat-label>Schema:</mat-label>
-    <mat-select [(ngModel)]="schema">
-        <mat-option *ngFor='let schema of schemas_arr' [value]='schema'>{{schema}}</mat-option>
-    </mat-select>
-</mat-form-field>
+<div style="visibility: hidden;">
+    <mat-form-field appearance="fill" class="top">
+        <mat-label>Schema:</mat-label>
+        <mat-select [(ngModel)]="schema">
+            <mat-option *ngFor='let schema of schemas_arr' [value]='schema'>{{schema}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-<mat-form-field appearance="fill" class="top">
-    <mat-label>Values:</mat-label>
-    <mat-select [(ngModel)]="values">
-        <mat-option value='0'>Leere Werte</mat-option>
-        <mat-option *ngFor='let values of values_arr' [value]='values'>{{values}}</mat-option>
-    </mat-select>
-</mat-form-field>
-
-
-<mat-form-field appearance="fill" class="top">
-    <mat-label>Appearance:</mat-label>
-    <mat-select [(ngModel)]="appearance">
-        <mat-option value="legacy">legacy</mat-option>
-        <mat-option value="standard">standard</mat-option>
-        <mat-option value="fill">fill</mat-option>
-        <mat-option value="outline">outline</mat-option>
-    </mat-select>
-</mat-form-field>
+    <mat-form-field appearance="fill" class="top">
+        <mat-label>Values:</mat-label>
+        <mat-select [(ngModel)]="values">
+            <mat-option value='0'>Leere Werte</mat-option>
+            <mat-option *ngFor='let values of values_arr' [value]='values'>{{values}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 
 
-<mat-form-field appearance="fill" class="top">
-    <mat-label>Sprache:</mat-label>
-    <mat-select [(ngModel)]="sprache">
-        <mat-option value="de">de</mat-option>
-        <mat-option value="fr">fr</mat-option>
-        <mat-option value="it">it</mat-option>
-        <mat-option value="en">en</mat-option>
-    </mat-select>
-</mat-form-field>
+    <mat-form-field appearance="fill" class="top">
+        <mat-label>Appearance:</mat-label>
+        <mat-select [(ngModel)]="appearance">
+            <mat-option value="legacy">legacy</mat-option>
+            <mat-option value="standard">standard</mat-option>
+            <mat-option value="fill">fill</mat-option>
+            <mat-option value="outline">outline</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-<span style="border: solid; padding: 10px;">
-    <span>Tabelle:</span>
-    <mat-checkbox [(ngModel)]='cardView' class="top">CardView</mat-checkbox>
-    <mat-checkbox [(ngModel)]='dragdrop' class="top">DragDrop</mat-checkbox>
-</span>
 
-<mat-checkbox [(ngModel)]='allDisabled' class="top">All Disabled</mat-checkbox>
+    <mat-form-field appearance="fill" class="top">
+        <mat-label>Sprache:</mat-label>
+        <mat-select [(ngModel)]="sprache">
+            <mat-option value="de">de</mat-option>
+            <mat-option value="fr">fr</mat-option>
+            <mat-option value="it">it</mat-option>
+            <mat-option value="en">en</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-<mat-checkbox [(ngModel)]='diffView' class="top">Diff View</mat-checkbox>
+    <span style="border: solid; padding: 10px;">
+        <span>Tabelle:</span>
+        <mat-checkbox [(ngModel)]='cardView' class="top">CardView</mat-checkbox>
+        <mat-checkbox [(ngModel)]='dragdrop' class="top">DragDrop</mat-checkbox>
+    </span>
+
+    <mat-checkbox [(ngModel)]='allDisabled' class="top">All Disabled</mat-checkbox>
+
+    <mat-checkbox [(ngModel)]='diffView' class="top">Diff View</mat-checkbox>
+</div>
 
 <div *ngIf='curschema && !diffView'>
     <vs-form [schema]='curschema' [values]='curvalues' [settings]='Settings'></vs-form>
     <!-- <div style="margin-top: 100px;">Values</div> -->
     <!-- <div>{{getValues()}}</div> -->
-
-    <!-- <div style="margin-top: 100px;">Schema</div>
-    <div>{{getSchema()}}</div> -->
-
 </div>
 
 

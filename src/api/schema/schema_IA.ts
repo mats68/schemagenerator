@@ -64,7 +64,7 @@ const adress = (PrefField: string, disabled: boolean = false): Array<IComponent>
 const InitStandardWidth = (sm: SchemaManager) => {
     sm.traverseSchema(c => {
         if (c.type === 'input' || c.type === 'select' || c.type === 'date') {
-            if (!c.width) c.width = '500px';
+            if (!c.width) c.width = '300px';
         }
 
     });
@@ -184,7 +184,7 @@ export const schema_IA: ISchema =
                     type: 'input',
                     field: 'anzEinheiten',
                     label: 'Anz. Einheiten / Zähler',
-                    width: '150px',
+                    width: '100px',
                     mask: '0*',
                 },
                 {
@@ -249,7 +249,7 @@ export const schema_IA: ISchema =
                             type: 'select',
                             field: 'zus_adress',
                             label: 'Zusätzliche Adresse',
-                            width: '250px',
+                            width: '200px',
                             default(sm, comp) {
                                 comp.onChange(sm, comp, comp.options[0]);
                                 return comp.options[0];
@@ -306,7 +306,7 @@ export const schema_IA: ISchema =
                 {
                     type: 'select',
                     field: 'installationstyp',
-                    width: '1000px',
+                    width: '100px',
                     label: 'Typ',
                     multiselect: true,
                     options: ['Neuanlage', 'Änderung/Erweit.', 'Rückbau', 'Bauanschluss', 'Temporär', 'Festplatz']
