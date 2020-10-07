@@ -104,8 +104,10 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
     const pn = sm.getCompByName(pnName);
     if (pn && pn.type === 'expansionspanel') {
       const c = pn.children[0];
-      if (c) sm.DoFocus(c);
-
+      if (c) {
+          c.expanded = true;
+          sm.DoFocus(c);
+        }
     } else {
         sm.DoFocus(pn);
     }

@@ -32,13 +32,17 @@ export class MtSwitchpanelComponent extends MtBaseComponent implements OnInit {
     this.opened = val;
   }
 
-  add() {
-    this.valueSwitch = true;
+  toggle() {
+    this.valueSwitch = !this.valueSwitch;
   }
 
-  delete() {
-    this.valueSwitch = false;
+  getIcon(): string {
+    return !this.valueSwitch ? 'add' : 'remove';
   }
+  getIconColor(): string {
+    return !this.valueSwitch ? 'primary' : '';
+  }
+
 
 
 }
