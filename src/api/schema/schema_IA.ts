@@ -103,10 +103,10 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
 
     const pn = sm.getCompByName(pnName);
     if (pn && pn.type === 'expansionspanel') {
-      const c = pn.children[0];
-      if (c) {
-          c.expanded = true;
-          sm.DoFocus(c);
+        const c = pn.children[0];
+        if (c) {
+            c.expanded = true;
+            sm.DoFocus(c);
         }
     } else {
         sm.DoFocus(pn);
@@ -306,7 +306,7 @@ export const schema_IA: ISchema =
                 {
                     type: 'select',
                     field: 'installationstyp',
-                    width: '100px',
+                    width: '400px',
                     label: 'Typ',
                     multiselect: true,
                     options: ['Neuanlage', 'Änderung/Erweit.', 'Rückbau', 'Bauanschluss', 'Temporär', 'Festplatz']
@@ -477,7 +477,7 @@ export const schema_IA: ISchema =
             children: [
                 {
                     type: 'datatable',
-                    label: 'Mess- und Steuereinrichtungen',
+                    label: 'Liste der Mess- und Steuereinrichtungen',
                     field: 'steuereinrichtungen',
                     required: true,
                     cardView: true,
@@ -496,12 +496,14 @@ export const schema_IA: ISchema =
                             type: 'input',
                             label: 'Kunde',
                             field: 'kunde',
+                            width: '400px',
                             required: true,
                         },
                         {
                             type: 'input',
                             label: 'Rechnungsadresse',
                             field: 'rechnungsadresse',
+                            width: '400px',
                             required: true,
                         },
                         {
@@ -520,24 +522,35 @@ export const schema_IA: ISchema =
                             field: 'Verbrauchsstelle',
                         },
                         {
-                            type: 'input',
-                            label: 'Stockwerk',
-                            field: 'Stockwerk',
-                            options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
-                        },
-                        {
-                            type: 'input',
-                            label: 'Raumnummer',
-                            field: 'Raumnummer',
+                            type: 'panel',
+                            styles: { container: 'display: flex;' },
+                            children: [
+                                {
+                                    type: 'input',
+                                    label: 'Stockwerk',
+                                    field: 'Stockwerk',
+                                    width: '250px',
+                                    options: ['Allg.', 'UG', 'EG', '1. OG', '2. OG'],
+                                },
+                                {
+                                    type: 'input',
+                                    label: 'Raumnummer',
+                                    field: 'Raumnummer',
+                                    width: '150px',
+                                },
+
+                            ]
                         },
                         {
                             type: 'input',
                             label: 'VNB Tarif',
+
                             field: 'VNBTarif',
                         },
                         {
                             type: 'input',
                             label: 'Sich.',
+                            width: '100px',
                             field: 'sicher',
                         },
                         {
@@ -602,6 +615,7 @@ export const schema_IA: ISchema =
                 {
                     type: 'input',
                     multiline: true,
+                    width: '400px',
                     rows: 6,
                     label: 'Bemerkungen',
                     field: 'testw'
@@ -617,7 +631,6 @@ export const schema_IA: ISchema =
             children: [
                 {
                     type: 'panel',
-                    styles: { container: 'display: flex;' },
                     children: [
                         {
                             type: 'checkbox',
@@ -630,9 +643,60 @@ export const schema_IA: ISchema =
                             field: 'Situationsplan'
                         },
                         {
+                            type: 'panel',
+                            styles: { container: 'display: flex; align-items: center;' },
+                            children: [
+                                {
+                                    type: 'checkbox',
+                                    label: 'Anschlussgesuch TAG für',
+                                    field: 'anschlussgesuch',
+                                    onChange(sm, comp, val) {
+                                        sm.getCompByField('anschlussgesuchtext').disabled = !val;
+                                    }
+                                },
+                                {
+                                    type: 'input',
+                                    appearance: 'standard',
+                                    label: 'Text',
+                                    field: 'anschlussgesuchtext',
+                                    disabled: true,
+                                    //     disabled(sm, comp) {
+                                    //         return !sm.getValue(sm.getCompByName('anschlussgesuch'));
+                                    //     },
+                                },
+                            ]
+                        },
+                        {
                             type: 'checkbox',
-                            label: 'Anschlussgesuch TAG für',
-                            field: 'anschlussgesuch'
+                            label: 'Disposition Hauptverteilung',
+                            field: 'DispositionHauptverteilung'
+                        },
+                        {
+                            type: 'checkbox',
+                            label: 'Zustimmung Endverbraucher',
+                            tooltip: 'Zustimmung Endverbraucher/Erzeuger Steuerung durch VNB',
+                            field: 'ZustimmungEndverbraucher',
+                        },
+                        {
+                            type: 'panel',
+                            styles: { container: 'display: flex; align-items: center;' },
+                            children: [
+                                {
+                                    type: 'checkbox',
+                                    label: '',
+                                    field: 'beilagenadd',
+                                    onChange(sm, comp, val) {
+                                        sm.getCompByField('beilagenaddtext').disabled = !val;
+                                    }
+                                },
+                                {
+                                    type: 'input',
+                                    label: 'Text',
+                                    appearance: 'standard',
+                                    field: 'beilagenaddtext',
+                                    disabled: true,
+                                },
+                            ]
                         },
                     ]
                 },
