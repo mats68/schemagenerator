@@ -92,7 +92,7 @@ const InitSidenav = (sm: SchemaManager) => {
 }
 
 const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
-    const pn = comp.name.substring(2);
+    const pnName = comp.name.substring(2);
     const sn = sm.getCompByName('sidenav');
     sn.menu.forEach(c => {
         c.color = '';
@@ -101,9 +101,14 @@ const scrollToPanel = (sm: SchemaManager, comp: IComponent) => {
     comp.color = 'primary';
     comp.style = 'font-weight: 500;';
 
-    //const c = sm.getCompByName(pn).children[0];
-    //if (c) sm.DoFocus(c);
-    sm.DoFocus(sm.getCompByName(pn));
+    const pn = sm.getCompByName(pnName);
+    if (pn && pn.type === 'expansionspanel') {
+      const c = pn.children[0];
+      if (c) sm.DoFocus(c);
+
+    } else {
+        sm.DoFocus(pn);
+    }
 
 }
 
@@ -132,7 +137,7 @@ export const schema_IA: ISchema =
     name: 'sidenav',
     children: [
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Ort der Installation',
             name: 'Ort der Installation',
             children: [
@@ -194,7 +199,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Adressen / Geschäftspartner',
             name: 'Adressen / Geschäftspartner',
             children: [
@@ -284,7 +289,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Installationsbeschrieb',
             name: 'Installationsbeschrieb',
             children: [
@@ -307,7 +312,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Netzanschluss',
             name: 'Netzanschluss',
             children: [
@@ -334,7 +339,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Verbraucher, Erzeuger, Speicher',
             name: 'Verbraucher, Erzeuger, Speicher',
             children: [
@@ -464,7 +469,7 @@ export const schema_IA: ISchema =
             ]
         },
         {
-            type: 'switchpanel',
+            type: 'expansionspanel',
             label: 'Mess- und Steuereinrichtungen',
             name: 'Mess- und Steuereinrichtungen',
             children: [
