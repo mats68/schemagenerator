@@ -1,5 +1,6 @@
 import { SchemaManager } from '../../app/base/schemaManager';
 import { ComponentType, IComponent, ISchema } from '../../app/base/types';
+import { buttons } from './schemaButtons';
 
 const adress = (PrefField: string, disabled: boolean = false): Array<IComponent> => [
     {
@@ -702,6 +703,7 @@ export const schema_IA: ISchema =
                 },
             ]
         },
+        // ...buttons
 
     ]
 }

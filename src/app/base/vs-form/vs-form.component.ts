@@ -32,6 +32,7 @@ export class VsFormComponent implements OnInit, OnChanges {
 
     if (!this.schemaManger.Schema || this.schema.name !== this.schemaManger.Schema.name) {
       this.schemaManger.InitSchema(this.schema);
+      if (this.values) this.schemaManger.InitValues(this.values);
     } else if (this.values !== this.schemaManger.Values) {
       this.schemaManger.InitValues(this.values);
     }

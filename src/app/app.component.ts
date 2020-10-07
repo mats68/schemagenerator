@@ -128,6 +128,7 @@ export class AppComponent implements OnInit {
     });
 
 
+    this.curvalues = values_IA;
     this.schema = this.schemas_arr[0];
     // setTimeout(() => this.values = this.values_arr[0], 100);
 
